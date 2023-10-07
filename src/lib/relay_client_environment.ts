@@ -4,7 +4,7 @@ import makeGraphQLRequest from '@/lib/my_graphql_api';
 
 export function createClientNetwork() {
   return Network.create(async (params, variables) => {
-    const res = await fetch("http://localhost:4444/get", {mode: 'cors'})
+    const res = await fetch("http://localhost:3000/api/tokens/get")
     const token = await res.json() as string | null
     const json = await makeGraphQLRequest({
       token: token,
