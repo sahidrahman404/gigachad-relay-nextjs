@@ -10,6 +10,7 @@ import { Input } from "../ui/input";
 import AuthButton from "./AuthButton";
 import { passwordResetToken_Mutation } from "@/queries/__generated__/passwordResetToken_Mutation.graphql";
 import PasswordResetTokenMutation from "@/gql/passwordResetToken";
+import Logo from "../common/Logo";
 
 const formSchema = z.object({
   email: z.string().email(),
@@ -65,11 +66,7 @@ export default function ForgotPasswordForm() {
   return (
     <div className="mx-auto w-full max-w-sm lg:w-96">
       <div>
-        <img
-          className="h-10 w-auto"
-          src="/logo.svg"
-          alt="gigachad"
-        />
+        <Logo href="/"/>
         <h2 className="mt-8 text-2xl font-bold leading-9 tracking-tight text-gray-900">
           Request forgot password token
         </h2>

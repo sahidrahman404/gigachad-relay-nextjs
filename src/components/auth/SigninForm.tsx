@@ -12,6 +12,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "../ui/input";
 import AuthButton from "./AuthButton";
 import { ShowPasswordCheckBox } from "./ShowPasswordCheckBox";
+import Logo from "../common/Logo";
 
 const formSchema = z.object({
   email: z.string().email(),
@@ -84,11 +85,7 @@ export default function SigninFrom() {
   return (
     <div className="mx-auto w-full max-w-sm lg:w-96">
       <div>
-        <img
-          className="h-10 w-auto"
-          src="/logo.svg"
-          alt="gigachad"
-        />
+        <Logo href="/"/>
         <h2 className="mt-8 text-2xl font-bold leading-9 tracking-tight text-gray-900">
           Sign in to your account
         </h2>

@@ -10,6 +10,7 @@ import { Input } from "../ui/input";
 import AuthButton from "./AuthButton";
 import { resendToken_Mutation } from "@/queries/__generated__/resendToken_Mutation.graphql";
 import ResendTokenMutation from "@/gql/resendToken";
+import Logo from "../common/Logo";
 
 const formSchema = z.object({
   email: z.string().email(),
@@ -65,11 +66,7 @@ export default function ResendTokenForm() {
   return (
     <div className="mx-auto w-full max-w-sm lg:w-96">
       <div>
-        <img
-          className="h-10 w-auto"
-          src="/logo.svg"
-          alt="gigachad"
-        />
+        <Logo href="/"/>
         <h2 className="mt-8 text-2xl font-bold leading-9 tracking-tight text-gray-900">
           Request new token
         </h2>

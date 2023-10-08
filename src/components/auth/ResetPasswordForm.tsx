@@ -1,5 +1,3 @@
-import UserMutation from "@/gql/user";
-import { user_Mutation } from "@/queries/__generated__/user_Mutation.graphql";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/router";
 import { useState } from "react";
@@ -14,6 +12,7 @@ import { ShowPasswordCheckBox } from "./ShowPasswordCheckBox";
 import { resetPassword_Mutation } from "@/queries/__generated__/resetPassword_Mutation.graphql";
 import ResetPasswordMutation from "@/gql/resetPassword";
 import Link from "next/link";
+import Logo from "../common/Logo";
 
 
 const formSchema = z
@@ -79,11 +78,7 @@ export default function ResetPasswordForm() {
   return (
     <div className="mx-auto w-full max-w-sm lg:w-96">
       <div>
-        <img
-          className="h-10 w-auto"
-          src="/logo.svg"
-          alt="gigachad"
-        />
+        <Logo href="/"/>
         <h2 className="mt-8 text-2xl font-bold leading-9 tracking-tight text-gray-900">
           Reset your password
         </h2>

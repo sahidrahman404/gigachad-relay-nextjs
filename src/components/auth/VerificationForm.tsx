@@ -11,6 +11,7 @@ import { Input } from "../ui/input";
 import AuthButton from "./AuthButton";
 import { activateUser_Mutation } from "@/queries/__generated__/activateUser_Mutation.graphql";
 import ActivateUserMutation from "@/gql/activateUser";
+import Logo from "../common/Logo";
 
 const formSchema = z.object({
   token: z.string().min(26).max(26),
@@ -70,11 +71,7 @@ export default function VerificationForm() {
   return (
     <div className="mx-auto w-full max-w-sm lg:w-96">
       <div>
-        <img
-          className="h-10 w-auto"
-          src="/logo.svg"
-          alt="gigachad"
-        />
+        <Logo href="/"/>
         <h2 className="mt-8 text-2xl font-bold leading-9 tracking-tight text-gray-900">
           We sent you a token
         </h2>
