@@ -8,7 +8,9 @@ export default function App({ Component, pageProps }: AppProps) {
   const { env, ...relayProps } = useRelayNextjs(pageProps, {
     createClientEnvironment: () => getClientEnvironment()!,
   });
-  return (
+  // @ts-ignore
+  const getLayout = Component.getLayout || ((page) => page);
+  return getLayout(
     <RelayEnvironmentProvider environment={env}>
       <Component {...pageProps} {...relayProps} />
     </RelayEnvironmentProvider>
