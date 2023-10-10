@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "generate:relay": "relay-compiler"
+    "generate:relay": "relay-compiler",
+    "generate:gql": "gql-sdl http://localhost:4444/query -o src/schema/__generated__/schema.graphql"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.1",
