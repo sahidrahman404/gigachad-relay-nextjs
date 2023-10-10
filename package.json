@@ -18,8 +18,8 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
     "next": "13.5.4",
-    "react": "^18",
-    "react-dom": "^18",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "react-hook-form": "^7.47.0",
     "react-relay": "^15.0.0",
     "relay-nextjs": "^3.0.1",
@@ -29,22 +29,22 @@
     "zod": "^3.22.4"
   },
   "devDependencies": {
-    "@types/node": "^20",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
+    "@types/node": "^20.8.4",
+    "@types/react": "^18.2.27",
+    "@types/react-dom": "^18.2.12",
     "@types/react-relay": "^14.1.6",
     "@types/relay-runtime": "^14.1.14",
-    "autoprefixer": "^10",
+    "autoprefixer": "^10.4.16",
     "babel-plugin-relay": "^15.0.0",
-    "eslint": "^8",
+    "eslint": "^8.51.0",
     "eslint-config-next": "13.5.4",
     "gql-sdl": "^1.0.0",
     "graphql": "^16.8.1",
-    "postcss": "^8",
+    "postcss": "^8.4.31",
     "relay-compiler": "^15.0.0",
     "relay-compiler-language-typescript": "^15.0.1",
     "relay-config": "^12.0.1",
-    "tailwindcss": "^3",
-    "typescript": "^5"
+    "tailwindcss": "^3.3.3",
+    "typescript": "^5.2.2"
   }
 }
