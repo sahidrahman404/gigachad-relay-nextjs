@@ -9,18 +9,16 @@ import { usePreloadedQuery } from "react-relay";
 import { RelayProps, withRelay } from "relay-nextjs";
 
 function Signup({ preloadedQuery }: RelayProps<{}, session_Query>) {
-  const router = useRouter()
-  const query = usePreloadedQuery(SessionQuery, preloadedQuery)
+  const router = useRouter();
+  const query = usePreloadedQuery(SessionQuery, preloadedQuery);
 
-  useEffect(() => { 
-    if(query.viewer?.id){
-      router.push("/dashboard", undefined, {shallow: true})
+  useEffect(() => {
+    if (query.viewer?.id) {
+      router.push("/dashboard", undefined, { shallow: true });
     }
-  }, [])
+  }, []);
 
-  return (
-      <SignupForm/>
-  )
+  return <SignupForm />;
 }
 
 function Loading() {
@@ -32,21 +30,20 @@ const SignupPage = withRelay(Signup, SessionQuery, {
   createClientEnvironment: () => getClientEnvironment()!,
   serverSideProps: async (ctx) => {
     //@ts-ignore
-    const token = ctx.req?.cookies['auth'] ?? null
+    const token = ctx.req?.cookies["auth"] ?? null;
     return { token };
   },
-  createServerEnvironment: async (
-    _,
-    { token }: { token: string | null }
-  ) => {
-    const { createServerEnvironment } = await import('@/lib/server/relay_server_environment');
+  createServerEnvironment: async (_, { token }: { token: string | null }) => {
+    const { createServerEnvironment } = await import(
+      "@/lib/server/relay_server_environment"
+    );
     return createServerEnvironment(token);
   },
 });
 
 // @ts-ignore
-SignupPage.getLayout = function getLayout(page: ReactNode){
-return <AuthLayout>{page}</AuthLayout>
-}
+SignupPage.getLayout = function getLayout(page: ReactNode) {
+  return <AuthLayout>{page}</AuthLayout>;
+};
 
-export default SignupPage
+export default SignupPage;
