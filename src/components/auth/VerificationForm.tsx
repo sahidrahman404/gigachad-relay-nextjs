@@ -1,6 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useMutation } from "react-relay";
@@ -18,7 +17,6 @@ const formSchema = z.object({
 });
 
 export default function VerificationForm() {
-  const router = useRouter()
   const [status, setStatus] = useState<GqlErrorStatus>({
     error: null,
     message: null,
@@ -62,7 +60,7 @@ export default function VerificationForm() {
         const tokenPlainText = res.activateUser?.tokenPlainText;
         fetch(`http://localhost:3000/api/tokens/set/${tokenPlainText}`)
           .then(_ => {
-            router.push(`/dashboard`, undefined, { shallow: true })
+              location.replace(`/dashboard`);
           })
       },
     })

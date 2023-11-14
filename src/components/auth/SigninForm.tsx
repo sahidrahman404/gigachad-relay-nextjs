@@ -69,7 +69,7 @@ export default function SigninFrom() {
           const tokenPlainText = res.createAuthenticationToken?.tokenPlainText;
           fetch(`http://localhost:3000/api/tokens/set/${tokenPlainText}`)
             .then(_ => {
-              router.push(`/dashboard`, undefined, { shallow: true })
+              location.replace(`/dashboard`);
             })
         };
 
