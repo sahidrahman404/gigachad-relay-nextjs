@@ -4,11 +4,11 @@ import SessionQuery from "@/gql/session";
 import { getClientEnvironment } from "@/lib/relay_client_environment";
 import { session_Query } from "@/queries/__generated__/session_Query.graphql";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { ReactNode, useEffect } from "react";
 import { usePreloadedQuery } from "react-relay";
 import { RelayProps, withRelay } from "relay-nextjs";
 
-function SigninPage({ preloadedQuery }: RelayProps<{}, session_Query>) {
+function Signin({ preloadedQuery }: RelayProps<{}, session_Query>) {
   const router = useRouter()
   const query = usePreloadedQuery(SessionQuery, preloadedQuery)
 
@@ -19,9 +19,7 @@ function SigninPage({ preloadedQuery }: RelayProps<{}, session_Query>) {
   }, [])
 
   return (
-    <AuthLayout>
       <SigninFrom />
-    </AuthLayout>
   )
 }
 
@@ -29,7 +27,7 @@ function Loading() {
   return <div>Loading...</div>;
 }
 
-export default withRelay(SigninPage, SessionQuery, {
+const SigninPage = withRelay(Signin, SessionQuery, {
   fallback: <Loading />,
   createClientEnvironment: () => getClientEnvironment()!,
   serverSideProps: async (ctx) => {
@@ -46,6 +44,9 @@ export default withRelay(SigninPage, SessionQuery, {
   },
 });
 
-// SigninPage.getLayout = function getLayout(page: ReactNode) {
-//   return <AuthLayout>{page}</AuthLayout>;
-// };
+// @ts-ignore
+SigninPage.getLayout = function getLayout(page: ReactNode) {
+  return <AuthLayout>{page}</AuthLayout>;
+};
+
+export default SigninPage
