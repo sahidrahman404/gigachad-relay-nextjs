@@ -4,7 +4,6 @@ import SigninFrom from "@/components/auth/SigninForm";
 import SessionQuery from "@/gql/session";
 import { getClientEnvironment } from "@/lib/relay_client_environment";
 import { session_Query } from "@/queries/__generated__/session_Query.graphql";
-import { NextPageContext } from "next";
 import { ReactNode } from "react";
 import { usePreloadedQuery } from "react-relay";
 import { RelayProps, withRelay } from "relay-nextjs";
