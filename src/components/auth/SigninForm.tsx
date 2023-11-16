@@ -13,6 +13,7 @@ import { Input } from "../ui/input";
 import AuthButton from "./AuthButton";
 import { ShowPasswordCheckBox } from "./ShowPasswordCheckBox";
 import Logo from "../common/Logo";
+import setTokenAndRedirect from "./setTokenAndRedirect";
 
 const formSchema = z.object({
   email: z.string().email(),
@@ -66,11 +67,7 @@ export default function SigninFrom() {
         }
 
         if (res.createAuthenticationToken?.user.activated === 1) {
-          const tokenPlainText = res.createAuthenticationToken?.tokenPlainText;
-          fetch(`http://localhost:3000/api/tokens/set/${tokenPlainText}`)
-            .then(_ => {
-              location.replace(`/dashboard`);
-            })
+          setTokenAndRedirect(res.createAuthenticationToken.tokenPlainText)
         };
 
         if (res.createAuthenticationToken?.user.activated === 0) {
