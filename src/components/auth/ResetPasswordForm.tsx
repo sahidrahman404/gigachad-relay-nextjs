@@ -1,5 +1,4 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useRouter } from "next/router";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useMutation } from "react-relay";
@@ -13,6 +12,7 @@ import { resetPassword_Mutation } from "@/queries/__generated__/resetPassword_Mu
 import ResetPasswordMutation from "@/gql/resetPassword";
 import Link from "next/link";
 import Logo from "../common/Logo";
+import { removeTokenAndRedirect } from "@/lib/utils";
 
 
 const formSchema = z
@@ -27,7 +27,6 @@ const formSchema = z
   });
 
 export default function ResetPasswordForm() {
-  const router = useRouter()
   const [showPassword, setShowPassword] = useState(false)
   const [status, setStatus] = useState<GqlErrorStatus>({
     error: null,
@@ -70,7 +69,7 @@ export default function ResetPasswordForm() {
           }));
           return
         }
-        router.push(`/auth/signin`);
+        removeTokenAndRedirect().then(()=>{})
       },
     })
   }
@@ -149,7 +148,7 @@ export default function ResetPasswordForm() {
             </div>
             <FormErrorMessage status={status} />
             <div>
-              <AuthButton isMutationInFlight={isMutationInFlight}>Sign up</AuthButton>
+              <AuthButton isMutationInFlight={isMutationInFlight}>Reset</AuthButton>
             </div>
           </form>
         </Form>

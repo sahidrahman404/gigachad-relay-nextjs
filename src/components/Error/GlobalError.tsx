@@ -1,3 +1,4 @@
+import { removeTokenAndRedirect } from "@/lib/utils";
 import { Button } from "../ui/button";
 
 export default function GlobalError() {
@@ -34,10 +35,7 @@ export default function GlobalError() {
         <Button
           className="mt-6"
           onClick={async () => {
-            const token = window.localStorage.getItem("auth");
-            await fetch(`http://localhost:3000/api/tokens/delete/${token}`);
-            window.localStorage.removeItem("auth");
-            window.location.replace("/auth/signin");
+            await removeTokenAndRedirect();
           }}
         >
           Sign In Again
