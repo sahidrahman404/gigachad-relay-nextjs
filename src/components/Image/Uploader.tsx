@@ -7,6 +7,7 @@ import React, { useState } from "react";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Dashboard } from "@uppy/react";
+import { Label } from "../ui/label";
 
 type Uploader = {
   setHeight: (h: number) => void;
@@ -16,15 +17,37 @@ type Uploader = {
 
 type CreateUppy = {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setName: React.Dispatch<React.SetStateAction<string>>;
+  setDisabled: React.Dispatch<React.SetStateAction<boolean>>;
 } & Uploader;
 
-function createUppy({ setHeight, setWidth, setFilename, setOpen }: CreateUppy) {
+function createUppy({
+  setHeight,
+  setWidth,
+  setFilename,
+  setOpen,
+  setName,
+  setDisabled,
+}: CreateUppy) {
   const uppy = new Uppy({
     restrictions: {
       maxFileSize: 30000000,
       minNumberOfFiles: 1,
       maxNumberOfFiles: 1,
       allowedFileTypes: ["image/*"],
+    },
+    onBeforeFileAdded: (currentFile) => {
+      const name = Date.now() + "-" + currentFile.name;
+      const modifiedFile = {
+        ...currentFile,
+        meta: {
+          ...currentFile.meta,
+          name,
+        },
+        name,
+      };
+      uppy.log(modifiedFile.name);
+      return modifiedFile;
     },
   });
 
@@ -34,7 +57,10 @@ function createUppy({ setHeight, setWidth, setFilename, setOpen }: CreateUppy) {
     const image = new Image();
     image.src = url;
     image.onload = () => {
-      uppy.setFileMeta(file.id, { width: image.width, height: image.height });
+      uppy.setFileMeta(file.id, {
+        width: image.width,
+        height: image.height,
+      });
       URL.revokeObjectURL(url);
     };
   });
@@ -43,6 +69,11 @@ function createUppy({ setHeight, setWidth, setFilename, setOpen }: CreateUppy) {
     setHeight((file?.meta.height as number | undefined) ?? 0);
     setWidth((file?.meta.width as number | undefined) ?? 0);
     setFilename(file?.meta.name ?? "");
+    setDisabled(true);
+    setName(file?.meta.name ? file?.meta.name.split("-")[1] : "");
+  });
+
+  uppy.on("complete", () => {
     setOpen(false);
   });
 
@@ -94,24 +125,36 @@ function createUppy({ setHeight, setWidth, setFilename, setOpen }: CreateUppy) {
 
 function Uploader({ setWidth, setHeight, setFilename }: Uploader) {
   const [open, setOpen] = useState(false);
+  const [name, setName] = useState("");
+  const [disabled, setDisabled] = useState(false);
   const [uppy] = useState(() =>
     createUppy({
       setWidth,
       setHeight,
       setFilename,
       setOpen,
+      setName,
+      setDisabled,
     }),
   );
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
-        <Button>Upload</Button>
-      </DialogTrigger>
-      <DialogContent className="flex max-w-min">
-        <Dashboard className="w-full mt-4" uppy={uppy} />
-      </DialogContent>
-    </Dialog>
+    <div className="grid grid-cols-2 max-w-sm gap-1.5 items-center">
+      <Label htmlFor="picture" className="col-span-2">
+        Picture
+      </Label>
+      <Dialog open={open} onOpenChange={setOpen}>
+        <DialogTrigger asChild>
+          <Button variant="secondary" disabled={disabled}>
+            Upload File
+          </Button>
+        </DialogTrigger>
+        <DialogContent className="flex max-w-min">
+          <Dashboard className="w-full mt-4" uppy={uppy} />
+        </DialogContent>
+      </Dialog>
+      <p>{name}</p>
+    </div>
   );
 }
 
