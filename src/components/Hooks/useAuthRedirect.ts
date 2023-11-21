@@ -10,19 +10,30 @@ const UseAuthRedirectFragment = graphql`
 `;
 
 type UseAuthRedirectProps = {
-  path: string;
   user: useAuthRedirectFragment$key | null;
 };
 
-function useAuthRedirect({ path, user }: UseAuthRedirectProps) {
+function useRedirectIfUserExist({ user }: UseAuthRedirectProps) {
   const data = useFragment(UseAuthRedirectFragment, user);
   const router = useRouter();
 
   useEffect(() => {
     if (data?.id) {
-      router.push(`${path}`);
+      router.push("/dashboard/workout");
     }
   }, []);
 }
 
-export default useAuthRedirect;
+function useRedirectIfUserNotExist({ user }: UseAuthRedirectProps) {
+  const data = useFragment(UseAuthRedirectFragment, user);
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!data?.id) {
+      router.push("/auth/signin");
+      return;
+    }
+  }, []);
+}
+
+export { useRedirectIfUserExist, useRedirectIfUserNotExist };

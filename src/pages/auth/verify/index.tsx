@@ -11,7 +11,11 @@ import { RelayProps, withRelay } from "relay-nextjs";
 function Verify({ preloadedQuery }: RelayProps<{}, session_Query>) {
   const query = usePreloadedQuery(SessionQuery, preloadedQuery);
 
-  useAuthRedirect({ path: "/dashboard", user: query.viewer });
+  useAuthRedirect({
+    path: "/dashboard/workout",
+    userExist: true,
+    user: query.viewer,
+  });
 
   return <VerificationForm />;
 }

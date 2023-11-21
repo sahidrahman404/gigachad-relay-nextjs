@@ -1,4 +1,4 @@
-import useAuthRedirect from "@/components/Hooks/useAuthRedirect";
+import { useRedirectIfUserExist } from "@/components/Hooks/useAuthRedirect";
 import AuthLayout from "@/components/auth/AuthLayout";
 import SignupForm from "@/components/auth/SignupForm";
 import SessionQuery from "@/gql/session";
@@ -11,7 +11,9 @@ import { RelayProps, withRelay } from "relay-nextjs";
 function Signup({ preloadedQuery }: RelayProps<{}, session_Query>) {
   const query = usePreloadedQuery(SessionQuery, preloadedQuery);
 
-  useAuthRedirect({ path: "/dashboard", user: query.viewer });
+  useRedirectIfUserExist({
+    user: query.viewer,
+  });
 
   return <SignupForm />;
 }
