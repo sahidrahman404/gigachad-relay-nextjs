@@ -18,7 +18,7 @@ const imageZod = z
   .refine((f) => f.size <= MAX_FILE_SIZE, `Max file size is 30MB.`)
   .refine(
     (f) => ACCEPTED_IMAGE_TYPES.includes(f.type),
-    "Only .jpg, .jpeg, .png and .webp formats are accepted."
+    "Only .jpg, .jpeg, .png and .webp formats are accepted.",
   );
 
 function createUppy() {
@@ -89,6 +89,7 @@ type UploadImageAndDoGqlMutation = {
   uppy: Uppy;
   form: UseFormReturn<any>;
   imageInputRef: MutableRefObject<HTMLInputElement | null>;
+  setIsUploadInFlight: (state: boolean) => void;
   mutation: (meta: InternalMetadata & Record<string, unknown>) => void;
 };
 
@@ -97,8 +98,10 @@ function uploadImageAndDoGqlMutation({
   uppy,
   form,
   imageInputRef,
+  setIsUploadInFlight,
   mutation,
 }: UploadImageAndDoGqlMutation) {
+  setIsUploadInFlight(true);
   if (image.size > 0) {
     const img = document.createElement("img");
     uppy.addFile({
@@ -129,6 +132,7 @@ function uploadImageAndDoGqlMutation({
       if (imageInputRef.current) {
         imageInputRef.current.value = "";
       }
+      setIsUploadInFlight(false);
       mutation(meta);
     });
   }
