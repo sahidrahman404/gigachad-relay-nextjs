@@ -19,7 +19,7 @@ const sidebarConfig = [
       {
         page: "Exercises",
         icon: <Dumbbell className="mr-2 h-4 w-4" />,
-        link: "/dashboard/Exercises",
+        link: "/dashboard/exercises",
       },
     ],
   },
@@ -47,7 +47,7 @@ export default function Sidebar({ className }: Sidebar) {
       <div className="space-y-4 py-4">
         {sidebarConfig.map((sc) => {
           return (
-            <div className="px-3 py-2">
+            <div className="px-3 py-2" key={sc.section}>
               <h2 className="mb-2 px-4 text-lg font-semibold tracking-tight">
                 {sc.section}
               </h2>
@@ -55,6 +55,7 @@ export default function Sidebar({ className }: Sidebar) {
                 {sc.child.map((cc) => {
                   return (
                     <Button
+                      key={cc.page}
                       variant={
                         router.pathname === cc.link ? "secondary" : "ghost"
                       }
