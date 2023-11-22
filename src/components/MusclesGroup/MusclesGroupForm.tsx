@@ -15,17 +15,15 @@ import {
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { useForm } from "react-hook-form";
-import createUppy from "../Image/createUppy";
+import {
+  createUppy,
+  imageZod,
+  uploadImageAndDoGqlMutation,
+  imageFieldOnChange,
+} from "../Image/createUppy";
 import { MusclesGroupFragment } from "./MusclesGroup";
 import { MusclesGroupFragment$key } from "@/queries/__generated__/MusclesGroupFragment.graphql";
-
-const MAX_FILE_SIZE = 30000000;
-const ACCEPTED_IMAGE_TYPES = [
-  "image/jpeg",
-  "image/jpg",
-  "image/png",
-  "image/webp",
-];
+import { InternalMetadata } from "@uppy/core";
 
 const MusclesGroupMutation = graphql`
   mutation MusclesGroupForm_Mutation(
@@ -45,14 +43,7 @@ const MusclesGroupMutation = graphql`
 
 const formSchema = z.object({
   name: z.string(),
-  image: z
-    .instanceof(File)
-    .refine((f) => f !== null && f.size > 0, "Image is required.")
-    .refine((f) => f.size <= MAX_FILE_SIZE, `Max file size is 30MB.`)
-    .refine(
-      (f) => ACCEPTED_IMAGE_TYPES.includes(f.type),
-      "Only .jpg, .jpeg, .png and .webp formats are accepted."
-    ),
+  image: imageZod,
 });
 
 type MusclesGroupForm = {
@@ -78,56 +69,36 @@ export default function MusclesGroupForm({ queryRef }: MusclesGroupForm) {
     const connectionID = data.musclesGroups.__id;
     const image = val.image;
 
-    if (image !== null && image.size > 0) {
-      const img = document.createElement("img");
-      uppy.addFile({
-        data: image,
-        name: image.name,
-        size: image.size,
-        meta: {
-          name: image.name,
-          type: image.type,
-        },
-      });
-
-      const objectURL = URL.createObjectURL(image);
-
-      img.onload = function handleLoad() {
-        uppy.setMeta({
-          width: img.width,
-          height: img.height,
-        });
-        URL.revokeObjectURL(objectURL);
-      };
-
-      img.src = objectURL;
-
-      uppy.upload().then((res) => {
-        const meta = res.successful[0].meta;
-        form.reset();
-        if (imageInputRef.current) {
-          imageInputRef.current.value = "";
-        }
-        commitMutation({
-          variables: {
-            input: {
-              image: {
-                layout: "fixed",
-                objectFit: "cover",
-                priority: false,
-                filename: meta.name,
-                width: (meta.width as number | undefined) ?? 0,
-                aspectRatio: 1,
-              },
-              name: val.name,
+    function mutation(meta: InternalMetadata & Record<string, unknown>) {
+      commitMutation({
+        variables: {
+          input: {
+            image: {
+              layout: "fixed",
+              objectFit: "cover",
+              priority: false,
+              filename: meta.name,
+              width: (meta.width as number | undefined) ?? 0,
+              aspectRatio: 1,
             },
-            connections: [connectionID],
+            name: val.name,
           },
-          onError: () => {},
-          onCompleted: () => {},
-        });
+          connections: [connectionID],
+        },
+        onError: () => {},
+        onCompleted: () => {},
       });
     }
+
+    uploadImageAndDoGqlMutation({
+      image: image,
+      uppy: uppy,
+      form: form,
+      imageInputRef: imageInputRef,
+      mutation: (meta) => {
+        mutation(meta);
+      },
+    });
   }
 
   return (
@@ -161,10 +132,10 @@ export default function MusclesGroupForm({ queryRef }: MusclesGroupForm) {
                     name={field.name}
                     ref={imageInputRef}
                     onChange={(e) => {
-                      const file = e.target.files
-                        ? e.target.files[0]
-                        : new File([], "");
-                      field.onChange(file);
+                      imageFieldOnChange({
+                        event: e,
+                        field: field,
+                      });
                     }}
                   />
                 </FormControl>

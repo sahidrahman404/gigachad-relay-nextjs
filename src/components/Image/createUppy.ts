@@ -1,7 +1,27 @@
 import AwsS3 from "@uppy/aws-s3";
-import Uppy from "@uppy/core";
+import Uppy, { InternalMetadata } from "@uppy/core";
+import { ChangeEvent, MutableRefObject } from "react";
+import { ControllerRenderProps, UseFormReturn } from "react-hook-form";
+import { z } from "zod";
 
-export default function createUppy() {
+const MAX_FILE_SIZE = 30000000;
+const ACCEPTED_IMAGE_TYPES = [
+  "image/jpeg",
+  "image/jpg",
+  "image/png",
+  "image/webp",
+];
+
+const imageZod = z
+  .instanceof(File)
+  .refine((f) => f.size > 0, "Image is required.")
+  .refine((f) => f.size <= MAX_FILE_SIZE, `Max file size is 30MB.`)
+  .refine(
+    (f) => ACCEPTED_IMAGE_TYPES.includes(f.type),
+    "Only .jpg, .jpeg, .png and .webp formats are accepted."
+  );
+
+function createUppy() {
   const uppy = new Uppy({
     onBeforeFileAdded: (currentFile) => {
       const name = Date.now() + "-" + currentFile.name;
@@ -63,3 +83,71 @@ export default function createUppy() {
 
   return uppy;
 }
+
+type UploadImageAndDoGqlMutation = {
+  image: File;
+  uppy: Uppy;
+  form: UseFormReturn<any>;
+  imageInputRef: MutableRefObject<HTMLInputElement | null>;
+  mutation: (meta: InternalMetadata & Record<string, unknown>) => void;
+};
+
+function uploadImageAndDoGqlMutation({
+  image,
+  uppy,
+  form,
+  imageInputRef,
+  mutation,
+}: UploadImageAndDoGqlMutation) {
+  if (image.size > 0) {
+    const img = document.createElement("img");
+    uppy.addFile({
+      data: image,
+      name: image.name,
+      size: image.size,
+      meta: {
+        name: image.name,
+        type: image.type,
+      },
+    });
+
+    const objectURL = URL.createObjectURL(image);
+
+    img.onload = function handleLoad() {
+      uppy.setMeta({
+        width: img.width,
+        height: img.height,
+      });
+      URL.revokeObjectURL(objectURL);
+    };
+
+    img.src = objectURL;
+
+    uppy.upload().then((res) => {
+      const meta = res.successful[0].meta;
+      form.reset();
+      if (imageInputRef.current) {
+        imageInputRef.current.value = "";
+      }
+      mutation(meta);
+    });
+  }
+}
+
+type ImageFieldOnChange = {
+  event: ChangeEvent<HTMLInputElement>;
+  field: ControllerRenderProps<any, "image">;
+};
+function imageFieldOnChange({ event, field }: ImageFieldOnChange) {
+  const file = event.target.files ? event.target.files[0] : new File([], "");
+  field.onChange(file);
+}
+
+export {
+  createUppy,
+  MAX_FILE_SIZE,
+  ACCEPTED_IMAGE_TYPES,
+  imageZod,
+  uploadImageAndDoGqlMutation,
+  imageFieldOnChange,
+};
