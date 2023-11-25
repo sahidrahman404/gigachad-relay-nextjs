@@ -10,7 +10,8 @@ export default async function makeGraphQLRequest({ token, text, variables }: Mak
   const header = token !== null ? {
     'Authorization': `Bearer ${token}`,
   } : undefined
-  const response = await fetch('http://localhost:4444/query', {
+  const hostname = process.env.NEXT_PUBLIC_BACKEND_HOSTNAME;
+  const response = await fetch(`${hostname}/query`, {
     method: 'POST',
     credentials: 'include',
     headers: {

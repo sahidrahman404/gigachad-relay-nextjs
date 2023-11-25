@@ -13,7 +13,7 @@ import { Input } from "../ui/input";
 import AuthButton from "./AuthButton";
 import { ShowPasswordCheckBox } from "./ShowPasswordCheckBox";
 import Logo from "../common/Logo";
-import setTokenAndRedirect from "./setTokenAndRedirect";
+import { setTokenAndRedirect } from "@/lib/utils";
 
 const formSchema = z.object({
   email: z.string().email(),

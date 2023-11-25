@@ -1,10 +1,11 @@
 // lib/client_environment.ts
 import { Environment, Network, Store, RecordSource } from 'relay-runtime';
 import makeGraphQLRequest from '@/lib/my_graphql_api';
+import { getToken } from '@/lib/utils';
 
 export function createClientNetwork() {
   return Network.create(async (params, variables) => {
-    const token = window.localStorage.getItem("auth")
+    const token = await getToken()
     const json = await makeGraphQLRequest({
       token: token,
       text: params.text,

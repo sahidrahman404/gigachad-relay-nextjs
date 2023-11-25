@@ -11,15 +11,13 @@ import AuthButton from "./AuthButton";
 import { activateUser_Mutation } from "@/queries/__generated__/activateUser_Mutation.graphql";
 import ActivateUserMutation from "@/gql/activateUser";
 import Logo from "../common/Logo";
-import setTokenAndRedirect from "./setTokenAndRedirect";
-import { useRouter } from "next/router";
+import { setTokenAndRedirect } from "@/lib/utils";
 
 const formSchema = z.object({
   token: z.string().min(26).max(26),
 });
 
 export default function VerificationForm() {
-  const router = useRouter()
   const [status, setStatus] = useState<GqlErrorStatus>({
     error: null,
     message: null,
