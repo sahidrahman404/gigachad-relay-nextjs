@@ -3,24 +3,24 @@ import { ComponentProps, forwardRef } from "react";
 import { cn } from "@/lib/utils";
 import { Button } from "../ui/button";
 import {
+  AlignCenter,
+  AlignLeft,
   Bold,
   Heading1,
   Heading2,
-  Heading3,
+  ImagePlus,
   Italic,
   List,
-  ListOrdered,
-  Minus,
-  Pilcrow,
-  Quote,
   Redo,
-  Strikethrough,
   Undo,
+  YoutubeIcon,
 } from "lucide-react";
+import { YoutubeDialog } from "./YoutubeDialog";
+import { ImageDialog } from "./ImageDialog";
 
 type MenuBarProps = ComponentProps<"div"> & { editor: Editor | null };
 
-const MenuBar = forwardRef<HTMLDivElement, MenuBarProps>(function (
+const MenuBar = forwardRef<HTMLDivElement, MenuBarProps>(function MenuBar(
   { editor, className },
   ref,
 ) {
@@ -29,59 +29,46 @@ const MenuBar = forwardRef<HTMLDivElement, MenuBarProps>(function (
   }
 
   return (
-    <div
-      className={cn(
-        "flex flex-wrap gap-1.5 bg-background z-50 sticky top-[52px] pt-2 pb-2",
-        className,
-      )}
-      ref={ref}
-    >
+    <div className={cn("flex flex-wrap py-1", className)} ref={ref}>
       <Button
         onClick={(e) => {
           e.preventDefault();
           editor.chain().focus().toggleBold().run();
         }}
         disabled={!editor.can().chain().focus().toggleBold().run()}
-        variant={editor.isActive("bold") ? "secondary" : "outline"}
+        variant={editor.isActive("bold") ? "secondary" : "ghost"}
       >
         <Bold size={16} />
       </Button>
+
       <Button
         onClick={(e) => {
           e.preventDefault();
           editor.chain().focus().toggleItalic().run();
         }}
         disabled={!editor.can().chain().focus().toggleItalic().run()}
-        variant={editor.isActive("italic") ? "secondary" : "outline"}
+        variant={editor.isActive("italic") ? "secondary" : "ghost"}
       >
         <Italic size={16} />
       </Button>
+
       <Button
         onClick={(e) => {
           e.preventDefault();
-          editor.chain().focus().toggleStrike().run();
+          editor.chain().focus().toggleBulletList().run();
         }}
-        disabled={!editor.can().chain().focus().toggleStrike().run()}
-        variant={editor.isActive("strike") ? "secondary" : "outline"}
+        variant={editor.isActive("bulletList") ? "secondary" : "ghost"}
       >
-        <Strikethrough size={16} />
+        <List size={16} />
       </Button>
-      <Button
-        onClick={(e) => {
-          e.preventDefault();
-          editor.chain().focus().setParagraph().run();
-        }}
-        variant={editor.isActive("paragraph") ? "secondary" : "outline"}
-      >
-        <Pilcrow size={16} />
-      </Button>
+
       <Button
         onClick={(e) => {
           e.preventDefault();
           editor.chain().focus().toggleHeading({ level: 1 }).run();
         }}
         variant={
-          editor.isActive("heading", { level: 1 }) ? "secondary" : "outline"
+          editor.isActive("heading", { level: 1 }) ? "secondary" : "ghost"
         }
       >
         <Heading1 size={16} />
@@ -92,75 +79,70 @@ const MenuBar = forwardRef<HTMLDivElement, MenuBarProps>(function (
           editor.chain().focus().toggleHeading({ level: 2 }).run();
         }}
         variant={
-          editor.isActive("heading", { level: 2 }) ? "secondary" : "outline"
+          editor.isActive("heading", { level: 2 }) ? "secondary" : "ghost"
         }
       >
         <Heading2 size={16} />
       </Button>
+
       <Button
         onClick={(e) => {
           e.preventDefault();
-          editor.chain().focus().toggleHeading({ level: 3 }).run();
+          editor.chain().focus().setTextAlign("left").run();
+        }}
+        variant={editor.isActive({ textAlign: "left" }) ? "secondary" : "ghost"}
+      >
+        <AlignLeft size={16} />
+      </Button>
+
+      <Button
+        onClick={(e) => {
+          e.preventDefault();
+          editor.chain().focus().setTextAlign("center").run();
         }}
         variant={
-          editor.isActive("heading", { level: 3 }) ? "secondary" : "outline"
+          editor.isActive({ textAlign: "center" }) ? "secondary" : "ghost"
         }
       >
-        <Heading3 size={16} />
+        <AlignCenter size={16} />
       </Button>
-      <Button
-        onClick={(e) => {
-          e.preventDefault();
-          editor.chain().focus().toggleBulletList().run();
-        }}
-        variant={editor.isActive("bulletList") ? "secondary" : "outline"}
-      >
-        <List size={16} />
-      </Button>
-      <Button
-        onClick={(e) => {
-          e.preventDefault();
-          editor.chain().focus().toggleOrderedList().run();
-        }}
-        variant={editor.isActive("orderedList") ? "secondary" : "outline"}
-      >
-        <ListOrdered size={16} />
-      </Button>
-      <Button
-        onClick={(e) => {
-          e.preventDefault();
-          editor.chain().focus().toggleBlockquote().run();
-        }}
-        variant={editor.isActive("blockquote") ? "secondary" : "outline"}
-      >
-        <Quote size={16} />
-      </Button>
-      <Button
-        onClick={(e) => {
-          e.preventDefault();
-          editor.chain().focus().setHorizontalRule().run();
-        }}
-        variant="outline"
-      >
-        <Minus size={16} />
-      </Button>
+
+      <YoutubeDialog
+        editor={editor}
+        ButtonTrigger={
+          <Button variant="ghost">
+            <YoutubeIcon size="16" />
+          </Button>
+        }
+      />
+
+      <ImageDialog
+        editor={editor}
+        ButtonTrigger={
+          <Button variant="ghost">
+            <ImagePlus size="16" />
+          </Button>
+        }
+      />
+
       <Button
         onClick={(e) => {
           e.preventDefault();
           editor.chain().focus().undo().run();
         }}
         disabled={!editor.can().chain().focus().undo().run()}
-        variant="outline"
+        variant="ghost"
       >
         <Undo size={16} />
       </Button>
+
       <Button
         onClick={(e) => {
           e.preventDefault();
           editor.chain().focus().redo().run();
         }}
         disabled={!editor.can().chain().focus().redo().run()}
-        variant="outline"
+        variant="ghost"
       >
         <Redo size={16} />
       </Button>
