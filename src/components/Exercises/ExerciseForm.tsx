@@ -19,15 +19,16 @@ import {
   imageFieldOnChange,
   imageZod,
   uploadImageAndDoGqlMutation,
-} from "../Image/createUppy";
-import { ExercisesForm_Mutation } from "@/queries/__generated__/ExercisesForm_Mutation.graphql";
+} from "@/lib/utils";
+import { ExerciseForm_Mutation } from "@/queries/__generated__/ExerciseForm_Mutation.graphql";
 import { InternalMetadata } from "@uppy/core";
 import { ExercisesFragment$key } from "@/queries/__generated__/ExercisesFragment.graphql";
 import { ExercisesFragment } from "./Exercises";
-import { Editor } from "../Editor/Editor";
+import { useCreateEditor } from "../Hooks/useCreateEditor";
+import { EditorField } from "../Editor/Editor";
 
-const ExercisesMutation = graphql`
-  mutation ExercisesForm_Mutation(
+const ExerciseMutation = graphql`
+  mutation ExerciseForm_Mutation(
     $input: CreateExerciseInput!
     $connections: [ID!]!
   ) {
@@ -58,10 +59,8 @@ function ExerciseForm({ queryRef }: ExerciseForm) {
   const data = useFragment(ExercisesFragment, queryRef);
   const imageInputRef = useRef<null | HTMLInputElement>(null);
   const [commitMutation, isMutationInFlight] =
-    useMutation<ExercisesForm_Mutation>(ExercisesMutation);
+    useMutation<ExerciseForm_Mutation>(ExerciseMutation);
   const [isUploadInFlight, setIsUploadInFlight] = useState(false);
-  const [shouldReset, setShouldReset] = useState(false);
-
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -71,11 +70,19 @@ function ExerciseForm({ queryRef }: ExerciseForm) {
     },
   });
 
+  const editor = useCreateEditor({
+    description: form.getValues("howTo"),
+    placeholder: "Add exercise instruction here...",
+    onChange: (val) => {
+      form.setValue("howTo", val);
+    },
+  });
+
   function onSubmit(val: z.infer<typeof formSchema>) {
     const connectionID = data.exercises.__id;
     const image = val.image;
     function mutation(meta: InternalMetadata & Record<string, unknown>) {
-      setShouldReset(true);
+      editor?.commands.clearContent();
       commitMutation({
         variables: {
           input: {
@@ -110,76 +117,71 @@ function ExerciseForm({ queryRef }: ExerciseForm) {
   }
 
   return (
-    <>
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-          <div className="bg-background z-50 flex sticky top-0 items-center pt-4">
-            <Button
-              disabled={isMutationInFlight || isUploadInFlight}
-              className="ml-auto"
-            >
-              submit
-            </Button>
-          </div>
-          <FormField
-            control={form.control}
-            name="name"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Name</FormLabel>
-                <FormControl>
-                  <Input type="text" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+    <Form {...form}>
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="grid grid-cols-4 space-y-2 gap-x-1"
+      >
+        <div className="col-span-4 justify-self-end self-center">
+          <Button disabled={isMutationInFlight || isUploadInFlight}>
+            submit
+          </Button>
+        </div>
 
-          <FormField
-            control={form.control}
-            name="image"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Picture</FormLabel>
-                <FormControl>
-                  <Input
-                    type="file"
-                    onBlur={field.onBlur}
-                    name={field.name}
-                    ref={imageInputRef}
-                    onChange={(e) => {
-                      imageFieldOnChange({
-                        event: e,
-                        field: field,
-                      });
-                    }}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+        <FormField
+          control={form.control}
+          name="name"
+          render={({ field }) => (
+            <FormItem className="col-span-2">
+              <FormLabel>Name</FormLabel>
+              <FormControl>
+                <Input type="text" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
 
-          <FormField
-            control={form.control}
-            name="howTo"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>How To</FormLabel>
-                <FormControl>
-                  <Editor
-                    description={field.value}
-                    onChange={field.onChange}
-                    shouldReset={shouldReset}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </form>
-      </Form>
-    </>
+        <FormField
+          control={form.control}
+          name="image"
+          render={({ field }) => (
+            <FormItem className="col-span-2">
+              <FormLabel>Image</FormLabel>
+              <FormControl>
+                <Input
+                  type="file"
+                  onBlur={field.onBlur}
+                  name={field.name}
+                  ref={imageInputRef}
+                  onChange={(e) => {
+                    imageFieldOnChange({
+                      event: e,
+                      field: field,
+                    });
+                  }}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="howTo"
+          render={() => (
+            <FormItem className="col-span-4 md:col-span-3">
+              <FormLabel>How To</FormLabel>
+              <FormControl>
+                <EditorField editor={editor} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+      </form>
+    </Form>
   );
 }
 

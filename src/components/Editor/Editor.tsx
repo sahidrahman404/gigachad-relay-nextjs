@@ -1,43 +1,16 @@
-import { EditorContent, useEditor } from "@tiptap/react";
-import StarterKit from "@tiptap/starter-kit";
-import { ComponentProps, forwardRef, useEffect } from "react";
+import { Editor, EditorContent } from "@tiptap/react";
 import { MenuBar } from "./MenuBar";
 
-type EditorProps = ComponentProps<"div"> & {
-  description: string;
-  shouldReset: boolean;
-  onChange: (...event: any[]) => void;
-};
-
-const Editor = forwardRef<HTMLDivElement, EditorProps>(function Editor(
-  { description, shouldReset, onChange },
-  ref,
-) {
-  const editor = useEditor({
-    extensions: [StarterKit],
-    content: description,
-    onUpdate({ editor }) {
-      onChange(editor.getHTML());
-    },
-    editorProps: {
-      attributes: {
-        class: "prose focus:outline-none",
-      },
-    },
-  });
-
-  useEffect(() => {
-    if (shouldReset) {
-      editor?.commands.clearContent();
-    }
-  }, [shouldReset]);
-
+function EditorField({ editor }: { editor: Editor | null }) {
   return (
-    <div className="space-y-2">
-      <MenuBar editor={editor} ref={ref} />
-      <EditorContent editor={editor} />
+    <div className="flex flex-col max-h-96 w-full rounded-md border border-input bg-transparent shadow-sm">
+      <MenuBar editor={editor} />
+      <EditorContent
+        editor={editor}
+        className="overflow-x-hidden overflow-y-auto py-5 px-4"
+      />
     </div>
   );
-});
+}
 
-export { Editor };
+export { EditorField };
