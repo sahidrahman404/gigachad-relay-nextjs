@@ -1,4 +1,4 @@
-import useAuthRedirect from "@/components/Hooks/useAuthRedirect";
+import { useRedirectIfUserExist } from "@/components/Hooks/useAuthRedirect";
 import AuthLayout from "@/components/auth/AuthLayout";
 import VerificationForm from "@/components/auth/VerificationForm";
 import SessionQuery from "@/gql/session";
@@ -11,9 +11,7 @@ import { RelayProps, withRelay } from "relay-nextjs";
 function Verify({ preloadedQuery }: RelayProps<{}, session_Query>) {
   const query = usePreloadedQuery(SessionQuery, preloadedQuery);
 
-  useAuthRedirect({
-    path: "/dashboard/workout",
-    userExist: true,
+  useRedirectIfUserExist({
     user: query.viewer,
   });
 
