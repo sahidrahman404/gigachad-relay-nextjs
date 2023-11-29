@@ -1,4 +1,4 @@
-import { Environment, GraphQLResponse, Network, RecordSource, Store } from 'relay-runtime';
+import { Environment, Network, RecordSource, Store } from 'relay-runtime';
 import makeGraphQLRequest from '@/lib/my_graphql_api';
 
 // Relay is not prescriptive about how GraphQL requests are made.
