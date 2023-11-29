@@ -17,20 +17,20 @@ import { Button } from "../ui/button";
 import { useForm } from "react-hook-form";
 import {
   createUppy,
-  imageZod,
   uploadImageAndDoGqlMutation,
   imageFieldOnChange,
-} from "../Image/createUppy";
+} from "@/lib/utils";
 import { MusclesGroupFragment } from "./MusclesGroup";
 import { MusclesGroupFragment$key } from "@/queries/__generated__/MusclesGroupFragment.graphql";
 import { InternalMetadata } from "@uppy/core";
+import { image } from "@/lib/zod";
 
 const MusclesGroupMutation = graphql`
   mutation MusclesGroupForm_Mutation(
     $input: CreateMusclesGroupInput!
     $connections: [ID!]!
   ) {
-    CreateMusclesGroup(input: $input)
+    createMusclesGroup(input: $input)
       @prependNode(connections: $connections, edgeTypeName: "ExerciseEdge") {
       id
       name
@@ -43,19 +43,20 @@ const MusclesGroupMutation = graphql`
 
 const formSchema = z.object({
   name: z.string(),
-  image: imageZod,
+  image: image,
 });
 
-type MusclesGroupForm = {
+type MusclesGroupFormProps = {
   queryRef: MusclesGroupFragment$key;
 };
 
-export default function MusclesGroupForm({ queryRef }: MusclesGroupForm) {
+export default function MusclesGroupForm({ queryRef }: MusclesGroupFormProps) {
   const [uppy] = useState(() => createUppy());
   const data = useFragment(MusclesGroupFragment, queryRef);
   const imageInputRef = useRef<null | HTMLInputElement>(null);
   const [commitMutation, isMutationInFlight] =
     useMutation<MusclesGroupForm_Mutation>(MusclesGroupMutation);
+  const [isUploadInFlight, setIsUploadInFlight] = useState(false);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -95,8 +96,11 @@ export default function MusclesGroupForm({ queryRef }: MusclesGroupForm) {
       uppy: uppy,
       form: form,
       imageInputRef: imageInputRef,
+      setIsUploadInFlight: setIsUploadInFlight,
       mutation: (meta) => {
-        mutation(meta);
+        if (meta) {
+          mutation(meta);
+        }
       },
     });
   }
@@ -143,7 +147,9 @@ export default function MusclesGroupForm({ queryRef }: MusclesGroupForm) {
               </FormItem>
             )}
           />
-          <Button disabled={isMutationInFlight}>submit</Button>
+          <Button disabled={isMutationInFlight || isUploadInFlight}>
+            submit
+          </Button>
         </form>
       </Form>
     </>

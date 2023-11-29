@@ -25,7 +25,7 @@ function MusclesGroup({ query }: { query: MusclesGroupFragment$key }) {
   const data = useFragment(MusclesGroupFragment, query);
   return (
     <div>
-      {data.musclesGroups.edges?.map((mg) => {
+      {data.musclesGroups?.edges?.map((mg) => {
         if (mg?.node?.id) {
           return (
             <div key={mg.node.id}>
