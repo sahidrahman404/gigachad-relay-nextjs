@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<7a239c226a394f9131aa0e459700d867>>
+ * @generated SignedSource<<ae0e29206c871ed2bc1693fb1ec1c16a>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -22,7 +22,7 @@ export type activateUser_Mutation$data = {
       readonly id: string;
       readonly username: string;
     };
-  } | null;
+  };
 };
 export type activateUser_Mutation = {
   response: activateUser_Mutation$data;

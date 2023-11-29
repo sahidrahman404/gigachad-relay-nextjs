@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<8023073000d268777e8c781cf933e2e2>>
+ * @generated SignedSource<<5967d05b54f3e921bbf56fb89c930812>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,9 +10,13 @@
 
 import { ConcreteRequest, Mutation } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type CreateMusclesGroupInput = {
-  image: ImageInput;
+export type CreateExerciseInput = {
+  exerciseTypeIDs?: ReadonlyArray<string> | null;
+  howTo?: string | null;
+  image?: ImageInput | null;
+  musclesGroupIDs?: ReadonlyArray<string> | null;
   name: string;
+  userID?: string | null;
 };
 export type ImageInput = {
   aspectRatio?: number | null;
@@ -24,12 +28,13 @@ export type ImageInput = {
   priority: boolean;
   width?: number | null;
 };
-export type MusclesGroupForm_Mutation$variables = {
+export type AddExerciseForm_Mutation$variables = {
   connections: ReadonlyArray<string>;
-  input: CreateMusclesGroupInput;
+  input: CreateExerciseInput;
 };
-export type MusclesGroupForm_Mutation$data = {
-  readonly createMusclesGroup: {
+export type AddExerciseForm_Mutation$data = {
+  readonly createExercise: {
+    readonly howTo: string | null;
     readonly id: string;
     readonly image: {
       readonly " $fragmentSpreads": FragmentRefs<"ImageFragment">;
@@ -37,9 +42,9 @@ export type MusclesGroupForm_Mutation$data = {
     readonly name: string;
   };
 };
-export type MusclesGroupForm_Mutation = {
-  response: MusclesGroupForm_Mutation$data;
-  variables: MusclesGroupForm_Mutation$variables;
+export type AddExerciseForm_Mutation = {
+  response: AddExerciseForm_Mutation$data;
+  variables: AddExerciseForm_Mutation$variables;
 };
 
 const node: ConcreteRequest = (function(){
@@ -78,17 +83,24 @@ v5 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "width",
+  "name": "howTo",
   "storageKey": null
 },
 v6 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "height",
+  "name": "width",
   "storageKey": null
 },
 v7 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "height",
+  "storageKey": null
+},
+v8 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
@@ -103,14 +115,14 @@ return {
     ],
     "kind": "Fragment",
     "metadata": null,
-    "name": "MusclesGroupForm_Mutation",
+    "name": "AddExerciseForm_Mutation",
     "selections": [
       {
         "alias": null,
         "args": (v2/*: any*/),
-        "concreteType": "MusclesGroup",
+        "concreteType": "Exercise",
         "kind": "LinkedField",
-        "name": "createMusclesGroup",
+        "name": "createExercise",
         "plural": false,
         "selections": [
           (v3/*: any*/),
@@ -130,7 +142,8 @@ return {
               }
             ],
             "storageKey": null
-          }
+          },
+          (v5/*: any*/)
         ],
         "storageKey": null
       }
@@ -145,14 +158,14 @@ return {
       (v0/*: any*/)
     ],
     "kind": "Operation",
-    "name": "MusclesGroupForm_Mutation",
+    "name": "AddExerciseForm_Mutation",
     "selections": [
       {
         "alias": null,
         "args": (v2/*: any*/),
-        "concreteType": "MusclesGroup",
+        "concreteType": "Exercise",
         "kind": "LinkedField",
-        "name": "createMusclesGroup",
+        "name": "createExercise",
         "plural": false,
         "selections": [
           (v3/*: any*/),
@@ -179,8 +192,8 @@ return {
                 "name": "srcset",
                 "storageKey": null
               },
-              (v5/*: any*/),
               (v6/*: any*/),
+              (v7/*: any*/),
               {
                 "alias": null,
                 "args": null,
@@ -216,7 +229,7 @@ return {
                 "name": "layout",
                 "storageKey": null
               },
-              (v7/*: any*/),
+              (v8/*: any*/),
               {
                 "alias": null,
                 "args": null,
@@ -260,8 +273,8 @@ return {
                 "name": "style",
                 "plural": false,
                 "selections": [
+                  (v8/*: any*/),
                   (v7/*: any*/),
-                  (v6/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -276,13 +289,14 @@ return {
                     "name": "maxWidth",
                     "storageKey": null
                   },
-                  (v5/*: any*/)
+                  (v6/*: any*/)
                 ],
                 "storageKey": null
               }
             ],
             "storageKey": null
-          }
+          },
+          (v5/*: any*/)
         ],
         "storageKey": null
       },
@@ -293,7 +307,7 @@ return {
         "handle": "prependNode",
         "key": "",
         "kind": "LinkedHandle",
-        "name": "createMusclesGroup",
+        "name": "createExercise",
         "handleArgs": [
           {
             "kind": "Variable",
@@ -310,16 +324,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "b04688398448ea65c33277b38df8da13",
+    "cacheID": "dfc40315161aa96746287aa0095de71b",
     "id": null,
     "metadata": {},
-    "name": "MusclesGroupForm_Mutation",
+    "name": "AddExerciseForm_Mutation",
     "operationKind": "mutation",
-    "text": "mutation MusclesGroupForm_Mutation(\n  $input: CreateMusclesGroupInput!\n) {\n  createMusclesGroup(input: $input) {\n    id\n    name\n    image {\n      ...ImageFragment\n    }\n  }\n}\n\nfragment ImageFragment on Image {\n  src\n  srcset\n  width\n  height\n  priority\n  loading\n  fetchPriority\n  decoding\n  layout\n  aspectRatio\n  objectFit\n  breakpoints\n  alt\n  role\n  sizes\n  style {\n    aspectRatio\n    height\n    maxHeight\n    maxWidth\n    width\n  }\n}\n"
+    "text": "mutation AddExerciseForm_Mutation(\n  $input: CreateExerciseInput!\n) {\n  createExercise(input: $input) {\n    id\n    name\n    image {\n      ...ImageFragment\n    }\n    howTo\n  }\n}\n\nfragment ImageFragment on Image {\n  src\n  srcset\n  width\n  height\n  priority\n  loading\n  fetchPriority\n  decoding\n  layout\n  aspectRatio\n  objectFit\n  breakpoints\n  alt\n  role\n  sizes\n  style {\n    aspectRatio\n    height\n    maxHeight\n    maxWidth\n    width\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "00b9473f11a55e68c1fc10d107a9589b";
+(node as any).hash = "6adaa18ab9f13f4c3f5efd99c73f167d";
 
 export default node;

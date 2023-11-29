@@ -25,6 +25,8 @@ input CreateExerciseInput {
   image: ImageInput
   howTo: String
   userID: ID
+  musclesGroupIDs: [ID!]
+  exerciseTypeIDs: [ID!]
 }
 
 """
@@ -101,6 +103,10 @@ Define a Relay Cursor type:
 https://relay.dev/graphql/connections.htm#sec-Cursor
 """
 scalar Cursor
+
+input DeleteExerciseInput {
+  id: ID!
+}
 
 type DeletedID {
   id: ID
@@ -646,16 +652,18 @@ input MusclesGroupWhereInput {
 
 type Mutation {
   createUser(input: CreateUserInput!): User!
-  activateUser(input: ActivateUserInput!): AuthenticationToken
-  updateUserPassword(input: ResetUserPasswordInput!): String
-  createAuthenticationToken(input: LoginInput!): AuthenticationToken
-  createActivationToken(input: ActivationTokenInput!): String
-  createPasswordResetToken(input: ResetPasswordInput!): String
-  CreateRoutineWithChildren(input: CreateRoutineWithChildrenInput!): Routine
+  activateUser(input: ActivateUserInput!): AuthenticationToken!
+  updateUserPassword(input: ResetUserPasswordInput!): User!
+  createAuthenticationToken(input: LoginInput!): AuthenticationToken!
+  createActivationToken(input: ActivationTokenInput!): User!
+  createPasswordResetToken(input: ResetPasswordInput!): User!
+  createRoutineWithChildren(input: CreateRoutineWithChildrenInput!): Routine!
   createRoutine(input: CreateRoutineInput!): Routine
   deleteRoutine(id: ID!): DeletedID
-  CreateMusclesGroup(input: CreateMusclesGroupInput!): MusclesGroup
-  createExercise(input: CreateExerciseInput!): Exercise
+  createMusclesGroup(input: CreateMusclesGroupInput!): MusclesGroup!
+  createExercise(input: CreateExerciseInput!): Exercise!
+  deleteExercise(input: DeleteExerciseInput!): Exercise!
+  createExerciseType(input: CreateExerciseTypeInput!): ExerciseType!
 }
 
 """

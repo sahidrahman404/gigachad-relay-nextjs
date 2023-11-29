@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<02db4bbf3464eb52f5660302f61fc778>>
+ * @generated SignedSource<<3d5b5b629359e99f50dbcdd92d87189a>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -16,7 +16,9 @@ export type resendToken_Mutation$variables = {
   input: ActivationTokenInput;
 };
 export type resendToken_Mutation$data = {
-  readonly createActivationToken: string | null;
+  readonly createActivationToken: {
+    readonly id: string;
+  };
 };
 export type resendToken_Mutation = {
   response: resendToken_Mutation$data;
@@ -41,8 +43,19 @@ v1 = [
         "variableName": "input"
       }
     ],
-    "kind": "ScalarField",
+    "concreteType": "User",
+    "kind": "LinkedField",
     "name": "createActivationToken",
+    "plural": false,
+    "selections": [
+      {
+        "alias": null,
+        "args": null,
+        "kind": "ScalarField",
+        "name": "id",
+        "storageKey": null
+      }
+    ],
     "storageKey": null
   }
 ];
@@ -64,16 +77,16 @@ return {
     "selections": (v1/*: any*/)
   },
   "params": {
-    "cacheID": "99e842141e8b2c32f6ec0a25336a5fe4",
+    "cacheID": "43d082841c532c194e6abe9863a23932",
     "id": null,
     "metadata": {},
     "name": "resendToken_Mutation",
     "operationKind": "mutation",
-    "text": "mutation resendToken_Mutation(\n  $input: ActivationTokenInput!\n) {\n  createActivationToken(input: $input)\n}\n"
+    "text": "mutation resendToken_Mutation(\n  $input: ActivationTokenInput!\n) {\n  createActivationToken(input: $input) {\n    id\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "18e82de6f348037ff659ed058ed70213";
+(node as any).hash = "1bf54948d5ba5aee4602f9a58cc6b761";
 
 export default node;

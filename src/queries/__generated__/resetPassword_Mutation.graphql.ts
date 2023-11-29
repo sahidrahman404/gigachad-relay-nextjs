@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<55cbd4b73bfd468851a048acf27534c0>>
+ * @generated SignedSource<<8d4a8ab455b7eb18d3bfa4b9b1fcd367>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -17,7 +17,9 @@ export type resetPassword_Mutation$variables = {
   input: ResetUserPasswordInput;
 };
 export type resetPassword_Mutation$data = {
-  readonly updateUserPassword: string | null;
+  readonly updateUserPassword: {
+    readonly id: string;
+  };
 };
 export type resetPassword_Mutation = {
   response: resetPassword_Mutation$data;
@@ -42,8 +44,19 @@ v1 = [
         "variableName": "input"
       }
     ],
-    "kind": "ScalarField",
+    "concreteType": "User",
+    "kind": "LinkedField",
     "name": "updateUserPassword",
+    "plural": false,
+    "selections": [
+      {
+        "alias": null,
+        "args": null,
+        "kind": "ScalarField",
+        "name": "id",
+        "storageKey": null
+      }
+    ],
     "storageKey": null
   }
 ];
@@ -65,16 +78,16 @@ return {
     "selections": (v1/*: any*/)
   },
   "params": {
-    "cacheID": "54d846612868c63415f0c1af9e3b1e17",
+    "cacheID": "0ab036be19463479183d992f98d033d6",
     "id": null,
     "metadata": {},
     "name": "resetPassword_Mutation",
     "operationKind": "mutation",
-    "text": "mutation resetPassword_Mutation(\n  $input: ResetUserPasswordInput!\n) {\n  updateUserPassword(input: $input)\n}\n"
+    "text": "mutation resetPassword_Mutation(\n  $input: ResetUserPasswordInput!\n) {\n  updateUserPassword(input: $input) {\n    id\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "87ef681c1e93b489ab11259734f9e6b3";
+(node as any).hash = "8b6a0051c5ba5f09f726d4a4352ef1f6";
 
 export default node;

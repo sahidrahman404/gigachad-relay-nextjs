@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<51e67c0f98ff24144c921f86def0c510>>
+ * @generated SignedSource<<3e54ee876b3e992471bec823cedf2b48>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -25,7 +25,7 @@ export type authToken_Mutation$data = {
       readonly id: string;
       readonly username: string;
     };
-  } | null;
+  };
 };
 export type authToken_Mutation = {
   response: authToken_Mutation$data;

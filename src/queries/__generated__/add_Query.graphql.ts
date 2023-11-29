@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<b8a760cdc6d59c6dc4e7d718ad6a9087>>
+ * @generated SignedSource<<8e7ba2b0113b246331a503e7331a63be>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,38 +10,48 @@
 
 import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type dashboard_Query$variables = {};
-export type dashboard_Query$data = {
-  readonly " $fragmentSpreads": FragmentRefs<"MusclesGroupFragment">;
+export type add_Query$variables = {};
+export type add_Query$data = {
+  readonly viewer: {
+    readonly " $fragmentSpreads": FragmentRefs<"useAuthRedirectFragment">;
+  } | null;
+  readonly " $fragmentSpreads": FragmentRefs<"AddExerciseFormFragment">;
 };
-export type dashboard_Query = {
-  response: dashboard_Query$data;
-  variables: dashboard_Query$variables;
+export type add_Query = {
+  response: add_Query$data;
+  variables: add_Query$variables;
 };
 
 const node: ConcreteRequest = (function(){
-var v0 = [
-  {
-    "kind": "Literal",
-    "name": "first",
-    "value": 100
-  }
-],
+var v0 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+},
 v1 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "width",
+  "name": "name",
   "storageKey": null
 },
 v2 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "height",
+  "name": "width",
   "storageKey": null
 },
 v3 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "height",
+  "storageKey": null
+},
+v4 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
@@ -53,12 +63,28 @@ return {
     "argumentDefinitions": [],
     "kind": "Fragment",
     "metadata": null,
-    "name": "dashboard_Query",
+    "name": "add_Query",
     "selections": [
+      {
+        "alias": null,
+        "args": null,
+        "concreteType": "User",
+        "kind": "LinkedField",
+        "name": "viewer",
+        "plural": false,
+        "selections": [
+          {
+            "args": null,
+            "kind": "FragmentSpread",
+            "name": "useAuthRedirectFragment"
+          }
+        ],
+        "storageKey": null
+      },
       {
         "args": null,
         "kind": "FragmentSpread",
-        "name": "MusclesGroupFragment"
+        "name": "AddExerciseFormFragment"
       }
     ],
     "type": "Query",
@@ -68,11 +94,23 @@ return {
   "operation": {
     "argumentDefinitions": [],
     "kind": "Operation",
-    "name": "dashboard_Query",
+    "name": "add_Query",
     "selections": [
       {
         "alias": null,
-        "args": (v0/*: any*/),
+        "args": null,
+        "concreteType": "User",
+        "kind": "LinkedField",
+        "name": "viewer",
+        "plural": false,
+        "selections": [
+          (v0/*: any*/)
+        ],
+        "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": null,
         "concreteType": "MusclesGroupConnection",
         "kind": "LinkedField",
         "name": "musclesGroups",
@@ -94,20 +132,8 @@ return {
                 "name": "node",
                 "plural": false,
                 "selections": [
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "id",
-                    "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "name",
-                    "storageKey": null
-                  },
+                  (v0/*: any*/),
+                  (v1/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -130,8 +156,8 @@ return {
                         "name": "srcset",
                         "storageKey": null
                       },
-                      (v1/*: any*/),
                       (v2/*: any*/),
+                      (v3/*: any*/),
                       {
                         "alias": null,
                         "args": null,
@@ -167,7 +193,7 @@ return {
                         "name": "layout",
                         "storageKey": null
                       },
-                      (v3/*: any*/),
+                      (v4/*: any*/),
                       {
                         "alias": null,
                         "args": null,
@@ -211,8 +237,8 @@ return {
                         "name": "style",
                         "plural": false,
                         "selections": [
+                          (v4/*: any*/),
                           (v3/*: any*/),
-                          (v2/*: any*/),
                           {
                             "alias": null,
                             "args": null,
@@ -227,95 +253,77 @@ return {
                             "name": "maxWidth",
                             "storageKey": null
                           },
-                          (v1/*: any*/)
+                          (v2/*: any*/)
                         ],
                         "storageKey": null
                       }
                     ],
                     "storageKey": null
-                  },
+                  }
+                ],
+                "storageKey": null
+              }
+            ],
+            "storageKey": null
+          }
+        ],
+        "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": null,
+        "concreteType": "ExerciseTypeConnection",
+        "kind": "LinkedField",
+        "name": "exerciseTypes",
+        "plural": false,
+        "selections": [
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "ExerciseTypeEdge",
+            "kind": "LinkedField",
+            "name": "edges",
+            "plural": true,
+            "selections": [
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "ExerciseType",
+                "kind": "LinkedField",
+                "name": "node",
+                "plural": false,
+                "selections": [
+                  (v0/*: any*/),
+                  (v1/*: any*/),
                   {
                     "alias": null,
                     "args": null,
                     "kind": "ScalarField",
-                    "name": "__typename",
+                    "name": "description",
                     "storageKey": null
                   }
                 ],
                 "storageKey": null
-              },
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "cursor",
-                "storageKey": null
               }
             ],
             "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "concreteType": "PageInfo",
-            "kind": "LinkedField",
-            "name": "pageInfo",
-            "plural": false,
-            "selections": [
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "endCursor",
-                "storageKey": null
-              },
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "hasNextPage",
-                "storageKey": null
-              }
-            ],
-            "storageKey": null
-          },
-          {
-            "kind": "ClientExtension",
-            "selections": [
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "__id",
-                "storageKey": null
-              }
-            ]
           }
         ],
-        "storageKey": "musclesGroups(first:100)"
-      },
-      {
-        "alias": null,
-        "args": (v0/*: any*/),
-        "filters": null,
-        "handle": "connection",
-        "key": "test__musclesGroups",
-        "kind": "LinkedHandle",
-        "name": "musclesGroups"
+        "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "afa4774c400cc4bdc87c83da2576f068",
+    "cacheID": "9e51ebfbb3fd1a078876b819c1f4342e",
     "id": null,
     "metadata": {},
-    "name": "dashboard_Query",
+    "name": "add_Query",
     "operationKind": "query",
-    "text": "query dashboard_Query {\n  ...MusclesGroupFragment\n}\n\nfragment ImageFragment on Image {\n  src\n  srcset\n  width\n  height\n  priority\n  loading\n  fetchPriority\n  decoding\n  layout\n  aspectRatio\n  objectFit\n  breakpoints\n  alt\n  role\n  sizes\n  style {\n    aspectRatio\n    height\n    maxHeight\n    maxWidth\n    width\n  }\n}\n\nfragment MusclesGroupFragment on Query {\n  musclesGroups(first: 100) {\n    edges {\n      node {\n        id\n        name\n        image {\n          ...ImageFragment\n        }\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n"
+    "text": "query add_Query {\n  viewer {\n    ...useAuthRedirectFragment\n    id\n  }\n  ...AddExerciseFormFragment\n}\n\nfragment AddExerciseFormFragment on Query {\n  viewer {\n    id\n  }\n  ...MusclesGroupInputFragment\n  ...ExerciseTypeInputFragment\n}\n\nfragment ExerciseTypeInputFragment on Query {\n  exerciseTypes {\n    edges {\n      node {\n        id\n        name\n        description\n      }\n    }\n  }\n}\n\nfragment ImageFragment on Image {\n  src\n  srcset\n  width\n  height\n  priority\n  loading\n  fetchPriority\n  decoding\n  layout\n  aspectRatio\n  objectFit\n  breakpoints\n  alt\n  role\n  sizes\n  style {\n    aspectRatio\n    height\n    maxHeight\n    maxWidth\n    width\n  }\n}\n\nfragment MusclesGroupInputFragment on Query {\n  musclesGroups {\n    edges {\n      node {\n        id\n        name\n        image {\n          ...ImageFragment\n        }\n      }\n    }\n  }\n}\n\nfragment useAuthRedirectFragment on User {\n  id\n}\n"
   }
 };
 })();
 
-(node as any).hash = "c96acf566d4d6d006655c97546f517f3";
+(node as any).hash = "4436b8481b595ba29112d5e7b915164d";
 
 export default node;
