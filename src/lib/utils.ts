@@ -4,7 +4,6 @@ import AwsS3 from "@uppy/aws-s3";
 import Uppy, { InternalMetadata } from "@uppy/core";
 import { ChangeEvent, MutableRefObject } from "react";
 import { ControllerRenderProps, UseFormReturn } from "react-hook-form";
-import { z } from "zod";
 
 function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -38,23 +37,6 @@ function setTokenAndRedirect(token: string) {
     window.location.replace(`/dashboard/workout`);
   });
 }
-
-const MAX_FILE_SIZE = 30000000;
-const ACCEPTED_IMAGE_TYPES = [
-  "image/jpeg",
-  "image/jpg",
-  "image/png",
-  "image/webp",
-];
-
-const imageZod = z
-  .instanceof(File)
-  .refine((f) => f.size > 0, "Image is required.")
-  .refine((f) => f.size <= MAX_FILE_SIZE, `Max file size is 30MB.`)
-  .refine(
-    (f) => ACCEPTED_IMAGE_TYPES.includes(f.type),
-    "Only .jpg, .jpeg, .png and .webp formats are accepted.",
-  );
 
 function createUppy() {
   const uppy = new Uppy({
@@ -120,12 +102,12 @@ function createUppy() {
 }
 
 type UploadImageAndDoGqlMutation = {
-  image: File;
+  image?: File;
   uppy: Uppy;
   form: UseFormReturn<any>;
   imageInputRef: MutableRefObject<HTMLInputElement | null>;
   setIsUploadInFlight: (state: boolean) => void;
-  mutation: (meta: InternalMetadata & Record<string, unknown>) => void;
+  mutation: (meta?: InternalMetadata & Record<string, unknown>) => void;
 };
 
 function uploadImageAndDoGqlMutation({
@@ -136,41 +118,46 @@ function uploadImageAndDoGqlMutation({
   setIsUploadInFlight,
   mutation,
 }: UploadImageAndDoGqlMutation) {
-  setIsUploadInFlight(true);
-  if (image.size > 0) {
-    const img = document.createElement("img");
-    uppy.addFile({
-      data: image,
-      name: image.name,
-      size: image.size,
-      meta: {
+  if (image) {
+    setIsUploadInFlight(true);
+    if (image.size > 0) {
+      const img = document.createElement("img");
+      uppy.addFile({
+        data: image,
         name: image.name,
-        type: image.type,
-      },
-    });
-
-    const objectURL = URL.createObjectURL(image);
-
-    img.onload = function handleLoad() {
-      uppy.setMeta({
-        width: img.width,
-        height: img.height,
+        size: image.size,
+        meta: {
+          name: image.name,
+          type: image.type,
+        },
       });
-      URL.revokeObjectURL(objectURL);
-    };
 
-    img.src = objectURL;
+      const objectURL = URL.createObjectURL(image);
 
-    uppy.upload().then((res) => {
-      const meta = res.successful[0].meta;
-      form.reset();
-      if (imageInputRef.current) {
-        imageInputRef.current.value = "";
-      }
-      setIsUploadInFlight(false);
-      mutation(meta);
-    });
+      img.onload = function handleLoad() {
+        uppy.setMeta({
+          width: img.width,
+          height: img.height,
+        });
+        URL.revokeObjectURL(objectURL);
+      };
+
+      img.src = objectURL;
+
+      uppy.upload().then((res) => {
+        const meta = res.successful[0].meta;
+        form.reset();
+        if (imageInputRef.current) {
+          imageInputRef.current.value = "";
+        }
+        setIsUploadInFlight(false);
+        mutation(meta);
+      });
+    }
+    return;
   }
+  form.reset();
+  mutation();
 }
 
 type ImageFieldOnChange = {
@@ -188,7 +175,6 @@ export {
   setTokenAndRedirect,
   removeTokenAndRedirect,
   createUppy,
-  imageZod,
   uploadImageAndDoGqlMutation,
   imageFieldOnChange,
 };
