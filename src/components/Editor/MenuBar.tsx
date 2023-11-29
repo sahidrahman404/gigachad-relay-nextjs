@@ -29,7 +29,7 @@ const MenuBar = forwardRef<HTMLDivElement, MenuBarProps>(function MenuBar(
   }
 
   return (
-    <div className={cn("flex flex-wrap py-1", className)} ref={ref}>
+    <div className={cn("flex flex-wrap", className)} ref={ref}>
       <Button
         onClick={(e) => {
           e.preventDefault();
