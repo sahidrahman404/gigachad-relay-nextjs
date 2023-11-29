@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Dashboard } from "@uppy/react";
 import { Label } from "../ui/label";
 
-type Uploader = {
+type UploaderProps = {
   setHeight: (h: number) => void;
   setWidth: (w: number) => void;
   setFilename: (f: string) => void;
@@ -19,7 +19,7 @@ type CreateUppy = {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setName: React.Dispatch<React.SetStateAction<string>>;
   setDisabled: React.Dispatch<React.SetStateAction<boolean>>;
-} & Uploader;
+} & UploaderProps;
 
 function createUppy({
   setHeight,
@@ -123,7 +123,7 @@ function createUppy({
   return uppy;
 }
 
-function Uploader({ setWidth, setHeight, setFilename }: Uploader) {
+function Uploader({ setWidth, setHeight, setFilename }: UploaderProps) {
   const [open, setOpen] = useState(false);
   const [name, setName] = useState("");
   const [disabled, setDisabled] = useState(false);

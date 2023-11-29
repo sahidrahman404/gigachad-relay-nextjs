@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 import { useRouter } from "next/router";
 import Link from "next/link";
 
-type Sidebar = HTMLAttributes<HTMLDivElement>;
+type SidebarProps = HTMLAttributes<HTMLDivElement>;
 
 const sidebarConfig = [
   {
@@ -40,7 +40,7 @@ const sidebarConfig = [
   },
 ];
 
-export default function Sidebar({ className }: Sidebar) {
+export default function Sidebar({ className }: SidebarProps) {
   const router = useRouter();
   return (
     <div className={cn("pb-12", className)}>
