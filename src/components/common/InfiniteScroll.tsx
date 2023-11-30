@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { Button } from "../ui/button";
 
 type InfiniteScrollProps = {
   hasNextPage: boolean;
@@ -7,17 +8,14 @@ type InfiniteScrollProps = {
 };
 
 function InfiniteScroll({ hasNextPage, loadFn }: InfiniteScrollProps) {
-  const divRef = useRef<HTMLDivElement | null>(null);
+  const divRef = useRef<HTMLButtonElement | null>(null);
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const [entry] = entries;
-        if (entry.isIntersecting) {
-          loadFn();
-        }
-      },
-      { threshold: 1 },
-    );
+    const observer = new IntersectionObserver((entries) => {
+      const [entry] = entries;
+      if (entry.isIntersecting) {
+        loadFn();
+      }
+    });
     const ref = divRef?.current;
     if (ref) {
       observer.observe(ref);
@@ -32,7 +30,11 @@ function InfiniteScroll({ hasNextPage, loadFn }: InfiniteScrollProps) {
   if (!hasNextPage) {
     return null;
   }
-  return <div ref={divRef} />;
+  return (
+    <Button ref={divRef} className="opacity-0">
+      Load More
+    </Button>
+  );
 }
 
 export { InfiniteScroll };

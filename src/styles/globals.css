@@ -75,8 +75,14 @@
   }
 }
 
+@layer utilities {
+  .hd-screen {
+    height: 100dvh;
+  }
+}
+
 #__next {
-  height: 100dvh;
+  height: 100%;
 }
 
 iframe {

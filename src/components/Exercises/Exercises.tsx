@@ -11,7 +11,6 @@ import {
   ComponentProps,
   createContext,
   useCallback,
-  useRef,
   useTransition,
 } from "react";
 import { cn } from "@/lib/utils";
@@ -51,7 +50,6 @@ const ExercisesData = createContext<ExercisesFragment$data | null>(null);
 function Exercises({ queryRef, className }: ExercisesProps) {
   const [isPending, startTransition] = useTransition();
   const { data, loadNext } = usePaginationFragment(ExercisesFragment, queryRef);
-  const divRef = useRef<HTMLDivElement | null>(null);
 
   const onLoadMore = useCallback(() => {
     startTransition(() => {
@@ -74,29 +72,31 @@ function Exercises({ queryRef, className }: ExercisesProps) {
 
   return (
     <ExercisesData.Provider value={data}>
-      <div className={cn("space-y-5", className)}>
-        <Button className="justify-self-end self-center col-span-4" asChild>
-          <Link href="/dashboard/exercises/add">Add Exercise</Link>
-        </Button>
-        {exercises?.map((ex) => {
-          if (ex?.node) {
-            return (
-              <Exercise
-                className={`${exerciseBaseCN} ${
-                  exercises.length === 1 ? "md:w-full" : exerciseRegularCN
-                }`}
-                queryRef={ex.node}
-                key={ex.node.id}
-              />
-            );
-          }
-        })}
+      <div className="space-y-3">
+        <div className={cn("space-y-5", className)}>
+          <Button className="justify-self-end self-center col-span-4" asChild>
+            <Link href="/dashboard/exercises/add">Add Exercise</Link>
+          </Button>
+          {exercises?.map((ex) => {
+            if (ex?.node) {
+              return (
+                <Exercise
+                  className={`${exerciseBaseCN} ${
+                    exercises.length === 1 ? "md:w-full" : exerciseRegularCN
+                  }`}
+                  queryRef={ex.node}
+                  key={ex.node.id}
+                />
+              );
+            }
+          })}
+        </div>
+        {isPending && <LoadingSpinner className="mx-auto w-6 h-6" />}
+        <InfiniteScroll
+          hasNextPage={data.exercises.pageInfo.hasNextPage}
+          loadFn={onLoadMore}
+        />
       </div>
-      {isPending && <LoadingSpinner />}
-      <InfiniteScroll
-        hasNextPage={data.exercises.pageInfo.hasNextPage}
-        loadFn={onLoadMore}
-      />
     </ExercisesData.Provider>
   );
 }
