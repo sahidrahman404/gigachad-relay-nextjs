@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<9617fa7f26b31b768154a1f5506fcd54>>
+ * @generated SignedSource<<fbb187dfffa916a44004d6ff3a6b1977>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,20 +10,20 @@
 
 import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type AddExerciseFormFragment$data = {
+export type ExercisesFilterFragment$data = {
   readonly " $fragmentSpreads": FragmentRefs<"ExerciseTypeInputFragment" | "MusclesGroupInputFragment">;
-  readonly " $fragmentType": "AddExerciseFormFragment";
+  readonly " $fragmentType": "ExercisesFilterFragment";
 };
-export type AddExerciseFormFragment$key = {
-  readonly " $data"?: AddExerciseFormFragment$data;
-  readonly " $fragmentSpreads": FragmentRefs<"AddExerciseFormFragment">;
+export type ExercisesFilterFragment$key = {
+  readonly " $data"?: ExercisesFilterFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"ExercisesFilterFragment">;
 };
 
 const node: ReaderFragment = {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
-  "name": "AddExerciseFormFragment",
+  "name": "ExercisesFilterFragment",
   "selections": [
     {
       "args": null,
@@ -40,6 +40,6 @@ const node: ReaderFragment = {
   "abstractKey": null
 };
 
-(node as any).hash = "0f0ff0f36ed5515c654c872ea401bf5e";
+(node as any).hash = "3ee013fe018ba66ae7bdff15a4167bc0";
 
 export default node;

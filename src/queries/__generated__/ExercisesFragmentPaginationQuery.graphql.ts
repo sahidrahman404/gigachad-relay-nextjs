@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<9f94f12edba6d7557db470b0881f4211>>
+ * @generated SignedSource<<a3f68ced253c9739db166f0a16b55ef8>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,12 +8,571 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest, Query } from "relay-runtime";
+import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
+export type OrderDirection = "ASC" | "DESC" | "%future added value";
+export type ExerciseTypeWhereInput = {
+  and?: ReadonlyArray<ExerciseTypeWhereInput> | null;
+  description?: string | null;
+  descriptionContains?: string | null;
+  descriptionContainsFold?: string | null;
+  descriptionEqualFold?: string | null;
+  descriptionGT?: string | null;
+  descriptionGTE?: string | null;
+  descriptionHasPrefix?: string | null;
+  descriptionHasSuffix?: string | null;
+  descriptionIn?: ReadonlyArray<string> | null;
+  descriptionLT?: string | null;
+  descriptionLTE?: string | null;
+  descriptionNEQ?: string | null;
+  descriptionNotIn?: ReadonlyArray<string> | null;
+  hasExercises?: boolean | null;
+  hasExercisesWith?: ReadonlyArray<ExerciseWhereInput> | null;
+  id?: string | null;
+  idGT?: string | null;
+  idGTE?: string | null;
+  idIn?: ReadonlyArray<string> | null;
+  idLT?: string | null;
+  idLTE?: string | null;
+  idNEQ?: string | null;
+  idNotIn?: ReadonlyArray<string> | null;
+  name?: string | null;
+  nameContains?: string | null;
+  nameContainsFold?: string | null;
+  nameEqualFold?: string | null;
+  nameGT?: string | null;
+  nameGTE?: string | null;
+  nameHasPrefix?: string | null;
+  nameHasSuffix?: string | null;
+  nameIn?: ReadonlyArray<string> | null;
+  nameLT?: string | null;
+  nameLTE?: string | null;
+  nameNEQ?: string | null;
+  nameNotIn?: ReadonlyArray<string> | null;
+  not?: ExerciseTypeWhereInput | null;
+  or?: ReadonlyArray<ExerciseTypeWhereInput> | null;
+};
+export type ExerciseWhereInput = {
+  and?: ReadonlyArray<ExerciseWhereInput> | null;
+  hasEquipment?: boolean | null;
+  hasEquipmentWith?: ReadonlyArray<EquipmentWhereInput> | null;
+  hasExerciseTypes?: boolean | null;
+  hasExerciseTypesWith?: ReadonlyArray<ExerciseTypeWhereInput> | null;
+  hasMusclesGroups?: boolean | null;
+  hasMusclesGroupsWith?: ReadonlyArray<MusclesGroupWhereInput> | null;
+  hasRoutineExercises?: boolean | null;
+  hasRoutineExercisesWith?: ReadonlyArray<RoutineExerciseWhereInput> | null;
+  hasRoutines?: boolean | null;
+  hasRoutinesWith?: ReadonlyArray<RoutineWhereInput> | null;
+  hasUsers?: boolean | null;
+  hasUsersWith?: ReadonlyArray<UserWhereInput> | null;
+  hasWorkoutLogs?: boolean | null;
+  hasWorkoutLogsWith?: ReadonlyArray<WorkoutLogWhereInput> | null;
+  howTo?: string | null;
+  howToContains?: string | null;
+  howToContainsFold?: string | null;
+  howToEqualFold?: string | null;
+  howToGT?: string | null;
+  howToGTE?: string | null;
+  howToHasPrefix?: string | null;
+  howToHasSuffix?: string | null;
+  howToIn?: ReadonlyArray<string> | null;
+  howToIsNil?: boolean | null;
+  howToLT?: string | null;
+  howToLTE?: string | null;
+  howToNEQ?: string | null;
+  howToNotIn?: ReadonlyArray<string> | null;
+  howToNotNil?: boolean | null;
+  id?: string | null;
+  idGT?: string | null;
+  idGTE?: string | null;
+  idIn?: ReadonlyArray<string> | null;
+  idLT?: string | null;
+  idLTE?: string | null;
+  idNEQ?: string | null;
+  idNotIn?: ReadonlyArray<string> | null;
+  name?: string | null;
+  nameContains?: string | null;
+  nameContainsFold?: string | null;
+  nameEqualFold?: string | null;
+  nameGT?: string | null;
+  nameGTE?: string | null;
+  nameHasPrefix?: string | null;
+  nameHasSuffix?: string | null;
+  nameIn?: ReadonlyArray<string> | null;
+  nameLT?: string | null;
+  nameLTE?: string | null;
+  nameNEQ?: string | null;
+  nameNotIn?: ReadonlyArray<string> | null;
+  not?: ExerciseWhereInput | null;
+  or?: ReadonlyArray<ExerciseWhereInput> | null;
+  userID?: string | null;
+  userIDContains?: string | null;
+  userIDContainsFold?: string | null;
+  userIDEqualFold?: string | null;
+  userIDGT?: string | null;
+  userIDGTE?: string | null;
+  userIDHasPrefix?: string | null;
+  userIDHasSuffix?: string | null;
+  userIDIn?: ReadonlyArray<string> | null;
+  userIDIsNil?: boolean | null;
+  userIDLT?: string | null;
+  userIDLTE?: string | null;
+  userIDNEQ?: string | null;
+  userIDNotIn?: ReadonlyArray<string> | null;
+  userIDNotNil?: boolean | null;
+};
+export type WorkoutLogWhereInput = {
+  and?: ReadonlyArray<WorkoutLogWhereInput> | null;
+  createdAt?: string | null;
+  createdAtContains?: string | null;
+  createdAtContainsFold?: string | null;
+  createdAtEqualFold?: string | null;
+  createdAtGT?: string | null;
+  createdAtGTE?: string | null;
+  createdAtHasPrefix?: string | null;
+  createdAtHasSuffix?: string | null;
+  createdAtIn?: ReadonlyArray<string> | null;
+  createdAtLT?: string | null;
+  createdAtLTE?: string | null;
+  createdAtNEQ?: string | null;
+  createdAtNotIn?: ReadonlyArray<string> | null;
+  hasExercises?: boolean | null;
+  hasExercisesWith?: ReadonlyArray<ExerciseWhereInput> | null;
+  hasUsers?: boolean | null;
+  hasUsersWith?: ReadonlyArray<UserWhereInput> | null;
+  hasWorkouts?: boolean | null;
+  hasWorkoutsWith?: ReadonlyArray<WorkoutWhereInput> | null;
+  id?: string | null;
+  idGT?: string | null;
+  idGTE?: string | null;
+  idIn?: ReadonlyArray<string> | null;
+  idLT?: string | null;
+  idLTE?: string | null;
+  idNEQ?: string | null;
+  idNotIn?: ReadonlyArray<string> | null;
+  not?: WorkoutLogWhereInput | null;
+  or?: ReadonlyArray<WorkoutLogWhereInput> | null;
+  userID?: string | null;
+  userIDContains?: string | null;
+  userIDContainsFold?: string | null;
+  userIDEqualFold?: string | null;
+  userIDGT?: string | null;
+  userIDGTE?: string | null;
+  userIDHasPrefix?: string | null;
+  userIDHasSuffix?: string | null;
+  userIDIn?: ReadonlyArray<string> | null;
+  userIDLT?: string | null;
+  userIDLTE?: string | null;
+  userIDNEQ?: string | null;
+  userIDNotIn?: ReadonlyArray<string> | null;
+};
+export type UserWhereInput = {
+  activated?: number | null;
+  activatedGT?: number | null;
+  activatedGTE?: number | null;
+  activatedIn?: ReadonlyArray<number> | null;
+  activatedLT?: number | null;
+  activatedLTE?: number | null;
+  activatedNEQ?: number | null;
+  activatedNotIn?: ReadonlyArray<number> | null;
+  and?: ReadonlyArray<UserWhereInput> | null;
+  createdAt?: string | null;
+  createdAtContains?: string | null;
+  createdAtContainsFold?: string | null;
+  createdAtEqualFold?: string | null;
+  createdAtGT?: string | null;
+  createdAtGTE?: string | null;
+  createdAtHasPrefix?: string | null;
+  createdAtHasSuffix?: string | null;
+  createdAtIn?: ReadonlyArray<string> | null;
+  createdAtLT?: string | null;
+  createdAtLTE?: string | null;
+  createdAtNEQ?: string | null;
+  createdAtNotIn?: ReadonlyArray<string> | null;
+  email?: string | null;
+  emailContains?: string | null;
+  emailContainsFold?: string | null;
+  emailEqualFold?: string | null;
+  emailGT?: string | null;
+  emailGTE?: string | null;
+  emailHasPrefix?: string | null;
+  emailHasSuffix?: string | null;
+  emailIn?: ReadonlyArray<string> | null;
+  emailLT?: string | null;
+  emailLTE?: string | null;
+  emailNEQ?: string | null;
+  emailNotIn?: ReadonlyArray<string> | null;
+  hasExercises?: boolean | null;
+  hasExercisesWith?: ReadonlyArray<ExerciseWhereInput> | null;
+  hasRoutineExercises?: boolean | null;
+  hasRoutineExercisesWith?: ReadonlyArray<RoutineExerciseWhereInput> | null;
+  hasRoutines?: boolean | null;
+  hasRoutinesWith?: ReadonlyArray<RoutineWhereInput> | null;
+  hasTokens?: boolean | null;
+  hasTokensWith?: ReadonlyArray<TokenWhereInput> | null;
+  hasWorkoutLogs?: boolean | null;
+  hasWorkoutLogsWith?: ReadonlyArray<WorkoutLogWhereInput> | null;
+  hasWorkouts?: boolean | null;
+  hasWorkoutsWith?: ReadonlyArray<WorkoutWhereInput> | null;
+  id?: string | null;
+  idGT?: string | null;
+  idGTE?: string | null;
+  idIn?: ReadonlyArray<string> | null;
+  idLT?: string | null;
+  idLTE?: string | null;
+  idNEQ?: string | null;
+  idNotIn?: ReadonlyArray<string> | null;
+  name?: string | null;
+  nameContains?: string | null;
+  nameContainsFold?: string | null;
+  nameEqualFold?: string | null;
+  nameGT?: string | null;
+  nameGTE?: string | null;
+  nameHasPrefix?: string | null;
+  nameHasSuffix?: string | null;
+  nameIn?: ReadonlyArray<string> | null;
+  nameLT?: string | null;
+  nameLTE?: string | null;
+  nameNEQ?: string | null;
+  nameNotIn?: ReadonlyArray<string> | null;
+  not?: UserWhereInput | null;
+  or?: ReadonlyArray<UserWhereInput> | null;
+  username?: string | null;
+  usernameContains?: string | null;
+  usernameContainsFold?: string | null;
+  usernameEqualFold?: string | null;
+  usernameGT?: string | null;
+  usernameGTE?: string | null;
+  usernameHasPrefix?: string | null;
+  usernameHasSuffix?: string | null;
+  usernameIn?: ReadonlyArray<string> | null;
+  usernameLT?: string | null;
+  usernameLTE?: string | null;
+  usernameNEQ?: string | null;
+  usernameNotIn?: ReadonlyArray<string> | null;
+  version?: number | null;
+  versionGT?: number | null;
+  versionGTE?: number | null;
+  versionIn?: ReadonlyArray<number> | null;
+  versionLT?: number | null;
+  versionLTE?: number | null;
+  versionNEQ?: number | null;
+  versionNotIn?: ReadonlyArray<number> | null;
+};
+export type TokenWhereInput = {
+  and?: ReadonlyArray<TokenWhereInput> | null;
+  expiry?: string | null;
+  expiryContains?: string | null;
+  expiryContainsFold?: string | null;
+  expiryEqualFold?: string | null;
+  expiryGT?: string | null;
+  expiryGTE?: string | null;
+  expiryHasPrefix?: string | null;
+  expiryHasSuffix?: string | null;
+  expiryIn?: ReadonlyArray<string> | null;
+  expiryLT?: string | null;
+  expiryLTE?: string | null;
+  expiryNEQ?: string | null;
+  expiryNotIn?: ReadonlyArray<string> | null;
+  hasUsers?: boolean | null;
+  hasUsersWith?: ReadonlyArray<UserWhereInput> | null;
+  id?: string | null;
+  idGT?: string | null;
+  idGTE?: string | null;
+  idIn?: ReadonlyArray<string> | null;
+  idLT?: string | null;
+  idLTE?: string | null;
+  idNEQ?: string | null;
+  idNotIn?: ReadonlyArray<string> | null;
+  not?: TokenWhereInput | null;
+  or?: ReadonlyArray<TokenWhereInput> | null;
+  scope?: string | null;
+  scopeContains?: string | null;
+  scopeContainsFold?: string | null;
+  scopeEqualFold?: string | null;
+  scopeGT?: string | null;
+  scopeGTE?: string | null;
+  scopeHasPrefix?: string | null;
+  scopeHasSuffix?: string | null;
+  scopeIn?: ReadonlyArray<string> | null;
+  scopeLT?: string | null;
+  scopeLTE?: string | null;
+  scopeNEQ?: string | null;
+  scopeNotIn?: ReadonlyArray<string> | null;
+  userID?: string | null;
+  userIDContains?: string | null;
+  userIDContainsFold?: string | null;
+  userIDEqualFold?: string | null;
+  userIDGT?: string | null;
+  userIDGTE?: string | null;
+  userIDHasPrefix?: string | null;
+  userIDHasSuffix?: string | null;
+  userIDIn?: ReadonlyArray<string> | null;
+  userIDLT?: string | null;
+  userIDLTE?: string | null;
+  userIDNEQ?: string | null;
+  userIDNotIn?: ReadonlyArray<string> | null;
+};
+export type RoutineWhereInput = {
+  and?: ReadonlyArray<RoutineWhereInput> | null;
+  hasExercises?: boolean | null;
+  hasExercisesWith?: ReadonlyArray<ExerciseWhereInput> | null;
+  hasRoutineExercises?: boolean | null;
+  hasRoutineExercisesWith?: ReadonlyArray<RoutineExerciseWhereInput> | null;
+  hasUsers?: boolean | null;
+  hasUsersWith?: ReadonlyArray<UserWhereInput> | null;
+  id?: string | null;
+  idGT?: string | null;
+  idGTE?: string | null;
+  idIn?: ReadonlyArray<string> | null;
+  idLT?: string | null;
+  idLTE?: string | null;
+  idNEQ?: string | null;
+  idNotIn?: ReadonlyArray<string> | null;
+  name?: string | null;
+  nameContains?: string | null;
+  nameContainsFold?: string | null;
+  nameEqualFold?: string | null;
+  nameGT?: string | null;
+  nameGTE?: string | null;
+  nameHasPrefix?: string | null;
+  nameHasSuffix?: string | null;
+  nameIn?: ReadonlyArray<string> | null;
+  nameLT?: string | null;
+  nameLTE?: string | null;
+  nameNEQ?: string | null;
+  nameNotIn?: ReadonlyArray<string> | null;
+  not?: RoutineWhereInput | null;
+  or?: ReadonlyArray<RoutineWhereInput> | null;
+  userID?: string | null;
+  userIDContains?: string | null;
+  userIDContainsFold?: string | null;
+  userIDEqualFold?: string | null;
+  userIDGT?: string | null;
+  userIDGTE?: string | null;
+  userIDHasPrefix?: string | null;
+  userIDHasSuffix?: string | null;
+  userIDIn?: ReadonlyArray<string> | null;
+  userIDLT?: string | null;
+  userIDLTE?: string | null;
+  userIDNEQ?: string | null;
+  userIDNotIn?: ReadonlyArray<string> | null;
+};
+export type RoutineExerciseWhereInput = {
+  and?: ReadonlyArray<RoutineExerciseWhereInput> | null;
+  id?: string | null;
+  idGT?: string | null;
+  idGTE?: string | null;
+  idIn?: ReadonlyArray<string> | null;
+  idLT?: string | null;
+  idLTE?: string | null;
+  idNEQ?: string | null;
+  idNotIn?: ReadonlyArray<string> | null;
+  not?: RoutineExerciseWhereInput | null;
+  or?: ReadonlyArray<RoutineExerciseWhereInput> | null;
+  restTimer?: string | null;
+  restTimerContains?: string | null;
+  restTimerContainsFold?: string | null;
+  restTimerEqualFold?: string | null;
+  restTimerGT?: string | null;
+  restTimerGTE?: string | null;
+  restTimerHasPrefix?: string | null;
+  restTimerHasSuffix?: string | null;
+  restTimerIn?: ReadonlyArray<string> | null;
+  restTimerIsNil?: boolean | null;
+  restTimerLT?: string | null;
+  restTimerLTE?: string | null;
+  restTimerNEQ?: string | null;
+  restTimerNotIn?: ReadonlyArray<string> | null;
+  restTimerNotNil?: boolean | null;
+};
+export type WorkoutWhereInput = {
+  and?: ReadonlyArray<WorkoutWhereInput> | null;
+  createdAt?: string | null;
+  createdAtContains?: string | null;
+  createdAtContainsFold?: string | null;
+  createdAtEqualFold?: string | null;
+  createdAtGT?: string | null;
+  createdAtGTE?: string | null;
+  createdAtHasPrefix?: string | null;
+  createdAtHasSuffix?: string | null;
+  createdAtIn?: ReadonlyArray<string> | null;
+  createdAtLT?: string | null;
+  createdAtLTE?: string | null;
+  createdAtNEQ?: string | null;
+  createdAtNotIn?: ReadonlyArray<string> | null;
+  description?: string | null;
+  descriptionContains?: string | null;
+  descriptionContainsFold?: string | null;
+  descriptionEqualFold?: string | null;
+  descriptionGT?: string | null;
+  descriptionGTE?: string | null;
+  descriptionHasPrefix?: string | null;
+  descriptionHasSuffix?: string | null;
+  descriptionIn?: ReadonlyArray<string> | null;
+  descriptionLT?: string | null;
+  descriptionLTE?: string | null;
+  descriptionNEQ?: string | null;
+  descriptionNotIn?: ReadonlyArray<string> | null;
+  hasUsers?: boolean | null;
+  hasUsersWith?: ReadonlyArray<UserWhereInput> | null;
+  hasWorkoutLogs?: boolean | null;
+  hasWorkoutLogsWith?: ReadonlyArray<WorkoutLogWhereInput> | null;
+  id?: string | null;
+  idGT?: string | null;
+  idGTE?: string | null;
+  idIn?: ReadonlyArray<string> | null;
+  idLT?: string | null;
+  idLTE?: string | null;
+  idNEQ?: string | null;
+  idNotIn?: ReadonlyArray<string> | null;
+  image?: string | null;
+  imageContains?: string | null;
+  imageContainsFold?: string | null;
+  imageEqualFold?: string | null;
+  imageGT?: string | null;
+  imageGTE?: string | null;
+  imageHasPrefix?: string | null;
+  imageHasSuffix?: string | null;
+  imageIn?: ReadonlyArray<string> | null;
+  imageIsNil?: boolean | null;
+  imageLT?: string | null;
+  imageLTE?: string | null;
+  imageNEQ?: string | null;
+  imageNotIn?: ReadonlyArray<string> | null;
+  imageNotNil?: boolean | null;
+  name?: string | null;
+  nameContains?: string | null;
+  nameContainsFold?: string | null;
+  nameEqualFold?: string | null;
+  nameGT?: string | null;
+  nameGTE?: string | null;
+  nameHasPrefix?: string | null;
+  nameHasSuffix?: string | null;
+  nameIn?: ReadonlyArray<string> | null;
+  nameLT?: string | null;
+  nameLTE?: string | null;
+  nameNEQ?: string | null;
+  nameNotIn?: ReadonlyArray<string> | null;
+  not?: WorkoutWhereInput | null;
+  or?: ReadonlyArray<WorkoutWhereInput> | null;
+  reps?: number | null;
+  repsGT?: number | null;
+  repsGTE?: number | null;
+  repsIn?: ReadonlyArray<number> | null;
+  repsLT?: number | null;
+  repsLTE?: number | null;
+  repsNEQ?: number | null;
+  repsNotIn?: ReadonlyArray<number> | null;
+  sets?: number | null;
+  setsGT?: number | null;
+  setsGTE?: number | null;
+  setsIn?: ReadonlyArray<number> | null;
+  setsLT?: number | null;
+  setsLTE?: number | null;
+  setsNEQ?: number | null;
+  setsNotIn?: ReadonlyArray<number> | null;
+  time?: string | null;
+  timeContains?: string | null;
+  timeContainsFold?: string | null;
+  timeEqualFold?: string | null;
+  timeGT?: string | null;
+  timeGTE?: string | null;
+  timeHasPrefix?: string | null;
+  timeHasSuffix?: string | null;
+  timeIn?: ReadonlyArray<string> | null;
+  timeIsNil?: boolean | null;
+  timeLT?: string | null;
+  timeLTE?: string | null;
+  timeNEQ?: string | null;
+  timeNotIn?: ReadonlyArray<string> | null;
+  timeNotNil?: boolean | null;
+  userID?: string | null;
+  userIDContains?: string | null;
+  userIDContainsFold?: string | null;
+  userIDEqualFold?: string | null;
+  userIDGT?: string | null;
+  userIDGTE?: string | null;
+  userIDHasPrefix?: string | null;
+  userIDHasSuffix?: string | null;
+  userIDIn?: ReadonlyArray<string> | null;
+  userIDLT?: string | null;
+  userIDLTE?: string | null;
+  userIDNEQ?: string | null;
+  userIDNotIn?: ReadonlyArray<string> | null;
+  volume?: number | null;
+  volumeGT?: number | null;
+  volumeGTE?: number | null;
+  volumeIn?: ReadonlyArray<number> | null;
+  volumeLT?: number | null;
+  volumeLTE?: number | null;
+  volumeNEQ?: number | null;
+  volumeNotIn?: ReadonlyArray<number> | null;
+};
+export type EquipmentWhereInput = {
+  and?: ReadonlyArray<EquipmentWhereInput> | null;
+  hasExercises?: boolean | null;
+  hasExercisesWith?: ReadonlyArray<ExerciseWhereInput> | null;
+  id?: string | null;
+  idGT?: string | null;
+  idGTE?: string | null;
+  idIn?: ReadonlyArray<string> | null;
+  idLT?: string | null;
+  idLTE?: string | null;
+  idNEQ?: string | null;
+  idNotIn?: ReadonlyArray<string> | null;
+  name?: string | null;
+  nameContains?: string | null;
+  nameContainsFold?: string | null;
+  nameEqualFold?: string | null;
+  nameGT?: string | null;
+  nameGTE?: string | null;
+  nameHasPrefix?: string | null;
+  nameHasSuffix?: string | null;
+  nameIn?: ReadonlyArray<string> | null;
+  nameLT?: string | null;
+  nameLTE?: string | null;
+  nameNEQ?: string | null;
+  nameNotIn?: ReadonlyArray<string> | null;
+  not?: EquipmentWhereInput | null;
+  or?: ReadonlyArray<EquipmentWhereInput> | null;
+};
+export type MusclesGroupWhereInput = {
+  and?: ReadonlyArray<MusclesGroupWhereInput> | null;
+  hasExercises?: boolean | null;
+  hasExercisesWith?: ReadonlyArray<ExerciseWhereInput> | null;
+  id?: string | null;
+  idGT?: string | null;
+  idGTE?: string | null;
+  idIn?: ReadonlyArray<string> | null;
+  idLT?: string | null;
+  idLTE?: string | null;
+  idNEQ?: string | null;
+  idNotIn?: ReadonlyArray<string> | null;
+  name?: string | null;
+  nameContains?: string | null;
+  nameContainsFold?: string | null;
+  nameEqualFold?: string | null;
+  nameGT?: string | null;
+  nameGTE?: string | null;
+  nameHasPrefix?: string | null;
+  nameHasSuffix?: string | null;
+  nameIn?: ReadonlyArray<string> | null;
+  nameLT?: string | null;
+  nameLTE?: string | null;
+  nameNEQ?: string | null;
+  nameNotIn?: ReadonlyArray<string> | null;
+  not?: MusclesGroupWhereInput | null;
+  or?: ReadonlyArray<MusclesGroupWhereInput> | null;
+};
 export type ExercisesFragmentPaginationQuery$variables = {
   count?: number | null;
   cursor?: any | null;
+  exerciseTypeWhereInput?: ReadonlyArray<ExerciseTypeWhereInput> | null;
   id: string;
+  musclesGroupWhereInput?: ReadonlyArray<MusclesGroupWhereInput> | null;
+  orderby?: OrderDirection | null;
 };
 export type ExercisesFragmentPaginationQuery$data = {
   readonly node: {
@@ -25,437 +584,529 @@ export type ExercisesFragmentPaginationQuery = {
   variables: ExercisesFragmentPaginationQuery$variables;
 };
 
-const node: ConcreteRequest = (function () {
-  var v0 = [
+const node: ConcreteRequest = (function(){
+var v0 = {
+  "defaultValue": 4,
+  "kind": "LocalArgument",
+  "name": "count"
+},
+v1 = {
+  "defaultValue": null,
+  "kind": "LocalArgument",
+  "name": "cursor"
+},
+v2 = {
+  "defaultValue": ([]/*: any*/),
+  "kind": "LocalArgument",
+  "name": "exerciseTypeWhereInput"
+},
+v3 = {
+  "defaultValue": null,
+  "kind": "LocalArgument",
+  "name": "id"
+},
+v4 = {
+  "defaultValue": ([]/*: any*/),
+  "kind": "LocalArgument",
+  "name": "musclesGroupWhereInput"
+},
+v5 = {
+  "defaultValue": "DESC",
+  "kind": "LocalArgument",
+  "name": "orderby"
+},
+v6 = [
+  {
+    "kind": "Variable",
+    "name": "id",
+    "variableName": "id"
+  }
+],
+v7 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "__typename",
+  "storageKey": null
+},
+v8 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+},
+v9 = [
+  {
+    "kind": "Variable",
+    "name": "after",
+    "variableName": "cursor"
+  },
+  {
+    "kind": "Variable",
+    "name": "first",
+    "variableName": "count"
+  },
+  {
+    "fields": [
       {
-        defaultValue: 2,
-        kind: "LocalArgument",
-        name: "count",
+        "kind": "Variable",
+        "name": "direction",
+        "variableName": "orderby"
       },
       {
-        defaultValue: null,
-        kind: "LocalArgument",
-        name: "cursor",
-      },
-      {
-        defaultValue: null,
-        kind: "LocalArgument",
-        name: "id",
-      },
+        "kind": "Literal",
+        "name": "field",
+        "value": "ID"
+      }
     ],
-    v1 = [
+    "kind": "ObjectValue",
+    "name": "orderBy"
+  },
+  {
+    "fields": [
       {
-        kind: "Variable",
-        name: "id",
-        variableName: "id",
+        "kind": "Variable",
+        "name": "hasExerciseTypesWith",
+        "variableName": "exerciseTypeWhereInput"
       },
+      {
+        "kind": "Variable",
+        "name": "hasMusclesGroupsWith",
+        "variableName": "musclesGroupWhereInput"
+      }
     ],
-    v2 = {
-      alias: null,
-      args: null,
-      kind: "ScalarField",
-      name: "__typename",
-      storageKey: null,
-    },
-    v3 = {
-      alias: null,
-      args: null,
-      kind: "ScalarField",
-      name: "id",
-      storageKey: null,
-    },
-    v4 = [
-      {
-        kind: "Variable",
-        name: "after",
-        variableName: "cursor",
-      },
-      {
-        kind: "Variable",
-        name: "first",
-        variableName: "count",
-      },
+    "kind": "ObjectValue",
+    "name": "where"
+  }
+],
+v10 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "name",
+  "storageKey": null
+},
+v11 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "width",
+  "storageKey": null
+},
+v12 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "height",
+  "storageKey": null
+},
+v13 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "aspectRatio",
+  "storageKey": null
+},
+v14 = [
+  (v8/*: any*/),
+  (v10/*: any*/)
+];
+return {
+  "fragment": {
+    "argumentDefinitions": [
+      (v0/*: any*/),
+      (v1/*: any*/),
+      (v2/*: any*/),
+      (v3/*: any*/),
+      (v4/*: any*/),
+      (v5/*: any*/)
     ],
-    v5 = {
-      alias: null,
-      args: null,
-      kind: "ScalarField",
-      name: "name",
-      storageKey: null,
-    },
-    v6 = {
-      alias: null,
-      args: null,
-      kind: "ScalarField",
-      name: "width",
-      storageKey: null,
-    },
-    v7 = {
-      alias: null,
-      args: null,
-      kind: "ScalarField",
-      name: "height",
-      storageKey: null,
-    },
-    v8 = {
-      alias: null,
-      args: null,
-      kind: "ScalarField",
-      name: "aspectRatio",
-      storageKey: null,
-    },
-    v9 = [v3 /*: any*/, v5 /*: any*/];
-  return {
-    fragment: {
-      argumentDefinitions: v0 /*: any*/,
-      kind: "Fragment",
-      metadata: null,
-      name: "ExercisesFragmentPaginationQuery",
-      selections: [
-        {
-          alias: null,
-          args: v1 /*: any*/,
-          concreteType: null,
-          kind: "LinkedField",
-          name: "node",
-          plural: false,
-          selections: [
-            {
-              args: [
-                {
-                  kind: "Variable",
-                  name: "count",
-                  variableName: "count",
-                },
-                {
-                  kind: "Variable",
-                  name: "cursor",
-                  variableName: "cursor",
-                },
-              ],
-              kind: "FragmentSpread",
-              name: "ExercisesFragment",
-            },
-          ],
-          storageKey: null,
-        },
-      ],
-      type: "Query",
-      abstractKey: null,
-    },
-    kind: "Request",
-    operation: {
-      argumentDefinitions: v0 /*: any*/,
-      kind: "Operation",
-      name: "ExercisesFragmentPaginationQuery",
-      selections: [
-        {
-          alias: null,
-          args: v1 /*: any*/,
-          concreteType: null,
-          kind: "LinkedField",
-          name: "node",
-          plural: false,
-          selections: [
-            v2 /*: any*/,
-            v3 /*: any*/,
-            {
-              kind: "InlineFragment",
-              selections: [
-                {
-                  alias: null,
-                  args: v4 /*: any*/,
-                  concreteType: "ExerciseConnection",
-                  kind: "LinkedField",
-                  name: "exercises",
-                  plural: false,
-                  selections: [
-                    {
-                      alias: null,
-                      args: null,
-                      concreteType: "ExerciseEdge",
-                      kind: "LinkedField",
-                      name: "edges",
-                      plural: true,
-                      selections: [
-                        {
-                          alias: null,
-                          args: null,
-                          concreteType: "Exercise",
-                          kind: "LinkedField",
-                          name: "node",
-                          plural: false,
-                          selections: [
-                            v3 /*: any*/,
-                            v5 /*: any*/,
-                            {
-                              alias: null,
-                              args: null,
-                              concreteType: "Image",
-                              kind: "LinkedField",
-                              name: "image",
-                              plural: false,
-                              selections: [
-                                {
-                                  alias: null,
-                                  args: null,
-                                  kind: "ScalarField",
-                                  name: "src",
-                                  storageKey: null,
-                                },
-                                {
-                                  alias: null,
-                                  args: null,
-                                  kind: "ScalarField",
-                                  name: "srcset",
-                                  storageKey: null,
-                                },
-                                v6 /*: any*/,
-                                v7 /*: any*/,
-                                {
-                                  alias: null,
-                                  args: null,
-                                  kind: "ScalarField",
-                                  name: "priority",
-                                  storageKey: null,
-                                },
-                                {
-                                  alias: null,
-                                  args: null,
-                                  kind: "ScalarField",
-                                  name: "loading",
-                                  storageKey: null,
-                                },
-                                {
-                                  alias: null,
-                                  args: null,
-                                  kind: "ScalarField",
-                                  name: "fetchPriority",
-                                  storageKey: null,
-                                },
-                                {
-                                  alias: null,
-                                  args: null,
-                                  kind: "ScalarField",
-                                  name: "decoding",
-                                  storageKey: null,
-                                },
-                                {
-                                  alias: null,
-                                  args: null,
-                                  kind: "ScalarField",
-                                  name: "layout",
-                                  storageKey: null,
-                                },
-                                v8 /*: any*/,
-                                {
-                                  alias: null,
-                                  args: null,
-                                  kind: "ScalarField",
-                                  name: "objectFit",
-                                  storageKey: null,
-                                },
-                                {
-                                  alias: null,
-                                  args: null,
-                                  kind: "ScalarField",
-                                  name: "breakpoints",
-                                  storageKey: null,
-                                },
-                                {
-                                  alias: null,
-                                  args: null,
-                                  kind: "ScalarField",
-                                  name: "alt",
-                                  storageKey: null,
-                                },
-                                {
-                                  alias: null,
-                                  args: null,
-                                  kind: "ScalarField",
-                                  name: "role",
-                                  storageKey: null,
-                                },
-                                {
-                                  alias: null,
-                                  args: null,
-                                  kind: "ScalarField",
-                                  name: "sizes",
-                                  storageKey: null,
-                                },
-                                {
-                                  alias: null,
-                                  args: null,
-                                  concreteType: "Style",
-                                  kind: "LinkedField",
-                                  name: "style",
-                                  plural: false,
-                                  selections: [
-                                    v8 /*: any*/,
-                                    v7 /*: any*/,
-                                    {
-                                      alias: null,
-                                      args: null,
-                                      kind: "ScalarField",
-                                      name: "maxHeight",
-                                      storageKey: null,
-                                    },
-                                    {
-                                      alias: null,
-                                      args: null,
-                                      kind: "ScalarField",
-                                      name: "maxWidth",
-                                      storageKey: null,
-                                    },
-                                    v6 /*: any*/,
-                                  ],
-                                  storageKey: null,
-                                },
-                              ],
-                              storageKey: null,
-                            },
-                            {
-                              alias: null,
-                              args: null,
-                              kind: "ScalarField",
-                              name: "howTo",
-                              storageKey: null,
-                            },
-                            {
-                              alias: null,
-                              args: null,
-                              concreteType: "MusclesGroupConnection",
-                              kind: "LinkedField",
-                              name: "musclesGroups",
-                              plural: false,
-                              selections: [
-                                {
-                                  alias: null,
-                                  args: null,
-                                  concreteType: "MusclesGroupEdge",
-                                  kind: "LinkedField",
-                                  name: "edges",
-                                  plural: true,
-                                  selections: [
-                                    {
-                                      alias: null,
-                                      args: null,
-                                      concreteType: "MusclesGroup",
-                                      kind: "LinkedField",
-                                      name: "node",
-                                      plural: false,
-                                      selections: v9 /*: any*/,
-                                      storageKey: null,
-                                    },
-                                  ],
-                                  storageKey: null,
-                                },
-                              ],
-                              storageKey: null,
-                            },
-                            {
-                              alias: null,
-                              args: null,
-                              concreteType: "ExerciseTypeConnection",
-                              kind: "LinkedField",
-                              name: "exerciseTypes",
-                              plural: false,
-                              selections: [
-                                {
-                                  alias: null,
-                                  args: null,
-                                  concreteType: "ExerciseTypeEdge",
-                                  kind: "LinkedField",
-                                  name: "edges",
-                                  plural: true,
-                                  selections: [
-                                    {
-                                      alias: null,
-                                      args: null,
-                                      concreteType: "ExerciseType",
-                                      kind: "LinkedField",
-                                      name: "node",
-                                      plural: false,
-                                      selections: v9 /*: any*/,
-                                      storageKey: null,
-                                    },
-                                  ],
-                                  storageKey: null,
-                                },
-                              ],
-                              storageKey: null,
-                            },
-                            v2 /*: any*/,
-                          ],
-                          storageKey: null,
-                        },
-                        {
-                          alias: null,
-                          args: null,
-                          kind: "ScalarField",
-                          name: "cursor",
-                          storageKey: null,
-                        },
-                      ],
-                      storageKey: null,
-                    },
-                    {
-                      alias: null,
-                      args: null,
-                      concreteType: "PageInfo",
-                      kind: "LinkedField",
-                      name: "pageInfo",
-                      plural: false,
-                      selections: [
-                        {
-                          alias: null,
-                          args: null,
-                          kind: "ScalarField",
-                          name: "hasNextPage",
-                          storageKey: null,
-                        },
-                        {
-                          alias: null,
-                          args: null,
-                          kind: "ScalarField",
-                          name: "endCursor",
-                          storageKey: null,
-                        },
-                      ],
-                      storageKey: null,
-                    },
-                  ],
-                  storageKey: null,
-                },
-                {
-                  alias: null,
-                  args: v4 /*: any*/,
-                  filters: null,
-                  handle: "connection",
-                  key: "ExercisesFragment_exercises",
-                  kind: "LinkedHandle",
-                  name: "exercises",
-                },
-              ],
-              type: "User",
-              abstractKey: null,
-            },
-          ],
-          storageKey: null,
-        },
-      ],
-    },
-    params: {
-      cacheID: "3de543fe38f9a2433c0bf6fd245eae15",
-      id: null,
-      metadata: {},
-      name: "ExercisesFragmentPaginationQuery",
-      operationKind: "query",
-      text: "query ExercisesFragmentPaginationQuery(\n  $count: Int = 2\n  $cursor: Cursor\n  $id: ID!\n) {\n  node(id: $id) {\n    __typename\n    ...ExercisesFragment_1G22uz\n    id\n  }\n}\n\nfragment DeleteExerciseDialogFragment on User {\n  id\n}\n\nfragment ExerciseFragment on Exercise {\n  id\n  name\n  image {\n    ...ImageFragment\n  }\n  howTo\n  musclesGroups {\n    edges {\n      node {\n        id\n        name\n      }\n    }\n  }\n  exerciseTypes {\n    edges {\n      node {\n        id\n        name\n      }\n    }\n  }\n}\n\nfragment ExercisesFragment_1G22uz on User {\n  id\n  ...DeleteExerciseDialogFragment\n  exercises(after: $cursor, first: $count) {\n    edges {\n      node {\n        id\n        ...ExerciseFragment\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n\nfragment ImageFragment on Image {\n  src\n  srcset\n  width\n  height\n  priority\n  loading\n  fetchPriority\n  decoding\n  layout\n  aspectRatio\n  objectFit\n  breakpoints\n  alt\n  role\n  sizes\n  style {\n    aspectRatio\n    height\n    maxHeight\n    maxWidth\n    width\n  }\n}\n",
-    },
-  };
+    "kind": "Fragment",
+    "metadata": null,
+    "name": "ExercisesFragmentPaginationQuery",
+    "selections": [
+      {
+        "alias": null,
+        "args": (v6/*: any*/),
+        "concreteType": null,
+        "kind": "LinkedField",
+        "name": "node",
+        "plural": false,
+        "selections": [
+          {
+            "args": [
+              {
+                "kind": "Variable",
+                "name": "count",
+                "variableName": "count"
+              },
+              {
+                "kind": "Variable",
+                "name": "cursor",
+                "variableName": "cursor"
+              },
+              {
+                "kind": "Variable",
+                "name": "exerciseTypeWhereInput",
+                "variableName": "exerciseTypeWhereInput"
+              },
+              {
+                "kind": "Variable",
+                "name": "musclesGroupWhereInput",
+                "variableName": "musclesGroupWhereInput"
+              },
+              {
+                "kind": "Variable",
+                "name": "orderby",
+                "variableName": "orderby"
+              }
+            ],
+            "kind": "FragmentSpread",
+            "name": "ExercisesFragment"
+          }
+        ],
+        "storageKey": null
+      }
+    ],
+    "type": "Query",
+    "abstractKey": null
+  },
+  "kind": "Request",
+  "operation": {
+    "argumentDefinitions": [
+      (v0/*: any*/),
+      (v1/*: any*/),
+      (v2/*: any*/),
+      (v4/*: any*/),
+      (v5/*: any*/),
+      (v3/*: any*/)
+    ],
+    "kind": "Operation",
+    "name": "ExercisesFragmentPaginationQuery",
+    "selections": [
+      {
+        "alias": null,
+        "args": (v6/*: any*/),
+        "concreteType": null,
+        "kind": "LinkedField",
+        "name": "node",
+        "plural": false,
+        "selections": [
+          (v7/*: any*/),
+          (v8/*: any*/),
+          {
+            "kind": "InlineFragment",
+            "selections": [
+              {
+                "alias": null,
+                "args": (v9/*: any*/),
+                "concreteType": "ExerciseConnection",
+                "kind": "LinkedField",
+                "name": "exercises",
+                "plural": false,
+                "selections": [
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "ExerciseEdge",
+                    "kind": "LinkedField",
+                    "name": "edges",
+                    "plural": true,
+                    "selections": [
+                      {
+                        "alias": null,
+                        "args": null,
+                        "concreteType": "Exercise",
+                        "kind": "LinkedField",
+                        "name": "node",
+                        "plural": false,
+                        "selections": [
+                          (v8/*: any*/),
+                          (v10/*: any*/),
+                          {
+                            "alias": null,
+                            "args": null,
+                            "concreteType": "Image",
+                            "kind": "LinkedField",
+                            "name": "image",
+                            "plural": false,
+                            "selections": [
+                              {
+                                "alias": null,
+                                "args": null,
+                                "kind": "ScalarField",
+                                "name": "src",
+                                "storageKey": null
+                              },
+                              {
+                                "alias": null,
+                                "args": null,
+                                "kind": "ScalarField",
+                                "name": "srcset",
+                                "storageKey": null
+                              },
+                              (v11/*: any*/),
+                              (v12/*: any*/),
+                              {
+                                "alias": null,
+                                "args": null,
+                                "kind": "ScalarField",
+                                "name": "priority",
+                                "storageKey": null
+                              },
+                              {
+                                "alias": null,
+                                "args": null,
+                                "kind": "ScalarField",
+                                "name": "loading",
+                                "storageKey": null
+                              },
+                              {
+                                "alias": null,
+                                "args": null,
+                                "kind": "ScalarField",
+                                "name": "fetchPriority",
+                                "storageKey": null
+                              },
+                              {
+                                "alias": null,
+                                "args": null,
+                                "kind": "ScalarField",
+                                "name": "decoding",
+                                "storageKey": null
+                              },
+                              {
+                                "alias": null,
+                                "args": null,
+                                "kind": "ScalarField",
+                                "name": "layout",
+                                "storageKey": null
+                              },
+                              (v13/*: any*/),
+                              {
+                                "alias": null,
+                                "args": null,
+                                "kind": "ScalarField",
+                                "name": "objectFit",
+                                "storageKey": null
+                              },
+                              {
+                                "alias": null,
+                                "args": null,
+                                "kind": "ScalarField",
+                                "name": "breakpoints",
+                                "storageKey": null
+                              },
+                              {
+                                "alias": null,
+                                "args": null,
+                                "kind": "ScalarField",
+                                "name": "alt",
+                                "storageKey": null
+                              },
+                              {
+                                "alias": null,
+                                "args": null,
+                                "kind": "ScalarField",
+                                "name": "role",
+                                "storageKey": null
+                              },
+                              {
+                                "alias": null,
+                                "args": null,
+                                "kind": "ScalarField",
+                                "name": "sizes",
+                                "storageKey": null
+                              },
+                              {
+                                "alias": null,
+                                "args": null,
+                                "concreteType": "Style",
+                                "kind": "LinkedField",
+                                "name": "style",
+                                "plural": false,
+                                "selections": [
+                                  (v13/*: any*/),
+                                  (v12/*: any*/),
+                                  {
+                                    "alias": null,
+                                    "args": null,
+                                    "kind": "ScalarField",
+                                    "name": "maxHeight",
+                                    "storageKey": null
+                                  },
+                                  {
+                                    "alias": null,
+                                    "args": null,
+                                    "kind": "ScalarField",
+                                    "name": "maxWidth",
+                                    "storageKey": null
+                                  },
+                                  (v11/*: any*/)
+                                ],
+                                "storageKey": null
+                              }
+                            ],
+                            "storageKey": null
+                          },
+                          {
+                            "alias": null,
+                            "args": null,
+                            "kind": "ScalarField",
+                            "name": "howTo",
+                            "storageKey": null
+                          },
+                          {
+                            "alias": null,
+                            "args": null,
+                            "concreteType": "MusclesGroupConnection",
+                            "kind": "LinkedField",
+                            "name": "musclesGroups",
+                            "plural": false,
+                            "selections": [
+                              {
+                                "alias": null,
+                                "args": null,
+                                "concreteType": "MusclesGroupEdge",
+                                "kind": "LinkedField",
+                                "name": "edges",
+                                "plural": true,
+                                "selections": [
+                                  {
+                                    "alias": null,
+                                    "args": null,
+                                    "concreteType": "MusclesGroup",
+                                    "kind": "LinkedField",
+                                    "name": "node",
+                                    "plural": false,
+                                    "selections": (v14/*: any*/),
+                                    "storageKey": null
+                                  }
+                                ],
+                                "storageKey": null
+                              }
+                            ],
+                            "storageKey": null
+                          },
+                          {
+                            "alias": null,
+                            "args": null,
+                            "concreteType": "ExerciseTypeConnection",
+                            "kind": "LinkedField",
+                            "name": "exerciseTypes",
+                            "plural": false,
+                            "selections": [
+                              {
+                                "alias": null,
+                                "args": null,
+                                "concreteType": "ExerciseTypeEdge",
+                                "kind": "LinkedField",
+                                "name": "edges",
+                                "plural": true,
+                                "selections": [
+                                  {
+                                    "alias": null,
+                                    "args": null,
+                                    "concreteType": "ExerciseType",
+                                    "kind": "LinkedField",
+                                    "name": "node",
+                                    "plural": false,
+                                    "selections": (v14/*: any*/),
+                                    "storageKey": null
+                                  }
+                                ],
+                                "storageKey": null
+                              }
+                            ],
+                            "storageKey": null
+                          },
+                          (v7/*: any*/)
+                        ],
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "cursor",
+                        "storageKey": null
+                      }
+                    ],
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "PageInfo",
+                    "kind": "LinkedField",
+                    "name": "pageInfo",
+                    "plural": false,
+                    "selections": [
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "hasNextPage",
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "endCursor",
+                        "storageKey": null
+                      }
+                    ],
+                    "storageKey": null
+                  },
+                  {
+                    "kind": "ClientExtension",
+                    "selections": [
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "__id",
+                        "storageKey": null
+                      }
+                    ]
+                  }
+                ],
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": (v9/*: any*/),
+                "filters": [
+                  "where",
+                  "orderBy"
+                ],
+                "handle": "connection",
+                "key": "ExercisesFragment_exercises",
+                "kind": "LinkedHandle",
+                "name": "exercises"
+              }
+            ],
+            "type": "User",
+            "abstractKey": null
+          }
+        ],
+        "storageKey": null
+      }
+    ]
+  },
+  "params": {
+    "cacheID": "6a61f8b20694353c862b5daeaa04d7a8",
+    "id": null,
+    "metadata": {},
+    "name": "ExercisesFragmentPaginationQuery",
+    "operationKind": "query",
+    "text": "query ExercisesFragmentPaginationQuery(\n  $count: Int = 4\n  $cursor: Cursor\n  $exerciseTypeWhereInput: [ExerciseTypeWhereInput!] = []\n  $musclesGroupWhereInput: [MusclesGroupWhereInput!] = []\n  $orderby: OrderDirection = DESC\n  $id: ID!\n) {\n  node(id: $id) {\n    __typename\n    ...ExercisesFragment_1FK7Ak\n    id\n  }\n}\n\nfragment ExerciseFragment on Exercise {\n  id\n  name\n  image {\n    ...ImageFragment\n  }\n  howTo\n  musclesGroups {\n    edges {\n      node {\n        id\n        name\n      }\n    }\n  }\n  exerciseTypes {\n    edges {\n      node {\n        id\n        name\n      }\n    }\n  }\n}\n\nfragment ExercisesFragment_1FK7Ak on User {\n  id\n  exercises(after: $cursor, first: $count, where: {hasExerciseTypesWith: $exerciseTypeWhereInput, hasMusclesGroupsWith: $musclesGroupWhereInput}, orderBy: {direction: $orderby, field: ID}) {\n    edges {\n      node {\n        id\n        ...ExerciseFragment\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n\nfragment ImageFragment on Image {\n  src\n  srcset\n  width\n  height\n  priority\n  loading\n  fetchPriority\n  decoding\n  layout\n  aspectRatio\n  objectFit\n  breakpoints\n  alt\n  role\n  sizes\n  style {\n    aspectRatio\n    height\n    maxHeight\n    maxWidth\n    width\n  }\n}\n"
+  }
+};
 })();
 
-(node as any).hash = "1e904319ae21b35bab69d27476c27ffd";
+(node as any).hash = "981628dae6ccd7f6685ef8d9ab0e04ae";
 
 export default node;

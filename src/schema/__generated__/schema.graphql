@@ -131,6 +131,9 @@ type Equipment implements Node {
     """Returns the last _n_ elements from the list."""
     last: Int
 
+    """Ordering options for Exercises returned from the connection."""
+    orderBy: ExerciseOrder
+
     """Filtering options for Exercises returned from the connection."""
     where: ExerciseWhereInput
   ): ExerciseConnection!
@@ -155,6 +158,20 @@ type EquipmentEdge {
 
   """A cursor for use in pagination."""
   cursor: Cursor!
+}
+
+"""Ordering options for Equipment connections"""
+input EquipmentOrder {
+  """The ordering direction."""
+  direction: OrderDirection! = ASC
+
+  """The field by which to order EquipmentSlice."""
+  field: EquipmentOrderField!
+}
+
+"""Properties by which Equipment connections can be ordered."""
+enum EquipmentOrderField {
+  ID
 }
 
 """
@@ -217,6 +234,9 @@ type Exercise implements Node {
     """Returns the last _n_ elements from the list."""
     last: Int
 
+    """Ordering options for WorkoutLogs returned from the connection."""
+    orderBy: WorkoutLogOrder
+
     """Filtering options for WorkoutLogs returned from the connection."""
     where: WorkoutLogWhereInput
   ): WorkoutLogConnection!
@@ -236,6 +256,9 @@ type Exercise implements Node {
     """Returns the last _n_ elements from the list."""
     last: Int
 
+    """Ordering options for EquipmentSlice returned from the connection."""
+    orderBy: EquipmentOrder
+
     """Filtering options for EquipmentSlice returned from the connection."""
     where: EquipmentWhereInput
   ): EquipmentConnection!
@@ -253,6 +276,9 @@ type Exercise implements Node {
 
     """Returns the last _n_ elements from the list."""
     last: Int
+
+    """Ordering options for MusclesGroups returned from the connection."""
+    orderBy: MusclesGroupOrder
 
     """Filtering options for MusclesGroups returned from the connection."""
     where: MusclesGroupWhereInput
@@ -272,6 +298,9 @@ type Exercise implements Node {
     """Returns the last _n_ elements from the list."""
     last: Int
 
+    """Ordering options for ExerciseTypes returned from the connection."""
+    orderBy: ExerciseTypeOrder
+
     """Filtering options for ExerciseTypes returned from the connection."""
     where: ExerciseTypeWhereInput
   ): ExerciseTypeConnection!
@@ -290,6 +319,9 @@ type Exercise implements Node {
     """Returns the last _n_ elements from the list."""
     last: Int
 
+    """Ordering options for Routines returned from the connection."""
+    orderBy: RoutineOrder
+
     """Filtering options for Routines returned from the connection."""
     where: RoutineWhereInput
   ): RoutineConnection!
@@ -307,6 +339,9 @@ type Exercise implements Node {
 
     """Returns the last _n_ elements from the list."""
     last: Int
+
+    """Ordering options for RoutineExercises returned from the connection."""
+    orderBy: RoutineExerciseOrder
 
     """Filtering options for RoutineExercises returned from the connection."""
     where: RoutineExerciseWhereInput
@@ -334,6 +369,20 @@ type ExerciseEdge {
   cursor: Cursor!
 }
 
+"""Ordering options for Exercise connections"""
+input ExerciseOrder {
+  """The ordering direction."""
+  direction: OrderDirection! = ASC
+
+  """The field by which to order Exercises."""
+  field: ExerciseOrderField!
+}
+
+"""Properties by which Exercise connections can be ordered."""
+enum ExerciseOrderField {
+  ID
+}
+
 type ExerciseType implements Node {
   id: ID!
   name: String!
@@ -353,6 +402,9 @@ type ExerciseType implements Node {
 
     """Returns the last _n_ elements from the list."""
     last: Int
+
+    """Ordering options for Exercises returned from the connection."""
+    orderBy: ExerciseOrder
 
     """Filtering options for Exercises returned from the connection."""
     where: ExerciseWhereInput
@@ -378,6 +430,20 @@ type ExerciseTypeEdge {
 
   """A cursor for use in pagination."""
   cursor: Cursor!
+}
+
+"""Ordering options for ExerciseType connections"""
+input ExerciseTypeOrder {
+  """The ordering direction."""
+  direction: OrderDirection! = ASC
+
+  """The field by which to order ExerciseTypes."""
+  field: ExerciseTypeOrderField!
+}
+
+"""Properties by which ExerciseType connections can be ordered."""
+enum ExerciseTypeOrderField {
+  ID
 }
 
 """
@@ -585,6 +651,9 @@ type MusclesGroup implements Node {
     """Returns the last _n_ elements from the list."""
     last: Int
 
+    """Ordering options for Exercises returned from the connection."""
+    orderBy: ExerciseOrder
+
     """Filtering options for Exercises returned from the connection."""
     where: ExerciseWhereInput
   ): ExerciseConnection!
@@ -609,6 +678,20 @@ type MusclesGroupEdge {
 
   """A cursor for use in pagination."""
   cursor: Cursor!
+}
+
+"""Ordering options for MusclesGroup connections"""
+input MusclesGroupOrder {
+  """The ordering direction."""
+  direction: OrderDirection! = ASC
+
+  """The field by which to order MusclesGroups."""
+  field: MusclesGroupOrderField!
+}
+
+"""Properties by which MusclesGroup connections can be ordered."""
+enum MusclesGroupOrderField {
+  ID
 }
 
 """
@@ -731,6 +814,9 @@ type Query {
     """Returns the last _n_ elements from the list."""
     last: Int
 
+    """Ordering options for EquipmentSlice returned from the connection."""
+    orderBy: EquipmentOrder
+
     """Filtering options for EquipmentSlice returned from the connection."""
     where: EquipmentWhereInput
   ): EquipmentConnection!
@@ -748,6 +834,9 @@ type Query {
 
     """Returns the last _n_ elements from the list."""
     last: Int
+
+    """Ordering options for Exercises returned from the connection."""
+    orderBy: ExerciseOrder
 
     """Filtering options for Exercises returned from the connection."""
     where: ExerciseWhereInput
@@ -767,6 +856,9 @@ type Query {
     """Returns the last _n_ elements from the list."""
     last: Int
 
+    """Ordering options for ExerciseTypes returned from the connection."""
+    orderBy: ExerciseTypeOrder
+
     """Filtering options for ExerciseTypes returned from the connection."""
     where: ExerciseTypeWhereInput
   ): ExerciseTypeConnection!
@@ -784,6 +876,9 @@ type Query {
 
     """Returns the last _n_ elements from the list."""
     last: Int
+
+    """Ordering options for MusclesGroups returned from the connection."""
+    orderBy: MusclesGroupOrder
 
     """Filtering options for MusclesGroups returned from the connection."""
     where: MusclesGroupWhereInput
@@ -803,6 +898,9 @@ type Query {
     """Returns the last _n_ elements from the list."""
     last: Int
 
+    """Ordering options for Routines returned from the connection."""
+    orderBy: RoutineOrder
+
     """Filtering options for Routines returned from the connection."""
     where: RoutineWhereInput
   ): RoutineConnection!
@@ -820,6 +918,9 @@ type Query {
 
     """Returns the last _n_ elements from the list."""
     last: Int
+
+    """Ordering options for RoutineExercises returned from the connection."""
+    orderBy: RoutineExerciseOrder
 
     """Filtering options for RoutineExercises returned from the connection."""
     where: RoutineExerciseWhereInput
@@ -839,6 +940,9 @@ type Query {
     """Returns the last _n_ elements from the list."""
     last: Int
 
+    """Ordering options for Users returned from the connection."""
+    orderBy: UserOrder
+
     """Filtering options for Users returned from the connection."""
     where: UserWhereInput
   ): UserConnection!
@@ -857,6 +961,9 @@ type Query {
     """Returns the last _n_ elements from the list."""
     last: Int
 
+    """Ordering options for Workouts returned from the connection."""
+    orderBy: WorkoutOrder
+
     """Filtering options for Workouts returned from the connection."""
     where: WorkoutWhereInput
   ): WorkoutConnection!
@@ -874,6 +981,9 @@ type Query {
 
     """Returns the last _n_ elements from the list."""
     last: Int
+
+    """Ordering options for WorkoutLogs returned from the connection."""
+    orderBy: WorkoutLogOrder
 
     """Filtering options for WorkoutLogs returned from the connection."""
     where: WorkoutLogWhereInput
@@ -909,6 +1019,9 @@ type Routine implements Node {
     """Returns the last _n_ elements from the list."""
     last: Int
 
+    """Ordering options for Exercises returned from the connection."""
+    orderBy: ExerciseOrder
+
     """Filtering options for Exercises returned from the connection."""
     where: ExerciseWhereInput
   ): ExerciseConnection!
@@ -927,6 +1040,9 @@ type Routine implements Node {
 
     """Returns the last _n_ elements from the list."""
     last: Int
+
+    """Ordering options for RoutineExercises returned from the connection."""
+    orderBy: RoutineExerciseOrder
 
     """Filtering options for RoutineExercises returned from the connection."""
     where: RoutineExerciseWhereInput
@@ -987,6 +1103,20 @@ type RoutineExerciseEdge {
   cursor: Cursor!
 }
 
+"""Ordering options for RoutineExercise connections"""
+input RoutineExerciseOrder {
+  """The ordering direction."""
+  direction: OrderDirection! = ASC
+
+  """The field by which to order RoutineExercises."""
+  field: RoutineExerciseOrderField!
+}
+
+"""Properties by which RoutineExercise connections can be ordered."""
+enum RoutineExerciseOrderField {
+  ID
+}
+
 """
 RoutineExerciseWhereInput is used for filtering RoutineExercise objects.
 Input was generated by ent.
@@ -1022,6 +1152,20 @@ input RoutineExerciseWhereInput {
   restTimerNotNil: Boolean
   restTimerEqualFold: String
   restTimerContainsFold: String
+}
+
+"""Ordering options for Routine connections"""
+input RoutineOrder {
+  """The ordering direction."""
+  direction: OrderDirection! = ASC
+
+  """The field by which to order Routines."""
+  field: RoutineOrderField!
+}
+
+"""Properties by which Routine connections can be ordered."""
+enum RoutineOrderField {
+  ID
 }
 
 """
@@ -1116,6 +1260,20 @@ type Token implements Node {
   scope: String!
   userID: ID!
   users: User!
+}
+
+"""Ordering options for Token connections"""
+input TokenOrder {
+  """The ordering direction."""
+  direction: OrderDirection! = ASC
+
+  """The field by which to order Tokens."""
+  field: TokenOrderField!
+}
+
+"""Properties by which Token connections can be ordered."""
+enum TokenOrderField {
+  ID
 }
 
 """
@@ -1283,6 +1441,9 @@ type User implements Node {
     """Returns the last _n_ elements from the list."""
     last: Int
 
+    """Ordering options for Exercises returned from the connection."""
+    orderBy: ExerciseOrder
+
     """Filtering options for Exercises returned from the connection."""
     where: ExerciseWhereInput
   ): ExerciseConnection!
@@ -1300,6 +1461,9 @@ type User implements Node {
 
     """Returns the last _n_ elements from the list."""
     last: Int
+
+    """Ordering options for Routines returned from the connection."""
+    orderBy: RoutineOrder
 
     """Filtering options for Routines returned from the connection."""
     where: RoutineWhereInput
@@ -1319,6 +1483,9 @@ type User implements Node {
     """Returns the last _n_ elements from the list."""
     last: Int
 
+    """Ordering options for Workouts returned from the connection."""
+    orderBy: WorkoutOrder
+
     """Filtering options for Workouts returned from the connection."""
     where: WorkoutWhereInput
   ): WorkoutConnection!
@@ -1337,6 +1504,9 @@ type User implements Node {
     """Returns the last _n_ elements from the list."""
     last: Int
 
+    """Ordering options for WorkoutLogs returned from the connection."""
+    orderBy: WorkoutLogOrder
+
     """Filtering options for WorkoutLogs returned from the connection."""
     where: WorkoutLogWhereInput
   ): WorkoutLogConnection!
@@ -1354,6 +1524,9 @@ type User implements Node {
 
     """Returns the last _n_ elements from the list."""
     last: Int
+
+    """Ordering options for RoutineExercises returned from the connection."""
+    orderBy: RoutineExerciseOrder
 
     """Filtering options for RoutineExercises returned from the connection."""
     where: RoutineExerciseWhereInput
@@ -1379,6 +1552,20 @@ type UserEdge {
 
   """A cursor for use in pagination."""
   cursor: Cursor!
+}
+
+"""Ordering options for User connections"""
+input UserOrder {
+  """The ordering direction."""
+  direction: OrderDirection! = ASC
+
+  """The field by which to order Users."""
+  field: UserOrderField!
+}
+
+"""Properties by which User connections can be ordered."""
+enum UserOrderField {
+  ID
 }
 
 """
@@ -1532,6 +1719,9 @@ type Workout implements Node {
     """Returns the last _n_ elements from the list."""
     last: Int
 
+    """Ordering options for WorkoutLogs returned from the connection."""
+    orderBy: WorkoutLogOrder
+
     """Filtering options for WorkoutLogs returned from the connection."""
     where: WorkoutLogWhereInput
   ): WorkoutLogConnection!
@@ -1587,6 +1777,20 @@ type WorkoutLogEdge {
 
   """A cursor for use in pagination."""
   cursor: Cursor!
+}
+
+"""Ordering options for WorkoutLog connections"""
+input WorkoutLogOrder {
+  """The ordering direction."""
+  direction: OrderDirection! = ASC
+
+  """The field by which to order WorkoutLogs."""
+  field: WorkoutLogOrderField!
+}
+
+"""Properties by which WorkoutLog connections can be ordered."""
+enum WorkoutLogOrderField {
+  ID
 }
 
 """
@@ -1649,6 +1853,20 @@ input WorkoutLogWhereInput {
   """workouts edge predicates"""
   hasWorkouts: Boolean
   hasWorkoutsWith: [WorkoutWhereInput!]
+}
+
+"""Ordering options for Workout connections"""
+input WorkoutOrder {
+  """The ordering direction."""
+  direction: OrderDirection! = ASC
+
+  """The field by which to order Workouts."""
+  field: WorkoutOrderField!
+}
+
+"""Properties by which Workout connections can be ordered."""
+enum WorkoutOrderField {
+  ID
 }
 
 """
