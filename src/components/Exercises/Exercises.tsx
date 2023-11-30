@@ -1,9 +1,6 @@
-import {
-  ExercisesFragment$data,
-  ExercisesFragment$key,
-} from "@/queries/__generated__/ExercisesFragment.graphql";
-import { usePaginationFragment } from "react-relay";
-import { graphql } from "relay-runtime";
+import { ExercisesFragment$key } from "@/queries/__generated__/ExercisesFragment.graphql";
+import { useFragment, usePaginationFragment } from "react-relay";
+import { OperationType, graphql } from "relay-runtime";
 import { Exercise } from "./Exercise";
 import { Button } from "../ui/button";
 import Link from "next/link";
@@ -16,18 +13,47 @@ import {
 import { cn } from "@/lib/utils";
 import { LoadingSpinner } from "../common/LoadingSpinner";
 import { InfiniteScroll } from "../common/InfiniteScroll";
+import { ExercisesParentFragment$key } from "@/queries/__generated__/ExercisesParentFragment.graphql";
+import { ExercisesFilterSort } from "./ExercisesFilterSort";
+import { ExercisesEmptyState } from "./ExercisesEmptyState";
+import { useExercisesFilterSort } from "../Hooks/useExercisesFilterSort";
+
+const ExercisesParentFragment = graphql`
+  fragment ExercisesParentFragment on Query {
+    viewer {
+      ...ExercisesFragment
+    }
+    ...ExercisesFilterSortFragment
+  }
+`;
 
 const ExercisesFragment = graphql`
   fragment ExercisesFragment on User
   @refetchable(queryName: "ExercisesFragmentPaginationQuery")
   @argumentDefinitions(
     cursor: { type: "Cursor" }
-    count: { type: "Int", defaultValue: 2 }
+    count: { type: "Int", defaultValue: 4 }
+    orderby: { type: "OrderDirection", defaultValue: DESC }
+    exerciseTypeWhereInput: {
+      type: "[ExerciseTypeWhereInput!]"
+      defaultValue: []
+    }
+    musclesGroupWhereInput: {
+      type: "[MusclesGroupWhereInput!]"
+      defaultValue: []
+    }
   ) {
     id
-    ...DeleteExerciseDialogFragment
-    exercises(after: $cursor, first: $count)
-      @connection(key: "ExercisesFragment_exercises") {
+    exercises(
+      after: $cursor
+      first: $count
+      where: {
+        hasExerciseTypesWith: $exerciseTypeWhereInput
+        hasMusclesGroupsWith: $musclesGroupWhereInput
+      }
+      orderBy: { direction: $orderby, field: ID }
+    ) @connection(key: "ExercisesFragment_exercises") {
+      __id
       edges {
         node {
           id
@@ -42,14 +68,19 @@ const ExercisesFragment = graphql`
 `;
 
 type ExercisesProps = ComponentProps<"div"> & {
-  queryRef: ExercisesFragment$key;
+  queryRef: ExercisesParentFragment$key;
 };
 
-const ExercisesData = createContext<ExercisesFragment$data | null>(null);
+const ExercisesData = createContext<ExercisesFragment$key | null>(null);
 
 function Exercises({ queryRef, className }: ExercisesProps) {
   const [isPending, startTransition] = useTransition();
-  const { data, loadNext } = usePaginationFragment(ExercisesFragment, queryRef);
+  const query = useFragment(ExercisesParentFragment, queryRef);
+  const { data, loadNext, refetch } = usePaginationFragment<
+    OperationType,
+    ExercisesFragment$key
+  >(ExercisesFragment, query.viewer);
+  const [state, dispatch] = useExercisesFilterSort();
 
   const onLoadMore = useCallback(() => {
     startTransition(() => {
@@ -57,33 +88,49 @@ function Exercises({ queryRef, className }: ExercisesProps) {
     });
   }, [loadNext]);
 
-  const exercises = data.exercises?.edges;
-  const exerciseBaseCN = "col-span-4";
-  const exerciseRegularCN =
-    "md:col-span-2 md:odd:justify-self-start md:even:justify-self-end";
+  if (!data) {
+    return null;
+  }
 
-  // if (!exercises || exercises.length === 0) {
-  //   return (
-  //     <Button asChild>
-  //       <Link href="/dashboard/exercises/add">Add Exercise</Link>
-  //     </Button>
-  //   );
-  // }
+  const exerciseEdges = data.exercises.edges;
+
+  if (!exerciseEdges || exerciseEdges.length === 0) {
+    return (
+      <ExercisesEmptyState
+        SlotExercisesFilterSort={
+          <ExercisesFilterSort
+            exercisesFilterSortFragmentQueryRef={query}
+            startTransition={startTransition}
+            refetch={refetch}
+            state={state}
+            dispatch={dispatch}
+          />
+        }
+      />
+    );
+  }
 
   return (
-    <ExercisesData.Provider value={data}>
+    <ExercisesData.Provider value={query.viewer}>
       <div className="space-y-3">
-        <div className={cn("space-y-5", className)}>
-          <Button className="justify-self-end self-center col-span-4" asChild>
+        <div className="flex">
+          <Button className="ml-auto" asChild>
             <Link href="/dashboard/exercises/add">Add Exercise</Link>
           </Button>
-          {exercises?.map((ex) => {
+        </div>
+        <ExercisesFilterSort
+          exercisesFilterSortFragmentQueryRef={query}
+          startTransition={startTransition}
+          refetch={refetch}
+          state={state}
+          dispatch={dispatch}
+        />
+        <div className={cn("", className)}>
+          {exerciseEdges?.map((ex) => {
             if (ex?.node) {
               return (
                 <Exercise
-                  className={`${exerciseBaseCN} ${
-                    exercises.length === 1 ? "md:w-full" : exerciseRegularCN
-                  }`}
+                  className="col-span-4 md:col-span-2 md:odd:justify-self-end md:even:justify-self-start"
                   queryRef={ex.node}
                   key={ex.node.id}
                 />
@@ -101,4 +148,4 @@ function Exercises({ queryRef, className }: ExercisesProps) {
   );
 }
 
-export { Exercises, ExercisesData };
+export { Exercises, ExercisesData, ExercisesFragment };

@@ -113,6 +113,9 @@ dependencies:
   react-relay:
     specifier: ^15.0.0
     version: 15.0.0(react@18.2.0)
+  relay-connection-handler-plus:
+    specifier: ^0.1.2
+    version: 0.1.2(relay-runtime@15.0.0)
   relay-nextjs:
     specifier: ^3.0.1
     version: 3.0.1
@@ -1639,7 +1642,6 @@ packages:
 
   /@types/relay-runtime@14.1.19:
     resolution: {integrity: sha512-j7JlgOGqpEJUjB4/xJ3tktb0eERj036fF1cdBFJ4ykzvANVCIPylJxxYK9Wi7V07qOmcGYB7DhI5R6k6LorZfQ==}
-    dev: true
 
   /@types/retry@0.12.2:
     resolution: {integrity: sha512-XISRgDJ2Tc5q4TRqvgJtzsRkFYNJzZrhTdtMoGVBttwzzQJkPnS3WWTFc7kuDRoPtPakl+T+OfdEUjYJj7Jbow==}
@@ -4339,6 +4341,15 @@ packages:
     dependencies:
       cosmiconfig: 5.2.1
     dev: true
+
+  /relay-connection-handler-plus@0.1.2(relay-runtime@15.0.0):
+    resolution: {integrity: sha512-uM0wyjZbh/fwGFI7+0MFrdw2fsSNWQkduH35G3EN4zw9ALZMQ7GeZrr90+vQJ+lKvP9jqzHqLO18i7SKrgowTA==}
+    peerDependencies:
+      relay-runtime: '>=9.0.0'
+    dependencies:
+      '@types/relay-runtime': 14.1.19
+      relay-runtime: 15.0.0
+    dev: false
 
   /relay-nextjs@3.0.1:
     resolution: {integrity: sha512-FQaQ59kQaDGchjXY5MYMsS0RXFPemXeqbT2CDZ07Jd7rM4lsTrItKTr1GZlJLomrlpvIN9ijNfokXR2ykBPWLA==}

@@ -11,6 +11,7 @@ const AddExerciseQuery = graphql`
   query add_Query {
     viewer {
       ...useAuthRedirectFragment
+      ...ExercisesFragment
     }
     ...AddExerciseFormFragment
   }
@@ -22,7 +23,13 @@ function AddExercise({ preloadedQuery }: RelayProps<{}, add_Query>) {
     user: data.viewer,
   });
 
-  return <AddExerciseForm queryRef={data} />;
+  if (!data.viewer) {
+    return null;
+  }
+
+  return (
+    <AddExerciseForm queryRef={data} exercisesFragmentQueryRef={data.viewer} />
+  );
 }
 
 function Loading() {

@@ -50,7 +50,7 @@ type ExerciseProps = ComponentProps<"div"> & {
 function Exercise({ queryRef, className }: ExerciseProps) {
   const data = useFragment(ExerciseFragment, queryRef);
   return (
-    <Card className={cn("w-full md:w-[400px]", className)}>
+    <Card className={cn("w-full", className)}>
       <CardHeader className="flex flex-row items-end gap-x-5">
         <Avatar className="w-20 h-20">
           {data.image && <Image image={data.image} />}

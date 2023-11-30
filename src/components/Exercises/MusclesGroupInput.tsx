@@ -30,21 +30,35 @@ const MusclesGroupInputFragment = graphql`
 `;
 
 type MusclesGroupInputProps = SelectProps & {
+  isInsideForm?: boolean;
   queryRef: MusclesGroupInputFragment$key;
 };
 
-function MusclesGroupInput({ queryRef, ...props }: MusclesGroupInputProps) {
+function MusclesGroupInput({
+  queryRef,
+  isInsideForm = false,
+  ...props
+}: MusclesGroupInputProps) {
   const data = useFragment(MusclesGroupInputFragment, queryRef);
   return (
     <Select {...props}>
-      <FormControl>
+      {isInsideForm ? (
+        <FormControl>
+          <SelectTrigger className="h-12">
+            <SelectValue
+              className="h-12"
+              placeholder="Select primary muscles group"
+            />
+          </SelectTrigger>
+        </FormControl>
+      ) : (
         <SelectTrigger className="h-12">
           <SelectValue
             className="h-12"
             placeholder="Select primary muscles group"
           />
         </SelectTrigger>
-      </FormControl>
+      )}
       <SelectContent>
         {data.musclesGroups?.edges?.map((mg) => {
           if (mg?.node) {

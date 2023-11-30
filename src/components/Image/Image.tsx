@@ -35,7 +35,7 @@ const ImageFragment = graphql`
 export const Image = forwardRef<HTMLImageElement, ImageProps>(
   function Image(props, ref) {
     const data = useFragment(ImageFragment, props.image);
-    if (data === null) {
+    if (data === null || data.src.length === 0) {
       return null;
     }
 

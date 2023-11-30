@@ -26,18 +26,29 @@ const ExerciseTypeInputFragment = graphql`
 `;
 
 type ExerciseTypeInputProps = SelectProps & {
+  isInsideForm?: boolean;
   queryRef: ExerciseTypeInputFragment$key;
 };
 
-function ExerciseTypeInput({ queryRef, ...props }: ExerciseTypeInputProps) {
+function ExerciseTypeInput({
+  queryRef,
+  isInsideForm = false,
+  ...props
+}: ExerciseTypeInputProps) {
   const data = useFragment(ExerciseTypeInputFragment, queryRef);
   return (
     <Select {...props}>
-      <FormControl>
+      {isInsideForm ? (
+        <FormControl>
+          <SelectTrigger className="h-12">
+            <SelectValue className="h-12" placeholder="Select exercise type" />
+          </SelectTrigger>
+        </FormControl>
+      ) : (
         <SelectTrigger className="h-12">
           <SelectValue className="h-12" placeholder="Select exercise type" />
         </SelectTrigger>
-      </FormControl>
+      )}
       <SelectContent>
         {data.exerciseTypes?.edges?.map((et) => {
           if (et?.node) {

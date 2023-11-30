@@ -8,28 +8,20 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { ReactNode, useContext, useState } from "react";
-import { ConnectionHandler, graphql } from "relay-runtime";
+import { graphql } from "relay-runtime";
 import { Button } from "../ui/button";
 import { useFragment, useMutation } from "react-relay";
 import { DeleteExerciseDialog_Mutation } from "@/queries/__generated__/DeleteExerciseDialog_Mutation.graphql";
-import { DeleteExerciseDialogFragment$key } from "@/queries/__generated__/DeleteExerciseDialogFragment.graphql";
 import { useToast } from "../ui/use-toast";
-import { ExercisesData } from "./Exercises";
+import { ExercisesData, ExercisesFragment } from "./Exercises";
+import { ExercisesFragment$key } from "@/queries/__generated__/ExercisesFragment.graphql";
+import ConnectionHandler from "relay-connection-handler-plus";
 
 const DeleteExerciseDialogMutation = graphql`
-  mutation DeleteExerciseDialog_Mutation(
-    $connections: [ID!]!
-    $input: DeleteExerciseInput!
-  ) {
+  mutation DeleteExerciseDialog_Mutation($input: DeleteExerciseInput!) {
     deleteExercise(input: $input) {
-      id @deleteEdge(connections: $connections)
+      id
     }
-  }
-`;
-
-const DeleteExerciseDialogFragment = graphql`
-  fragment DeleteExerciseDialogFragment on User {
-    id
   }
 `;
 
@@ -40,10 +32,7 @@ type DeleteExerciseDialogProps = {
 
 function DeleteExerciseDialog({ id, Trigger }: DeleteExerciseDialogProps) {
   const queryRef = useContext(ExercisesData);
-  const data = useFragment<DeleteExerciseDialogFragment$key>(
-    DeleteExerciseDialogFragment,
-    queryRef
-  );
+  const data = useFragment<ExercisesFragment$key>(ExercisesFragment, queryRef);
   const [open, setOpen] = useState(false);
   const [commitMutation, isMutationInFlight] =
     useMutation<DeleteExerciseDialog_Mutation>(DeleteExerciseDialogMutation);
@@ -52,11 +41,6 @@ function DeleteExerciseDialog({ id, Trigger }: DeleteExerciseDialogProps) {
   if (!data) {
     return null;
   }
-
-  const connectionID = ConnectionHandler.getConnectionID(
-    data.id,
-    "ExercisesFragment_exercises"
-  );
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -87,7 +71,17 @@ function DeleteExerciseDialog({ id, Trigger }: DeleteExerciseDialogProps) {
                   input: {
                     id: id,
                   },
-                  connections: [connectionID],
+                },
+                updater: (store) => {
+                  const userRecord = store.get(data.id);
+                  const connectionRecords = ConnectionHandler.getConnections(
+                    userRecord!,
+                    "ExercisesFragment_exercises",
+                  );
+                  const exerciseIDToDelete = id;
+                  connectionRecords.forEach((cR) => {
+                    ConnectionHandler.deleteNode(cR, exerciseIDToDelete);
+                  });
                 },
                 onCompleted(_, errors) {
                   if (errors === null) {

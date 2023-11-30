@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<5967d05b54f3e921bbf56fb89c930812>>
+ * @generated SignedSource<<6deafce0b271fd50819c6388e0151d79>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -29,7 +29,6 @@ export type ImageInput = {
   width?: number | null;
 };
 export type AddExerciseForm_Mutation$variables = {
-  connections: ReadonlyArray<string>;
   input: CreateExerciseInput;
 };
 export type AddExerciseForm_Mutation$data = {
@@ -48,59 +47,56 @@ export type AddExerciseForm_Mutation = {
 };
 
 const node: ConcreteRequest = (function(){
-var v0 = {
-  "defaultValue": null,
-  "kind": "LocalArgument",
-  "name": "connections"
-},
-v1 = {
-  "defaultValue": null,
-  "kind": "LocalArgument",
-  "name": "input"
-},
-v2 = [
+var v0 = [
+  {
+    "defaultValue": null,
+    "kind": "LocalArgument",
+    "name": "input"
+  }
+],
+v1 = [
   {
     "kind": "Variable",
     "name": "input",
     "variableName": "input"
   }
 ],
-v3 = {
+v2 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "id",
   "storageKey": null
 },
-v4 = {
+v3 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "name",
   "storageKey": null
 },
-v5 = {
+v4 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "howTo",
   "storageKey": null
 },
-v6 = {
+v5 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "width",
   "storageKey": null
 },
-v7 = {
+v6 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "height",
   "storageKey": null
 },
-v8 = {
+v7 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
@@ -109,24 +105,21 @@ v8 = {
 };
 return {
   "fragment": {
-    "argumentDefinitions": [
-      (v0/*: any*/),
-      (v1/*: any*/)
-    ],
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
     "name": "AddExerciseForm_Mutation",
     "selections": [
       {
         "alias": null,
-        "args": (v2/*: any*/),
+        "args": (v1/*: any*/),
         "concreteType": "Exercise",
         "kind": "LinkedField",
         "name": "createExercise",
         "plural": false,
         "selections": [
+          (v2/*: any*/),
           (v3/*: any*/),
-          (v4/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -143,7 +136,7 @@ return {
             ],
             "storageKey": null
           },
-          (v5/*: any*/)
+          (v4/*: any*/)
         ],
         "storageKey": null
       }
@@ -153,23 +146,20 @@ return {
   },
   "kind": "Request",
   "operation": {
-    "argumentDefinitions": [
-      (v1/*: any*/),
-      (v0/*: any*/)
-    ],
+    "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "AddExerciseForm_Mutation",
     "selections": [
       {
         "alias": null,
-        "args": (v2/*: any*/),
+        "args": (v1/*: any*/),
         "concreteType": "Exercise",
         "kind": "LinkedField",
         "name": "createExercise",
         "plural": false,
         "selections": [
+          (v2/*: any*/),
           (v3/*: any*/),
-          (v4/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -192,8 +182,8 @@ return {
                 "name": "srcset",
                 "storageKey": null
               },
+              (v5/*: any*/),
               (v6/*: any*/),
-              (v7/*: any*/),
               {
                 "alias": null,
                 "args": null,
@@ -229,7 +219,7 @@ return {
                 "name": "layout",
                 "storageKey": null
               },
-              (v8/*: any*/),
+              (v7/*: any*/),
               {
                 "alias": null,
                 "args": null,
@@ -273,8 +263,8 @@ return {
                 "name": "style",
                 "plural": false,
                 "selections": [
-                  (v8/*: any*/),
                   (v7/*: any*/),
+                  (v6/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -289,37 +279,16 @@ return {
                     "name": "maxWidth",
                     "storageKey": null
                   },
-                  (v6/*: any*/)
+                  (v5/*: any*/)
                 ],
                 "storageKey": null
               }
             ],
             "storageKey": null
           },
-          (v5/*: any*/)
+          (v4/*: any*/)
         ],
         "storageKey": null
-      },
-      {
-        "alias": null,
-        "args": (v2/*: any*/),
-        "filters": null,
-        "handle": "prependNode",
-        "key": "",
-        "kind": "LinkedHandle",
-        "name": "createExercise",
-        "handleArgs": [
-          {
-            "kind": "Variable",
-            "name": "connections",
-            "variableName": "connections"
-          },
-          {
-            "kind": "Literal",
-            "name": "edgeTypeName",
-            "value": "ExerciseEdge"
-          }
-        ]
       }
     ]
   },
@@ -334,6 +303,6 @@ return {
 };
 })();
 
-(node as any).hash = "6adaa18ab9f13f4c3f5efd99c73f167d";
+(node as any).hash = "da6e9391b4db01db9cddc7e4bea24813";
 
 export default node;

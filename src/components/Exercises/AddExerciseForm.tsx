@@ -1,7 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRef, useState } from "react";
 import { useFragment, useMutation } from "react-relay";
-import { ConnectionHandler, graphql } from "relay-runtime";
+import { graphql } from "relay-runtime";
 import { z } from "zod";
 import {
   Form,
@@ -29,14 +29,13 @@ import { ExerciseTypeInput } from "./ExerciseTypeInput";
 import { ToastAction } from "@/components/ui/toast";
 import { useToast } from "../ui/use-toast";
 import { ExerciseTypeID, MusclesGroupID, image } from "@/lib/zod";
+import { ExercisesFragment } from "./Exercises";
+import { ExercisesFragment$key } from "@/queries/__generated__/ExercisesFragment.graphql";
+import ConnectionHandler from "relay-connection-handler-plus";
 
 const ExerciseMutation = graphql`
-  mutation AddExerciseForm_Mutation(
-    $input: CreateExerciseInput!
-    $connections: [ID!]!
-  ) {
-    createExercise(input: $input)
-      @prependNode(connections: $connections, edgeTypeName: "ExerciseEdge") {
+  mutation AddExerciseForm_Mutation($input: CreateExerciseInput!) {
+    createExercise(input: $input) {
       id
       name
       image {
@@ -49,9 +48,6 @@ const ExerciseMutation = graphql`
 
 const ExerciseFormFragment = graphql`
   fragment AddExerciseFormFragment on Query {
-    viewer {
-      id
-    }
     ...MusclesGroupInputFragment
     ...ExerciseTypeInputFragment
   }
@@ -67,10 +63,18 @@ const formSchema = z.object({
 
 type ExerciseFormProps = {
   queryRef: AddExerciseFormFragment$key;
+  exercisesFragmentQueryRef: ExercisesFragment$key;
 };
 
-function AddExerciseForm({ queryRef }: ExerciseFormProps) {
+function AddExerciseForm({
+  queryRef,
+  exercisesFragmentQueryRef,
+}: ExerciseFormProps) {
   const data = useFragment(ExerciseFormFragment, queryRef);
+  const dataExercisesFragment = useFragment(
+    ExercisesFragment,
+    exercisesFragmentQueryRef
+  );
   const [uppy] = useState(() => createUppy());
   const imageInputRef = useRef<null | HTMLInputElement>(null);
   const [commitMutation, isMutationInFlight] =
@@ -97,15 +101,6 @@ function AddExerciseForm({ queryRef }: ExerciseFormProps) {
     },
   });
 
-  if (!data.viewer) {
-    return null;
-  }
-
-  const connectionID = ConnectionHandler.getConnectionID(
-    data.viewer.id,
-    "ExercisesFragment_exercises"
-  );
-
   function onSubmit(val: z.infer<typeof formSchema>) {
     const image = val.image;
     const mutation = (meta?: InternalMetadata & Record<string, unknown>) => {
@@ -128,7 +123,29 @@ function AddExerciseForm({ queryRef }: ExerciseFormProps) {
                 }
               : null,
           },
-          connections: [connectionID!],
+        },
+        updater: (store) => {
+          const userRecord = store.get(dataExercisesFragment.id);
+          const connectionRecords = ConnectionHandler.getConnections(
+            userRecord!,
+            "ExercisesFragment_exercises"
+          );
+
+          // Create a new local Comment record
+          const id = `client:new_exercise:${crypto.randomUUID()}`;
+          const newExerciseRecord = store.create(id, "Exercise");
+
+          // Create new edge
+          const newEdge = ConnectionHandler.createEdge(
+            store,
+            connectionRecords[0],
+            newExerciseRecord,
+            "ExerciseEdge" /* GraphQl Type for edge */
+          );
+
+          connectionRecords.forEach((cR, i) => {
+            ConnectionHandler.insertEdgeBefore(cR, newEdge);
+          });
         },
         onError: (err) => {
           console.log({ err });
@@ -214,6 +231,7 @@ function AddExerciseForm({ queryRef }: ExerciseFormProps) {
               <FormLabel>Muscles Group</FormLabel>
               <MusclesGroupInput
                 queryRef={data}
+                isInsideForm={true}
                 onValueChange={field.onChange}
                 value={field.value}
               />
@@ -230,6 +248,7 @@ function AddExerciseForm({ queryRef }: ExerciseFormProps) {
               <FormLabel>Exercise Type</FormLabel>
               <ExerciseTypeInput
                 queryRef={data}
+                isInsideForm={true}
                 onValueChange={field.onChange}
                 value={field.value}
               />

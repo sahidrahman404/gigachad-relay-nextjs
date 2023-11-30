@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<b82dac471b08eb6ca9c2feca5c9fd09a>>
+ * @generated SignedSource<<46f950674ea44f93aea1ce81ec02de59>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -13,7 +13,6 @@ export type DeleteExerciseInput = {
   id: string;
 };
 export type DeleteExerciseDialog_Mutation$variables = {
-  connections: ReadonlyArray<string>;
   input: DeleteExerciseInput;
 };
 export type DeleteExerciseDialog_Mutation$data = {
@@ -31,48 +30,42 @@ var v0 = [
   {
     "defaultValue": null,
     "kind": "LocalArgument",
-    "name": "connections"
-  },
-  {
-    "defaultValue": null,
-    "kind": "LocalArgument",
     "name": "input"
   }
 ],
 v1 = [
   {
-    "kind": "Variable",
-    "name": "input",
-    "variableName": "input"
+    "alias": null,
+    "args": [
+      {
+        "kind": "Variable",
+        "name": "input",
+        "variableName": "input"
+      }
+    ],
+    "concreteType": "Exercise",
+    "kind": "LinkedField",
+    "name": "deleteExercise",
+    "plural": false,
+    "selections": [
+      {
+        "alias": null,
+        "args": null,
+        "kind": "ScalarField",
+        "name": "id",
+        "storageKey": null
+      }
+    ],
+    "storageKey": null
   }
-],
-v2 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "id",
-  "storageKey": null
-};
+];
 return {
   "fragment": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
     "name": "DeleteExerciseDialog_Mutation",
-    "selections": [
-      {
-        "alias": null,
-        "args": (v1/*: any*/),
-        "concreteType": "Exercise",
-        "kind": "LinkedField",
-        "name": "deleteExercise",
-        "plural": false,
-        "selections": [
-          (v2/*: any*/)
-        ],
-        "storageKey": null
-      }
-    ],
+    "selections": (v1/*: any*/),
     "type": "Mutation",
     "abstractKey": null
   },
@@ -81,36 +74,7 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
     "name": "DeleteExerciseDialog_Mutation",
-    "selections": [
-      {
-        "alias": null,
-        "args": (v1/*: any*/),
-        "concreteType": "Exercise",
-        "kind": "LinkedField",
-        "name": "deleteExercise",
-        "plural": false,
-        "selections": [
-          (v2/*: any*/),
-          {
-            "alias": null,
-            "args": null,
-            "filters": null,
-            "handle": "deleteEdge",
-            "key": "",
-            "kind": "ScalarHandle",
-            "name": "id",
-            "handleArgs": [
-              {
-                "kind": "Variable",
-                "name": "connections",
-                "variableName": "connections"
-              }
-            ]
-          }
-        ],
-        "storageKey": null
-      }
-    ]
+    "selections": (v1/*: any*/)
   },
   "params": {
     "cacheID": "45f47512be541e7612f2a7cc4a1f269e",
@@ -123,6 +87,6 @@ return {
 };
 })();
 
-(node as any).hash = "5f95e096e232589a0b624d94346cc9cd";
+(node as any).hash = "4ef7bb4c4176edb92638d9db2e02ecd3";
 
 export default node;
