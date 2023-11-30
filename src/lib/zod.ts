@@ -21,7 +21,7 @@ const image = z
   .refine((f) => f.size <= MAX_FILE_SIZE, `Max file size is 30MB.`)
   .refine(
     (f) => ACCEPTED_IMAGE_TYPES.includes(f.type),
-    "Only .jpg, .jpeg, .png and .webp formats are accepted."
+    "Only .jpg, .jpeg, .png and .webp formats are accepted.",
   );
 
 export { image, MusclesGroupID, ExerciseTypeID };

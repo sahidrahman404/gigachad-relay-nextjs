@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { Fragment, ReaderFragment } from 'relay-runtime';
+import { Fragment, ReaderFragment } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
 export type MusclesGroupInputFragment$data = {
   readonly musclesGroups: {
@@ -30,77 +30,77 @@ export type MusclesGroupInputFragment$key = {
 };
 
 const node: ReaderFragment = {
-  "argumentDefinitions": [],
-  "kind": "Fragment",
-  "metadata": null,
-  "name": "MusclesGroupInputFragment",
-  "selections": [
+  argumentDefinitions: [],
+  kind: "Fragment",
+  metadata: null,
+  name: "MusclesGroupInputFragment",
+  selections: [
     {
-      "alias": null,
-      "args": null,
-      "concreteType": "MusclesGroupConnection",
-      "kind": "LinkedField",
-      "name": "musclesGroups",
-      "plural": false,
-      "selections": [
+      alias: null,
+      args: null,
+      concreteType: "MusclesGroupConnection",
+      kind: "LinkedField",
+      name: "musclesGroups",
+      plural: false,
+      selections: [
         {
-          "alias": null,
-          "args": null,
-          "concreteType": "MusclesGroupEdge",
-          "kind": "LinkedField",
-          "name": "edges",
-          "plural": true,
-          "selections": [
+          alias: null,
+          args: null,
+          concreteType: "MusclesGroupEdge",
+          kind: "LinkedField",
+          name: "edges",
+          plural: true,
+          selections: [
             {
-              "alias": null,
-              "args": null,
-              "concreteType": "MusclesGroup",
-              "kind": "LinkedField",
-              "name": "node",
-              "plural": false,
-              "selections": [
+              alias: null,
+              args: null,
+              concreteType: "MusclesGroup",
+              kind: "LinkedField",
+              name: "node",
+              plural: false,
+              selections: [
                 {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "id",
-                  "storageKey": null
+                  alias: null,
+                  args: null,
+                  kind: "ScalarField",
+                  name: "id",
+                  storageKey: null,
                 },
                 {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "name",
-                  "storageKey": null
+                  alias: null,
+                  args: null,
+                  kind: "ScalarField",
+                  name: "name",
+                  storageKey: null,
                 },
                 {
-                  "alias": null,
-                  "args": null,
-                  "concreteType": "Image",
-                  "kind": "LinkedField",
-                  "name": "image",
-                  "plural": false,
-                  "selections": [
+                  alias: null,
+                  args: null,
+                  concreteType: "Image",
+                  kind: "LinkedField",
+                  name: "image",
+                  plural: false,
+                  selections: [
                     {
-                      "args": null,
-                      "kind": "FragmentSpread",
-                      "name": "ImageFragment"
-                    }
+                      args: null,
+                      kind: "FragmentSpread",
+                      name: "ImageFragment",
+                    },
                   ],
-                  "storageKey": null
-                }
+                  storageKey: null,
+                },
               ],
-              "storageKey": null
-            }
+              storageKey: null,
+            },
           ],
-          "storageKey": null
-        }
+          storageKey: null,
+        },
       ],
-      "storageKey": null
-    }
+      storageKey: null,
+    },
   ],
-  "type": "Query",
-  "abstractKey": null
+  type: "Query",
+  abstractKey: null,
 };
 
 (node as any).hash = "58edca67800d1bccf7f1c4f6fc3d38d1";

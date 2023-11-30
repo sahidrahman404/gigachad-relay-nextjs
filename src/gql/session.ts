@@ -7,6 +7,6 @@ const SessionQuery = graphql`
       ...useAuthRedirectFragment
     }
   }
-`
+`;
 
-export default SessionQuery
+export default SessionQuery;

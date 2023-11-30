@@ -1,5 +1,5 @@
-import { Environment, Network, RecordSource, Store } from 'relay-runtime';
-import makeGraphQLRequest from '@/lib/my_graphql_api';
+import { Environment, Network, RecordSource, Store } from "relay-runtime";
+import makeGraphQLRequest from "@/lib/my_graphql_api";
 
 // Relay is not prescriptive about how GraphQL requests are made.
 // This is an example showing how to request GraphQL data.
@@ -11,10 +11,10 @@ export function createServerNetwork(token: string | null) {
     const json = await makeGraphQLRequest({
       token: token,
       text: params.text,
-      variables: variables
+      variables: variables,
     });
 
-    return json
+    return json;
   });
 }
 

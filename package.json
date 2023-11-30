@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start -p 8080",
     "lint": "next lint",
+    "prettier": "prettier --write '**/*.{ts,js,css,html}'",
     "generate:relay": "relay-compiler",
     "generate:gql": "gql-sdl http://localhost:4444/query -o src/schema/__generated__/schema.graphql"
   },
@@ -68,6 +69,7 @@
     "gql-sdl": "^1.0.0",
     "graphql": "^16.8.1",
     "postcss": "^8.4.31",
+    "prettier": "^3.1.0",
     "relay-compiler": "^15.0.0",
     "relay-compiler-language-typescript": "^15.0.1",
     "relay-config": "^12.0.1",

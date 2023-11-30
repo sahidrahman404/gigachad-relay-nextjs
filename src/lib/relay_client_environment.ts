@@ -1,23 +1,23 @@
 // lib/client_environment.ts
-import { Environment, Network, Store, RecordSource } from 'relay-runtime';
-import makeGraphQLRequest from '@/lib/my_graphql_api';
-import { getToken } from '@/lib/utils';
+import { Environment, Network, Store, RecordSource } from "relay-runtime";
+import makeGraphQLRequest from "@/lib/my_graphql_api";
+import { getToken } from "@/lib/utils";
 
 export function createClientNetwork() {
   return Network.create(async (params, variables) => {
-    const token = await getToken()
+    const token = await getToken();
     const json = await makeGraphQLRequest({
       token: token,
       text: params.text,
-      variables: variables
-    })
-    return json
+      variables: variables,
+    });
+    return json;
   });
 }
 
 let clientEnv: Environment | undefined;
 export function getClientEnvironment() {
-  if (typeof window === 'undefined') return null;
+  if (typeof window === "undefined") return null;
 
   if (clientEnv == null) {
     clientEnv = new Environment({
