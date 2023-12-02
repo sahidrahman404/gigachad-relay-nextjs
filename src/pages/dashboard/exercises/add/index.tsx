@@ -2,13 +2,13 @@ import { AddExerciseForm } from "@/components/Exercises/AddExerciseForm";
 import { useRedirectIfUserNotExist } from "@/components/Hooks/useAuthRedirect";
 import Layout from "@/components/Layout";
 import { getClientEnvironment } from "@/lib/relay_client_environment";
-import { add_Query } from "@/queries/__generated__/add_Query.graphql";
+import { addExercise_Query } from "@/queries/__generated__/addExercise_Query.graphql";
 import { usePreloadedQuery } from "react-relay";
 import { RelayProps, withRelay } from "relay-nextjs";
 import { graphql } from "relay-runtime";
 
 const AddExerciseQuery = graphql`
-  query add_Query {
+  query addExercise_Query {
     viewer {
       ...useAuthRedirectFragment
       ...ExercisesFragment
@@ -17,7 +17,7 @@ const AddExerciseQuery = graphql`
   }
 `;
 
-function AddExercise({ preloadedQuery }: RelayProps<{}, add_Query>) {
+function AddExercise({ preloadedQuery }: RelayProps<{}, addExercise_Query>) {
   const data = usePreloadedQuery(AddExerciseQuery, preloadedQuery);
   useRedirectIfUserNotExist({
     user: data.viewer,

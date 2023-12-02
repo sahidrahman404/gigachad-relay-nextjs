@@ -63,7 +63,7 @@ input CreateRoutineInput {
 
 input CreateRoutineWithChildrenInput {
   name: String!
-  RoutineExercise: [CreateRoutineExerciseInput!]
+  routineExercises: [CreateRoutineExerciseInput!]
 }
 
 """
@@ -1231,19 +1231,19 @@ input RoutineWhereInput {
 }
 
 type Set {
-  Set: Int!
-  Reps: Int
-  Kg: Int
-  Time: String
-  Km: Int
+  set: Int!
+  reps: Int
+  kg: Int
+  time: String
+  km: Int
 }
 
 input SetInput {
-  Set: Int!
-  Reps: Int
-  Kg: Int
-  Time: String
-  Km: Int
+  set: Int!
+  reps: Int
+  kg: Int
+  time: String
+  km: Int
 }
 
 type Style {

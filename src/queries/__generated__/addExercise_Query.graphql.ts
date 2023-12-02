@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<d72113fb22eac09a5ec04d69db4baf9a>>
+ * @generated SignedSource<<b8a64c8cb6c9d5f948569c129165591d>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,16 +10,16 @@
 
 import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type add_Query$variables = {};
-export type add_Query$data = {
+export type addExercise_Query$variables = {};
+export type addExercise_Query$data = {
   readonly viewer: {
     readonly " $fragmentSpreads": FragmentRefs<"ExercisesFragment" | "useAuthRedirectFragment">;
   } | null;
   readonly " $fragmentSpreads": FragmentRefs<"AddExerciseFormFragment">;
 };
-export type add_Query = {
-  response: add_Query$data;
-  variables: add_Query$variables;
+export type addExercise_Query = {
+  response: addExercise_Query$data;
+  variables: addExercise_Query$variables;
 };
 
 const node: ConcreteRequest = (function(){
@@ -232,7 +232,7 @@ return {
     "argumentDefinitions": [],
     "kind": "Fragment",
     "metadata": null,
-    "name": "add_Query",
+    "name": "addExercise_Query",
     "selections": [
       {
         "alias": null,
@@ -268,7 +268,7 @@ return {
   "operation": {
     "argumentDefinitions": [],
     "kind": "Operation",
-    "name": "add_Query",
+    "name": "addExercise_Query",
     "selections": [
       {
         "alias": null,
@@ -533,16 +533,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "5883d3962097ad8162d93a14275a5da2",
+    "cacheID": "1f3398f90c1220d01efe53392f173876",
     "id": null,
     "metadata": {},
-    "name": "add_Query",
+    "name": "addExercise_Query",
     "operationKind": "query",
-    "text": "query add_Query {\n  viewer {\n    ...useAuthRedirectFragment\n    ...ExercisesFragment\n    id\n  }\n  ...AddExerciseFormFragment\n}\n\nfragment AddExerciseFormFragment on Query {\n  ...MusclesGroupInputFragment\n  ...ExerciseTypeInputFragment\n}\n\nfragment ExerciseFragment on Exercise {\n  id\n  name\n  image {\n    ...ImageFragment\n  }\n  howTo\n  musclesGroups {\n    edges {\n      node {\n        id\n        name\n      }\n    }\n  }\n  exerciseTypes {\n    edges {\n      node {\n        id\n        name\n      }\n    }\n  }\n}\n\nfragment ExerciseTypeInputFragment on Query {\n  exerciseTypes {\n    edges {\n      node {\n        id\n        name\n        description\n      }\n    }\n  }\n}\n\nfragment ExercisesFragment on User {\n  id\n  exercises(first: 4, where: {hasExerciseTypesWith: [], hasMusclesGroupsWith: []}, orderBy: {direction: DESC, field: ID}) {\n    edges {\n      node {\n        id\n        ...ExerciseFragment\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n\nfragment ImageFragment on Image {\n  src\n  srcset\n  width\n  height\n  priority\n  loading\n  fetchPriority\n  decoding\n  layout\n  aspectRatio\n  objectFit\n  breakpoints\n  alt\n  role\n  sizes\n  style {\n    aspectRatio\n    height\n    maxHeight\n    maxWidth\n    width\n  }\n}\n\nfragment MusclesGroupInputFragment on Query {\n  musclesGroups {\n    edges {\n      node {\n        id\n        name\n        image {\n          ...ImageFragment\n        }\n      }\n    }\n  }\n}\n\nfragment useAuthRedirectFragment on User {\n  id\n}\n"
+    "text": "query addExercise_Query {\n  viewer {\n    ...useAuthRedirectFragment\n    ...ExercisesFragment\n    id\n  }\n  ...AddExerciseFormFragment\n}\n\nfragment AddExerciseFormFragment on Query {\n  ...MusclesGroupInputFragment\n  ...ExerciseTypeInputFragment\n}\n\nfragment ExerciseFragment on Exercise {\n  id\n  name\n  image {\n    ...ImageFragment\n  }\n  howTo\n  musclesGroups {\n    edges {\n      node {\n        id\n        name\n      }\n    }\n  }\n  exerciseTypes {\n    edges {\n      node {\n        id\n        name\n      }\n    }\n  }\n}\n\nfragment ExerciseTypeInputFragment on Query {\n  exerciseTypes {\n    edges {\n      node {\n        id\n        name\n        description\n      }\n    }\n  }\n}\n\nfragment ExercisesFragment on User {\n  id\n  exercises(first: 4, where: {hasExerciseTypesWith: [], hasMusclesGroupsWith: []}, orderBy: {direction: DESC, field: ID}) {\n    edges {\n      node {\n        id\n        ...ExerciseFragment\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n\nfragment ImageFragment on Image {\n  src\n  srcset\n  width\n  height\n  priority\n  loading\n  fetchPriority\n  decoding\n  layout\n  aspectRatio\n  objectFit\n  breakpoints\n  alt\n  role\n  sizes\n  style {\n    aspectRatio\n    height\n    maxHeight\n    maxWidth\n    width\n  }\n}\n\nfragment MusclesGroupInputFragment on Query {\n  musclesGroups {\n    edges {\n      node {\n        id\n        name\n        image {\n          ...ImageFragment\n        }\n      }\n    }\n  }\n}\n\nfragment useAuthRedirectFragment on User {\n  id\n}\n"
   }
 };
 })();
 
-(node as any).hash = "e0074af85566e4c4aa6a90dff701e593";
+(node as any).hash = "da334ebaed95946440689a3dad1dfb81";
 
 export default node;

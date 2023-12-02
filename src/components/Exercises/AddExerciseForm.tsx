@@ -73,7 +73,7 @@ function AddExerciseForm({
   const data = useFragment(ExerciseFormFragment, queryRef);
   const dataExercisesFragment = useFragment(
     ExercisesFragment,
-    exercisesFragmentQueryRef
+    exercisesFragmentQueryRef,
   );
   const [uppy] = useState(() => createUppy());
   const imageInputRef = useRef<null | HTMLInputElement>(null);
@@ -128,7 +128,7 @@ function AddExerciseForm({
           const userRecord = store.get(dataExercisesFragment.id);
           const connectionRecords = ConnectionHandler.getConnections(
             userRecord!,
-            "ExercisesFragment_exercises"
+            "ExercisesFragment_exercises",
           );
 
           // Create a new local Comment record
@@ -140,10 +140,10 @@ function AddExerciseForm({
             store,
             connectionRecords[0],
             newExerciseRecord,
-            "ExerciseEdge" /* GraphQl Type for edge */
+            "ExerciseEdge" /* GraphQl Type for edge */,
           );
 
-          connectionRecords.forEach((cR, i) => {
+          connectionRecords.forEach((cR) => {
             ConnectionHandler.insertEdgeBefore(cR, newEdge);
           });
         },

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<cf11087ba164f65eaaa8349311986117>>
+ * @generated SignedSource<<8240a962835ee56a877e34188d1b29ce>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,15 +10,15 @@
 
 import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type workout_Query$variables = {};
-export type workout_Query$data = {
+export type routines_Query$variables = {};
+export type routines_Query$data = {
   readonly viewer: {
-    readonly " $fragmentSpreads": FragmentRefs<"WorkoutsFragment" | "useAuthRedirectFragment">;
+    readonly " $fragmentSpreads": FragmentRefs<"RoutinesFragment" | "useAuthRedirectFragment">;
   } | null;
 };
-export type workout_Query = {
-  response: workout_Query$data;
-  variables: workout_Query$variables;
+export type routines_Query = {
+  response: routines_Query$data;
+  variables: routines_Query$variables;
 };
 
 const node: ConcreteRequest = (function(){
@@ -41,7 +41,7 @@ return {
     "argumentDefinitions": [],
     "kind": "Fragment",
     "metadata": null,
-    "name": "workout_Query",
+    "name": "routines_Query",
     "selections": [
       {
         "alias": null,
@@ -59,7 +59,7 @@ return {
           {
             "args": null,
             "kind": "FragmentSpread",
-            "name": "WorkoutsFragment"
+            "name": "RoutinesFragment"
           }
         ],
         "storageKey": null
@@ -72,7 +72,7 @@ return {
   "operation": {
     "argumentDefinitions": [],
     "kind": "Operation",
-    "name": "workout_Query",
+    "name": "routines_Query",
     "selections": [
       {
         "alias": null,
@@ -86,15 +86,15 @@ return {
           {
             "alias": null,
             "args": (v1/*: any*/),
-            "concreteType": "WorkoutConnection",
+            "concreteType": "RoutineConnection",
             "kind": "LinkedField",
-            "name": "workouts",
+            "name": "routines",
             "plural": false,
             "selections": [
               {
                 "alias": null,
                 "args": null,
-                "concreteType": "WorkoutEdge",
+                "concreteType": "RoutineEdge",
                 "kind": "LinkedField",
                 "name": "edges",
                 "plural": true,
@@ -102,7 +102,7 @@ return {
                   {
                     "alias": null,
                     "args": null,
-                    "concreteType": "Workout",
+                    "concreteType": "Routine",
                     "kind": "LinkedField",
                     "name": "node",
                     "plural": false,
@@ -154,16 +154,16 @@ return {
                 "storageKey": null
               }
             ],
-            "storageKey": "workouts(first:4)"
+            "storageKey": "routines(first:4)"
           },
           {
             "alias": null,
             "args": (v1/*: any*/),
             "filters": null,
             "handle": "connection",
-            "key": "WorkoutsFragment_workouts",
+            "key": "RoutinesFragment_routines",
             "kind": "LinkedHandle",
-            "name": "workouts"
+            "name": "routines"
           }
         ],
         "storageKey": null
@@ -171,16 +171,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "576c077fdd6d6babdf23d27bd58cb0d0",
+    "cacheID": "eb51cae2e832c13f6b64c12224ef5ac7",
     "id": null,
     "metadata": {},
-    "name": "workout_Query",
+    "name": "routines_Query",
     "operationKind": "query",
-    "text": "query workout_Query {\n  viewer {\n    ...useAuthRedirectFragment\n    ...WorkoutsFragment\n    id\n  }\n}\n\nfragment WorkoutsFragment on User {\n  workouts(first: 4) {\n    edges {\n      node {\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n  id\n}\n\nfragment useAuthRedirectFragment on User {\n  id\n}\n"
+    "text": "query routines_Query {\n  viewer {\n    ...useAuthRedirectFragment\n    ...RoutinesFragment\n    id\n  }\n}\n\nfragment RoutinesFragment on User {\n  id\n  routines(first: 4) {\n    edges {\n      node {\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment useAuthRedirectFragment on User {\n  id\n}\n"
   }
 };
 })();
 
-(node as any).hash = "37c9709074b4f11273658e47394d68a2";
+(node as any).hash = "f96eda9ace859f78ffcf3ee9c528e09b";
 
 export default node;

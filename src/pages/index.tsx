@@ -11,7 +11,7 @@ function MarketingPage({ preloadedQuery }: RelayProps<{}, session_Query>) {
   const query = usePreloadedQuery(SessionQuery, preloadedQuery);
 
   const user = query.viewer?.id;
-  const redirect = user ? "/dashboard/workout" : "/auth/signin";
+  const redirect = user ? "/dashboard/routines" : "/auth/signin";
 
   return (
     <div className="max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8 mt-8">

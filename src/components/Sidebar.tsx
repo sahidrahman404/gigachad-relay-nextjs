@@ -12,9 +12,9 @@ const sidebarConfig = [
     section: "Dashboard",
     child: [
       {
-        page: "Workout",
+        page: "Routines",
         icon: <Salad className="mr-2 h-4 w-4" />,
-        link: "/dashboard/workout",
+        link: "/dashboard/routines",
       },
       {
         page: "Exercises",

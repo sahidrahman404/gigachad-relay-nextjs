@@ -1,34 +1,40 @@
 import { useRedirectIfUserNotExist } from "@/components/Hooks/useAuthRedirect";
 import Layout from "@/components/Layout";
-import { Workouts } from "@/components/Workouts/Workouts";
+import { AddRoutineForm } from "@/components/Routines/AddRoutineForm";
 import { getClientEnvironment } from "@/lib/relay_client_environment";
-import { workout_Query } from "@/queries/__generated__/workout_Query.graphql";
+import { addRoutine_Query } from "@/queries/__generated__/addRoutine_Query.graphql";
 import { usePreloadedQuery } from "react-relay";
 import { RelayProps, withRelay } from "relay-nextjs";
 import { graphql } from "relay-runtime";
 
-const WorkoutQuery = graphql`
-  query workout_Query {
+const AddRoutineQuery = graphql`
+  query addRoutine_Query {
     viewer {
       ...useAuthRedirectFragment
-      ...WorkoutsFragment
+      ...RoutinesFragment
+      ...AddRoutineFormFragment
     }
   }
 `;
 
-function PEWorkout({ preloadedQuery }: RelayProps<{}, workout_Query>) {
-  const data = usePreloadedQuery(WorkoutQuery, preloadedQuery);
+function AddRoutine({ preloadedQuery }: RelayProps<{}, addRoutine_Query>) {
+  const data = usePreloadedQuery(AddRoutineQuery, preloadedQuery);
   useRedirectIfUserNotExist({
     user: data.viewer,
   });
-  return <Workouts />;
+
+  if (!data.viewer) {
+    return null;
+  }
+
+  return <AddRoutineForm queryRef={data.viewer} />;
 }
 
 function Loading() {
   return <div>Loading...</div>;
 }
 
-const WorkoutPage = withRelay(PEWorkout, WorkoutQuery, {
+const AddRoutinePage = withRelay(AddRoutine, AddRoutineQuery, {
   fallback: <Loading />,
   createClientEnvironment: () => getClientEnvironment()!,
   serverSideProps: async (ctx) => {
@@ -45,8 +51,8 @@ const WorkoutPage = withRelay(PEWorkout, WorkoutQuery, {
 });
 
 // @ts-ignore
-WorkoutPage.getLayout = function getLayout(page: ReactNode) {
+AddRoutinePage.getLayout = function getLayout(page: ReactNode) {
   return <Layout>{page}</Layout>;
 };
 
-export default WorkoutPage;
+export default AddRoutinePage;
