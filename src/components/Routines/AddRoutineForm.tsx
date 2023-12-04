@@ -31,7 +31,6 @@ const RoutineMutation = graphql`
           node {
             exerciseID
             sets {
-              set
               kg
               time
               km
@@ -50,7 +49,7 @@ const AddRoutineFormFragment = graphql`
   }
 `;
 
-const formSchema = z.object({
+const addRoutineformSchema = z.object({
   name: z.string().min(3),
   routineExercises: z.array(
     z.object({
@@ -73,15 +72,15 @@ type AddRoutineFormProps = {
   queryRef: AddRoutineFormFragment$key;
 };
 
-type AddRoutineFormSchema = z.infer<typeof formSchema>;
+type AddRoutineFormSchema = z.infer<typeof addRoutineformSchema>;
 type AddRoutineFormReturn = UseFormReturn<AddRoutineFormSchema, any, undefined>;
 
 function AddRoutineForm({ queryRef }: AddRoutineFormProps) {
   const [commitMutation, isMutationInFlight] =
     useMutation<AddRoutineForm_Mutation>(RoutineMutation);
   const data = useFragment(AddRoutineFormFragment, queryRef);
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<AddRoutineFormSchema>({
+    resolver: zodResolver(addRoutineformSchema),
     mode: "onBlur",
     defaultValues: {
       name: "",
@@ -202,5 +201,5 @@ function buildRoutineExercisesInputMutation(
   });
 }
 
-export { AddRoutineForm };
+export { AddRoutineForm, addRoutineformSchema };
 export type { AddRoutineFormSchema, AddRoutineFormReturn };

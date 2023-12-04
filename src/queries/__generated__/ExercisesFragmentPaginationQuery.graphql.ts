@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<a3f68ced253c9739db166f0a16b55ef8>>
+ * @generated SignedSource<<0d9eefbfdd0db1b7293c38b8afe41f2e>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -68,6 +68,8 @@ export type ExerciseWhereInput = {
   hasUsersWith?: ReadonlyArray<UserWhereInput> | null;
   hasWorkoutLogs?: boolean | null;
   hasWorkoutLogsWith?: ReadonlyArray<WorkoutLogWhereInput> | null;
+  hasWorkouts?: boolean | null;
+  hasWorkoutsWith?: ReadonlyArray<WorkoutWhereInput> | null;
   howTo?: string | null;
   howToContains?: string | null;
   howToContainsFold?: string | null;
@@ -121,51 +123,6 @@ export type ExerciseWhereInput = {
   userIDNEQ?: string | null;
   userIDNotIn?: ReadonlyArray<string> | null;
   userIDNotNil?: boolean | null;
-};
-export type WorkoutLogWhereInput = {
-  and?: ReadonlyArray<WorkoutLogWhereInput> | null;
-  createdAt?: string | null;
-  createdAtContains?: string | null;
-  createdAtContainsFold?: string | null;
-  createdAtEqualFold?: string | null;
-  createdAtGT?: string | null;
-  createdAtGTE?: string | null;
-  createdAtHasPrefix?: string | null;
-  createdAtHasSuffix?: string | null;
-  createdAtIn?: ReadonlyArray<string> | null;
-  createdAtLT?: string | null;
-  createdAtLTE?: string | null;
-  createdAtNEQ?: string | null;
-  createdAtNotIn?: ReadonlyArray<string> | null;
-  hasExercises?: boolean | null;
-  hasExercisesWith?: ReadonlyArray<ExerciseWhereInput> | null;
-  hasUsers?: boolean | null;
-  hasUsersWith?: ReadonlyArray<UserWhereInput> | null;
-  hasWorkouts?: boolean | null;
-  hasWorkoutsWith?: ReadonlyArray<WorkoutWhereInput> | null;
-  id?: string | null;
-  idGT?: string | null;
-  idGTE?: string | null;
-  idIn?: ReadonlyArray<string> | null;
-  idLT?: string | null;
-  idLTE?: string | null;
-  idNEQ?: string | null;
-  idNotIn?: ReadonlyArray<string> | null;
-  not?: WorkoutLogWhereInput | null;
-  or?: ReadonlyArray<WorkoutLogWhereInput> | null;
-  userID?: string | null;
-  userIDContains?: string | null;
-  userIDContainsFold?: string | null;
-  userIDEqualFold?: string | null;
-  userIDGT?: string | null;
-  userIDGTE?: string | null;
-  userIDHasPrefix?: string | null;
-  userIDHasSuffix?: string | null;
-  userIDIn?: ReadonlyArray<string> | null;
-  userIDLT?: string | null;
-  userIDLTE?: string | null;
-  userIDNEQ?: string | null;
-  userIDNotIn?: ReadonlyArray<string> | null;
 };
 export type UserWhereInput = {
   activated?: number | null;
@@ -411,10 +368,27 @@ export type WorkoutWhereInput = {
   descriptionHasPrefix?: string | null;
   descriptionHasSuffix?: string | null;
   descriptionIn?: ReadonlyArray<string> | null;
+  descriptionIsNil?: boolean | null;
   descriptionLT?: string | null;
   descriptionLTE?: string | null;
   descriptionNEQ?: string | null;
   descriptionNotIn?: ReadonlyArray<string> | null;
+  descriptionNotNil?: boolean | null;
+  duration?: string | null;
+  durationContains?: string | null;
+  durationContainsFold?: string | null;
+  durationEqualFold?: string | null;
+  durationGT?: string | null;
+  durationGTE?: string | null;
+  durationHasPrefix?: string | null;
+  durationHasSuffix?: string | null;
+  durationIn?: ReadonlyArray<string> | null;
+  durationLT?: string | null;
+  durationLTE?: string | null;
+  durationNEQ?: string | null;
+  durationNotIn?: ReadonlyArray<string> | null;
+  hasExercises?: boolean | null;
+  hasExercisesWith?: ReadonlyArray<ExerciseWhereInput> | null;
   hasUsers?: boolean | null;
   hasUsersWith?: ReadonlyArray<UserWhereInput> | null;
   hasWorkoutLogs?: boolean | null;
@@ -427,21 +401,6 @@ export type WorkoutWhereInput = {
   idLTE?: string | null;
   idNEQ?: string | null;
   idNotIn?: ReadonlyArray<string> | null;
-  image?: string | null;
-  imageContains?: string | null;
-  imageContainsFold?: string | null;
-  imageEqualFold?: string | null;
-  imageGT?: string | null;
-  imageGTE?: string | null;
-  imageHasPrefix?: string | null;
-  imageHasSuffix?: string | null;
-  imageIn?: ReadonlyArray<string> | null;
-  imageIsNil?: boolean | null;
-  imageLT?: string | null;
-  imageLTE?: string | null;
-  imageNEQ?: string | null;
-  imageNotIn?: ReadonlyArray<string> | null;
-  imageNotNil?: boolean | null;
   name?: string | null;
   nameContains?: string | null;
   nameContainsFold?: string | null;
@@ -473,21 +432,6 @@ export type WorkoutWhereInput = {
   setsLTE?: number | null;
   setsNEQ?: number | null;
   setsNotIn?: ReadonlyArray<number> | null;
-  time?: string | null;
-  timeContains?: string | null;
-  timeContainsFold?: string | null;
-  timeEqualFold?: string | null;
-  timeGT?: string | null;
-  timeGTE?: string | null;
-  timeHasPrefix?: string | null;
-  timeHasSuffix?: string | null;
-  timeIn?: ReadonlyArray<string> | null;
-  timeIsNil?: boolean | null;
-  timeLT?: string | null;
-  timeLTE?: string | null;
-  timeNEQ?: string | null;
-  timeNotIn?: ReadonlyArray<string> | null;
-  timeNotNil?: boolean | null;
   userID?: string | null;
   userIDContains?: string | null;
   userIDContainsFold?: string | null;
@@ -509,6 +453,32 @@ export type WorkoutWhereInput = {
   volumeLTE?: number | null;
   volumeNEQ?: number | null;
   volumeNotIn?: ReadonlyArray<number> | null;
+};
+export type WorkoutLogWhereInput = {
+  and?: ReadonlyArray<WorkoutLogWhereInput> | null;
+  createdAt?: string | null;
+  createdAtContains?: string | null;
+  createdAtContainsFold?: string | null;
+  createdAtEqualFold?: string | null;
+  createdAtGT?: string | null;
+  createdAtGTE?: string | null;
+  createdAtHasPrefix?: string | null;
+  createdAtHasSuffix?: string | null;
+  createdAtIn?: ReadonlyArray<string> | null;
+  createdAtLT?: string | null;
+  createdAtLTE?: string | null;
+  createdAtNEQ?: string | null;
+  createdAtNotIn?: ReadonlyArray<string> | null;
+  id?: string | null;
+  idGT?: string | null;
+  idGTE?: string | null;
+  idIn?: ReadonlyArray<string> | null;
+  idLT?: string | null;
+  idLTE?: string | null;
+  idNEQ?: string | null;
+  idNotIn?: ReadonlyArray<string> | null;
+  not?: WorkoutLogWhereInput | null;
+  or?: ReadonlyArray<WorkoutLogWhereInput> | null;
 };
 export type EquipmentWhereInput = {
   and?: ReadonlyArray<EquipmentWhereInput> | null;

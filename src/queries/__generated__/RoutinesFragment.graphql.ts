@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<a4af693f9066a02e9685f49a2a76bef4>>
+ * @generated SignedSource<<0681a9e0085d78fddf04ddef463cd8b8>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -16,6 +16,7 @@ export type RoutinesFragment$data = {
     readonly edges: ReadonlyArray<{
       readonly node: {
         readonly id: string;
+        readonly " $fragmentSpreads": FragmentRefs<"RoutineFragment">;
       } | null;
     } | null> | null;
   };
@@ -105,6 +106,11 @@ return {
               "selections": [
                 (v1/*: any*/),
                 {
+                  "args": null,
+                  "kind": "FragmentSpread",
+                  "name": "RoutineFragment"
+                },
+                {
                   "alias": null,
                   "args": null,
                   "kind": "ScalarField",
@@ -158,6 +164,6 @@ return {
 };
 })();
 
-(node as any).hash = "cd67fc3f6a7fc9840931f3d3bf7e9ecc";
+(node as any).hash = "5406233ed4d8aa501d24b4365d93cf22";
 
 export default node;

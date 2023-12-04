@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<84731a33341851c41077f16a4dd6ab12>>
+ * @generated SignedSource<<c0be5ef239d85cbc5381b34110f92649>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -18,7 +18,6 @@ export type CreateUserInput = {
   tokenIDs?: ReadonlyArray<string> | null;
   username: string;
   workoutIDs?: ReadonlyArray<string> | null;
-  workoutLogIDs?: ReadonlyArray<string> | null;
 };
 export type user_Mutation$variables = {
   input: CreateUserInput;

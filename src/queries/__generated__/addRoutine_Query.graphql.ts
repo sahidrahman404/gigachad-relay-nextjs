@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<2f2cfbfb832fcd09d6bcac5c8b0b2096>>
+ * @generated SignedSource<<bef127260c43c57e1bbb216883b272fb>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -41,31 +41,42 @@ v3 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "__typename",
+  "name": "name",
   "storageKey": null
 },
-v4 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "cursor",
-  "storageKey": null
-},
+v4 = [
+  (v3/*: any*/),
+  (v0/*: any*/)
+],
 v5 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "endCursor",
+  "name": "__typename",
   "storageKey": null
 },
 v6 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
+  "name": "cursor",
+  "storageKey": null
+},
+v7 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "endCursor",
+  "storageKey": null
+},
+v8 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
   "name": "hasNextPage",
   "storageKey": null
 },
-v7 = [
+v9 = [
   (v1/*: any*/),
   {
     "fields": [
@@ -84,28 +95,21 @@ v7 = [
     "name": "orderBy"
   }
 ],
-v8 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "name",
-  "storageKey": null
-},
-v9 = {
+v10 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "width",
   "storageKey": null
 },
-v10 = {
+v11 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "height",
   "storageKey": null
 },
-v11 = {
+v12 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
@@ -189,11 +193,56 @@ return {
                     "plural": false,
                     "selections": [
                       (v0/*: any*/),
-                      (v3/*: any*/)
+                      (v3/*: any*/),
+                      {
+                        "alias": null,
+                        "args": null,
+                        "concreteType": "RoutineExerciseConnection",
+                        "kind": "LinkedField",
+                        "name": "routineExercises",
+                        "plural": false,
+                        "selections": [
+                          {
+                            "alias": null,
+                            "args": null,
+                            "concreteType": "RoutineExerciseEdge",
+                            "kind": "LinkedField",
+                            "name": "edges",
+                            "plural": true,
+                            "selections": [
+                              {
+                                "alias": null,
+                                "args": null,
+                                "concreteType": "RoutineExercise",
+                                "kind": "LinkedField",
+                                "name": "node",
+                                "plural": false,
+                                "selections": [
+                                  {
+                                    "alias": null,
+                                    "args": null,
+                                    "concreteType": "Exercise",
+                                    "kind": "LinkedField",
+                                    "name": "exercises",
+                                    "plural": false,
+                                    "selections": (v4/*: any*/),
+                                    "storageKey": null
+                                  },
+                                  (v0/*: any*/)
+                                ],
+                                "storageKey": null
+                              }
+                            ],
+                            "storageKey": null
+                          }
+                        ],
+                        "storageKey": null
+                      },
+                      (v5/*: any*/)
                     ],
                     "storageKey": null
                   },
-                  (v4/*: any*/)
+                  (v6/*: any*/)
                 ],
                 "storageKey": null
               },
@@ -205,8 +254,8 @@ return {
                 "name": "pageInfo",
                 "plural": false,
                 "selections": [
-                  (v5/*: any*/),
-                  (v6/*: any*/)
+                  (v7/*: any*/),
+                  (v8/*: any*/)
                 ],
                 "storageKey": null
               }
@@ -224,7 +273,7 @@ return {
           },
           {
             "alias": null,
-            "args": (v7/*: any*/),
+            "args": (v9/*: any*/),
             "concreteType": "ExerciseConnection",
             "kind": "LinkedField",
             "name": "exercises",
@@ -247,7 +296,7 @@ return {
                     "plural": false,
                     "selections": [
                       (v0/*: any*/),
-                      (v8/*: any*/),
+                      (v3/*: any*/),
                       {
                         "alias": null,
                         "args": null,
@@ -270,8 +319,8 @@ return {
                             "name": "srcset",
                             "storageKey": null
                           },
-                          (v9/*: any*/),
                           (v10/*: any*/),
+                          (v11/*: any*/),
                           {
                             "alias": null,
                             "args": null,
@@ -307,7 +356,7 @@ return {
                             "name": "layout",
                             "storageKey": null
                           },
-                          (v11/*: any*/),
+                          (v12/*: any*/),
                           {
                             "alias": null,
                             "args": null,
@@ -351,8 +400,8 @@ return {
                             "name": "style",
                             "plural": false,
                             "selections": [
+                              (v12/*: any*/),
                               (v11/*: any*/),
-                              (v10/*: any*/),
                               {
                                 "alias": null,
                                 "args": null,
@@ -367,7 +416,7 @@ return {
                                 "name": "maxWidth",
                                 "storageKey": null
                               },
-                              (v9/*: any*/)
+                              (v10/*: any*/)
                             ],
                             "storageKey": null
                           }
@@ -397,10 +446,7 @@ return {
                                 "kind": "LinkedField",
                                 "name": "node",
                                 "plural": false,
-                                "selections": [
-                                  (v8/*: any*/),
-                                  (v0/*: any*/)
-                                ],
+                                "selections": (v4/*: any*/),
                                 "storageKey": null
                               }
                             ],
@@ -409,11 +455,11 @@ return {
                         ],
                         "storageKey": null
                       },
-                      (v3/*: any*/)
+                      (v5/*: any*/)
                     ],
                     "storageKey": null
                   },
-                  (v4/*: any*/)
+                  (v6/*: any*/)
                 ],
                 "storageKey": null
               },
@@ -425,8 +471,8 @@ return {
                 "name": "pageInfo",
                 "plural": false,
                 "selections": [
-                  (v6/*: any*/),
-                  (v5/*: any*/)
+                  (v8/*: any*/),
+                  (v7/*: any*/)
                 ],
                 "storageKey": null
               }
@@ -435,7 +481,7 @@ return {
           },
           {
             "alias": null,
-            "args": (v7/*: any*/),
+            "args": (v9/*: any*/),
             "filters": [
               "orderBy"
             ],
@@ -450,12 +496,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "d165d236c833745ac8dab4fb6d3e2c81",
+    "cacheID": "45e9fa20a22b4c4e5178d8d8d667da20",
     "id": null,
     "metadata": {},
     "name": "addRoutine_Query",
     "operationKind": "query",
-    "text": "query addRoutine_Query {\n  viewer {\n    ...useAuthRedirectFragment\n    ...RoutinesFragment\n    ...AddRoutineFormFragment\n    id\n  }\n}\n\nfragment AddRoutineFormFragment on User {\n  ...ExerciseSelectInputFragment\n}\n\nfragment ExerciseSelectInputFragment on User {\n  exercises(first: 4, orderBy: {direction: DESC, field: ID}) {\n    edges {\n      node {\n        id\n        name\n        image {\n          ...ImageFragment\n        }\n        exerciseTypes {\n          edges {\n            node {\n              name\n              id\n            }\n          }\n        }\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n  id\n}\n\nfragment ImageFragment on Image {\n  src\n  srcset\n  width\n  height\n  priority\n  loading\n  fetchPriority\n  decoding\n  layout\n  aspectRatio\n  objectFit\n  breakpoints\n  alt\n  role\n  sizes\n  style {\n    aspectRatio\n    height\n    maxHeight\n    maxWidth\n    width\n  }\n}\n\nfragment RoutinesFragment on User {\n  id\n  routines(first: 4) {\n    edges {\n      node {\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment useAuthRedirectFragment on User {\n  id\n}\n"
+    "text": "query addRoutine_Query {\n  viewer {\n    ...useAuthRedirectFragment\n    ...RoutinesFragment\n    ...AddRoutineFormFragment\n    id\n  }\n}\n\nfragment AddRoutineFormFragment on User {\n  ...ExerciseSelectInputFragment\n}\n\nfragment ExerciseSelectInputFragment on User {\n  exercises(first: 4, orderBy: {direction: DESC, field: ID}) {\n    edges {\n      node {\n        id\n        name\n        image {\n          ...ImageFragment\n        }\n        exerciseTypes {\n          edges {\n            node {\n              name\n              id\n            }\n          }\n        }\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n  id\n}\n\nfragment ImageFragment on Image {\n  src\n  srcset\n  width\n  height\n  priority\n  loading\n  fetchPriority\n  decoding\n  layout\n  aspectRatio\n  objectFit\n  breakpoints\n  alt\n  role\n  sizes\n  style {\n    aspectRatio\n    height\n    maxHeight\n    maxWidth\n    width\n  }\n}\n\nfragment RoutineFragment on Routine {\n  id\n  name\n  routineExercises {\n    edges {\n      node {\n        exercises {\n          name\n          id\n        }\n        id\n      }\n    }\n  }\n}\n\nfragment RoutinesFragment on User {\n  id\n  routines(first: 4) {\n    edges {\n      node {\n        id\n        ...RoutineFragment\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment useAuthRedirectFragment on User {\n  id\n}\n"
   }
 };
 })();

@@ -169,6 +169,10 @@ function imageFieldOnChange({ event, field }: ImageFieldOnChange) {
   field.onChange(file);
 }
 
+function capitalizeFirstLetter(s: string): string {
+  return s.charAt(0).toUpperCase() + s.slice(1);
+}
+
 export {
   cn,
   getToken,
@@ -177,4 +181,5 @@ export {
   createUppy,
   uploadImageAndDoGqlMutation,
   imageFieldOnChange,
+  capitalizeFirstLetter,
 };

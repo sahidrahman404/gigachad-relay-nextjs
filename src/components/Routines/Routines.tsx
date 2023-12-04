@@ -2,6 +2,7 @@ import { RoutinesFragment$key } from "@/queries/__generated__/RoutinesFragment.g
 import { useFragment } from "react-relay";
 import { graphql } from "relay-runtime";
 import { RoutinesEmptyState } from "./RoutinesEmptyState";
+import { Routine } from "./Routine";
 
 const RoutinesFragment = graphql`
   fragment RoutinesFragment on User
@@ -16,6 +17,7 @@ const RoutinesFragment = graphql`
       edges {
         node {
           id
+          ...RoutineFragment
         }
       }
     }
@@ -28,6 +30,7 @@ type RoutinesProps = {
 
 function Routines({ queryRef }: RoutinesProps) {
   const data = useFragment(RoutinesFragment, queryRef);
+
   if (!data.routines.edges) {
     return null;
   }
@@ -36,7 +39,15 @@ function Routines({ queryRef }: RoutinesProps) {
     return <RoutinesEmptyState />;
   }
 
-  return <p>routine</p>;
+  return (
+    <div className="space-y-4">
+      {data.routines.edges?.map((routine) => {
+        if (routine?.node) {
+          return <Routine queryRef={routine.node} key={routine.node.id} />;
+        }
+      })}
+    </div>
+  );
 }
 
 export { Routines };

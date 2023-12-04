@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<67015237b884a6dea3e549530038bc5d>>
+ * @generated SignedSource<<8a02836d4ac9e5bc9f92f931da2486f9>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -22,7 +22,6 @@ export type SetInput = {
   kg?: number | null;
   km?: number | null;
   reps?: number | null;
-  set: number;
   time?: string | null;
 };
 export type AddRoutineForm_Mutation$variables = {
@@ -39,7 +38,6 @@ export type AddRoutineForm_Mutation$data = {
             readonly kg: number | null;
             readonly km: number | null;
             readonly reps: number | null;
-            readonly set: number;
             readonly time: string | null;
           }>;
         } | null;
@@ -89,13 +87,6 @@ v4 = {
   "name": "sets",
   "plural": true,
   "selections": [
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "set",
-      "storageKey": null
-    },
     {
       "alias": null,
       "args": null,
@@ -242,16 +233,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "a9a3e8d133ce2b6893e255502f19fd62",
+    "cacheID": "a2729f89148de9ce216af157b8358171",
     "id": null,
     "metadata": {},
     "name": "AddRoutineForm_Mutation",
     "operationKind": "mutation",
-    "text": "mutation AddRoutineForm_Mutation(\n  $input: CreateRoutineWithChildrenInput!\n) {\n  createRoutineWithChildren(input: $input) {\n    id\n    routineExercises {\n      edges {\n        node {\n          exerciseID\n          sets {\n            set\n            kg\n            time\n            km\n            reps\n          }\n          id\n        }\n      }\n    }\n  }\n}\n"
+    "text": "mutation AddRoutineForm_Mutation(\n  $input: CreateRoutineWithChildrenInput!\n) {\n  createRoutineWithChildren(input: $input) {\n    id\n    routineExercises {\n      edges {\n        node {\n          exerciseID\n          sets {\n            kg\n            time\n            km\n            reps\n          }\n          id\n        }\n      }\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "5f25a3c367f9f387ca75c1e056a6e594";
+(node as any).hash = "54894fc6a5f3e73a55c2aab384e9a725";
 
 export default node;

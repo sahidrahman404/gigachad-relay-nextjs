@@ -112,7 +112,7 @@ function Exercises({ queryRef, className }: ExercisesProps) {
 
   return (
     <ExercisesData.Provider value={query.viewer}>
-      <div className="space-y-3">
+      <div className="space-y-4">
         <div className="flex">
           <Button className="ml-auto" asChild>
             <Link href="/dashboard/exercises/add">Add Exercise</Link>

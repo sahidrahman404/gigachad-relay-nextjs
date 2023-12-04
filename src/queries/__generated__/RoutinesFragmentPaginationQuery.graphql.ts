@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<245d69061dac50b3a229744b57ba7aa0>>
+ * @generated SignedSource<<291f40d7eb5050d7cae83044edfe566c>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -75,7 +75,14 @@ v4 = [
     "name": "first",
     "variableName": "count"
   }
-];
+],
+v5 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "name",
+  "storageKey": null
+};
 return {
   "fragment": {
     "argumentDefinitions": (v0/*: any*/),
@@ -158,6 +165,54 @@ return {
                         "plural": false,
                         "selections": [
                           (v3/*: any*/),
+                          (v5/*: any*/),
+                          {
+                            "alias": null,
+                            "args": null,
+                            "concreteType": "RoutineExerciseConnection",
+                            "kind": "LinkedField",
+                            "name": "routineExercises",
+                            "plural": false,
+                            "selections": [
+                              {
+                                "alias": null,
+                                "args": null,
+                                "concreteType": "RoutineExerciseEdge",
+                                "kind": "LinkedField",
+                                "name": "edges",
+                                "plural": true,
+                                "selections": [
+                                  {
+                                    "alias": null,
+                                    "args": null,
+                                    "concreteType": "RoutineExercise",
+                                    "kind": "LinkedField",
+                                    "name": "node",
+                                    "plural": false,
+                                    "selections": [
+                                      {
+                                        "alias": null,
+                                        "args": null,
+                                        "concreteType": "Exercise",
+                                        "kind": "LinkedField",
+                                        "name": "exercises",
+                                        "plural": false,
+                                        "selections": [
+                                          (v5/*: any*/),
+                                          (v3/*: any*/)
+                                        ],
+                                        "storageKey": null
+                                      },
+                                      (v3/*: any*/)
+                                    ],
+                                    "storageKey": null
+                                  }
+                                ],
+                                "storageKey": null
+                              }
+                            ],
+                            "storageKey": null
+                          },
                           (v2/*: any*/)
                         ],
                         "storageKey": null
@@ -219,16 +274,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "de9c7e273f71312697ac2040eafbd761",
+    "cacheID": "28e8f098182f122850ee2b4b7580065a",
     "id": null,
     "metadata": {},
     "name": "RoutinesFragmentPaginationQuery",
     "operationKind": "query",
-    "text": "query RoutinesFragmentPaginationQuery(\n  $count: Int = 4\n  $cursor: Cursor\n  $id: ID!\n) {\n  node(id: $id) {\n    __typename\n    ...RoutinesFragment_1G22uz\n    id\n  }\n}\n\nfragment RoutinesFragment_1G22uz on User {\n  id\n  routines(after: $cursor, first: $count) {\n    edges {\n      node {\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n"
+    "text": "query RoutinesFragmentPaginationQuery(\n  $count: Int = 4\n  $cursor: Cursor\n  $id: ID!\n) {\n  node(id: $id) {\n    __typename\n    ...RoutinesFragment_1G22uz\n    id\n  }\n}\n\nfragment RoutineFragment on Routine {\n  id\n  name\n  routineExercises {\n    edges {\n      node {\n        exercises {\n          name\n          id\n        }\n        id\n      }\n    }\n  }\n}\n\nfragment RoutinesFragment_1G22uz on User {\n  id\n  routines(after: $cursor, first: $count) {\n    edges {\n      node {\n        id\n        ...RoutineFragment\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "cd67fc3f6a7fc9840931f3d3bf7e9ecc";
+(node as any).hash = "5406233ed4d8aa501d24b4365d93cf22";
 
 export default node;

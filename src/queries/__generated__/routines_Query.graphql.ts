@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<8240a962835ee56a877e34188d1b29ce>>
+ * @generated SignedSource<<cdd1b8620292c7da4b496bcfc25a1611>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -35,7 +35,14 @@ v1 = [
     "name": "first",
     "value": 4
   }
-];
+],
+v2 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "name",
+  "storageKey": null
+};
 return {
   "fragment": {
     "argumentDefinitions": [],
@@ -108,6 +115,54 @@ return {
                     "plural": false,
                     "selections": [
                       (v0/*: any*/),
+                      (v2/*: any*/),
+                      {
+                        "alias": null,
+                        "args": null,
+                        "concreteType": "RoutineExerciseConnection",
+                        "kind": "LinkedField",
+                        "name": "routineExercises",
+                        "plural": false,
+                        "selections": [
+                          {
+                            "alias": null,
+                            "args": null,
+                            "concreteType": "RoutineExerciseEdge",
+                            "kind": "LinkedField",
+                            "name": "edges",
+                            "plural": true,
+                            "selections": [
+                              {
+                                "alias": null,
+                                "args": null,
+                                "concreteType": "RoutineExercise",
+                                "kind": "LinkedField",
+                                "name": "node",
+                                "plural": false,
+                                "selections": [
+                                  {
+                                    "alias": null,
+                                    "args": null,
+                                    "concreteType": "Exercise",
+                                    "kind": "LinkedField",
+                                    "name": "exercises",
+                                    "plural": false,
+                                    "selections": [
+                                      (v2/*: any*/),
+                                      (v0/*: any*/)
+                                    ],
+                                    "storageKey": null
+                                  },
+                                  (v0/*: any*/)
+                                ],
+                                "storageKey": null
+                              }
+                            ],
+                            "storageKey": null
+                          }
+                        ],
+                        "storageKey": null
+                      },
                       {
                         "alias": null,
                         "args": null,
@@ -171,12 +226,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "eb51cae2e832c13f6b64c12224ef5ac7",
+    "cacheID": "301f3818b05ec33b7800b470d5d15c6f",
     "id": null,
     "metadata": {},
     "name": "routines_Query",
     "operationKind": "query",
-    "text": "query routines_Query {\n  viewer {\n    ...useAuthRedirectFragment\n    ...RoutinesFragment\n    id\n  }\n}\n\nfragment RoutinesFragment on User {\n  id\n  routines(first: 4) {\n    edges {\n      node {\n        id\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment useAuthRedirectFragment on User {\n  id\n}\n"
+    "text": "query routines_Query {\n  viewer {\n    ...useAuthRedirectFragment\n    ...RoutinesFragment\n    id\n  }\n}\n\nfragment RoutineFragment on Routine {\n  id\n  name\n  routineExercises {\n    edges {\n      node {\n        exercises {\n          name\n          id\n        }\n        id\n      }\n    }\n  }\n}\n\nfragment RoutinesFragment on User {\n  id\n  routines(first: 4) {\n    edges {\n      node {\n        id\n        ...RoutineFragment\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment useAuthRedirectFragment on User {\n  id\n}\n"
   }
 };
 })();
