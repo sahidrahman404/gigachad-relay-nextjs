@@ -1,13 +1,13 @@
 import { useRedirectIfUserNotExist } from "@/components/Hooks/useAuthRedirect";
 import Layout from "@/components/Layout";
 import { getClientEnvironment } from "@/lib/relay_client_environment";
-import { finishRoutine_Query } from "@/queries/__generated__/finishRoutine_Query.graphql";
+import { RoutineIDFinish_Query } from "@/queries/__generated__/RoutineIDFinish_Query.graphql";
 import { usePreloadedQuery } from "react-relay";
 import { RelayProps, withRelay } from "relay-nextjs";
 import { graphql } from "relay-runtime";
 
 const FinishRoutineQuery = graphql`
-  query finishRoutine_Query($routineID: ID!) {
+  query RoutineIDFinish_Query($routineID: ID!) {
     viewer {
       ...useAuthRedirectFragment
     }
@@ -21,7 +21,7 @@ const FinishRoutineQuery = graphql`
 
 function PFinishWorkout({
   preloadedQuery,
-}: RelayProps<{}, finishRoutine_Query>) {
+}: RelayProps<{}, RoutineIDFinish_Query>) {
   const data = usePreloadedQuery(FinishRoutineQuery, preloadedQuery);
   useRedirectIfUserNotExist({
     user: data.viewer,

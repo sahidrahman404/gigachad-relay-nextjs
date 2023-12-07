@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<dc040275da1b5efa145d14f43c7684d8>>
+ * @generated SignedSource<<fdc079f41aa4f3d2c0a7f710fa407a13>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,10 +10,10 @@
 
 import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type finishRoutine_Query$variables = {
+export type RoutineIDFinish_Query$variables = {
   routineID: string;
 };
-export type finishRoutine_Query$data = {
+export type RoutineIDFinish_Query$data = {
   readonly node: {
     readonly " $fragmentSpreads": FragmentRefs<"AddWorkoutFormFragment">;
   } | null;
@@ -21,9 +21,9 @@ export type finishRoutine_Query$data = {
     readonly " $fragmentSpreads": FragmentRefs<"useAuthRedirectFragment">;
   } | null;
 };
-export type finishRoutine_Query = {
-  response: finishRoutine_Query$data;
-  variables: finishRoutine_Query$variables;
+export type RoutineIDFinish_Query = {
+  response: RoutineIDFinish_Query$data;
+  variables: RoutineIDFinish_Query$variables;
 };
 
 const node: ConcreteRequest = (function(){
@@ -60,7 +60,7 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "finishRoutine_Query",
+    "name": "RoutineIDFinish_Query",
     "selections": [
       {
         "alias": null,
@@ -109,7 +109,7 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "finishRoutine_Query",
+    "name": "RoutineIDFinish_Query",
     "selections": [
       {
         "alias": null,
@@ -273,16 +273,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "9795418016371de7c2b98dfb1b083104",
+    "cacheID": "6c40623494e42d6f5dd5885b2af8c584",
     "id": null,
     "metadata": {},
-    "name": "finishRoutine_Query",
+    "name": "RoutineIDFinish_Query",
     "operationKind": "query",
-    "text": "query finishRoutine_Query(\n  $routineID: ID!\n) {\n  viewer {\n    ...useAuthRedirectFragment\n    id\n  }\n  node(id: $routineID) {\n    __typename\n    ... on Routine {\n      ...AddWorkoutFormFragment\n    }\n    id\n  }\n}\n\nfragment AddWorkoutFormFragment on Routine {\n  id\n  routineExercises {\n    edges {\n      node {\n        sets {\n          reps\n          kg\n          time\n          km\n        }\n        exercises {\n          id\n          name\n          exerciseTypes {\n            edges {\n              node {\n                name\n                id\n              }\n            }\n          }\n        }\n        id\n      }\n    }\n  }\n}\n\nfragment useAuthRedirectFragment on User {\n  id\n}\n"
+    "text": "query RoutineIDFinish_Query(\n  $routineID: ID!\n) {\n  viewer {\n    ...useAuthRedirectFragment\n    id\n  }\n  node(id: $routineID) {\n    __typename\n    ... on Routine {\n      ...AddWorkoutFormFragment\n    }\n    id\n  }\n}\n\nfragment AddWorkoutFormFragment on Routine {\n  id\n  routineExercises {\n    edges {\n      node {\n        sets {\n          reps\n          kg\n          time\n          km\n        }\n        exercises {\n          id\n          name\n          exerciseTypes {\n            edges {\n              node {\n                name\n                id\n              }\n            }\n          }\n        }\n        id\n      }\n    }\n  }\n}\n\nfragment useAuthRedirectFragment on User {\n  id\n}\n"
   }
 };
 })();
 
-(node as any).hash = "edbd7393b2b693f6592651a07d70e387";
+(node as any).hash = "cb751525bf6ba13085ad15a2f0faad90";
 
 export default node;

@@ -238,7 +238,7 @@ function AddWorkoutForm({ queryRef }: AddWorkoutFormProps) {
       duration: durationString,
       stopTime: stopTime,
     });
-    router.push(`/dashboard/routines/start/${data.id}/finish`);
+    router.push(`/dashboard/routines/finish/${data.id}`);
   }
 
   function onError(errVal: FieldErrors<AddWorkoutFormSchema>) {
