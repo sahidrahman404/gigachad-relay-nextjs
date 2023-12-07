@@ -13,7 +13,7 @@ const FinishRoutineQuery = graphql`
     }
     node(id: $routineID) {
       ... on Routine {
-        ...AddWorkoutFormFragment
+        ...StartWorkoutFormFragment
       }
     }
   }

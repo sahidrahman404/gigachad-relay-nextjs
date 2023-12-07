@@ -16,20 +16,20 @@ import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { cn } from "@/lib/utils";
 import { WorkoutLogsContext, WorkoutLogsProps } from "./WorkoutLogs";
-import {
-  AddWorkoutFormSchema,
-  UseFormReturnAddWorkoutFormSchema,
-} from "./AddWorkoutForm";
 import { Checkbox } from "../ui/checkbox";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
+import {
+  StartWorkoutFormSchema,
+  UseFormReturnStartWorkoutFormSchema,
+} from "./StartWorkoutForm";
 
 type WorkoutLogsSetFormFieldProps = {
   label: string;
-  form: UseFormReturnAddWorkoutFormSchema;
+  form: UseFormReturnStartWorkoutFormSchema;
   index: number;
   setIndex: number;
   setField: Exclude<
-    keyof AddWorkoutFormSchema["workoutLogs"][0]["sets"][0],
+    keyof StartWorkoutFormSchema["workoutLogs"][0]["sets"][0],
     "selected"
   >;
   type: "text" | "number";
@@ -64,7 +64,7 @@ function WorkoutLogsSetFormField({
 
 type WorkoutLogsSetsFieldArray = {
   fieldArray: UseFieldArrayReturn<
-    AddWorkoutFormSchema,
+    StartWorkoutFormSchema,
     `workoutLogs.${number}.sets`
   >;
 };
@@ -75,7 +75,7 @@ type GetIterableIteratorVal<T> = T extends IterableIterator<infer TInferredData>
 
 type WorkoutLogsSetsFormFieldsProps = {
   formFields: (
-    form: UseFormReturnAddWorkoutFormSchema,
+    form: UseFormReturnStartWorkoutFormSchema,
     index: WorkoutLogsProps["index"],
     setIndex: number,
   ) => ReactNode;
@@ -97,7 +97,7 @@ function WorkoutLogsSetsFormFields({
 }: WorkoutLogsSetsFormFieldsProps) {
   const [parent] = useAutoAnimate();
   const { index } = useContext(WorkoutLogsContext);
-  const form = useFormContext<AddWorkoutFormSchema>();
+  const form = useFormContext<StartWorkoutFormSchema>();
   const fieldArray = useFieldArray({
     name: `workoutLogs.${index}.sets`,
     control: form.control,

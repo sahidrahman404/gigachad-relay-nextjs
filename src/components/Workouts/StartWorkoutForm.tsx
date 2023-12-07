@@ -10,7 +10,6 @@ import { Form } from "../ui/form";
 import { Button } from "../ui/button";
 import { graphql } from "relay-runtime";
 import { useFragment } from "react-relay";
-import { AddWorkoutFormFragment$key } from "@/queries/__generated__/AddWorkoutFormFragment.graphql";
 import { image } from "@/lib/zod";
 import { WorkoutLogs } from "./WorkoutLogs";
 import { capitalizeFirstLetter } from "@/lib/utils";
@@ -26,17 +25,18 @@ import {
 import { useEffect, useMemo } from "react";
 import { intervalToDuration } from "date-fns";
 import { useRouter } from "next/router";
+import { StartWorkoutFormFragment$key } from "@/queries/__generated__/StartWorkoutFormFragment.graphql";
 
-const AddWorkoutFormMutation = graphql`
-  mutation AddWorkoutFormMutation($input: CreateWorkoutWithChildrenInput!) {
-    createWorkoutWithChildren(input: $input) {
-      id
-    }
-  }
-`;
+// const AddWorkoutFormMutation = graphql`
+//   mutation AddWorkoutFormMutation($input: CreateWorkoutWithChildrenInput!) {
+//     createWorkoutWithChildren(input: $input) {
+//       id
+//     }
+//   }
+// `;
 
-const AddWorkoutFormFragment = graphql`
-  fragment AddWorkoutFormFragment on Routine {
+const StartWorkoutFormFragment = graphql`
+  fragment StartWorkoutFormFragment on Routine {
     id
     routineExercises {
       edges {
@@ -77,7 +77,7 @@ createStore({
 
 function updateStartWorkoutData(
   state: GlobalState,
-  payload: AddWorkoutFormSchema,
+  payload: StartWorkoutFormSchema,
 ) {
   return {
     ...state,
@@ -135,14 +135,14 @@ const formSchema = z.object({
     ),
 });
 
-type AddWorkoutFormSchema = z.infer<typeof formSchema>;
+type StartWorkoutFormSchema = z.infer<typeof formSchema>;
 
-type AddWorkoutFormProps = {
-  queryRef: AddWorkoutFormFragment$key;
+type StartWorkoutFormProps = {
+  queryRef: StartWorkoutFormFragment$key;
 };
 
-function AddWorkoutForm({ queryRef }: AddWorkoutFormProps) {
-  const data = useFragment(AddWorkoutFormFragment, queryRef);
+function StartWorkoutForm({ queryRef }: StartWorkoutFormProps) {
+  const data = useFragment(StartWorkoutFormFragment, queryRef);
   const { toast } = useToast();
   const { state, actions } = useStateMachine({ updateStartWorkoutData });
   const router = useRouter();
@@ -174,7 +174,7 @@ function AddWorkoutForm({ queryRef }: AddWorkoutFormProps) {
     });
   }, [data.routineExercises.edges]);
 
-  const form = useForm<AddWorkoutFormSchema>({
+  const form = useForm<StartWorkoutFormSchema>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       volume: 0,
@@ -226,7 +226,7 @@ function AddWorkoutForm({ queryRef }: AddWorkoutFormProps) {
     };
   }, []);
 
-  function onSubmit(val: AddWorkoutFormSchema) {
+  function onSubmit(val: StartWorkoutFormSchema) {
     const stopTime = Date.now();
     const duration = intervalToDuration({
       start: val.startTime,
@@ -241,7 +241,7 @@ function AddWorkoutForm({ queryRef }: AddWorkoutFormProps) {
     router.push(`/dashboard/routines/finish/${data.id}`);
   }
 
-  function onError(errVal: FieldErrors<AddWorkoutFormSchema>) {
+  function onError(errVal: FieldErrors<StartWorkoutFormSchema>) {
     const workoutLogsErr = errVal.workoutLogs;
     if (
       workoutLogsErr &&
@@ -295,11 +295,11 @@ function AddWorkoutForm({ queryRef }: AddWorkoutFormProps) {
   );
 }
 
-type UseFormReturnAddWorkoutFormSchema = UseFormReturn<
-  AddWorkoutFormSchema,
+type UseFormReturnStartWorkoutFormSchema = UseFormReturn<
+  StartWorkoutFormSchema,
   any,
   undefined
 >;
 
-export { AddWorkoutForm, updateStartWorkoutData };
-export type { AddWorkoutFormSchema, UseFormReturnAddWorkoutFormSchema };
+export { StartWorkoutForm, updateStartWorkoutData };
+export type { StartWorkoutFormSchema, UseFormReturnStartWorkoutFormSchema };

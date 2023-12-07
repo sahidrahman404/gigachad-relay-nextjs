@@ -1,10 +1,12 @@
 import { Label } from "@radix-ui/react-label";
-import type { AddWorkoutFormSchema } from "./AddWorkoutForm";
-import { updateStartWorkoutData } from "./AddWorkoutForm";
 import { useFormContext } from "react-hook-form";
 import { useEffect, useState } from "react";
 import { intervalToDuration } from "date-fns";
 import { useStateMachine } from "little-state-machine";
+import {
+  StartWorkoutFormSchema,
+  updateStartWorkoutData,
+} from "./StartWorkoutForm";
 
 function WorkoutLogsStats() {
   return (
@@ -27,7 +29,7 @@ function WorkoutLogsStats() {
 
 function GetTotalVolume() {
   const initialVolume = 0;
-  const form = useFormContext<AddWorkoutFormSchema>();
+  const form = useFormContext<StartWorkoutFormSchema>();
   const totalVolume = form.watch().workoutLogs.reduce((acc, currVal) => {
     return (
       acc +
@@ -49,7 +51,7 @@ function GetTotalVolume() {
 
 function GetTotalSets() {
   const initialSets = 0;
-  const form = useFormContext<AddWorkoutFormSchema>();
+  const form = useFormContext<StartWorkoutFormSchema>();
   const sets = form.watch().workoutLogs.reduce((acc, wLCurrVal) => {
     return (
       acc +

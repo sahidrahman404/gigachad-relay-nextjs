@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<b4be6aaec76ef02885487a8716a6e1e9>>
+ * @generated SignedSource<<5de7dbc1a033d0d3e41174a1e1254ed7>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -15,7 +15,7 @@ export type RoutineID_Query$variables = {
 };
 export type RoutineID_Query$data = {
   readonly node: {
-    readonly " $fragmentSpreads": FragmentRefs<"AddWorkoutFormFragment">;
+    readonly " $fragmentSpreads": FragmentRefs<"StartWorkoutFormFragment">;
   } | null;
   readonly viewer: {
     readonly " $fragmentSpreads": FragmentRefs<"useAuthRedirectFragment">;
@@ -92,7 +92,7 @@ return {
               {
                 "args": null,
                 "kind": "FragmentSpread",
-                "name": "AddWorkoutFormFragment"
+                "name": "StartWorkoutFormFragment"
               }
             ],
             "type": "Routine",
@@ -273,16 +273,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "54a400d65f1f954766fb06fea65dbf07",
+    "cacheID": "40ec80bfa80dfb720a3b0fd7f387a104",
     "id": null,
     "metadata": {},
     "name": "RoutineID_Query",
     "operationKind": "query",
-    "text": "query RoutineID_Query(\n  $routineID: ID!\n) {\n  viewer {\n    ...useAuthRedirectFragment\n    id\n  }\n  node(id: $routineID) {\n    __typename\n    ... on Routine {\n      ...AddWorkoutFormFragment\n    }\n    id\n  }\n}\n\nfragment AddWorkoutFormFragment on Routine {\n  id\n  routineExercises {\n    edges {\n      node {\n        sets {\n          reps\n          kg\n          time\n          km\n        }\n        exercises {\n          id\n          name\n          exerciseTypes {\n            edges {\n              node {\n                name\n                id\n              }\n            }\n          }\n        }\n        id\n      }\n    }\n  }\n}\n\nfragment useAuthRedirectFragment on User {\n  id\n}\n"
+    "text": "query RoutineID_Query(\n  $routineID: ID!\n) {\n  viewer {\n    ...useAuthRedirectFragment\n    id\n  }\n  node(id: $routineID) {\n    __typename\n    ... on Routine {\n      ...StartWorkoutFormFragment\n    }\n    id\n  }\n}\n\nfragment StartWorkoutFormFragment on Routine {\n  id\n  routineExercises {\n    edges {\n      node {\n        sets {\n          reps\n          kg\n          time\n          km\n        }\n        exercises {\n          id\n          name\n          exerciseTypes {\n            edges {\n              node {\n                name\n                id\n              }\n            }\n          }\n        }\n        id\n      }\n    }\n  }\n}\n\nfragment useAuthRedirectFragment on User {\n  id\n}\n"
   }
 };
 })();
 
-(node as any).hash = "980f2a9f0290be447f06840e12211cd1";
+(node as any).hash = "4f9ac1a19e37a0d858cb4d795a76295e";
 
 export default node;

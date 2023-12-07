@@ -1,6 +1,6 @@
 import { useRedirectIfUserNotExist } from "@/components/Hooks/useAuthRedirect";
 import Layout from "@/components/Layout";
-import { AddWorkoutForm } from "@/components/Workouts/AddWorkoutForm";
+import { StartWorkoutForm } from "@/components/Workouts/StartWorkoutForm";
 import { getClientEnvironment } from "@/lib/relay_client_environment";
 import { RoutineID_Query } from "@/queries/__generated__/RoutineID_Query.graphql";
 import { usePreloadedQuery } from "react-relay";
@@ -14,7 +14,7 @@ const RoutineQuery = graphql`
     }
     node(id: $routineID) {
       ... on Routine {
-        ...AddWorkoutFormFragment
+        ...StartWorkoutFormFragment
       }
     }
   }
@@ -30,7 +30,7 @@ function PStartWorkout({ preloadedQuery }: RelayProps<{}, RoutineID_Query>) {
     return null;
   }
 
-  return <AddWorkoutForm queryRef={data.node} />;
+  return <StartWorkoutForm queryRef={data.node} />;
 }
 
 function Loading() {
