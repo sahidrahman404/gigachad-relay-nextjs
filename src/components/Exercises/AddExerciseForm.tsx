@@ -58,7 +58,7 @@ const formSchema = z.object({
   image: z.optional(image),
   musclesGroupID: MusclesGroupID,
   exerciseTypeID: ExerciseTypeID,
-  howTo: z.string(),
+  howTo: z.string().optional(),
 });
 
 type ExerciseFormProps = {
