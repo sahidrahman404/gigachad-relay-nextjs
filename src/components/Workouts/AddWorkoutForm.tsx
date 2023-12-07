@@ -205,36 +205,23 @@ function AddWorkoutForm({ queryRef }: AddWorkoutFormProps) {
   }, [state?.startWorkoutData?.workoutLogs]);
 
   useEffect(() => {
-    const nativeBrowserHandler = (event: BeforeUnloadEvent) => {
-      event.preventDefault();
-      event.returnValue = "";
-    };
-
     const nextNavigationHandler = (url: string) => {
       if (!url.split("/").includes("finish")) {
-        if (
-          !window.confirm("Navigate away? Changes you made may not be saved.")
-        ) {
-          actions.updateStartWorkoutData({
-            volume: 0,
-            sets: 0,
-            startTime: 0,
-            stopTime: 0,
-            duration: "",
-            workoutLogs: [],
-          });
-          router.events.emit("routeChangeError");
-          throw "Abort route change by user's confirmation.";
-        }
+        actions.updateStartWorkoutData({
+          volume: 0,
+          sets: 0,
+          startTime: 0,
+          stopTime: 0,
+          duration: "",
+          workoutLogs: [],
+        });
       }
     };
 
-    window.addEventListener("beforeunload", nativeBrowserHandler);
     router.events.on("beforeHistoryChange", nextNavigationHandler);
 
     // On component unmount, remove the event listener
     return () => {
-      window.removeEventListener("beforeunload", nativeBrowserHandler);
       router.events.off("beforeHistoryChange", nextNavigationHandler);
     };
   }, []);

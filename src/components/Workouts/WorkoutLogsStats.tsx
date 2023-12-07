@@ -77,7 +77,6 @@ function GetWorkoutDuration() {
     const start = state?.startWorkoutData?.startTime ?? 0;
     const stop = state?.startWorkoutData?.stopTime ?? 0;
     const seconds = Math.round((stop - start) / 1000);
-    console.log(seconds);
     setSeconds(seconds);
   }, []);
 
