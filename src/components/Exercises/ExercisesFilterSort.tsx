@@ -17,7 +17,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
-import { Button } from "../ui/button";
+import { Button } from "../ReactAriaUI/Button";
+import { Button as ButtonCn } from "../ui/button";
 import { ArrowUpDown, Filter } from "lucide-react";
 import { ExerciseTypeInput } from "./ExerciseTypeInput";
 import { Label } from "../ui/label";
@@ -102,7 +103,7 @@ function ExercisesFilterSort({
             </div>
             <Button
               variant="outline"
-              onClick={() => {
+              onPress={() => {
                 dispatch({ type: "set_muscles_group", payload: "" });
                 dispatch({ type: "set_exercise_type", payload: "" });
               }}
@@ -112,7 +113,7 @@ function ExercisesFilterSort({
           </div>
           <DialogFooter>
             <Button
-              onClick={() => {
+              onPress={() => {
                 startTransition(() => {
                   refetch(
                     {
@@ -142,10 +143,10 @@ function ExercisesFilterSort({
       </Dialog>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant="outline">
+          <ButtonCn variant="outline">
             <ArrowUpDown className="mr-2 w-4 h-4" />
             Sort
-          </Button>
+          </ButtonCn>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-56">
           <DropdownMenuLabel>Sort from</DropdownMenuLabel>

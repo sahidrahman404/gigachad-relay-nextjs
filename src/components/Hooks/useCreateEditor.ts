@@ -1,4 +1,4 @@
-import { useEditor } from "@tiptap/react";
+import { Content, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import { ComponentProps } from "react";
 import Youtube from "@tiptap/extension-youtube";
@@ -7,7 +7,7 @@ import TextAlign from "@tiptap/extension-text-align";
 import Placeholder from "@tiptap/extension-placeholder";
 
 type UseCreateEditorProps = ComponentProps<"div"> & {
-  description: string;
+  description?: Content;
   placeholder: string;
   onChange: (...event: any[]) => void;
 };
@@ -37,7 +37,7 @@ function useCreateEditor({
     },
     editorProps: {
       attributes: {
-        class: "prose focus:outline-none",
+        class: "prose focus:outline-none mx-auto",
       },
     },
   });

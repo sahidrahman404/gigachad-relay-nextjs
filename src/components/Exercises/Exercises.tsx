@@ -2,8 +2,7 @@ import { ExercisesFragment$key } from "@/queries/__generated__/ExercisesFragment
 import { useFragment, usePaginationFragment } from "react-relay";
 import { OperationType, graphql } from "relay-runtime";
 import { Exercise } from "./Exercise";
-import { Button } from "../ui/button";
-import Link from "next/link";
+import { LinkButton } from "../ReactAriaUI/LinkButton";
 import {
   ComponentProps,
   createContext,
@@ -114,9 +113,9 @@ function Exercises({ queryRef, className }: ExercisesProps) {
     <ExercisesData.Provider value={query.viewer}>
       <div className="space-y-4">
         <div className="flex">
-          <Button className="ml-auto" asChild>
-            <Link href="/dashboard/exercises/add">Add Exercise</Link>
-          </Button>
+          <LinkButton className="ml-auto" href="/dashboard/exercises/add">
+            Add Exercise
+          </LinkButton>
         </div>
         <ExercisesFilterSort
           exercisesFilterSortFragmentQueryRef={query}

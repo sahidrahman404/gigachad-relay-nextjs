@@ -8,9 +8,8 @@ import {
   CardHeader,
   CardTitle,
 } from "../ui/card";
-import { Button } from "../ui/button";
+import { LinkButton } from "../ReactAriaUI/LinkButton";
 import { capitalizeFirstLetter } from "@/lib/utils";
-import Link from "next/link";
 
 const RoutineFragment = graphql`
   fragment RoutineFragment on Routine {
@@ -50,11 +49,9 @@ function Routine({ queryRef }: RoutineProps) {
         <CardDescription>{exercises}</CardDescription>
       </CardHeader>
       <CardFooter className="flex flex-col items-stretch md:block">
-        <Button size={"lg"} asChild>
-          <Link href={`/dashboard/routines/start/${data.id}`}>
-            Start Routine
-          </Link>
-        </Button>
+        <LinkButton href={`/dashboard/routines/start/${data.id}`}>
+          Start Routine
+        </LinkButton>
       </CardFooter>
     </Card>
   );

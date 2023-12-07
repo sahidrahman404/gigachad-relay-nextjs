@@ -15,7 +15,7 @@ import {
   FormLabel,
   FormMessage,
 } from "../ui/form";
-import { Button } from "../ui/button";
+import { Button } from "../ReactAriaUI/Button";
 import { Input } from "../ui/input";
 import {
   createUppy,
@@ -171,7 +171,7 @@ function FinishWorkoutForm({ queryRef }: FinishWorkoutFormProps) {
         <Button
           type="submit"
           className="col-span-4 justify-self-end"
-          disabled={isUploadInFlight || isMutationInFlight}
+          isDisabled={isUploadInFlight || isMutationInFlight}
         >
           Submit
         </Button>

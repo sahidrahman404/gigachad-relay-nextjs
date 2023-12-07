@@ -1,6 +1,5 @@
 import { FolderPlus } from "lucide-react";
-import { Button } from "../ui/button";
-import Link from "next/link";
+import { LinkButton } from "../ReactAriaUI/LinkButton";
 
 function RoutinesEmptyState() {
   return (
@@ -13,9 +12,7 @@ function RoutinesEmptyState() {
             Get started by adding a new routine
           </p>
         </div>
-        <Button asChild>
-          <Link href="/dashboard/routines/add">Add Routines</Link>
-        </Button>
+        <LinkButton href="/dashboard/routines/add">Add Routines</LinkButton>
       </div>
     </div>
   );
