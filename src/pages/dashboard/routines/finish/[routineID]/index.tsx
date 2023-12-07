@@ -1,19 +1,20 @@
 import { useRedirectIfUserNotExist } from "@/components/Hooks/useAuthRedirect";
 import Layout from "@/components/Layout";
+import { FinishWorkoutForm } from "@/components/Workouts/FinishWorkoutForm";
 import { getClientEnvironment } from "@/lib/relay_client_environment";
 import { RoutineIDFinish_Query } from "@/queries/__generated__/RoutineIDFinish_Query.graphql";
 import { usePreloadedQuery } from "react-relay";
 import { RelayProps, withRelay } from "relay-nextjs";
 import { graphql } from "relay-runtime";
 
-const FinishRoutineQuery = graphql`
+const FinishWorkoutQuery = graphql`
   query RoutineIDFinish_Query($routineID: ID!) {
     viewer {
       ...useAuthRedirectFragment
     }
     node(id: $routineID) {
       ... on Routine {
-        ...StartWorkoutFormFragment
+        ...FinishWorkoutFormFragment
       }
     }
   }
@@ -22,7 +23,7 @@ const FinishRoutineQuery = graphql`
 function PFinishWorkout({
   preloadedQuery,
 }: RelayProps<{}, RoutineIDFinish_Query>) {
-  const data = usePreloadedQuery(FinishRoutineQuery, preloadedQuery);
+  const data = usePreloadedQuery(FinishWorkoutQuery, preloadedQuery);
   useRedirectIfUserNotExist({
     user: data.viewer,
   });
@@ -31,14 +32,14 @@ function PFinishWorkout({
     return null;
   }
 
-  return <p>not implemented yet</p>;
+  return <FinishWorkoutForm queryRef={data.node} />;
 }
 
 function Loading() {
   return <div>Loading...</div>;
 }
 
-const FinishWorkoutPage = withRelay(PFinishWorkout, FinishRoutineQuery, {
+const FinishWorkoutPage = withRelay(PFinishWorkout, FinishWorkoutQuery, {
   fallback: <Loading />,
   createClientEnvironment: () => getClientEnvironment()!,
   serverSideProps: async (ctx) => {

@@ -10,7 +10,6 @@ import { Form } from "../ui/form";
 import { Button } from "../ui/button";
 import { graphql } from "relay-runtime";
 import { useFragment } from "react-relay";
-import { image } from "@/lib/zod";
 import { WorkoutLogs } from "./WorkoutLogs";
 import { capitalizeFirstLetter } from "@/lib/utils";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
@@ -26,6 +25,7 @@ import { useEffect, useMemo } from "react";
 import { intervalToDuration } from "date-fns";
 import { useRouter } from "next/router";
 import { StartWorkoutFormFragment$key } from "@/queries/__generated__/StartWorkoutFormFragment.graphql";
+import { FinishWorkoutFormSchema } from "./FinishWorkoutForm";
 
 // const AddWorkoutFormMutation = graphql`
 //   mutation AddWorkoutFormMutation($input: CreateWorkoutWithChildrenInput!) {
@@ -65,33 +65,30 @@ const StartWorkoutFormFragment = graphql`
 `;
 
 createStore({
-  startWorkoutData: {
+  workout: {
     volume: 0,
     sets: 0,
     startTime: 0,
     stopTime: 0,
     duration: "",
     workoutLogs: [],
+    description: "",
+    image: undefined,
   },
 });
 
 function updateStartWorkoutData(
   state: GlobalState,
-  payload: StartWorkoutFormSchema,
+  payload: StartWorkoutFormSchema & FinishWorkoutFormSchema,
 ) {
   return {
     ...state,
-    startWorkoutData: {
-      ...state.startWorkoutData,
+    workout: {
+      ...state.workout,
       ...payload,
     },
   };
 }
-
-const formSchema2 = z.object({
-  image: image.optional(),
-  description: z.string().optional(),
-});
 
 const formSchema = z.object({
   volume: z.number(),
@@ -192,17 +189,17 @@ function StartWorkoutForm({ queryRef }: StartWorkoutFormProps) {
   });
 
   useEffect(() => {
-    const startTime = state?.startWorkoutData?.startTime;
-    const stopTime = state?.startWorkoutData?.stopTime;
+    const startTime = state?.workout?.startTime;
+    const stopTime = state?.workout?.stopTime;
     if (startTime && stopTime) {
       form.setValue("startTime", startTime);
       form.setValue("stopTime", stopTime);
     }
-    const workoutLogs = state?.startWorkoutData?.workoutLogs;
+    const workoutLogs = state?.workout?.workoutLogs;
     if (workoutLogs && workoutLogs.length > 1) {
       replace(workoutLogs);
     }
-  }, [state?.startWorkoutData?.workoutLogs]);
+  }, [state?.workout?.workoutLogs]);
 
   useEffect(() => {
     const nextNavigationHandler = (url: string) => {
@@ -214,6 +211,8 @@ function StartWorkoutForm({ queryRef }: StartWorkoutFormProps) {
           stopTime: 0,
           duration: "",
           workoutLogs: [],
+          description: "",
+          image: undefined,
         });
       }
     };

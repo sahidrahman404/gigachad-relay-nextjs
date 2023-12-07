@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<0d9eefbfdd0db1b7293c38b8afe41f2e>>
+ * @generated SignedSource<<3bf74c7d88989a969a95a33980a88ba8>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -401,29 +401,8 @@ export type WorkoutWhereInput = {
   idLTE?: string | null;
   idNEQ?: string | null;
   idNotIn?: ReadonlyArray<string> | null;
-  name?: string | null;
-  nameContains?: string | null;
-  nameContainsFold?: string | null;
-  nameEqualFold?: string | null;
-  nameGT?: string | null;
-  nameGTE?: string | null;
-  nameHasPrefix?: string | null;
-  nameHasSuffix?: string | null;
-  nameIn?: ReadonlyArray<string> | null;
-  nameLT?: string | null;
-  nameLTE?: string | null;
-  nameNEQ?: string | null;
-  nameNotIn?: ReadonlyArray<string> | null;
   not?: WorkoutWhereInput | null;
   or?: ReadonlyArray<WorkoutWhereInput> | null;
-  reps?: number | null;
-  repsGT?: number | null;
-  repsGTE?: number | null;
-  repsIn?: ReadonlyArray<number> | null;
-  repsLT?: number | null;
-  repsLTE?: number | null;
-  repsNEQ?: number | null;
-  repsNotIn?: ReadonlyArray<number> | null;
   sets?: number | null;
   setsGT?: number | null;
   setsGTE?: number | null;

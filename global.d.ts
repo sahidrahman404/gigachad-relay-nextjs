@@ -1,8 +1,9 @@
 import "little-state-machine";
-import { AddWorkoutFormSchema } from "./src/components/Workouts/AddWorkoutForm";
+import { StartWorkoutFormSchema } from "./src/components/Workouts/StartWorkoutForm";
+import { FinishWorkoutFormSchema } from "./src/components/Workouts/FinishWorkoutForm";
 
 declare module "little-state-machine" {
   interface GlobalState {
-    startWorkoutData: AddWorkoutFormSchema;
+    workout: StartWorkoutFormSchema & FinishWorkoutFormSchema;
   }
 }
