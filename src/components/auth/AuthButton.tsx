@@ -1,15 +1,22 @@
 import { ReactNode } from "react";
-import { Button } from "../ui/button";
+import { Button } from "../ReactAriaUI/Button";
 
 type AuthButtonParams = {
-  children: ReactNode
-  isMutationInFlight: boolean
-}
+  children: ReactNode;
+  isMutationInFlight: boolean;
+};
 
-export default function AuthButton({isMutationInFlight, children}: AuthButtonParams) {
+export default function AuthButton({
+  isMutationInFlight,
+  children,
+}: AuthButtonParams) {
   return (
-    <Button type="submit" disabled={isMutationInFlight} className="flex w-full justify-center">
+    <Button
+      type="submit"
+      isDisabled={isMutationInFlight}
+      className="flex w-full justify-center"
+    >
       {children}
     </Button>
-  )
+  );
 }

@@ -8,6 +8,8 @@ import GlobalError from "@/components/Error/GlobalError";
 import { NextPage } from "next";
 import { ReactElement, ReactNode } from "react";
 import { StateMachineProvider } from "little-state-machine";
+import { useRouter } from "next/router";
+import { RouterProvider } from "react-aria-components";
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -18,17 +20,22 @@ type AppPropsWithLayout = AppProps & {
 };
 
 export default function App({ Component, pageProps }: AppPropsWithLayout) {
+  let router = useRouter();
   const { env, ...relayProps } = useRelayNextjs(pageProps, {
     createClientEnvironment: () => getClientEnvironment()!,
   });
   const getLayout = Component.getLayout || ((page) => page);
-  return getLayout(
-    <ErrorBoundary fallback={<GlobalError />}>
-      <RelayEnvironmentProvider environment={env}>
-        <StateMachineProvider>
-          <Component {...pageProps} {...relayProps} />
-        </StateMachineProvider>
-      </RelayEnvironmentProvider>
-    </ErrorBoundary>,
+  return (
+    <RouterProvider navigate={router.push}>
+      {getLayout(
+        <ErrorBoundary fallback={<GlobalError />}>
+          <RelayEnvironmentProvider environment={env}>
+            <StateMachineProvider>
+              <Component {...pageProps} {...relayProps} />
+            </StateMachineProvider>
+          </RelayEnvironmentProvider>
+        </ErrorBoundary>,
+      )}
+    </RouterProvider>
   );
 }

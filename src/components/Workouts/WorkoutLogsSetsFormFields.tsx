@@ -13,7 +13,7 @@ import {
   FormMessage,
 } from "../ui/form";
 import { Input } from "../ui/input";
-import { Button } from "../ui/button";
+import { Button } from "../ReactAriaUI/Button";
 import { cn } from "@/lib/utils";
 import { WorkoutLogsContext, WorkoutLogsProps } from "./WorkoutLogs";
 import { Checkbox } from "../ui/checkbox";
@@ -133,8 +133,7 @@ function WorkoutLogsSetsFormFields({
 
       <Button
         variant="outline"
-        onClick={(e) => {
-          e.preventDefault();
+        onPress={() => {
           fieldArray.append(appendArgument);
         }}
       >
