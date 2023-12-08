@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<64665d94769a3ebd533e7594f6528361>>
+ * @generated SignedSource<<95a4c4e216691076e2650bc3340ed08d>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -14,7 +14,7 @@ export type ExercisesParentFragment$data = {
   readonly viewer: {
     readonly " $fragmentSpreads": FragmentRefs<"ExercisesFragment">;
   } | null;
-  readonly " $fragmentSpreads": FragmentRefs<"ExercisesFilterSortFragment">;
+  readonly " $fragmentSpreads": FragmentRefs<"ExercisesFilterSortAriaFragment">;
   readonly " $fragmentType": "ExercisesParentFragment";
 };
 export type ExercisesParentFragment$key = {
@@ -47,13 +47,13 @@ const node: ReaderFragment = {
     {
       "args": null,
       "kind": "FragmentSpread",
-      "name": "ExercisesFilterSortFragment"
+      "name": "ExercisesFilterSortAriaFragment"
     }
   ],
   "type": "Query",
   "abstractKey": null
 };
 
-(node as any).hash = "c440822d420e572ff32b9cac56219593";
+(node as any).hash = "f58855756c91a069c44f58b72a3fc3e7";
 
 export default node;

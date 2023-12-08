@@ -13,16 +13,16 @@ import { cn } from "@/lib/utils";
 import { LoadingSpinner } from "../common/LoadingSpinner";
 import { InfiniteScroll } from "../common/InfiniteScroll";
 import { ExercisesParentFragment$key } from "@/queries/__generated__/ExercisesParentFragment.graphql";
-import { ExercisesFilterSort } from "./ExercisesFilterSort";
 import { ExercisesEmptyState } from "./ExercisesEmptyState";
 import { useExercisesFilterSort } from "../Hooks/useExercisesFilterSort";
+import { ExercisesFilterSortAria } from "./ExercisesFilterSortAria";
 
 const ExercisesParentFragment = graphql`
   fragment ExercisesParentFragment on Query {
     viewer {
       ...ExercisesFragment
     }
-    ...ExercisesFilterSortFragment
+    ...ExercisesFilterSortAriaFragment
   }
 `;
 
@@ -97,7 +97,7 @@ function Exercises({ queryRef, className }: ExercisesProps) {
     return (
       <ExercisesEmptyState
         SlotExercisesFilterSort={
-          <ExercisesFilterSort
+          <ExercisesFilterSortAria
             exercisesFilterSortFragmentQueryRef={query}
             startTransition={startTransition}
             refetch={refetch}
@@ -117,7 +117,7 @@ function Exercises({ queryRef, className }: ExercisesProps) {
             Add Exercise
           </LinkButton>
         </div>
-        <ExercisesFilterSort
+        <ExercisesFilterSortAria
           exercisesFilterSortFragmentQueryRef={query}
           startTransition={startTransition}
           refetch={refetch}

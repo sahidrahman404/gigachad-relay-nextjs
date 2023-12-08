@@ -34,6 +34,7 @@ function MusclesGroupSelectInput({
   const data = useFragment(MusclesGroupSelectInputFragment, queryRef);
   return (
     <Select
+      autoFocus
       {...props}
       placeholder="Select primary muscles group"
       className="h-12"
