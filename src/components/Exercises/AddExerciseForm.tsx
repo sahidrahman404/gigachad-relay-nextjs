@@ -12,7 +12,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ReactAriaUI/Button";
 import { useForm } from "react-hook-form";
 import {
   createUppy,
@@ -95,7 +95,8 @@ function AddExerciseForm({
 
   const editor = useCreateEditor({
     description: form.getValues("howTo"),
-    placeholder: "Add exercise instruction here...",
+    placeholder:
+      "Enter a comprehensive step-by-step guide for correctly performing the exercise...",
     onChange: (val) => {
       form.setValue("howTo", val);
     },
@@ -179,10 +180,11 @@ function AddExerciseForm({
         className="grid grid-cols-4 gap-x-1 gap-y-2"
       >
         <Button
+          type="submit"
           disabled={isMutationInFlight || isUploadInFlight}
           className="col-span-4 justify-self-end"
         >
-          submit
+          Submit
         </Button>
         <FormField
           control={form.control}
@@ -261,7 +263,7 @@ function AddExerciseForm({
           control={form.control}
           name="howTo"
           render={() => (
-            <FormItem className="col-span-4 md:col-span-3">
+            <FormItem className="col-span-full">
               <FormLabel>How To</FormLabel>
               <FormControl>
                 <EditorField editor={editor} />

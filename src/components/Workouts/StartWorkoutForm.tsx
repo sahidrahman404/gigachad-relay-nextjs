@@ -7,7 +7,7 @@ import {
 } from "react-hook-form";
 import { z } from "zod";
 import { Form } from "../ui/form";
-import { Button } from "../ui/button";
+import { Button } from "../ReactAriaUI/Button";
 import { graphql } from "relay-runtime";
 import { useFragment } from "react-relay";
 import { WorkoutLogs } from "./WorkoutLogs";

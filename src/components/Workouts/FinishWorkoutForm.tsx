@@ -15,7 +15,7 @@ import {
   FormLabel,
   FormMessage,
 } from "../ui/form";
-import { Button } from "../ui/button";
+import { Button } from "../ReactAriaUI/Button";
 import { Input } from "../ui/input";
 import {
   createUppy,

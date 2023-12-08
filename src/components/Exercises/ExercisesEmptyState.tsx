@@ -1,7 +1,6 @@
 import { FolderPlus } from "lucide-react";
-import { Button } from "../ui/button";
+import { LinkButton } from "../ReactAriaUI/LinkButton";
 import { ReactNode } from "react";
-import Link from "next/link";
 
 type ExercisesEmptyStateProps = {
   SlotExercisesFilterSort: ReactNode;
@@ -21,9 +20,7 @@ function ExercisesEmptyState({
             Get started by adding a new exercise
           </p>
         </div>
-        <Button asChild>
-          <Link href="/dashboard/exercises/add">Add Exercise</Link>
-        </Button>
+        <LinkButton href="/dashboard/exercises/add">Add Exercise</LinkButton>
       </div>
     </div>
   );

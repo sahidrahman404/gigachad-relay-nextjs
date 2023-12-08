@@ -37,7 +37,7 @@ function useCreateEditor({
     },
     editorProps: {
       attributes: {
-        class: "prose focus:outline-none",
+        class: "prose focus:outline-none mx-auto",
       },
     },
   });

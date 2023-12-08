@@ -1,9 +1,8 @@
-import { Button } from "@/components/ui/button";
 import { Dumbbell, Salad, ScrollText, User } from "lucide-react";
 import { HTMLAttributes } from "react";
 import { cn } from "@/lib/utils";
+import { LinkButton } from "@/components/ReactAriaUI/LinkButton";
 import { useRouter } from "next/router";
-import Link from "next/link";
 
 type SidebarProps = HTMLAttributes<HTMLDivElement>;
 
@@ -54,19 +53,19 @@ export default function Sidebar({ className }: SidebarProps) {
               <div className="space-y-1">
                 {sc.child.map((cc) => {
                   return (
-                    <Button
+                    <LinkButton
                       key={cc.page}
                       variant={
-                        router.pathname === cc.link ? "secondary" : "ghost"
+                        router.pathname.includes(cc.page.toLowerCase())
+                          ? "secondary"
+                          : "ghost"
                       }
                       className="w-full justify-start"
-                      asChild
+                      href={cc.link}
                     >
-                      <Link href={cc.link}>
-                        {cc.icon}
-                        {cc.page}
-                      </Link>
-                    </Button>
+                      {cc.icon}
+                      {cc.page}
+                    </LinkButton>
                   );
                 })}
               </div>

@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/dialog";
 import { ReactNode, useContext, useState } from "react";
 import { graphql } from "relay-runtime";
-import { Button } from "../ui/button";
+import { Button } from "../ReactAriaUI/Button";
 import { useFragment, useMutation } from "react-relay";
 import { DeleteExerciseDialog_Mutation } from "@/queries/__generated__/DeleteExerciseDialog_Mutation.graphql";
 import { useToast } from "../ui/use-toast";
@@ -56,7 +56,7 @@ function DeleteExerciseDialog({ id, Trigger }: DeleteExerciseDialogProps) {
         <DialogFooter>
           <Button
             variant="outline"
-            onClick={() => {
+            onPress={() => {
               setOpen(false);
             }}
           >
@@ -65,7 +65,7 @@ function DeleteExerciseDialog({ id, Trigger }: DeleteExerciseDialogProps) {
           <Button
             variant="destructive"
             disabled={isMutationInFlight}
-            onClick={() => {
+            onPress={() => {
               commitMutation({
                 variables: {
                   input: {

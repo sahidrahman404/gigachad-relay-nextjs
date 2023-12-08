@@ -10,7 +10,7 @@ import {
   FormMessage,
 } from "../ui/form";
 import { Input } from "../ui/input";
-import { Button } from "../ui/button";
+import { Button } from "../ReactAriaUI/Button";
 import {
   ExerciseSelectInput,
   getIDFromExerciseSelectInputValue,

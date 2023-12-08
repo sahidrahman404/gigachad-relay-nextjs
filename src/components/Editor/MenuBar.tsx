@@ -1,7 +1,7 @@
 import { Editor } from "@tiptap/react";
 import { ComponentProps, forwardRef } from "react";
 import { cn } from "@/lib/utils";
-import { Button } from "../ui/button";
+import { Button } from "../ReactAriaUI/Button";
 import {
   AlignCenter,
   AlignLeft,
@@ -31,8 +31,7 @@ const MenuBar = forwardRef<HTMLDivElement, MenuBarProps>(function MenuBar(
   return (
     <div className={cn("flex flex-wrap", className)} ref={ref}>
       <Button
-        onClick={(e) => {
-          e.preventDefault();
+        onPress={() => {
           editor.chain().focus().toggleBold().run();
         }}
         disabled={!editor.can().chain().focus().toggleBold().run()}
@@ -42,8 +41,7 @@ const MenuBar = forwardRef<HTMLDivElement, MenuBarProps>(function MenuBar(
       </Button>
 
       <Button
-        onClick={(e) => {
-          e.preventDefault();
+        onPress={() => {
           editor.chain().focus().toggleItalic().run();
         }}
         disabled={!editor.can().chain().focus().toggleItalic().run()}
@@ -53,8 +51,7 @@ const MenuBar = forwardRef<HTMLDivElement, MenuBarProps>(function MenuBar(
       </Button>
 
       <Button
-        onClick={(e) => {
-          e.preventDefault();
+        onPress={() => {
           editor.chain().focus().toggleBulletList().run();
         }}
         variant={editor.isActive("bulletList") ? "secondary" : "ghost"}
@@ -63,8 +60,7 @@ const MenuBar = forwardRef<HTMLDivElement, MenuBarProps>(function MenuBar(
       </Button>
 
       <Button
-        onClick={(e) => {
-          e.preventDefault();
+        onPress={() => {
           editor.chain().focus().toggleHeading({ level: 1 }).run();
         }}
         variant={
@@ -74,8 +70,7 @@ const MenuBar = forwardRef<HTMLDivElement, MenuBarProps>(function MenuBar(
         <Heading1 size={16} />
       </Button>
       <Button
-        onClick={(e) => {
-          e.preventDefault();
+        onPress={() => {
           editor.chain().focus().toggleHeading({ level: 2 }).run();
         }}
         variant={
@@ -86,8 +81,7 @@ const MenuBar = forwardRef<HTMLDivElement, MenuBarProps>(function MenuBar(
       </Button>
 
       <Button
-        onClick={(e) => {
-          e.preventDefault();
+        onPress={() => {
           editor.chain().focus().setTextAlign("left").run();
         }}
         variant={editor.isActive({ textAlign: "left" }) ? "secondary" : "ghost"}
@@ -96,8 +90,7 @@ const MenuBar = forwardRef<HTMLDivElement, MenuBarProps>(function MenuBar(
       </Button>
 
       <Button
-        onClick={(e) => {
-          e.preventDefault();
+        onPress={() => {
           editor.chain().focus().setTextAlign("center").run();
         }}
         variant={
@@ -126,8 +119,7 @@ const MenuBar = forwardRef<HTMLDivElement, MenuBarProps>(function MenuBar(
       />
 
       <Button
-        onClick={(e) => {
-          e.preventDefault();
+        onPress={() => {
           editor.chain().focus().undo().run();
         }}
         disabled={!editor.can().chain().focus().undo().run()}
@@ -137,8 +129,7 @@ const MenuBar = forwardRef<HTMLDivElement, MenuBarProps>(function MenuBar(
       </Button>
 
       <Button
-        onClick={(e) => {
-          e.preventDefault();
+        onPress={() => {
           editor.chain().focus().redo().run();
         }}
         disabled={!editor.can().chain().focus().redo().run()}
