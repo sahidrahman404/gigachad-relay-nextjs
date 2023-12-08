@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<9617fa7f26b31b768154a1f5506fcd54>>
+ * @generated SignedSource<<eb29e3e1b821daf02ee0fb7588d741d5>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,7 +11,7 @@
 import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type AddExerciseFormFragment$data = {
-  readonly " $fragmentSpreads": FragmentRefs<"ExerciseTypeInputFragment" | "MusclesGroupInputFragment">;
+  readonly " $fragmentSpreads": FragmentRefs<"ExerciseTypeInputFragment" | "MusclesGroupSelectInputFragment">;
   readonly " $fragmentType": "AddExerciseFormFragment";
 };
 export type AddExerciseFormFragment$key = {
@@ -28,7 +28,7 @@ const node: ReaderFragment = {
     {
       "args": null,
       "kind": "FragmentSpread",
-      "name": "MusclesGroupInputFragment"
+      "name": "MusclesGroupSelectInputFragment"
     },
     {
       "args": null,
@@ -40,6 +40,6 @@ const node: ReaderFragment = {
   "abstractKey": null
 };
 
-(node as any).hash = "0f0ff0f36ed5515c654c872ea401bf5e";
+(node as any).hash = "a8360ac776444539e7a20ed71adee736";
 
 export default node;

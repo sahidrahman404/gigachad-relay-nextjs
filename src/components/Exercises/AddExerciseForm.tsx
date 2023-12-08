@@ -22,7 +22,6 @@ import {
 import { InternalMetadata } from "@uppy/core";
 import { useCreateEditor } from "@/components/Hooks/useCreateEditor";
 import { EditorField } from "@/components/Editor/Editor";
-import { MusclesGroupInput } from "./MusclesGroupInput";
 import { AddExerciseFormFragment$key } from "@/queries/__generated__/AddExerciseFormFragment.graphql";
 import { AddExerciseForm_Mutation } from "@/queries/__generated__/AddExerciseForm_Mutation.graphql";
 import { ExerciseTypeInput } from "./ExerciseTypeInput";
@@ -32,6 +31,7 @@ import { ExerciseTypeID, MusclesGroupID, image } from "@/lib/zod";
 import { ExercisesFragment } from "./Exercises";
 import { ExercisesFragment$key } from "@/queries/__generated__/ExercisesFragment.graphql";
 import ConnectionHandler from "relay-connection-handler-plus";
+import { MusclesGroupSelectInput } from "./MusclesGroupSelectInput";
 
 const ExerciseMutation = graphql`
   mutation AddExerciseForm_Mutation($input: CreateExerciseInput!) {
@@ -48,7 +48,7 @@ const ExerciseMutation = graphql`
 
 const ExerciseFormFragment = graphql`
   fragment AddExerciseFormFragment on Query {
-    ...MusclesGroupInputFragment
+    ...MusclesGroupSelectInputFragment
     ...ExerciseTypeInputFragment
   }
 `;
@@ -231,9 +231,8 @@ function AddExerciseForm({
           render={({ field }) => (
             <FormItem className="col-span-2">
               <FormLabel>Muscles Group</FormLabel>
-              <MusclesGroupInput
+              <MusclesGroupSelectInput
                 queryRef={data}
-                isInsideForm={true}
                 onValueChange={field.onChange}
                 value={field.value}
               />
