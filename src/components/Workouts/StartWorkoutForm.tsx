@@ -265,7 +265,7 @@ function StartWorkoutForm({ queryRef }: StartWorkoutFormProps) {
         <Button
           type="submit"
           className="col-span-4 justify-self-end"
-          disabled={false}
+          isDisabled={false}
         >
           Finish
         </Button>

@@ -64,7 +64,7 @@ function DeleteExerciseDialog({ id, Trigger }: DeleteExerciseDialogProps) {
           </Button>
           <Button
             variant="destructive"
-            disabled={isMutationInFlight}
+            isDisabled={isMutationInFlight}
             onPress={() => {
               commitMutation({
                 variables: {

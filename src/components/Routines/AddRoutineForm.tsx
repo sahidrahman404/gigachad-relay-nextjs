@@ -118,7 +118,7 @@ function AddRoutineForm({ queryRef }: AddRoutineFormProps) {
         <Button
           type="submit"
           className="col-span-4 justify-self-end"
-          disabled={isMutationInFlight}
+          isDisabled={isMutationInFlight}
         >
           submit
         </Button>

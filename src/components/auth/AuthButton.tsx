@@ -13,7 +13,7 @@ export default function AuthButton({
   return (
     <Button
       type="submit"
-      disabled={isMutationInFlight}
+      isDisabled={isMutationInFlight}
       className="flex w-full justify-center"
     >
       {children}

@@ -171,7 +171,7 @@ function FinishWorkoutForm({ queryRef }: FinishWorkoutFormProps) {
         <Button
           type="submit"
           className="col-span-4 justify-self-end"
-          disabled={isUploadInFlight || isMutationInFlight}
+          isDisabled={isUploadInFlight || isMutationInFlight}
         >
           Submit
         </Button>

@@ -181,7 +181,7 @@ function AddExerciseForm({
       >
         <Button
           type="submit"
-          disabled={isMutationInFlight || isUploadInFlight}
+          isDisabled={isMutationInFlight || isUploadInFlight}
           className="col-span-4 justify-self-end"
         >
           Submit
