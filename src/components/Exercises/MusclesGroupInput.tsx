@@ -59,7 +59,7 @@ function MusclesGroupInput({
           />
         </SelectTrigger>
       )}
-      <SelectContent>
+      <SelectContent className="overflow-y-auto">
         {data.musclesGroups?.edges?.map((mg) => {
           if (mg?.node) {
             return (
