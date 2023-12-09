@@ -11,7 +11,6 @@ const AddRoutineQuery = graphql`
   query addRoutine_Query {
     viewer {
       ...useAuthRedirectFragment
-      ...RoutinesFragment
       ...AddRoutineFormFragment
     }
   }

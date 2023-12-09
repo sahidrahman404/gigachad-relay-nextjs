@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<bca5dacc916d2256356c09fca0e6fcf3>>
+ * @generated SignedSource<<0e9202370548e9258aa81d2293f57ce3>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,27 +10,26 @@
 
 import { ReaderFragment, RefetchableFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type RoutinesFragment$data = {
-  readonly id: string;
-  readonly routines: {
+export type RoutinesEmptyStateFragment$data = {
+  readonly exercises: {
     readonly edges: ReadonlyArray<{
       readonly node: {
         readonly id: string;
-        readonly " $fragmentSpreads": FragmentRefs<"RoutineFragment">;
+        readonly name: string;
       } | null;
     } | null> | null;
   };
-  readonly " $fragmentSpreads": FragmentRefs<"RoutinesEmptyStateFragment">;
-  readonly " $fragmentType": "RoutinesFragment";
+  readonly id: string;
+  readonly " $fragmentType": "RoutinesEmptyStateFragment";
 };
-export type RoutinesFragment$key = {
-  readonly " $data"?: RoutinesFragment$data;
-  readonly " $fragmentSpreads": FragmentRefs<"RoutinesFragment">;
+export type RoutinesEmptyStateFragment$key = {
+  readonly " $data"?: RoutinesEmptyStateFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"RoutinesEmptyStateFragment">;
 };
 
 const node: ReaderFragment = (function(){
 var v0 = [
-  "routines"
+  "exercises"
 ],
 v1 = {
   "alias": null,
@@ -42,7 +41,7 @@ v1 = {
 return {
   "argumentDefinitions": [
     {
-      "defaultValue": 4,
+      "defaultValue": 1,
       "kind": "LocalArgument",
       "name": "count"
     },
@@ -74,25 +73,24 @@ return {
       "fragmentPathInResult": [
         "node"
       ],
-      "operation": require('./RoutinesFragmentPaginationQuery.graphql'),
+      "operation": require('./RoutinesEmptyStateFragmentRefetchQuery.graphql'),
       "identifierField": "id"
     }
   },
-  "name": "RoutinesFragment",
+  "name": "RoutinesEmptyStateFragment",
   "selections": [
-    (v1/*: any*/),
     {
-      "alias": "routines",
+      "alias": "exercises",
       "args": null,
-      "concreteType": "RoutineConnection",
+      "concreteType": "ExerciseConnection",
       "kind": "LinkedField",
-      "name": "__RoutinesFragment_routines_connection",
+      "name": "__ExercisesFragment_exercises_connection",
       "plural": false,
       "selections": [
         {
           "alias": null,
           "args": null,
-          "concreteType": "RoutineEdge",
+          "concreteType": "ExerciseEdge",
           "kind": "LinkedField",
           "name": "edges",
           "plural": true,
@@ -100,16 +98,18 @@ return {
             {
               "alias": null,
               "args": null,
-              "concreteType": "Routine",
+              "concreteType": "Exercise",
               "kind": "LinkedField",
               "name": "node",
               "plural": false,
               "selections": [
                 (v1/*: any*/),
                 {
+                  "alias": null,
                   "args": null,
-                  "kind": "FragmentSpread",
-                  "name": "RoutineFragment"
+                  "kind": "ScalarField",
+                  "name": "name",
+                  "storageKey": null
                 },
                 {
                   "alias": null,
@@ -159,17 +159,13 @@ return {
       ],
       "storageKey": null
     },
-    {
-      "args": null,
-      "kind": "FragmentSpread",
-      "name": "RoutinesEmptyStateFragment"
-    }
+    (v1/*: any*/)
   ],
   "type": "User",
   "abstractKey": null
 };
 })();
 
-(node as any).hash = "0045f90df5adc1545d2192e184735ed6";
+(node as any).hash = "bcc217d76549da433f62bd27d103074e";
 
 export default node;

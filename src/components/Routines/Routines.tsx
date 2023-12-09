@@ -21,6 +21,7 @@ const RoutinesFragment = graphql`
         }
       }
     }
+    ...RoutinesEmptyStateFragment
   }
 `;
 
@@ -36,7 +37,7 @@ function Routines({ queryRef }: RoutinesProps) {
   }
 
   if (data.routines.edges.length === 0) {
-    return <RoutinesEmptyState />;
+    return <RoutinesEmptyState queryRef={data} />;
   }
 
   return (
