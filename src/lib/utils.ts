@@ -173,6 +173,17 @@ function capitalizeFirstLetter(s: string): string {
   return s.charAt(0).toUpperCase() + s.slice(1);
 }
 
+function checkDuplicate(arr: string[]) {
+  let result = false;
+  // create a Set with array elements
+  const s = new Set(arr);
+  // compare the size of array and Set
+  if (arr.length !== s.size) {
+    result = true;
+  }
+  return result;
+}
+
 export {
   cn,
   getToken,
@@ -182,4 +193,5 @@ export {
   uploadImageAndDoGqlMutation,
   imageFieldOnChange,
   capitalizeFirstLetter,
+  checkDuplicate,
 };
