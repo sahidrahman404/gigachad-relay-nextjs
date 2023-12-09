@@ -1,10 +1,17 @@
 import { useContext } from "react";
-import { BodyWeightField, DurationField, WeightField } from "./SetFormFields";
-import { RoutineExerciseSetContext } from "./RoutineExerciseSet";
+import {
+  BodyWeightField,
+  DurationField,
+  WeightField,
+} from "./RoutineExerciseSetFields";
+import { RoutineExerciseSetContext } from "./RoutineExerciseSetsField";
 import { getExerciseTypeFromExerciseSelectInputValue } from "./ExerciseSelectInput";
+import { useFormContext } from "react-hook-form";
+import { AddRoutineFormSchema } from "./AddRoutineForm";
 
-function GetSetFields() {
-  const { form, index } = useContext(RoutineExerciseSetContext);
+function GetRoutineExerciseSetsField() {
+  const { index } = useContext(RoutineExerciseSetContext);
+  const form = useFormContext<AddRoutineFormSchema>();
   const exerciseSelectValue =
     form.getValues().routineExercises[index].exerciseID;
   const exerciseType =
@@ -27,4 +34,4 @@ function GetSetFields() {
   }
 }
 
-export { GetSetFields };
+export { GetRoutineExerciseSetsField };

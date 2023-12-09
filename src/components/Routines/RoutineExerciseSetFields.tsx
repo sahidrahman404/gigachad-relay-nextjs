@@ -1,5 +1,10 @@
 import { ReactNode, useContext } from "react";
-import { FieldArrayMethodProps } from "react-hook-form";
+import {
+  FieldArrayMethodProps,
+  UseFieldArrayReturn,
+  useFieldArray,
+  useFormContext,
+} from "react-hook-form";
 import {
   FormControl,
   FormField,
@@ -13,16 +18,22 @@ import { cn } from "@/lib/utils";
 import {
   RoutineExerciseSetContext,
   RoutineExerciseSetProps,
-  SetFormProps,
-  SetFormsContext,
-} from "./RoutineExerciseSet";
+} from "./RoutineExerciseSetsField";
+import { AddRoutineFormReturn, AddRoutineFormSchema } from "./AddRoutineForm";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
+
+type RoutineExerciseSetFieldArray = UseFieldArrayReturn<
+  AddRoutineFormSchema,
+  `routineExercises.${number}.sets`,
+  "id"
+>;
 
 type SetFormFieldProps = {
   label: string;
-  form: RoutineExerciseSetProps["form"];
+  form: AddRoutineFormReturn;
   index: number;
   setIndex: number;
-  setField: "set" | "reps" | "kg" | "time";
+  setField: "reps" | "kg" | "time";
   type: "text" | "number";
 };
 
@@ -51,34 +62,18 @@ function SetFormField({
   );
 }
 
-type DeleteSetButtonProps = SetFormProps & {
+type DeleteSetButtonProps = {
+  fieldArray: RoutineExerciseSetFieldArray;
   setIndex: number;
 };
 
-function DeleteSetButton({
-  count,
-  setCount,
-  fieldArray,
-  setIndex,
-}: DeleteSetButtonProps) {
-  const { form, index } = useContext(RoutineExerciseSetContext);
+function DeleteSetButton({ fieldArray, setIndex }: DeleteSetButtonProps) {
   return (
     <Button
       variant="destructive"
       className="col-span-1 self-end"
       onClick={(e) => {
         e.preventDefault();
-        const decreasedCount = count - 1;
-        setCount(decreasedCount);
-        if (decreasedCount > 0) {
-          const newArr = Array.from(
-            Array(fieldArray.fields.length),
-            (_, index) => index,
-          ).filter((val) => val !== setIndex);
-          newArr.forEach((val, i) => {
-            form.setValue(`routineExercises.${index}.sets.${val}.set`, i + 1);
-          });
-        }
         fieldArray.remove(setIndex);
       }}
     >
@@ -93,13 +88,13 @@ type GetIterableIteratorVal<T> = T extends IterableIterator<infer TInferredData>
 
 type SetFormFieldsProps = {
   formFields: (
-    form: RoutineExerciseSetProps["form"],
+    form: AddRoutineFormReturn,
     index: RoutineExerciseSetProps["index"],
-    setIndex: number,
+    setIndex: number
   ) => ReactNode;
   appendArgument: Exclude<
     GetIterableIteratorVal<
-      ReturnType<Parameters<SetFormProps["fieldArray"]["append"]>["values"]>
+      ReturnType<Parameters<RoutineExerciseSetFieldArray["append"]>["values"]>
     >,
     FieldArrayMethodProps | undefined
   >;
@@ -111,21 +106,21 @@ function SetFormFields({
   appendArgument,
   className,
 }: SetFormFieldsProps) {
-  const { form, index } = useContext(RoutineExerciseSetContext);
-  const { fieldArray, setCount, count } = useContext(SetFormsContext);
+  const [parent] = useAutoAnimate();
+  const { index } = useContext(RoutineExerciseSetContext);
+  const form = useFormContext<AddRoutineFormSchema>();
+  const fieldArray = useFieldArray({
+    name: `routineExercises.${index}.sets`,
+    control: form.control,
+  });
 
   return (
-    <div className="space-y-3">
+    <div className="space-y-3" ref={parent}>
       {fieldArray.fields.map((set, setIndex) => (
         <div key={set.id} className={cn("grid grid-cols-3 gap-x-2", className)}>
           {formFields(form, index, setIndex)}
 
-          <DeleteSetButton
-            fieldArray={fieldArray}
-            count={count}
-            setCount={setCount}
-            setIndex={setIndex}
-          />
+          <DeleteSetButton fieldArray={fieldArray} setIndex={setIndex} />
         </div>
       ))}
 
@@ -133,14 +128,27 @@ function SetFormFields({
         variant="outline"
         onClick={(e) => {
           e.preventDefault();
-          const increasedCount = count + 1;
-          setCount(increasedCount);
-          fieldArray.append({ ...appendArgument, set: increasedCount });
+          fieldArray.append({ ...appendArgument });
         }}
       >
         Add Set
       </Button>
     </div>
+  );
+}
+
+type SetFieldProps = {
+  setIndex: number;
+  className?: string;
+};
+
+function SetField({ setIndex, className }: SetFieldProps) {
+  return (
+    <FormItem className={cn("col-span-1", className)}>
+      <FormLabel className="text-muted-foreground">Set</FormLabel>
+      <Input type="text" disabled={true} value={setIndex + 1} />
+      <FormMessage />
+    </FormItem>
   );
 }
 
@@ -150,14 +158,7 @@ function BodyWeightField() {
       formFields={(form, index, setIndex) => {
         return (
           <>
-            <SetFormField
-              label="Set"
-              form={form}
-              index={index}
-              setIndex={setIndex}
-              setField="set"
-              type="number"
-            />
+            <SetField setIndex={setIndex} />
 
             <SetFormField
               label="Reps"
@@ -170,10 +171,10 @@ function BodyWeightField() {
           </>
         );
       }}
-      // @ts-ignore
       appendArgument={{
         reps: 0,
       }}
+      className="grid-cols-[47.5fr_47.5fr_0.5fr]"
     />
   );
 }
@@ -183,14 +184,7 @@ function WeightField() {
       formFields={(form, index, setIndex) => {
         return (
           <>
-            <SetFormField
-              label="Set"
-              form={form}
-              index={index}
-              setIndex={setIndex}
-              setField="set"
-              type="number"
-            />
+            <SetField setIndex={setIndex} />
 
             <SetFormField
               label="Kg"
@@ -212,12 +206,11 @@ function WeightField() {
           </>
         );
       }}
-      // @ts-ignore
       appendArgument={{
         kg: 0,
         reps: 0,
       }}
-      className="grid-cols-4"
+      className="grid-cols-[31.6fr_31.6fr_31.6fr_0.5fr]"
     />
   );
 }
@@ -228,14 +221,7 @@ function DurationField() {
       formFields={(form, index, setIndex) => {
         return (
           <>
-            <SetFormField
-              label="Set"
-              form={form}
-              index={index}
-              setIndex={setIndex}
-              setField="set"
-              type="number"
-            />
+            <SetField setIndex={setIndex} />
 
             <SetFormField
               label="Time"
@@ -248,10 +234,10 @@ function DurationField() {
           </>
         );
       }}
-      // @ts-ignore
       appendArgument={{
         time: "",
       }}
+      className="grid-cols-[47.5fr_47.5fr_0.5fr]"
     />
   );
 }

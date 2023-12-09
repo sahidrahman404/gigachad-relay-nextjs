@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<bef127260c43c57e1bbb216883b272fb>>
+ * @generated SignedSource<<51a5b32efd28a008decd374c935caf49>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -496,12 +496,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "45e9fa20a22b4c4e5178d8d8d667da20",
+    "cacheID": "cc57ad260c42dab5254c41f53dda5a28",
     "id": null,
     "metadata": {},
     "name": "addRoutine_Query",
     "operationKind": "query",
-    "text": "query addRoutine_Query {\n  viewer {\n    ...useAuthRedirectFragment\n    ...RoutinesFragment\n    ...AddRoutineFormFragment\n    id\n  }\n}\n\nfragment AddRoutineFormFragment on User {\n  ...ExerciseSelectInputFragment\n}\n\nfragment ExerciseSelectInputFragment on User {\n  exercises(first: 4, orderBy: {direction: DESC, field: ID}) {\n    edges {\n      node {\n        id\n        name\n        image {\n          ...ImageFragment\n        }\n        exerciseTypes {\n          edges {\n            node {\n              name\n              id\n            }\n          }\n        }\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n  id\n}\n\nfragment ImageFragment on Image {\n  src\n  srcset\n  width\n  height\n  priority\n  loading\n  fetchPriority\n  decoding\n  layout\n  aspectRatio\n  objectFit\n  breakpoints\n  alt\n  role\n  sizes\n  style {\n    aspectRatio\n    height\n    maxHeight\n    maxWidth\n    width\n  }\n}\n\nfragment RoutineFragment on Routine {\n  id\n  name\n  routineExercises {\n    edges {\n      node {\n        exercises {\n          name\n          id\n        }\n        id\n      }\n    }\n  }\n}\n\nfragment RoutinesFragment on User {\n  id\n  routines(first: 4) {\n    edges {\n      node {\n        id\n        ...RoutineFragment\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment useAuthRedirectFragment on User {\n  id\n}\n"
+    "text": "query addRoutine_Query {\n  viewer {\n    ...useAuthRedirectFragment\n    ...RoutinesFragment\n    ...AddRoutineFormFragment\n    id\n  }\n}\n\nfragment AddRoutineFormFragment on User {\n  ...RoutineExerciseFieldArrayFragment\n}\n\nfragment ExerciseSelectInputFragment on User {\n  exercises(first: 4, orderBy: {direction: DESC, field: ID}) {\n    edges {\n      node {\n        id\n        name\n        image {\n          ...ImageFragment\n        }\n        exerciseTypes {\n          edges {\n            node {\n              name\n              id\n            }\n          }\n        }\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n  id\n}\n\nfragment ImageFragment on Image {\n  src\n  srcset\n  width\n  height\n  priority\n  loading\n  fetchPriority\n  decoding\n  layout\n  aspectRatio\n  objectFit\n  breakpoints\n  alt\n  role\n  sizes\n  style {\n    aspectRatio\n    height\n    maxHeight\n    maxWidth\n    width\n  }\n}\n\nfragment RoutineExerciseFieldArrayFragment on User {\n  ...ExerciseSelectInputFragment\n}\n\nfragment RoutineFragment on Routine {\n  id\n  name\n  routineExercises {\n    edges {\n      node {\n        exercises {\n          name\n          id\n        }\n        id\n      }\n    }\n  }\n}\n\nfragment RoutinesFragment on User {\n  id\n  routines(first: 4) {\n    edges {\n      node {\n        id\n        ...RoutineFragment\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment useAuthRedirectFragment on User {\n  id\n}\n"
   }
 };
 })();

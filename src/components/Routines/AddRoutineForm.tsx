@@ -1,5 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { UseFormReturn, useFieldArray, useForm } from "react-hook-form";
+import { FieldErrors, UseFormReturn, useForm } from "react-hook-form";
 import { z } from "zod";
 import {
   Form,
@@ -11,16 +11,15 @@ import {
 } from "../ui/form";
 import { Input } from "../ui/input";
 import { Button } from "../ReactAriaUI/Button";
-import {
-  ExerciseSelectInput,
-  getIDFromExerciseSelectInputValue,
-} from "./ExerciseSelectInput";
+import { getIDFromExerciseSelectInputValue } from "./ExerciseSelectInput";
 import { graphql } from "relay-runtime";
 import { useFragment, useMutation } from "react-relay";
-import { Separator } from "@/components/ui/separator";
-import { RoutineExerciseSet } from "./RoutineExerciseSet";
 import { AddRoutineForm_Mutation } from "@/queries/__generated__/AddRoutineForm_Mutation.graphql";
 import { AddRoutineFormFragment$key } from "@/queries/__generated__/AddRoutineFormFragment.graphql";
+import { checkDuplicate } from "@/lib/utils";
+import { useToast } from "../ui/use-toast";
+import { ToastAction } from "../ui/toast";
+import { RoutineExerciseFieldArray } from "./RoutineExerciseFieldArray";
 
 const RoutineMutation = graphql`
   mutation AddRoutineForm_Mutation($input: CreateRoutineWithChildrenInput!) {
@@ -45,27 +44,39 @@ const RoutineMutation = graphql`
 
 const AddRoutineFormFragment = graphql`
   fragment AddRoutineFormFragment on User {
-    ...ExerciseSelectInputFragment
+    ...RoutineExerciseFieldArrayFragment
   }
 `;
 
 const addRoutineformSchema = z.object({
   name: z.string().min(3),
-  routineExercises: z.array(
-    z.object({
-      sets: z.array(
-        z.object({
-          set: z.coerce.number().positive(),
-          reps: z.coerce.number().positive().optional(),
-          kg: z.coerce.number().positive().optional(),
-          time: z.string().optional(),
-          km: z.coerce.number().positive().optional(),
-        }),
-      ),
-      restTimer: z.string().optional(),
-      exerciseID: z.string().min(29),
-    }),
-  ),
+  routineExercises: z
+    .array(
+      z.object({
+        sets: z.array(
+          z.object({
+            reps: z.coerce.number().positive().optional(),
+            kg: z.coerce.number().positive().optional(),
+            time: z.string().optional(),
+            km: z.coerce.number().positive().optional(),
+          })
+        ),
+        restTimer: z.string().optional(),
+        exerciseID: z
+          .string()
+          .min(29, { message: "Exercise must be selected" }),
+      })
+    )
+    .refine(
+      (routineExercises) => {
+        const exerciseIDs = routineExercises.map((rE) => rE.exerciseID);
+        return !checkDuplicate(exerciseIDs);
+      },
+      {
+        message:
+          "Cannot select the same exercise twice. Please choose a different exercise for each selection.",
+      }
+    ),
 });
 
 type AddRoutineFormProps = {
@@ -78,6 +89,7 @@ type AddRoutineFormReturn = UseFormReturn<AddRoutineFormSchema, any, undefined>;
 function AddRoutineForm({ queryRef }: AddRoutineFormProps) {
   const [commitMutation, isMutationInFlight] =
     useMutation<AddRoutineForm_Mutation>(RoutineMutation);
+  const { toast } = useToast();
   const data = useFragment(AddRoutineFormFragment, queryRef);
   const form = useForm<AddRoutineFormSchema>({
     resolver: zodResolver(addRoutineformSchema),
@@ -86,11 +98,6 @@ function AddRoutineForm({ queryRef }: AddRoutineFormProps) {
       name: "",
       routineExercises: [],
     },
-  });
-
-  const { fields, append, remove } = useFieldArray({
-    name: "routineExercises",
-    control: form.control,
   });
 
   function onSubmit(val: AddRoutineFormSchema) {
@@ -109,18 +116,30 @@ function AddRoutineForm({ queryRef }: AddRoutineFormProps) {
     });
   }
 
+  function onError(errVal: FieldErrors<AddRoutineFormSchema>) {
+    const routineExercisesErr = errVal.routineExercises;
+    if (routineExercisesErr && routineExercisesErr?.root?.message) {
+      toast({
+        variant: "destructive",
+        title: "Uh oh! Something went wrong.",
+        description: routineExercisesErr.root.message,
+        action: <ToastAction altText="Try again">Try again</ToastAction>,
+      });
+    }
+  }
+
   return (
     <Form {...form}>
       <form
-        onSubmit={form.handleSubmit(onSubmit)}
+        onSubmit={form.handleSubmit(onSubmit, onError)}
         className="grid grid-cols-4 gap-y-3"
       >
         <Button
           type="submit"
-          className="col-span-4 justify-self-end"
+          className="col-span-full justify-self-end"
           isDisabled={isMutationInFlight}
         >
-          submit
+          Submit
         </Button>
         <FormField
           control={form.control}
@@ -135,62 +154,14 @@ function AddRoutineForm({ queryRef }: AddRoutineFormProps) {
             </FormItem>
           )}
         />
-        {fields.map((field, index) => {
-          return (
-            <FormField
-              key={field.id}
-              control={form.control}
-              name={`routineExercises.${index}.exerciseID`}
-              render={({ field }) => (
-                <div className="col-span-4 space-y-2">
-                  <div className="grid grid-cols-4 space-x-4">
-                    <FormItem className="col-span-3">
-                      <FormLabel>Exercise</FormLabel>
-                      <ExerciseSelectInput
-                        queryRef={data}
-                        value={field.value}
-                        onValueChange={field.onChange}
-                      />
-                      <FormMessage className="col-span-4 md:col-span-2" />
-                    </FormItem>
-                    <Button
-                      className="self-end h-12"
-                      variant="destructive"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        remove(index);
-                      }}
-                    >
-                      Delete
-                    </Button>
-                  </div>
-                  <RoutineExerciseSet form={form} index={index} />
-                  <Separator />
-                </div>
-              )}
-            />
-          );
-        })}
-        <Button
-          className="col-span-4 justify-self-center mt-4"
-          variant="secondary"
-          onClick={(e) => {
-            e.preventDefault();
-            append({
-              exerciseID: "",
-              sets: [],
-            });
-          }}
-        >
-          Add exercise
-        </Button>
+        <RoutineExerciseFieldArray queryRef={data} />
       </form>
     </Form>
   );
 }
 
 function buildRoutineExercisesInputMutation(
-  val: AddRoutineFormSchema,
+  val: AddRoutineFormSchema
 ): AddRoutineFormSchema["routineExercises"] {
   return val.routineExercises.map((rE) => {
     const exerciseID = getIDFromExerciseSelectInputValue(rE.exerciseID);
