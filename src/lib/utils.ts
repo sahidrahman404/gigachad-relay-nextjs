@@ -34,7 +34,7 @@ function setTokenAndRedirect(token: string) {
   fetch(`${hostname}/v1/tokens/set/${token}`, {
     credentials: "include",
   }).then((_) => {
-    window.location.replace(`/dashboard/workout`);
+    window.location.replace(`/dashboard/routines`);
   });
 }
 
