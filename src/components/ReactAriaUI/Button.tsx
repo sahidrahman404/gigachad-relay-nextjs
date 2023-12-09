@@ -4,20 +4,20 @@ import { cn } from "@/lib/utils";
 import { ButtonProps as BtnProps, Button as Btn } from "react-aria-components";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50",
+  "inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors outline-none data-[focus-visible]:ring-1 data-[focus-visible]:ring-ring data-[disabled]:pointer-events-none disabled:opacity-50",
   {
     variants: {
       variant: {
         default:
-          "bg-primary text-primary-foreground shadow hover:bg-primary/90 pressed:bg-primary/70",
+          "bg-primary text-primary-foreground shadow hover:bg-primary/90 data-[pressed]:bg-primary/70",
         destructive:
-          "bg-destructive text-destructive-foreground shadow-sm pressed:bg-destructive/90 pressed:bg-destructive/70",
+          "bg-destructive text-destructive-foreground shadow-sm data-[pressed]:bg-destructive/90 data[pressed]:bg-destructive/70",
         outline:
-          "border border-input bg-transparent shadow-sm hover:bg-accent hover:text-accent-foreground pressed:bg-accent/70 pressed:text-accent-foreground/70",
+          "border border-input bg-transparent shadow-sm hover:bg-accent hover:text-accent-foreground data-[pressed]:bg-accent/70 data-[pressed]:text-accent-foreground/70",
         secondary:
           "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80 hover:bg-secondary/60",
         ghost:
-          "hover:bg-accent hover:text-accent-foreground pressed:bg-accent/70 pressed:text-accent-foreground/70",
+          "hover:bg-accent hover:text-accent-foreground data-[pressed]:bg-accent/70 data-[pressed]:text-accent-foreground/70",
         link: "text-primary underline-offset-4 hover:underline",
       },
       size: {
