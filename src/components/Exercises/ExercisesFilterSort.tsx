@@ -113,8 +113,10 @@ function ExercisesFilterSort({
           </div>
           <DialogFooter>
             <Button
+              isDisabled={state.isLoading}
               onPress={() => {
                 startTransition(() => {
+                  dispatch({ type: "set_is_loading", payload: true });
                   refetch(
                     {
                       orderby: `${state.orderDirection}`,
@@ -129,6 +131,7 @@ function ExercisesFilterSort({
                     },
                     {
                       onComplete: () => {
+                        dispatch({ type: "set_is_loading", payload: false });
                         dispatch({ type: "set_open", payload: false });
                       },
                     },

@@ -5,6 +5,7 @@ type ExercisesFilterSortState = {
   musclesGroup: string;
   exerciseType: string;
   orderDirection: string;
+  isLoading: boolean;
 };
 
 const exercisesFilterSortInitialState: ExercisesFilterSortState = {
@@ -12,6 +13,7 @@ const exercisesFilterSortInitialState: ExercisesFilterSortState = {
   musclesGroup: "",
   exerciseType: "",
   orderDirection: "DESC",
+  isLoading: false,
 };
 
 type SetOpen = {
@@ -34,11 +36,17 @@ type SetOrderDirection = {
   payload: ExercisesFilterSortState["orderDirection"];
 };
 
+type SetIsLoading = {
+  type: "set_is_loading";
+  payload: ExercisesFilterSortState["isLoading"];
+};
+
 type ExercisesFilterSortActions =
   | SetOpen
   | SetMusclesGroup
   | SetExerciseType
-  | SetOrderDirection;
+  | SetOrderDirection
+  | SetIsLoading;
 
 function exercisesFilterSortReducer(
   state: ExercisesFilterSortState,
@@ -53,6 +61,8 @@ function exercisesFilterSortReducer(
       return { ...state, exerciseType: action.payload };
     case "set_order_direction":
       return { ...state, orderDirection: action.payload };
+    case "set_is_loading":
+      return { ...state, isLoading: action.payload };
     default:
       return state;
   }
