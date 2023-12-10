@@ -148,8 +148,7 @@ function AddExerciseForm({
             ConnectionHandler.insertEdgeBefore(cR, newEdge);
           });
         },
-        onError: (err) => {
-          console.log({ err });
+        onError: () => {
           toast({
             variant: "destructive",
             title: "Uh oh! Something went wrong.",
@@ -157,7 +156,14 @@ function AddExerciseForm({
             action: <ToastAction altText="Try again">Try again</ToastAction>,
           });
         },
-        onCompleted: () => {},
+        onCompleted: () => {
+          toast({
+            variant: "default",
+            title: "Success! Exercise added",
+            description:
+              "The exercise has been successfully added to your collection",
+          });
+        },
       });
     };
 
