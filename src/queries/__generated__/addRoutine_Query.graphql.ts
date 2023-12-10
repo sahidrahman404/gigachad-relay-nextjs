@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<9244f13bb28171a3e4bc8a909de5dd26>>
+ * @generated SignedSource<<92e54df65ed9abdd3ed36fadb550a945>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -12,6 +12,13 @@ import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type addRoutine_Query$variables = {};
 export type addRoutine_Query$data = {
+  readonly exercises: {
+    readonly edges: ReadonlyArray<{
+      readonly node: {
+        readonly id: string;
+      } | null;
+    } | null> | null;
+  };
   readonly viewer: {
     readonly " $fragmentSpreads": FragmentRefs<"AddRoutineFormFragment" | "useAuthRedirectFragment">;
   } | null;
@@ -29,7 +36,47 @@ var v0 = {
   "name": "id",
   "storageKey": null
 },
-v1 = [
+v1 = {
+  "alias": null,
+  "args": [
+    {
+      "kind": "Literal",
+      "name": "first",
+      "value": 1
+    }
+  ],
+  "concreteType": "ExerciseConnection",
+  "kind": "LinkedField",
+  "name": "exercises",
+  "plural": false,
+  "selections": [
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "ExerciseEdge",
+      "kind": "LinkedField",
+      "name": "edges",
+      "plural": true,
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "Exercise",
+          "kind": "LinkedField",
+          "name": "node",
+          "plural": false,
+          "selections": [
+            (v0/*: any*/)
+          ],
+          "storageKey": null
+        }
+      ],
+      "storageKey": null
+    }
+  ],
+  "storageKey": "exercises(first:1)"
+},
+v2 = [
   {
     "kind": "Literal",
     "name": "first",
@@ -52,28 +99,28 @@ v1 = [
     "name": "orderBy"
   }
 ],
-v2 = {
+v3 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "name",
   "storageKey": null
 },
-v3 = {
+v4 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "width",
   "storageKey": null
 },
-v4 = {
+v5 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "height",
   "storageKey": null
 },
-v5 = {
+v6 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
@@ -107,7 +154,8 @@ return {
           }
         ],
         "storageKey": null
-      }
+      },
+      (v1/*: any*/)
     ],
     "type": "Query",
     "abstractKey": null
@@ -129,7 +177,7 @@ return {
           (v0/*: any*/),
           {
             "alias": null,
-            "args": (v1/*: any*/),
+            "args": (v2/*: any*/),
             "concreteType": "ExerciseConnection",
             "kind": "LinkedField",
             "name": "exercises",
@@ -152,7 +200,7 @@ return {
                     "plural": false,
                     "selections": [
                       (v0/*: any*/),
-                      (v2/*: any*/),
+                      (v3/*: any*/),
                       {
                         "alias": null,
                         "args": null,
@@ -175,8 +223,8 @@ return {
                             "name": "srcset",
                             "storageKey": null
                           },
-                          (v3/*: any*/),
                           (v4/*: any*/),
+                          (v5/*: any*/),
                           {
                             "alias": null,
                             "args": null,
@@ -212,7 +260,7 @@ return {
                             "name": "layout",
                             "storageKey": null
                           },
-                          (v5/*: any*/),
+                          (v6/*: any*/),
                           {
                             "alias": null,
                             "args": null,
@@ -256,8 +304,8 @@ return {
                             "name": "style",
                             "plural": false,
                             "selections": [
+                              (v6/*: any*/),
                               (v5/*: any*/),
-                              (v4/*: any*/),
                               {
                                 "alias": null,
                                 "args": null,
@@ -272,7 +320,7 @@ return {
                                 "name": "maxWidth",
                                 "storageKey": null
                               },
-                              (v3/*: any*/)
+                              (v4/*: any*/)
                             ],
                             "storageKey": null
                           }
@@ -303,7 +351,7 @@ return {
                                 "name": "node",
                                 "plural": false,
                                 "selections": [
-                                  (v2/*: any*/),
+                                  (v3/*: any*/),
                                   (v0/*: any*/)
                                 ],
                                 "storageKey": null
@@ -364,7 +412,7 @@ return {
           },
           {
             "alias": null,
-            "args": (v1/*: any*/),
+            "args": (v2/*: any*/),
             "filters": [
               "orderBy"
             ],
@@ -375,20 +423,21 @@ return {
           }
         ],
         "storageKey": null
-      }
+      },
+      (v1/*: any*/)
     ]
   },
   "params": {
-    "cacheID": "8eafac258333fbdfe2714453891931f8",
+    "cacheID": "9d2114a44d83e78d233d6763aacd50d2",
     "id": null,
     "metadata": {},
     "name": "addRoutine_Query",
     "operationKind": "query",
-    "text": "query addRoutine_Query {\n  viewer {\n    ...useAuthRedirectFragment\n    ...AddRoutineFormFragment\n    id\n  }\n}\n\nfragment AddRoutineFormFragment on User {\n  ...RoutineExerciseFieldArrayFragment\n}\n\nfragment ExerciseSelectInputFragment on User {\n  exercises(first: 4, orderBy: {direction: DESC, field: ID}) {\n    edges {\n      node {\n        id\n        name\n        image {\n          ...ImageFragment\n        }\n        exerciseTypes {\n          edges {\n            node {\n              name\n              id\n            }\n          }\n        }\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n  id\n}\n\nfragment ImageFragment on Image {\n  src\n  srcset\n  width\n  height\n  priority\n  loading\n  fetchPriority\n  decoding\n  layout\n  aspectRatio\n  objectFit\n  breakpoints\n  alt\n  role\n  sizes\n  style {\n    aspectRatio\n    height\n    maxHeight\n    maxWidth\n    width\n  }\n}\n\nfragment RoutineExerciseFieldArrayFragment on User {\n  ...ExerciseSelectInputFragment\n}\n\nfragment useAuthRedirectFragment on User {\n  id\n}\n"
+    "text": "query addRoutine_Query {\n  viewer {\n    ...useAuthRedirectFragment\n    ...AddRoutineFormFragment\n    id\n  }\n  exercises(first: 1) {\n    edges {\n      node {\n        id\n      }\n    }\n  }\n}\n\nfragment AddRoutineFormFragment on User {\n  ...RoutineExerciseFieldArrayFragment\n}\n\nfragment ExerciseSelectInputFragment on User {\n  exercises(first: 4, orderBy: {direction: DESC, field: ID}) {\n    edges {\n      node {\n        id\n        name\n        image {\n          ...ImageFragment\n        }\n        exerciseTypes {\n          edges {\n            node {\n              name\n              id\n            }\n          }\n        }\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n  id\n}\n\nfragment ImageFragment on Image {\n  src\n  srcset\n  width\n  height\n  priority\n  loading\n  fetchPriority\n  decoding\n  layout\n  aspectRatio\n  objectFit\n  breakpoints\n  alt\n  role\n  sizes\n  style {\n    aspectRatio\n    height\n    maxHeight\n    maxWidth\n    width\n  }\n}\n\nfragment RoutineExerciseFieldArrayFragment on User {\n  ...ExerciseSelectInputFragment\n}\n\nfragment useAuthRedirectFragment on User {\n  id\n}\n"
   }
 };
 })();
 
-(node as any).hash = "aa6185b50815b0905f9f3908c188b0ee";
+(node as any).hash = "fc3fc3a8dd79b4ed8ad846237bb550e6";
 
 export default node;
