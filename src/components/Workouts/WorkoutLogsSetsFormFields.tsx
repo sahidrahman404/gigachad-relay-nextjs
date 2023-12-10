@@ -22,6 +22,8 @@ import {
   StartWorkoutFormSchema,
   UseFormReturnStartWorkoutFormSchema,
 } from "./StartWorkoutForm";
+import { TimeField } from "../ReactAriaUI/TimeField";
+import { Time, parseTime } from "@internationalized/date";
 
 type WorkoutLogsSetFormFieldProps = {
   label: string;
@@ -32,7 +34,7 @@ type WorkoutLogsSetFormFieldProps = {
     keyof StartWorkoutFormSchema["workoutLogs"][0]["sets"][0],
     "selected"
   >;
-  type: "text" | "number";
+  type?: "text" | "number";
   className?: string;
 };
 
@@ -53,7 +55,26 @@ function WorkoutLogsSetFormField({
         <FormItem className={cn("col-span-1", className)}>
           <FormLabel className="text-muted-foreground">{label}</FormLabel>
           <FormControl>
-            <Input type={type} {...field} />
+            {setField === "time" ? (
+              <TimeField
+                granularity="second"
+                hourCycle={24}
+                value={
+                  !field?.value || field.value === ""
+                    ? new Time(0, 0, 0)
+                    : typeof field.value === "string"
+                      ? parseTime(field.value)
+                      : null
+                }
+                onChange={(val) => {
+                  if (val) {
+                    field.onChange(val.toString());
+                  }
+                }}
+              />
+            ) : (
+              <Input type={type} {...field} />
+            )}
           </FormControl>
           <FormMessage />
         </FormItem>
@@ -77,7 +98,7 @@ type WorkoutLogsSetsFormFieldsProps = {
   formFields: (
     form: UseFormReturnStartWorkoutFormSchema,
     index: WorkoutLogsProps["index"],
-    setIndex: number,
+    setIndex: number
   ) => ReactNode;
   appendArgument: Exclude<
     GetIterableIteratorVal<
@@ -110,7 +131,7 @@ function WorkoutLogsSetsFormFields({
           key={set.id}
           className={cn(
             "grid grid-cols-[47.5fr_47.5fr_.5fr] gap-x-2",
-            className,
+            className
           )}
         >
           {formFields(form, index, setIndex)}
@@ -228,13 +249,13 @@ function DurationField() {
         return (
           <>
             <SetField setIndex={setIndex} />
+
             <WorkoutLogsSetFormField
-              label="Time"
+              label="Duration"
               form={form}
               index={index}
               setIndex={setIndex}
               setField="time"
-              type="text"
             />
           </>
         );

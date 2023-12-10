@@ -21,6 +21,8 @@ import {
 } from "./RoutineExerciseSetsField";
 import { AddRoutineFormReturn, AddRoutineFormSchema } from "./AddRoutineForm";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
+import { TimeField } from "../ReactAriaUI/TimeField";
+import { Time, parseTime } from "@internationalized/date";
 
 type RoutineExerciseSetFieldArray = UseFieldArrayReturn<
   AddRoutineFormSchema,
@@ -34,7 +36,7 @@ type SetFormFieldProps = {
   index: number;
   setIndex: number;
   setField: "reps" | "kg" | "time";
-  type: "text" | "number";
+  type?: "text" | "number";
 };
 
 function SetFormField({
@@ -53,7 +55,26 @@ function SetFormField({
         <FormItem className="col-span-1">
           <FormLabel>{label}</FormLabel>
           <FormControl>
-            <Input type={type} {...field} />
+            {setField === "time" ? (
+              <TimeField
+                granularity="second"
+                hourCycle={24}
+                value={
+                  !field?.value || field.value === ""
+                    ? new Time(0, 0, 0)
+                    : typeof field.value === "string"
+                      ? parseTime(field.value)
+                      : null
+                }
+                onChange={(val) => {
+                  if (val) {
+                    field.onChange(val.toString());
+                  }
+                }}
+              />
+            ) : (
+              <Input type={type} {...field} />
+            )}
           </FormControl>
           <FormMessage />
         </FormItem>
@@ -224,12 +245,11 @@ function DurationField() {
             <SetField setIndex={setIndex} />
 
             <SetFormField
-              label="Time"
+              label="Duration"
               form={form}
               index={index}
               setIndex={setIndex}
               setField="time"
-              type="text"
             />
           </>
         );
