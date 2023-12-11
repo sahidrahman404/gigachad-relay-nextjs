@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<5de7dbc1a033d0d3e41174a1e1254ed7>>
+ * @generated SignedSource<<0fb94edde1344c5c03e01657000f999c>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -192,7 +192,7 @@ return {
                                 "alias": null,
                                 "args": null,
                                 "kind": "ScalarField",
-                                "name": "time",
+                                "name": "duration",
                                 "storageKey": null
                               },
                               {
@@ -273,12 +273,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "40ec80bfa80dfb720a3b0fd7f387a104",
+    "cacheID": "5bc3984fffb910e90b7bf0c5a7d33b6d",
     "id": null,
     "metadata": {},
     "name": "RoutineID_Query",
     "operationKind": "query",
-    "text": "query RoutineID_Query(\n  $routineID: ID!\n) {\n  viewer {\n    ...useAuthRedirectFragment\n    id\n  }\n  node(id: $routineID) {\n    __typename\n    ... on Routine {\n      ...StartWorkoutFormFragment\n    }\n    id\n  }\n}\n\nfragment StartWorkoutFormFragment on Routine {\n  id\n  routineExercises {\n    edges {\n      node {\n        sets {\n          reps\n          kg\n          time\n          km\n        }\n        exercises {\n          id\n          name\n          exerciseTypes {\n            edges {\n              node {\n                name\n                id\n              }\n            }\n          }\n        }\n        id\n      }\n    }\n  }\n}\n\nfragment useAuthRedirectFragment on User {\n  id\n}\n"
+    "text": "query RoutineID_Query(\n  $routineID: ID!\n) {\n  viewer {\n    ...useAuthRedirectFragment\n    id\n  }\n  node(id: $routineID) {\n    __typename\n    ... on Routine {\n      ...StartWorkoutFormFragment\n    }\n    id\n  }\n}\n\nfragment StartWorkoutFormFragment on Routine {\n  id\n  routineExercises {\n    edges {\n      node {\n        sets {\n          reps\n          kg\n          duration\n          km\n        }\n        exercises {\n          id\n          name\n          exerciseTypes {\n            edges {\n              node {\n                name\n                id\n              }\n            }\n          }\n        }\n        id\n      }\n    }\n  }\n}\n\nfragment useAuthRedirectFragment on User {\n  id\n}\n"
   }
 };
 })();

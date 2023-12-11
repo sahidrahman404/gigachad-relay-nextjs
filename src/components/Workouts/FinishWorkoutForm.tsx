@@ -40,7 +40,7 @@ const FinishWorkoutFormMutation = graphql`
             sets {
               reps
               kg
-              time
+              duration
               km
             }
             workoutID
@@ -102,7 +102,7 @@ function FinishWorkoutForm({ queryRef }: FinishWorkoutFormProps) {
           return {
             sets: selectedSets.map((set) => ({
               kg: set.kg,
-              time: set.time,
+              time: set.duration,
               km: set.km,
               reps: set.reps,
             })),

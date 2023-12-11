@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<8a02836d4ac9e5bc9f92f931da2486f9>>
+ * @generated SignedSource<<bf495fdec18ac263987d4c2d79dab78b>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -19,10 +19,10 @@ export type CreateRoutineExerciseInput = {
   sets?: ReadonlyArray<SetInput> | null;
 };
 export type SetInput = {
+  duration?: string | null;
   kg?: number | null;
   km?: number | null;
   reps?: number | null;
-  time?: string | null;
 };
 export type AddRoutineForm_Mutation$variables = {
   input: CreateRoutineWithChildrenInput;
@@ -35,10 +35,10 @@ export type AddRoutineForm_Mutation$data = {
         readonly node: {
           readonly exerciseID: string;
           readonly sets: ReadonlyArray<{
+            readonly duration: string | null;
             readonly kg: number | null;
             readonly km: number | null;
             readonly reps: number | null;
-            readonly time: string | null;
           }>;
         } | null;
       } | null> | null;
@@ -98,7 +98,7 @@ v4 = {
       "alias": null,
       "args": null,
       "kind": "ScalarField",
-      "name": "time",
+      "name": "duration",
       "storageKey": null
     },
     {
@@ -233,16 +233,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "a2729f89148de9ce216af157b8358171",
+    "cacheID": "49ed184af2dd36924084954964b766c9",
     "id": null,
     "metadata": {},
     "name": "AddRoutineForm_Mutation",
     "operationKind": "mutation",
-    "text": "mutation AddRoutineForm_Mutation(\n  $input: CreateRoutineWithChildrenInput!\n) {\n  createRoutineWithChildren(input: $input) {\n    id\n    routineExercises {\n      edges {\n        node {\n          exerciseID\n          sets {\n            kg\n            time\n            km\n            reps\n          }\n          id\n        }\n      }\n    }\n  }\n}\n"
+    "text": "mutation AddRoutineForm_Mutation(\n  $input: CreateRoutineWithChildrenInput!\n) {\n  createRoutineWithChildren(input: $input) {\n    id\n    routineExercises {\n      edges {\n        node {\n          exerciseID\n          sets {\n            kg\n            duration\n            km\n            reps\n          }\n          id\n        }\n      }\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "54894fc6a5f3e73a55c2aab384e9a725";
+(node as any).hash = "80b9ccce941d80a2eb584c8d39fe50cc";
 
 export default node;

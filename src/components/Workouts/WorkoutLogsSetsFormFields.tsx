@@ -55,7 +55,7 @@ function WorkoutLogsSetFormField({
         <FormItem className={cn("col-span-1", className)}>
           <FormLabel className="text-muted-foreground">{label}</FormLabel>
           <FormControl>
-            {setField === "time" ? (
+            {setField === "duration" ? (
               <TimeField
                 granularity="second"
                 hourCycle={24}
@@ -98,7 +98,7 @@ type WorkoutLogsSetsFormFieldsProps = {
   formFields: (
     form: UseFormReturnStartWorkoutFormSchema,
     index: WorkoutLogsProps["index"],
-    setIndex: number
+    setIndex: number,
   ) => ReactNode;
   appendArgument: Exclude<
     GetIterableIteratorVal<
@@ -131,7 +131,7 @@ function WorkoutLogsSetsFormFields({
           key={set.id}
           className={cn(
             "grid grid-cols-[47.5fr_47.5fr_.5fr] gap-x-2",
-            className
+            className,
           )}
         >
           {formFields(form, index, setIndex)}
@@ -255,13 +255,13 @@ function DurationField() {
               form={form}
               index={index}
               setIndex={setIndex}
-              setField="time"
+              setField="duration"
             />
           </>
         );
       }}
       appendArgument={{
-        time: "",
+        duration: "",
       }}
     />
   );

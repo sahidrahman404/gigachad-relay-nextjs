@@ -13,6 +13,7 @@ import { Input } from "../ui/input";
 import { Button } from "../ReactAriaUI/Button";
 import { getIDFromExerciseSelectInputValue } from "./ExerciseSelectInput";
 import { graphql } from "relay-runtime";
+import ConnectionHandler from "relay-connection-handler-plus";
 import { useFragment, useMutation } from "react-relay";
 import { AddRoutineForm_Mutation } from "@/queries/__generated__/AddRoutineForm_Mutation.graphql";
 import { AddRoutineFormFragment$key } from "@/queries/__generated__/AddRoutineFormFragment.graphql";
@@ -31,7 +32,7 @@ const RoutineMutation = graphql`
             exerciseID
             sets {
               kg
-              time
+              duration
               km
               reps
             }
@@ -44,6 +45,7 @@ const RoutineMutation = graphql`
 
 const AddRoutineFormFragment = graphql`
   fragment AddRoutineFormFragment on User {
+    id
     ...RoutineExerciseFieldArrayFragment
   }
 `;
@@ -57,15 +59,15 @@ const addRoutineformSchema = z.object({
           z.object({
             reps: z.coerce.number().positive().optional(),
             kg: z.coerce.number().positive().optional(),
-            time: z.string().optional(),
+            duration: z.string().optional(),
             km: z.coerce.number().positive().optional(),
-          })
+          }),
         ),
         restTimer: z.string().optional(),
         exerciseID: z
           .string()
           .min(29, { message: "Exercise must be selected" }),
-      })
+      }),
     )
     .refine(
       (routineExercises) => {
@@ -75,7 +77,7 @@ const addRoutineformSchema = z.object({
       {
         message:
           "Cannot select the same exercise twice. Please choose a different exercise for each selection.",
-      }
+      },
     ),
 });
 
@@ -110,8 +112,44 @@ function AddRoutineForm({ queryRef }: AddRoutineFormProps) {
           routineExercises: routineExercises,
         },
       },
-      onCompleted(res, err) {
-        console.log({ res, err });
+
+      updater: (store) => {
+        const userRecord = store.get(data.id);
+        const connectionRecords = ConnectionHandler.getConnections(
+          userRecord!,
+          "RoutinesFragment_routines",
+        );
+
+        // Create a new local Comment record
+        const id = `client:new_routine:${crypto.randomUUID()}`;
+        const newRoutineRecord = store.create(id, "Routine");
+
+        // Create new edge
+        const newEdge = ConnectionHandler.createEdge(
+          store,
+          connectionRecords[0],
+          newRoutineRecord,
+          "RoutineEdge" /* GraphQl Type for edge */,
+        );
+
+        connectionRecords.forEach((cR) => {
+          ConnectionHandler.insertEdgeBefore(cR, newEdge);
+        });
+      },
+      onError: () => {
+        toast({
+          variant: "destructive",
+          title: "Uh oh! Something went wrong.",
+          description: "There was a problem with your request.",
+          action: <ToastAction altText="Try again">Try again</ToastAction>,
+        });
+      },
+      onCompleted: () => {
+        toast({
+          variant: "default",
+          title: "Success! Routine added",
+          description: "The routine was added to your collection",
+        });
       },
     });
   }
@@ -161,7 +199,7 @@ function AddRoutineForm({ queryRef }: AddRoutineFormProps) {
 }
 
 function buildRoutineExercisesInputMutation(
-  val: AddRoutineFormSchema
+  val: AddRoutineFormSchema,
 ): AddRoutineFormSchema["routineExercises"] {
   return val.routineExercises.map((rE) => {
     const exerciseID = getIDFromExerciseSelectInputValue(rE.exerciseID);

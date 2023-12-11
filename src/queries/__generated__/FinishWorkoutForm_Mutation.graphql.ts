@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<523875cec58fc0f50daffd0281387399>>
+ * @generated SignedSource<<5d465c23506e5c3113327293c2b9bc6b>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -32,10 +32,10 @@ export type CreateWorkoutLogInput = {
   sets: ReadonlyArray<SetInput>;
 };
 export type SetInput = {
+  duration?: string | null;
   kg?: number | null;
   km?: number | null;
   reps?: number | null;
-  time?: string | null;
 };
 export type FinishWorkoutForm_Mutation$variables = {
   input: CreateWorkoutWithChildrenInput;
@@ -48,10 +48,10 @@ export type FinishWorkoutForm_Mutation$data = {
         readonly node: {
           readonly exerciseID: string;
           readonly sets: ReadonlyArray<{
+            readonly duration: string | null;
             readonly kg: number | null;
             readonly km: number | null;
             readonly reps: number | null;
-            readonly time: string | null;
           }>;
           readonly workoutID: string;
         } | null;
@@ -112,7 +112,7 @@ v3 = {
       "alias": null,
       "args": null,
       "kind": "ScalarField",
-      "name": "time",
+      "name": "duration",
       "storageKey": null
     },
     {
@@ -256,16 +256,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "b4b7a7df255c88e498caab92a9d47fa2",
+    "cacheID": "c2d98f8d2bacca1418444dc0747467a0",
     "id": null,
     "metadata": {},
     "name": "FinishWorkoutForm_Mutation",
     "operationKind": "mutation",
-    "text": "mutation FinishWorkoutForm_Mutation(\n  $input: CreateWorkoutWithChildrenInput!\n) {\n  createWorkoutWithChildren(input: $input) {\n    id\n    workoutLogs {\n      edges {\n        node {\n          sets {\n            reps\n            kg\n            time\n            km\n          }\n          workoutID\n          exerciseID\n          id\n        }\n      }\n    }\n  }\n}\n"
+    "text": "mutation FinishWorkoutForm_Mutation(\n  $input: CreateWorkoutWithChildrenInput!\n) {\n  createWorkoutWithChildren(input: $input) {\n    id\n    workoutLogs {\n      edges {\n        node {\n          sets {\n            reps\n            kg\n            duration\n            km\n          }\n          workoutID\n          exerciseID\n          id\n        }\n      }\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "4f2580a490804ff97635e236cfc7f409";
+(node as any).hash = "80dc2aed9565c730bfc0a97ae281122d";
 
 export default node;

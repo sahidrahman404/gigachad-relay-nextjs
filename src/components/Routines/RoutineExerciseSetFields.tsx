@@ -35,7 +35,7 @@ type SetFormFieldProps = {
   form: AddRoutineFormReturn;
   index: number;
   setIndex: number;
-  setField: "reps" | "kg" | "time";
+  setField: keyof AddRoutineFormSchema["routineExercises"][0]["sets"][0];
   type?: "text" | "number";
 };
 
@@ -55,7 +55,7 @@ function SetFormField({
         <FormItem className="col-span-1">
           <FormLabel>{label}</FormLabel>
           <FormControl>
-            {setField === "time" ? (
+            {setField === "duration" ? (
               <TimeField
                 granularity="second"
                 hourCycle={24}
@@ -111,7 +111,7 @@ type SetFormFieldsProps = {
   formFields: (
     form: AddRoutineFormReturn,
     index: RoutineExerciseSetProps["index"],
-    setIndex: number
+    setIndex: number,
   ) => ReactNode;
   appendArgument: Exclude<
     GetIterableIteratorVal<
@@ -249,13 +249,13 @@ function DurationField() {
               form={form}
               index={index}
               setIndex={setIndex}
-              setField="time"
+              setField="duration"
             />
           </>
         );
       }}
       appendArgument={{
-        time: "",
+        duration: "",
       }}
       className="grid-cols-[47.5fr_47.5fr_0.5fr]"
     />

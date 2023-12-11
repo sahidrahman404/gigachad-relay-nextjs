@@ -44,7 +44,7 @@ const StartWorkoutFormFragment = graphql`
           sets {
             reps
             kg
-            time
+            duration
             km
           }
           exercises {
@@ -104,7 +104,7 @@ const formSchema = z.object({
             selected: z.boolean().default(false).optional(),
             reps: z.coerce.number().positive().optional(),
             kg: z.coerce.number().positive().optional(),
-            time: z.string().optional(),
+            duration: z.string().optional(),
             km: z.coerce.number().positive().optional(),
           }),
         ),
@@ -158,7 +158,7 @@ function StartWorkoutForm({ queryRef }: StartWorkoutFormProps) {
               selected: false,
               reps: set.reps ?? undefined,
               kg: set.kg ?? undefined,
-              time: set.time ?? undefined,
+              duration: set.duration ?? undefined,
               km: set.km ?? undefined,
             };
           }),
