@@ -160,8 +160,7 @@ function AddExerciseForm({
           toast({
             variant: "default",
             title: "Success! Exercise added",
-            description:
-              "The exercise has been successfully added to your collection",
+            description: "The exercise was added to your collection",
           });
         },
       });
