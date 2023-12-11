@@ -205,7 +205,7 @@ function FinishWorkoutForm({ queryRef }: FinishWorkoutFormProps) {
           control={form.control}
           name="description"
           render={() => (
-            <FormItem className="col-span-4 md:col-span-3">
+            <FormItem className="col-span-4">
               <FormLabel>Description</FormLabel>
               <FormControl>
                 <EditorField editor={editor} />
