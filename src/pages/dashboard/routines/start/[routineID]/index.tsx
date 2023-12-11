@@ -8,14 +8,9 @@ import { RelayProps, withRelay } from "relay-nextjs";
 import { graphql } from "relay-runtime";
 
 const RoutineQuery = graphql`
-  query RoutineID_Query($routineID: ID!) {
+  query RoutineID_Query {
     viewer {
       ...useAuthRedirectFragment
-    }
-    node(id: $routineID) {
-      ... on Routine {
-        ...StartWorkoutFormFragment
-      }
     }
   }
 `;
@@ -26,11 +21,7 @@ function PStartWorkout({ preloadedQuery }: RelayProps<{}, RoutineID_Query>) {
     user: data.viewer,
   });
 
-  if (!data.viewer || !data.node) {
-    return null;
-  }
-
-  return <StartWorkoutForm queryRef={data.node} />;
+  return <StartWorkoutForm />;
 }
 
 function Loading() {

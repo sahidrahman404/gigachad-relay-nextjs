@@ -3,8 +3,6 @@ import { FinishWorkoutFormFragment$key } from "@/queries/__generated__/FinishWor
 import { graphql } from "relay-runtime";
 import { z } from "zod";
 import { useToast } from "../ui/use-toast";
-import { useStateMachine } from "little-state-machine";
-import { updateStartWorkoutData } from "./StartWorkoutForm";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -28,7 +26,7 @@ import { useCreateEditor } from "../Hooks/useCreateEditor";
 import { useMutation } from "react-relay";
 import { FinishWorkoutForm_Mutation } from "@/queries/__generated__/FinishWorkoutForm_Mutation.graphql";
 import { InternalMetadata } from "@uppy/core";
-import { ToastAction } from "../ui/toast";
+import { WorkoutMachineContext } from "../Layout";
 
 const FinishWorkoutFormMutation = graphql`
   mutation FinishWorkoutForm_Mutation($input: CreateWorkoutWithChildrenInput!) {
@@ -73,9 +71,9 @@ function FinishWorkoutForm({ queryRef }: FinishWorkoutFormProps) {
   const [commitMutation, isMutationInFlight] =
     useMutation<FinishWorkoutForm_Mutation>(FinishWorkoutFormMutation);
   const { toast } = useToast();
-  const { state } = useStateMachine({ updateStartWorkoutData });
   const [uppy] = useState(() => createUppy());
   const [isUploadInFlight, setIsUploadInFlight] = useState(false);
+  const context = WorkoutMachineContext.useSelector((state) => state.context);
 
   const form = useForm<FinishWorkoutFormSchema>({
     resolver: zodResolver(formSchema),
@@ -95,59 +93,59 @@ function FinishWorkoutForm({ queryRef }: FinishWorkoutFormProps) {
   });
 
   function onSubmit(val: FinishWorkoutFormSchema) {
-    const selectedWorkout = state.workout.workoutLogs
-      .map((wl) => {
-        const selectedSets = wl.sets.filter((set) => set.selected);
-        if (selectedSets.length > 0) {
-          return {
-            sets: selectedSets.map((set) => ({
-              kg: set.kg,
-              time: set.duration,
-              km: set.km,
-              reps: set.reps,
-            })),
-            exerciseID: wl.exerciseID,
-          };
-        }
-        return {
-          sets: [],
-          exerciseID: "",
-        };
-      })
-      .filter((wl) => wl.exerciseID !== "");
+    // const selectedWorkout = state.workout.workoutLogs
+    //   .map((wl) => {
+    //     const selectedSets = wl.sets.filter((set) => set.selected);
+    //     if (selectedSets.length > 0) {
+    //       return {
+    //         sets: selectedSets.map((set) => ({
+    //           kg: set.kg,
+    //           time: set.duration,
+    //           km: set.km,
+    //           reps: set.reps,
+    //         })),
+    //         exerciseID: wl.exerciseID,
+    //       };
+    //     }
+    //     return {
+    //       sets: [],
+    //       exerciseID: "",
+    //     };
+    //   })
+    //   .filter((wl) => wl.exerciseID !== "");
     const image = val.image;
     const mutation = (meta?: InternalMetadata & Record<string, unknown>) => {
       editor?.commands.clearContent();
-      commitMutation({
-        variables: {
-          input: {
-            duration: state.workout.duration,
-            volume: state.workout.volume,
-            sets: state.workout.sets,
-            image: meta
-              ? {
-                  layout: "constrained",
-                  objectFit: "cover",
-                  priority: false,
-                  filename: meta.name,
-                  width: (meta.width as number | undefined) ?? 0,
-                  aspectRatio: 1,
-                }
-              : null,
-            description: val.description,
-            workoutLogs: selectedWorkout,
-          },
-        },
-        onError: (err) => {
-          toast({
-            variant: "destructive",
-            title: "Uh oh! Something went wrong.",
-            description: "There was a problem with your request.",
-            action: <ToastAction altText="Try again">Try again</ToastAction>,
-          });
-        },
-        onCompleted: () => {},
-      });
+      // commitMutation({
+      //   variables: {
+      //     input: {
+      //       duration: state.workout.duration,
+      //       volume: state.workout.volume,
+      //       sets: state.workout.sets,
+      //       image: meta
+      //         ? {
+      //             layout: "constrained",
+      //             objectFit: "cover",
+      //             priority: false,
+      //             filename: meta.name,
+      //             width: (meta.width as number | undefined) ?? 0,
+      //             aspectRatio: 1,
+      //           }
+      //         : null,
+      //       description: val.description,
+      //       workoutLogs: selectedWorkout,
+      //     },
+      //   },
+      //   onError: (err) => {
+      //     toast({
+      //       variant: "destructive",
+      //       title: "Uh oh! Something went wrong.",
+      //       description: "There was a problem with your request.",
+      //       action: <ToastAction altText="Try again">Try again</ToastAction>,
+      //     });
+      //   },
+      //   onCompleted: () => {},
+      // });
     };
 
     uploadImageAndDoGqlMutation({
@@ -215,6 +213,7 @@ function FinishWorkoutForm({ queryRef }: FinishWorkoutFormProps) {
           )}
         />
       </form>
+      <p>{JSON.stringify(context)}</p>
     </Form>
   );
 }

@@ -1,10 +1,5 @@
 import { ReactNode, useContext } from "react";
-import {
-  FieldArrayMethodProps,
-  UseFieldArrayReturn,
-  useFieldArray,
-  useFormContext,
-} from "react-hook-form";
+import { useFieldArray, useFormContext } from "react-hook-form";
 import {
   FormControl,
   FormField,
@@ -14,7 +9,7 @@ import {
 } from "../ui/form";
 import { Input } from "../ui/input";
 import { Button } from "../ReactAriaUI/Button";
-import { cn } from "@/lib/utils";
+import { capitalizeFirstLetter, cn } from "@/lib/utils";
 import { WorkoutLogsContext, WorkoutLogsProps } from "./WorkoutLogs";
 import { Checkbox } from "../ui/checkbox";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
@@ -24,16 +19,16 @@ import {
 } from "./StartWorkoutForm";
 import { TimeField } from "../ReactAriaUI/TimeField";
 import { Time, parseTime } from "@internationalized/date";
+import { WorkoutMachineContext } from "../Layout";
+
+type SetFields = StartWorkoutFormSchema["workoutLogs"][0]["sets"][0];
 
 type WorkoutLogsSetFormFieldProps = {
-  label: string;
+  label: keyof SetFields;
   form: UseFormReturnStartWorkoutFormSchema;
   index: number;
   setIndex: number;
-  setField: Exclude<
-    keyof StartWorkoutFormSchema["workoutLogs"][0]["sets"][0],
-    "selected"
-  >;
+  setField: Exclude<keyof SetFields, "selected">;
   type?: "text" | "number";
   className?: string;
 };
@@ -47,13 +42,17 @@ function WorkoutLogsSetFormField({
   type,
   className,
 }: WorkoutLogsSetFormFieldProps) {
+  const workoutActor = WorkoutMachineContext.useActorRef();
+
   return (
     <FormField
       control={form.control}
       name={`workoutLogs.${index}.sets.${setIndex}.${setField}`}
       render={({ field }) => (
         <FormItem className={cn("col-span-1", className)}>
-          <FormLabel className="text-muted-foreground">{label}</FormLabel>
+          <FormLabel className="text-muted-foreground">
+            {capitalizeFirstLetter(label)}
+          </FormLabel>
           <FormControl>
             {setField === "duration" ? (
               <TimeField
@@ -69,11 +68,40 @@ function WorkoutLogsSetFormField({
                 onChange={(val) => {
                   if (val) {
                     field.onChange(val.toString());
+                    workoutActor.send({
+                      type: "EDIT_SET_OBJECT",
+                      value: {
+                        label: "duration",
+                        set: {
+                          duration: val.toString(),
+                        },
+                        setIndex: setIndex,
+                        workoutLogsIndex: index,
+                      },
+                    });
                   }
                 }}
               />
             ) : (
-              <Input type={type} {...field} />
+              <Input
+                type={type}
+                {...field}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  field.onChange(value);
+                  workoutActor.send({
+                    type: "EDIT_SET_OBJECT",
+                    value: {
+                      label: label,
+                      set: {
+                        [`${label}`]: value,
+                      },
+                      workoutLogsIndex: index,
+                      setIndex: setIndex,
+                    },
+                  });
+                }}
+              />
             )}
           </FormControl>
           <FormMessage />
@@ -83,31 +111,13 @@ function WorkoutLogsSetFormField({
   );
 }
 
-type WorkoutLogsSetsFieldArray = {
-  fieldArray: UseFieldArrayReturn<
-    StartWorkoutFormSchema,
-    `workoutLogs.${number}.sets`
-  >;
-};
-
-type GetIterableIteratorVal<T> = T extends IterableIterator<infer TInferredData>
-  ? TInferredData
-  : never;
-
 type WorkoutLogsSetsFormFieldsProps = {
   formFields: (
     form: UseFormReturnStartWorkoutFormSchema,
     index: WorkoutLogsProps["index"],
     setIndex: number,
   ) => ReactNode;
-  appendArgument: Exclude<
-    GetIterableIteratorVal<
-      ReturnType<
-        Parameters<WorkoutLogsSetsFieldArray["fieldArray"]["append"]>["values"]
-      >
-    >,
-    FieldArrayMethodProps | undefined
-  >;
+  appendArgument: SetFields;
   className?: string;
 };
 
@@ -123,6 +133,7 @@ function WorkoutLogsSetsFormFields({
     name: `workoutLogs.${index}.sets`,
     control: form.control,
   });
+  const workoutActor = WorkoutMachineContext.useActorRef();
 
   return (
     <div className="space-y-3" ref={parent}>
@@ -143,7 +154,20 @@ function WorkoutLogsSetsFormFields({
                 <FormControl>
                   <Checkbox
                     checked={field.value}
-                    onCheckedChange={field.onChange}
+                    onCheckedChange={(val) => {
+                      field.onChange(val);
+                      workoutActor.send({
+                        type: "EDIT_SET_OBJECT",
+                        value: {
+                          label: "selected",
+                          set: {
+                            selected: val as boolean,
+                          },
+                          setIndex: setIndex,
+                          workoutLogsIndex: index,
+                        },
+                      });
+                    }}
                   />
                 </FormControl>
               </FormItem>
@@ -156,6 +180,13 @@ function WorkoutLogsSetsFormFields({
         variant="outline"
         onPress={() => {
           fieldArray.append(appendArgument);
+          workoutActor.send({
+            type: "APPEND_WORKOUT_LOG_SET",
+            value: {
+              set: appendArgument,
+              workoutLogsIndex: index,
+            },
+          });
         }}
       >
         Add Set
@@ -189,7 +220,7 @@ function BodyWeightField() {
           <>
             <SetField setIndex={setIndex} />
             <WorkoutLogsSetFormField
-              label="Reps"
+              label="reps"
               form={form}
               index={index}
               setIndex={setIndex}
@@ -214,7 +245,7 @@ function WeightField() {
             <SetField setIndex={setIndex} />
 
             <WorkoutLogsSetFormField
-              label="Kg"
+              label="kg"
               form={form}
               index={index}
               setIndex={setIndex}
@@ -223,7 +254,7 @@ function WeightField() {
             />
 
             <WorkoutLogsSetFormField
-              label="Reps"
+              label="reps"
               form={form}
               index={index}
               setIndex={setIndex}
@@ -251,7 +282,7 @@ function DurationField() {
             <SetField setIndex={setIndex} />
 
             <WorkoutLogsSetFormField
-              label="Duration"
+              label="duration"
               form={form}
               index={index}
               setIndex={setIndex}

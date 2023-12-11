@@ -8,8 +8,10 @@ import {
   CardHeader,
   CardTitle,
 } from "../ui/card";
-import { LinkButton } from "../ReactAriaUI/LinkButton";
 import { capitalizeFirstLetter } from "@/lib/utils";
+import { WorkoutMachineContext } from "../Layout";
+import { Button } from "../ReactAriaUI/Button";
+import { useRouter } from "next/router";
 
 const RoutineFragment = graphql`
   fragment RoutineFragment on Routine {
@@ -33,6 +35,15 @@ type RoutineProps = {
 
 function Routine({ queryRef }: RoutineProps) {
   const data = useFragment(RoutineFragment, queryRef);
+  const routineID = WorkoutMachineContext.useSelector(
+    (state) => state.context.routineID,
+  );
+  const isWorkingOut = WorkoutMachineContext.useSelector((state) =>
+    state.matches({ workingOut: {} }),
+  );
+
+  const workoutActor = WorkoutMachineContext.useActorRef();
+  const router = useRouter();
 
   const exercises = data.routineExercises.edges
     ?.map((rE) => {
@@ -49,9 +60,17 @@ function Routine({ queryRef }: RoutineProps) {
         <CardDescription>{exercises}</CardDescription>
       </CardHeader>
       <CardFooter className="flex flex-col items-stretch md:block">
-        <LinkButton href={`/dashboard/routines/start/${data.id}`}>
+        <Button
+          onPress={() => {
+            workoutActor.send({ type: "WORKOUT_START", value: data.id });
+            workoutActor.send({ type: "STOPWATCH_START" });
+            workoutActor.send({ type: "LOAD_WORKOUT_LOGS" });
+            router.push(`/dashboard/routines/start/${data.id}`);
+          }}
+          isDisabled={isWorkingOut && routineID !== data.id}
+        >
           Start Routine
-        </LinkButton>
+        </Button>
       </CardFooter>
     </Card>
   );

@@ -1,12 +1,5 @@
 import { Label } from "@radix-ui/react-label";
-import { useFormContext } from "react-hook-form";
-import { useEffect, useState } from "react";
-import { intervalToDuration } from "date-fns";
-import { useStateMachine } from "little-state-machine";
-import {
-  StartWorkoutFormSchema,
-  updateStartWorkoutData,
-} from "./StartWorkoutForm";
+import { WorkoutMachineContext } from "../Layout";
 
 function WorkoutLogsStats() {
   return (
@@ -28,76 +21,25 @@ function WorkoutLogsStats() {
 }
 
 function GetTotalVolume() {
-  const initialVolume = 0;
-  const form = useFormContext<StartWorkoutFormSchema>();
-  const totalVolume = form.watch().workoutLogs.reduce((acc, currVal) => {
-    return (
-      acc +
-      currVal.sets.reduce((acc, setCurrVal) => {
-        if (setCurrVal.kg && setCurrVal.reps && setCurrVal.selected) {
-          return acc + setCurrVal.kg * setCurrVal.reps;
-        }
-        return acc + 0;
-      }, initialVolume)
-    );
-  }, initialVolume);
-
-  useEffect(() => {
-    form.setValue("volume", totalVolume);
-  }, [totalVolume]);
+  const totalVolume = WorkoutMachineContext.useSelector(
+    (state) => state.context.volume,
+  );
 
   return <p>{totalVolume} kg</p>;
 }
 
 function GetTotalSets() {
-  const initialSets = 0;
-  const form = useFormContext<StartWorkoutFormSchema>();
-  const sets = form.watch().workoutLogs.reduce((acc, wLCurrVal) => {
-    return (
-      acc +
-      wLCurrVal.sets.reduce((acc, setCurrVal) => {
-        if (setCurrVal.selected) {
-          return acc + 1;
-        }
-        return acc + 0;
-      }, initialSets)
-    );
-  }, initialSets);
-
-  useEffect(() => {
-    form.setValue("sets", sets);
-  }, [sets]);
+  const sets = WorkoutMachineContext.useSelector((state) => state.context.sets);
 
   return <p>{sets}</p>;
 }
 
 function GetWorkoutDuration() {
-  const { state } = useStateMachine({ updateStartWorkoutData });
-  const [seconds, setSeconds] = useState(0);
-
-  useEffect(() => {
-    const start = state?.workout?.startTime ?? 0;
-    const stop = state?.workout?.stopTime ?? 0;
-    const seconds = Math.round((stop - start) / 1000);
-    setSeconds(seconds);
-  }, []);
-
-  useEffect(() => {
-    const intervalID = setInterval(() => {
-      setSeconds((val) => val + 1);
-    }, 1000);
-    return () => {
-      clearInterval(intervalID);
-    };
-  }, []);
-
-  const duration = intervalToDuration({ start: 0, end: seconds * 1000 });
-
-  return (
-    <p>
-      {duration.minutes}m {duration.seconds}s
-    </p>
+  const duration = WorkoutMachineContext.useSelector(
+    (state) => state.context.duration,
   );
+
+  return <p>{duration}</p>;
 }
 
 export { WorkoutLogsStats };

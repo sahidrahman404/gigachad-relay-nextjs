@@ -42,10 +42,10 @@
     "@uppy/file-input": "^3.0.4",
     "@uppy/progress-bar": "^3.0.4",
     "@uppy/react": "^3.2.1",
+    "@xstate/react": "^4.0.1",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
     "date-fns": "^2.30.0",
-    "little-state-machine": "^4.8.0",
     "lucide-react": "^0.292.0",
     "next": "13.5.4",
     "react": "^18.2.0",
@@ -60,6 +60,7 @@
     "tailwind-merge": "^1.14.0",
     "tailwindcss-animate": "^1.0.7",
     "tailwindcss-react-aria-components": "1.0.0-rc.0",
+    "xstate": "^5.2.1",
     "zod": "^3.22.4"
   },
   "devDependencies": {

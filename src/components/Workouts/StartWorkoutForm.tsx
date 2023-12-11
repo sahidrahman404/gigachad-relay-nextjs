@@ -1,100 +1,19 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  FieldErrors,
-  UseFormReturn,
-  useFieldArray,
-  useForm,
-} from "react-hook-form";
+import { FieldErrors, UseFormReturn, useForm } from "react-hook-form";
 import { z } from "zod";
 import { Form } from "../ui/form";
 import { Button } from "../ReactAriaUI/Button";
-import { graphql } from "relay-runtime";
-import { useFragment } from "react-relay";
 import { WorkoutLogs } from "./WorkoutLogs";
-import { capitalizeFirstLetter } from "@/lib/utils";
-import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { WorkoutLogsStats } from "./WorkoutLogsStats";
 import { useToast } from "../ui/use-toast";
 import { ToastAction } from "../ui/toast";
-import {
-  GlobalState,
-  createStore,
-  useStateMachine,
-} from "little-state-machine";
-import { useEffect, useMemo } from "react";
-import { intervalToDuration } from "date-fns";
 import { useRouter } from "next/router";
-import { StartWorkoutFormFragment$key } from "@/queries/__generated__/StartWorkoutFormFragment.graphql";
-import { FinishWorkoutFormSchema } from "./FinishWorkoutForm";
-
-// const AddWorkoutFormMutation = graphql`
-//   mutation AddWorkoutFormMutation($input: CreateWorkoutWithChildrenInput!) {
-//     createWorkoutWithChildren(input: $input) {
-//       id
-//     }
-//   }
-// `;
-
-const StartWorkoutFormFragment = graphql`
-  fragment StartWorkoutFormFragment on Routine {
-    id
-    routineExercises {
-      edges {
-        node {
-          sets {
-            reps
-            kg
-            duration
-            km
-          }
-          exercises {
-            id
-            name
-            exerciseTypes {
-              edges {
-                node {
-                  name
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-`;
-
-createStore({
-  workout: {
-    volume: 0,
-    sets: 0,
-    startTime: 0,
-    stopTime: 0,
-    duration: "",
-    workoutLogs: [],
-    description: "",
-    image: undefined,
-  },
-});
-
-function updateStartWorkoutData(
-  state: GlobalState,
-  payload: StartWorkoutFormSchema & FinishWorkoutFormSchema,
-) {
-  return {
-    ...state,
-    workout: {
-      ...state.workout,
-      ...payload,
-    },
-  };
-}
+import { WorkoutMachineContext } from "../Layout";
+import { useEffect } from "react";
 
 const formSchema = z.object({
   volume: z.number(),
   sets: z.number(),
-  startTime: z.number(),
-  stopTime: z.number(),
   duration: z.string(),
   workoutLogs: z
     .array(
@@ -134,110 +53,40 @@ const formSchema = z.object({
 
 type StartWorkoutFormSchema = z.infer<typeof formSchema>;
 
-type StartWorkoutFormProps = {
-  queryRef: StartWorkoutFormFragment$key;
-};
-
-function StartWorkoutForm({ queryRef }: StartWorkoutFormProps) {
-  const data = useFragment(StartWorkoutFormFragment, queryRef);
+function StartWorkoutForm() {
+  const routineID = WorkoutMachineContext.useSelector(
+    (state) => state.context.routineID,
+  );
+  const workoutLogs = WorkoutMachineContext.useSelector(
+    (state) => state.context.workoutLogs,
+  );
+  const workoutActor = WorkoutMachineContext.useActorRef();
+  const isEditingWorkoutDescription = WorkoutMachineContext.useSelector(
+    (state) =>
+      state.matches({ workingOut: { form: "editingWorkoutDescription" } }),
+  );
   const { toast } = useToast();
-  const { state, actions } = useStateMachine({ updateStartWorkoutData });
   const router = useRouter();
 
-  const workoutLogs = useMemo(() => {
-    return data.routineExercises.edges?.map((rE) => {
-      if (rE?.node) {
-        const exerciseTypes = rE.node.exercises.exerciseTypes.edges;
-        const exerciseType =
-          exerciseTypes && exerciseTypes.length > 0 && exerciseTypes[0]?.node
-            ? exerciseTypes[0].node.name
-            : "";
-        const result = {
-          sets: rE.node.sets.map((set) => {
-            return {
-              selected: false,
-              reps: set.reps ?? undefined,
-              kg: set.kg ?? undefined,
-              duration: set.duration ?? undefined,
-              km: set.km ?? undefined,
-            };
-          }),
-          name: capitalizeFirstLetter(rE.node.exercises.name),
-          exerciseType: exerciseType,
-          exerciseID: rE.node.exercises.id,
-        };
-        return result;
-      }
-    });
-  }, [data.routineExercises.edges]);
+  useEffect(() => {
+    if (isEditingWorkoutDescription) {
+      workoutActor.send({ type: "GO_TO_EDIT_WORKOUT_LOGS" });
+    }
+  }, [isEditingWorkoutDescription]);
 
   const form = useForm<StartWorkoutFormSchema>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       volume: 0,
       sets: 0,
-      startTime: Date.now(),
-      stopTime: 0,
       duration: "",
       workoutLogs: workoutLogs,
     },
   });
 
-  const { fields, replace } = useFieldArray({
-    name: "workoutLogs",
-    control: form.control,
-  });
-
-  useEffect(() => {
-    const startTime = state?.workout?.startTime;
-    const stopTime = state?.workout?.stopTime;
-    if (startTime && stopTime) {
-      form.setValue("startTime", startTime);
-      form.setValue("stopTime", stopTime);
-    }
-    const workoutLogs = state?.workout?.workoutLogs;
-    if (workoutLogs && workoutLogs.length > 1) {
-      replace(workoutLogs);
-    }
-  }, [state?.workout?.workoutLogs]);
-
-  useEffect(() => {
-    const nextNavigationHandler = (url: string) => {
-      if (!url.split("/").includes("finish")) {
-        actions.updateStartWorkoutData({
-          volume: 0,
-          sets: 0,
-          startTime: 0,
-          stopTime: 0,
-          duration: "",
-          workoutLogs: [],
-          description: "",
-          image: undefined,
-        });
-      }
-    };
-
-    router.events.on("beforeHistoryChange", nextNavigationHandler);
-
-    // On component unmount, remove the event listener
-    return () => {
-      router.events.off("beforeHistoryChange", nextNavigationHandler);
-    };
-  }, []);
-
-  function onSubmit(val: StartWorkoutFormSchema) {
-    const stopTime = Date.now();
-    const duration = intervalToDuration({
-      start: val.startTime,
-      end: stopTime,
-    });
-    const durationString = `${duration.minutes}m ${duration.seconds}s`;
-    actions.updateStartWorkoutData({
-      ...val,
-      duration: durationString,
-      stopTime: stopTime,
-    });
-    router.push(`/dashboard/routines/finish/${data.id}`);
+  function onSubmit() {
+    workoutActor.send({ type: "EDIT_WORKOUT_DESCRIPTION" });
+    router.push(`/dashboard/routines/finish/${routineID}`);
   }
 
   function onError(errVal: FieldErrors<StartWorkoutFormSchema>) {
@@ -271,24 +120,7 @@ function StartWorkoutForm({ queryRef }: StartWorkoutFormProps) {
         </Button>
 
         <WorkoutLogsStats />
-
-        <div className="col-span-full space-y-4">
-          {fields.map((field, index) => {
-            return (
-              <Card key={field.id}>
-                <CardHeader>
-                  <CardTitle>{field.name}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <WorkoutLogs
-                    index={index}
-                    exerciseType={field.exerciseType}
-                  />
-                </CardContent>
-              </Card>
-            );
-          })}
-        </div>
+        <WorkoutLogs />
       </form>
     </Form>
   );
@@ -300,5 +132,5 @@ type UseFormReturnStartWorkoutFormSchema = UseFormReturn<
   undefined
 >;
 
-export { StartWorkoutForm, updateStartWorkoutData };
+export { StartWorkoutForm };
 export type { StartWorkoutFormSchema, UseFormReturnStartWorkoutFormSchema };

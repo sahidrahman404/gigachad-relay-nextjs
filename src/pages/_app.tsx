@@ -7,7 +7,6 @@ import { ErrorBoundary } from "react-error-boundary";
 import GlobalError from "@/components/Error/GlobalError";
 import { NextPage } from "next";
 import { ReactElement, ReactNode } from "react";
-import { StateMachineProvider } from "little-state-machine";
 import { useRouter } from "next/router";
 import { RouterProvider } from "react-aria-components";
 
@@ -30,9 +29,7 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
       {getLayout(
         <ErrorBoundary fallback={<GlobalError />}>
           <RelayEnvironmentProvider environment={env}>
-            <StateMachineProvider>
-              <Component {...pageProps} {...relayProps} />
-            </StateMachineProvider>
+            <Component {...pageProps} {...relayProps} />
           </RelayEnvironmentProvider>
         </ErrorBoundary>,
       )}
