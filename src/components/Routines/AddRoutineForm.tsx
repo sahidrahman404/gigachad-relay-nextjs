@@ -120,23 +120,26 @@ function AddRoutineForm({ queryRef }: AddRoutineFormProps) {
           "RoutinesFragment_routines",
         );
 
-        // Create a new local Comment record
-        const id = `client:new_routine:${crypto.randomUUID()}`;
-        const newRoutineRecord = store.create(id, "Routine");
+        if (connectionRecords.length > 0) {
+          // Create a new local Comment record
+          const id = `client:new_routine:${crypto.randomUUID()}`;
+          const newRoutineRecord = store.create(id, "Routine");
 
-        // Create new edge
-        const newEdge = ConnectionHandler.createEdge(
-          store,
-          connectionRecords[0],
-          newRoutineRecord,
-          "RoutineEdge" /* GraphQl Type for edge */,
-        );
+          // Create new edge
+          const newEdge = ConnectionHandler.createEdge(
+            store,
+            connectionRecords[0],
+            newRoutineRecord,
+            "RoutineEdge" /* GraphQl Type for edge */,
+          );
 
-        connectionRecords.forEach((cR) => {
-          ConnectionHandler.insertEdgeBefore(cR, newEdge);
-        });
+          connectionRecords.forEach((cR) => {
+            ConnectionHandler.insertEdgeBefore(cR, newEdge);
+          });
+        }
       },
-      onError: () => {
+      onError: (err) => {
+        console.log({ err });
         toast({
           variant: "destructive",
           title: "Uh oh! Something went wrong.",

@@ -3,6 +3,7 @@ import { useFragment } from "react-relay";
 import { graphql } from "relay-runtime";
 import { RoutinesEmptyState } from "./RoutinesEmptyState";
 import { Routine } from "./Routine";
+import { LinkButton } from "../ReactAriaUI/LinkButton";
 
 const RoutinesFragment = graphql`
   fragment RoutinesFragment on User
@@ -10,10 +11,14 @@ const RoutinesFragment = graphql`
   @argumentDefinitions(
     cursor: { type: "Cursor" }
     count: { type: "Int", defaultValue: 4 }
+    orderby: { type: "OrderDirection", defaultValue: DESC }
   ) {
     id
-    routines(after: $cursor, first: $count)
-      @connection(key: "RoutinesFragment_routines") {
+    routines(
+      after: $cursor
+      first: $count
+      orderBy: { direction: $orderby, field: ID }
+    ) @connection(key: "RoutinesFragment_routines") {
       edges {
         node {
           id
@@ -42,6 +47,7 @@ function Routines({ queryRef }: RoutinesProps) {
 
   return (
     <div className="space-y-4">
+      <LinkButton href={"/dashboard/routines/add"}>Add</LinkButton>
       {data.routines.edges?.map((routine) => {
         if (routine?.node) {
           return <Routine queryRef={routine.node} key={routine.node.id} />;

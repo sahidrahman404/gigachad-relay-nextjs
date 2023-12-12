@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<bca5dacc916d2256356c09fca0e6fcf3>>
+ * @generated SignedSource<<d32d3685c0483c759952a88f86cfcaf7>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -50,6 +50,11 @@ return {
       "defaultValue": null,
       "kind": "LocalArgument",
       "name": "cursor"
+    },
+    {
+      "defaultValue": "DESC",
+      "kind": "LocalArgument",
+      "name": "orderby"
     }
   ],
   "kind": "Fragment",
@@ -83,7 +88,24 @@ return {
     (v1/*: any*/),
     {
       "alias": "routines",
-      "args": null,
+      "args": [
+        {
+          "fields": [
+            {
+              "kind": "Variable",
+              "name": "direction",
+              "variableName": "orderby"
+            },
+            {
+              "kind": "Literal",
+              "name": "field",
+              "value": "ID"
+            }
+          ],
+          "kind": "ObjectValue",
+          "name": "orderBy"
+        }
+      ],
       "concreteType": "RoutineConnection",
       "kind": "LinkedField",
       "name": "__RoutinesFragment_routines_connection",
@@ -170,6 +192,6 @@ return {
 };
 })();
 
-(node as any).hash = "0045f90df5adc1545d2192e184735ed6";
+(node as any).hash = "a012539d41d679c4b09998e24aeedca6";
 
 export default node;
