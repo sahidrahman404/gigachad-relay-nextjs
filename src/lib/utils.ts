@@ -165,7 +165,7 @@ type ImageFieldOnChange = {
   field: ControllerRenderProps<any, "image">;
 };
 function imageFieldOnChange({ event, field }: ImageFieldOnChange) {
-  const file = event.target.files ? event.target.files[0] : new File([], "");
+  const file = event.target.files ? event.target.files[0] : undefined;
   field.onChange(file);
 }
 

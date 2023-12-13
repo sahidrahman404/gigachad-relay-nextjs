@@ -1,5 +1,4 @@
 import { image } from "@/lib/zod";
-import { FinishWorkoutFormFragment$key } from "@/queries/__generated__/FinishWorkoutFormFragment.graphql";
 import { graphql } from "relay-runtime";
 import { z } from "zod";
 import { useToast } from "../ui/use-toast";
@@ -27,6 +26,8 @@ import { useMutation } from "react-relay";
 import { FinishWorkoutForm_Mutation } from "@/queries/__generated__/FinishWorkoutForm_Mutation.graphql";
 import { InternalMetadata } from "@uppy/core";
 import { WorkoutMachineContext } from "../Layout";
+import { ToastAction } from "../ui/toast";
+import { useRouter } from "next/router";
 
 const FinishWorkoutFormMutation = graphql`
   mutation FinishWorkoutForm_Mutation($input: CreateWorkoutWithChildrenInput!) {
@@ -50,37 +51,32 @@ const FinishWorkoutFormMutation = graphql`
   }
 `;
 
-const FinishWorkoutFormFragment = graphql`
-  fragment FinishWorkoutFormFragment on Routine {
-    id
-  }
-`;
-
 const formSchema = z.object({
   image: image.optional(),
   description: z.string().optional(),
 });
 
 type FinishWorkoutFormSchema = z.infer<typeof formSchema>;
-type FinishWorkoutFormProps = {
-  queryRef: FinishWorkoutFormFragment$key;
-};
 
-function FinishWorkoutForm({ queryRef }: FinishWorkoutFormProps) {
+function FinishWorkoutForm() {
   const imageInputRef = useRef<HTMLInputElement | null>(null);
   const [commitMutation, isMutationInFlight] =
     useMutation<FinishWorkoutForm_Mutation>(FinishWorkoutFormMutation);
   const { toast } = useToast();
   const [uppy] = useState(() => createUppy());
   const [isUploadInFlight, setIsUploadInFlight] = useState(false);
-  const context = WorkoutMachineContext.useSelector((state) => state.context);
+  const workoutContext = WorkoutMachineContext.useSelector(
+    (state) => state.context,
+  );
+  const workoutActor = WorkoutMachineContext.useActorRef();
+  const router = useRouter();
 
   const form = useForm<FinishWorkoutFormSchema>({
     resolver: zodResolver(formSchema),
     mode: "onBlur",
     defaultValues: {
-      image: undefined,
-      description: "",
+      image: workoutContext.image,
+      description: workoutContext.description,
     },
   });
 
@@ -89,63 +85,52 @@ function FinishWorkoutForm({ queryRef }: FinishWorkoutFormProps) {
     placeholder: "How did your workout go? leaves some notes here...",
     onChange: (val) => {
       form.setValue("description", val);
+      workoutActor.send({
+        type: "SET_WORKOUT_DESCRIPTION",
+        value: {
+          description: val,
+        },
+      });
     },
   });
 
-  function onSubmit(val: FinishWorkoutFormSchema) {
-    // const selectedWorkout = state.workout.workoutLogs
-    //   .map((wl) => {
-    //     const selectedSets = wl.sets.filter((set) => set.selected);
-    //     if (selectedSets.length > 0) {
-    //       return {
-    //         sets: selectedSets.map((set) => ({
-    //           kg: set.kg,
-    //           time: set.duration,
-    //           km: set.km,
-    //           reps: set.reps,
-    //         })),
-    //         exerciseID: wl.exerciseID,
-    //       };
-    //     }
-    //     return {
-    //       sets: [],
-    //       exerciseID: "",
-    //     };
-    //   })
-    //   .filter((wl) => wl.exerciseID !== "");
-    const image = val.image;
+  function onSubmit() {
+    const image = workoutContext.image;
     const mutation = (meta?: InternalMetadata & Record<string, unknown>) => {
       editor?.commands.clearContent();
-      // commitMutation({
-      //   variables: {
-      //     input: {
-      //       duration: state.workout.duration,
-      //       volume: state.workout.volume,
-      //       sets: state.workout.sets,
-      //       image: meta
-      //         ? {
-      //             layout: "constrained",
-      //             objectFit: "cover",
-      //             priority: false,
-      //             filename: meta.name,
-      //             width: (meta.width as number | undefined) ?? 0,
-      //             aspectRatio: 1,
-      //           }
-      //         : null,
-      //       description: val.description,
-      //       workoutLogs: selectedWorkout,
-      //     },
-      //   },
-      //   onError: (err) => {
-      //     toast({
-      //       variant: "destructive",
-      //       title: "Uh oh! Something went wrong.",
-      //       description: "There was a problem with your request.",
-      //       action: <ToastAction altText="Try again">Try again</ToastAction>,
-      //     });
-      //   },
-      //   onCompleted: () => {},
-      // });
+      commitMutation({
+        variables: {
+          input: {
+            duration: workoutContext.duration,
+            volume: workoutContext.volume,
+            sets: workoutContext.sets,
+            image: meta
+              ? {
+                  layout: "constrained",
+                  objectFit: "cover",
+                  priority: false,
+                  filename: meta.name,
+                  width: (meta.width as number | undefined) ?? 0,
+                  aspectRatio: 1,
+                }
+              : null,
+            description: workoutContext.description,
+            workoutLogs: workoutContext.createWorkoutLogsInput,
+          },
+        },
+        onError: () => {
+          toast({
+            variant: "destructive",
+            title: "Uh oh! Something went wrong.",
+            description: "There was a problem with your request.",
+            action: <ToastAction altText="Try again">Try again</ToastAction>,
+          });
+        },
+        onCompleted: () => {
+          workoutActor.send({ type: "RESET" });
+          router.push("/dashboard/routines");
+        },
+      });
     };
 
     uploadImageAndDoGqlMutation({
@@ -187,9 +172,16 @@ function FinishWorkoutForm({ queryRef }: FinishWorkoutFormProps) {
                   name={field.name}
                   ref={imageInputRef}
                   onChange={(e) => {
+                    const files = e.target.files;
                     imageFieldOnChange({
                       event: e,
                       field: field,
+                    });
+                    workoutActor.send({
+                      type: "SET_WORKOUT_IMAGE",
+                      value: {
+                        image: files && files[0] ? files[0] : undefined,
+                      },
                     });
                   }}
                 />
@@ -213,7 +205,6 @@ function FinishWorkoutForm({ queryRef }: FinishWorkoutFormProps) {
           )}
         />
       </form>
-      <p>{JSON.stringify(context)}</p>
     </Form>
   );
 }

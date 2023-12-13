@@ -67,7 +67,7 @@ function useStartWorkoutForm({ queryRef }: UseStartWorkoutFormProps) {
     if (isInEditingSecondStepForm) {
       workoutActor.send({ type: "GO_TO_EDIT_FIRST_STEP_FORM" });
     }
-  }, [isInEditingSecondStepForm]);
+  }, []);
 }
 
 export { useStartWorkoutForm };

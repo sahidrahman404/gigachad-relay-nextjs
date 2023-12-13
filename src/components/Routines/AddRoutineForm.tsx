@@ -138,8 +138,7 @@ function AddRoutineForm({ queryRef }: AddRoutineFormProps) {
           });
         }
       },
-      onError: (err) => {
-        console.log({ err });
+      onError: () => {
         toast({
           variant: "destructive",
           title: "Uh oh! Something went wrong.",

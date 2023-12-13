@@ -42,7 +42,6 @@ function Routine({ queryRef }: RoutineProps) {
     state.matches({ workingOut: {} }),
   );
 
-  const workoutActor = WorkoutMachineContext.useActorRef();
   const router = useRouter();
 
   const exercises = data.routineExercises.edges

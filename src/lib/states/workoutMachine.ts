@@ -40,10 +40,7 @@ const workoutMachine = createMachine(
         | { type: "EDIT_SET_OBJECT"; value: EditSetObject }
         | { type: "GO_TO_EDIT_FIRST_STEP_FORM" }
         | { type: "GO_TO_EDIT_SECOND_STEP_FORM" }
-        | {
-            type: "SET_WORKOUT_IMAGE";
-            value: Pick<Context, "image">;
-          }
+        | { type: "SET_WORKOUT_IMAGE"; value: Pick<Context, "image"> }
         | {
             type: "SET_WORKOUT_DESCRIPTION";
             value: Pick<Context, "description">;
@@ -56,6 +53,12 @@ const workoutMachine = createMachine(
         | { type: "loadWorkoutLogs"; params: Pick<Context, "workoutLogs"> }
         | { type: "setWorkoutLogs"; params: Pick<Context, "workoutLogs"> }
         | { type: "setWorkoutStats"; params: Pick<Context, "volume" | "sets"> }
+        | {
+            type: "createWorkoutLogsInput";
+            params: Pick<Context, "createWorkoutLogsInput">;
+          }
+        | { type: "setImage"; params: Pick<Context, "image"> }
+        | { type: "setDescription"; params: Pick<Context, "description"> }
         | { type: "setTick" }
         | { type: "setDuration" }
         | { type: "resetStopwatch" }
@@ -69,7 +72,7 @@ const workoutMachine = createMachine(
       sets: 0,
       duration: "",
       workoutLogs: [],
-      description: "hello",
+      description: "",
       image: undefined,
     },
     states: {
@@ -101,6 +104,10 @@ const workoutMachine = createMachine(
               stopwatchStopped: {
                 on: {
                   STOPWATCH_START: "stopwatchRunning",
+                  STOPWATCH_RESET: {
+                    actions: [{ type: "resetStopwatch" }],
+                    target: "stopwatchResetted",
+                  },
                 },
               },
               stopwatchRunning: {
@@ -199,11 +206,44 @@ const workoutMachine = createMachine(
                 },
               },
               editingSecondStepForm: {
+                entry: [
+                  {
+                    type: "createWorkoutLogsInput",
+                    params({ context }) {
+                      const filteredSelectedWorkoutLogs =
+                        filterSelectedWorkoutLogs(context.workoutLogs);
+                      return {
+                        createWorkoutLogsInput: filteredSelectedWorkoutLogs,
+                      };
+                    },
+                  },
+                ],
                 on: {
-                  SET_WORKOUT_DESCRIPTION: { actions: [] },
-                  SET_WORKOUT_IMAGE: { actions: [] },
+                  SET_WORKOUT_DESCRIPTION: {
+                    actions: [
+                      {
+                        type: "setDescription",
+                        params({ event }) {
+                          return event.value;
+                        },
+                      },
+                    ],
+                  },
+                  SET_WORKOUT_IMAGE: {
+                    actions: [
+                      {
+                        type: "setImage",
+                        params({ event }) {
+                          return event.value;
+                        },
+                      },
+                    ],
+                  },
                   GO_TO_EDIT_FIRST_STEP_FORM: "editingFirstStepForm",
-                  CLEAR_FIELDS: "formResetted",
+                  CLEAR_FIELDS: {
+                    actions: [{ type: "clearFields" }],
+                    target: "formResetted",
+                  },
                 },
               },
               formResetted: {
@@ -222,6 +262,7 @@ const workoutMachine = createMachine(
     },
   },
   {
+    actors: {},
     guards: {
       canStartWorkout: ({ context }) => {
         return context.routineID.length === 0;
@@ -240,6 +281,15 @@ const workoutMachine = createMachine(
       setWorkoutStats: assign(({}, params) => {
         return params;
       }),
+      createWorkoutLogsInput: assign(({}, params) => {
+        return params;
+      }),
+      setDescription: assign(({}, params) => {
+        return params;
+      }),
+      setImage: assign(({}, params) => {
+        return params;
+      }),
       setTick: assign({
         elapsed: ({ context }) => context.elapsed + 1,
       }),
@@ -250,6 +300,36 @@ const workoutMachine = createMachine(
         });
         return {
           duration: `${duration.hours}h ${duration.minutes}m ${duration.seconds}s`,
+        };
+      }),
+      resetStopwatch: assign(() => {
+        return {
+          elapsed: 0,
+        };
+      }),
+      clearFields: assign(() => {
+        return {
+          routineID: "",
+          createWorkoutLogsInput: undefined,
+          volume: 0,
+          sets: 0,
+          duration: "",
+          workoutLogs: [],
+          description: "",
+          image: undefined,
+        };
+      }),
+      resetContext: assign(() => {
+        return {
+          routineID: "",
+          elapsed: 0,
+          createWorkoutLogsInput: undefined,
+          volume: 0,
+          sets: 0,
+          duration: "",
+          workoutLogs: [],
+          description: "",
+          image: undefined,
         };
       }),
     },
@@ -356,6 +436,30 @@ function editSetWorkoutLogInplace({
       context.workoutLogs[workoutLogsIndex].sets[setIndex].km = set["km"];
       break;
   }
+}
+
+function filterSelectedWorkoutLogs(workoutLogs: Context["workoutLogs"]) {
+  const selectedWorkout = workoutLogs
+    .map((wl) => {
+      const selectedSets = wl.sets.filter((set) => set.selected);
+      if (selectedSets.length > 0) {
+        return {
+          sets: selectedSets.map((set) => ({
+            kg: set.kg,
+            time: set.duration,
+            km: set.km,
+            reps: set.reps,
+          })),
+          exerciseID: wl.exerciseID,
+        };
+      }
+      return {
+        sets: [],
+        exerciseID: "",
+      };
+    })
+    .filter((wl) => wl.exerciseID !== "");
+  return selectedWorkout;
 }
 
 export { workoutMachine };

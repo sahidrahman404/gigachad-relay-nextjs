@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<1bc7ef6423f0088fd5ca503d170bef75>>
+ * @generated SignedSource<<c08eef949067628ff4d9dfe908fe683f>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,13 +10,8 @@
 
 import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type RoutineIDFinish_Query$variables = {
-  routineID: string;
-};
+export type RoutineIDFinish_Query$variables = {};
 export type RoutineIDFinish_Query$data = {
-  readonly node: {
-    readonly " $fragmentSpreads": FragmentRefs<"FinishWorkoutFormFragment">;
-  } | null;
   readonly viewer: {
     readonly " $fragmentSpreads": FragmentRefs<"useAuthRedirectFragment">;
   } | null;
@@ -26,31 +21,9 @@ export type RoutineIDFinish_Query = {
   variables: RoutineIDFinish_Query$variables;
 };
 
-const node: ConcreteRequest = (function(){
-var v0 = [
-  {
-    "defaultValue": null,
-    "kind": "LocalArgument",
-    "name": "routineID"
-  }
-],
-v1 = [
-  {
-    "kind": "Variable",
-    "name": "id",
-    "variableName": "routineID"
-  }
-],
-v2 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "id",
-  "storageKey": null
-};
-return {
+const node: ConcreteRequest = {
   "fragment": {
-    "argumentDefinitions": (v0/*: any*/),
+    "argumentDefinitions": [],
     "kind": "Fragment",
     "metadata": null,
     "name": "RoutineIDFinish_Query",
@@ -70,29 +43,6 @@ return {
           }
         ],
         "storageKey": null
-      },
-      {
-        "alias": null,
-        "args": (v1/*: any*/),
-        "concreteType": null,
-        "kind": "LinkedField",
-        "name": "node",
-        "plural": false,
-        "selections": [
-          {
-            "kind": "InlineFragment",
-            "selections": [
-              {
-                "args": null,
-                "kind": "FragmentSpread",
-                "name": "FinishWorkoutFormFragment"
-              }
-            ],
-            "type": "Routine",
-            "abstractKey": null
-          }
-        ],
-        "storageKey": null
       }
     ],
     "type": "Query",
@@ -100,7 +50,7 @@ return {
   },
   "kind": "Request",
   "operation": {
-    "argumentDefinitions": (v0/*: any*/),
+    "argumentDefinitions": [],
     "kind": "Operation",
     "name": "RoutineIDFinish_Query",
     "selections": [
@@ -112,42 +62,28 @@ return {
         "name": "viewer",
         "plural": false,
         "selections": [
-          (v2/*: any*/)
-        ],
-        "storageKey": null
-      },
-      {
-        "alias": null,
-        "args": (v1/*: any*/),
-        "concreteType": null,
-        "kind": "LinkedField",
-        "name": "node",
-        "plural": false,
-        "selections": [
           {
             "alias": null,
             "args": null,
             "kind": "ScalarField",
-            "name": "__typename",
+            "name": "id",
             "storageKey": null
-          },
-          (v2/*: any*/)
+          }
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "6aaa304aebeb7489e0098e93478b46ed",
+    "cacheID": "23ca5b52c44e67dcd2c700ed66e72c2d",
     "id": null,
     "metadata": {},
     "name": "RoutineIDFinish_Query",
     "operationKind": "query",
-    "text": "query RoutineIDFinish_Query(\n  $routineID: ID!\n) {\n  viewer {\n    ...useAuthRedirectFragment\n    id\n  }\n  node(id: $routineID) {\n    __typename\n    ... on Routine {\n      ...FinishWorkoutFormFragment\n    }\n    id\n  }\n}\n\nfragment FinishWorkoutFormFragment on Routine {\n  id\n}\n\nfragment useAuthRedirectFragment on User {\n  id\n}\n"
+    "text": "query RoutineIDFinish_Query {\n  viewer {\n    ...useAuthRedirectFragment\n    id\n  }\n}\n\nfragment useAuthRedirectFragment on User {\n  id\n}\n"
   }
 };
-})();
 
-(node as any).hash = "cccd3ac9bbb8a63b5113771b6e0da927";
+(node as any).hash = "650be8c3009711eba9c43ed8a26343b8";
 
 export default node;
