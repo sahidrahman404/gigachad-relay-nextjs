@@ -85,8 +85,7 @@ function RoutineExerciseFieldArray({
       <div className="mt-4 flex justify-center">
         <Button
           variant="secondary"
-          onClick={(e) => {
-            e.preventDefault();
+          onPress={() => {
             append({
               exerciseID: "",
               sets: [],

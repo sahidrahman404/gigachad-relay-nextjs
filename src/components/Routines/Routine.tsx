@@ -62,9 +62,6 @@ function Routine({ queryRef }: RoutineProps) {
       <CardFooter className="flex flex-col items-stretch md:block">
         <Button
           onPress={() => {
-            workoutActor.send({ type: "WORKOUT_START", value: data.id });
-            workoutActor.send({ type: "STOPWATCH_START" });
-            workoutActor.send({ type: "LOAD_WORKOUT_LOGS" });
             router.push(`/dashboard/routines/start/${data.id}`);
           }}
           isDisabled={isWorkingOut && routineID !== data.id}

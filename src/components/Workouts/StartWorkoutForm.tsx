@@ -9,7 +9,10 @@ import { useToast } from "../ui/use-toast";
 import { ToastAction } from "../ui/toast";
 import { useRouter } from "next/router";
 import { WorkoutMachineContext } from "../Layout";
-import { useEffect } from "react";
+import { graphql } from "relay-runtime";
+import { useFragment } from "react-relay";
+import { StartWorkoutFormFragment$key } from "@/queries/__generated__/StartWorkoutFormFragment.graphql";
+import { useStartWorkoutForm } from "../Hooks/useStartWorkoutForm";
 
 const formSchema = z.object({
   volume: z.number(),
@@ -53,30 +56,31 @@ const formSchema = z.object({
 
 type StartWorkoutFormSchema = z.infer<typeof formSchema>;
 
-function StartWorkoutForm() {
-  const routineID = WorkoutMachineContext.useSelector(
-    (state) => state.context.routineID,
-  );
+const StartWorkoutFormFragment = graphql`
+  fragment StartWorkoutFormFragment on Routine {
+    id
+    ...useStartWorkoutFormFragment
+  }
+`;
+
+type StartWorkoutFormProps = {
+  queryRef: StartWorkoutFormFragment$key;
+};
+
+function StartWorkoutForm({ queryRef }: StartWorkoutFormProps) {
+  const data = useFragment(StartWorkoutFormFragment, queryRef);
   const workoutLogs = WorkoutMachineContext.useSelector(
     (state) => state.context.workoutLogs,
   );
   const workoutActor = WorkoutMachineContext.useActorRef();
-  const isEditingWorkoutDescription = WorkoutMachineContext.useSelector(
-    (state) =>
-      state.matches({ workingOut: { form: "editingWorkoutDescription" } }),
-  );
   const { toast } = useToast();
   const router = useRouter();
 
-  useEffect(() => {
-    if (isEditingWorkoutDescription) {
-      workoutActor.send({ type: "GO_TO_EDIT_WORKOUT_LOGS" });
-    }
-  }, [isEditingWorkoutDescription]);
+  useStartWorkoutForm({ queryRef: data });
 
   const form = useForm<StartWorkoutFormSchema>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
+    values: {
       volume: 0,
       sets: 0,
       duration: "",
@@ -86,7 +90,7 @@ function StartWorkoutForm() {
 
   function onSubmit() {
     workoutActor.send({ type: "EDIT_WORKOUT_DESCRIPTION" });
-    router.push(`/dashboard/routines/finish/${routineID}`);
+    router.push(`/dashboard/routines/finish/${data.id}`);
   }
 
   function onError(errVal: FieldErrors<StartWorkoutFormSchema>) {

@@ -1,12 +1,10 @@
 import { FinishWorkoutFormSchema } from "@/components/Workouts/FinishWorkoutForm";
 import { StartWorkoutFormSchema } from "@/components/Workouts/StartWorkoutForm";
-import { fetchQuery, graphql } from "relay-runtime";
-import { assign, createMachine, fromCallback, fromPromise } from "xstate";
-import { getClientEnvironment } from "../relay_client_environment";
-import { workoutMachineQuery$data } from "@/queries/__generated__/workoutMachineQuery.graphql";
+import { assign, createMachine, fromCallback } from "xstate";
 import { capitalizeFirstLetter } from "../utils";
 import { CreateWorkoutLogInput } from "@/queries/__generated__/FinishWorkoutForm_Mutation.graphql";
 import { intervalToDuration } from "date-fns";
+import { useStartWorkoutFormFragment$data } from "@/queries/__generated__/useStartWorkoutFormFragment.graphql";
 
 type WorkoutFormSchema = StartWorkoutFormSchema & FinishWorkoutFormSchema;
 type Context = {
@@ -22,44 +20,6 @@ type EditSetObject = {
   setIndex: number;
 };
 
-function fetchFormData(routineID: string) {
-  return fetchQuery(
-    getClientEnvironment()!,
-    graphql`
-      query workoutMachineQuery($id: ID!) {
-        node(id: $id) {
-          ... on Routine {
-            routineExercises {
-              edges {
-                node {
-                  sets {
-                    reps
-                    kg
-                    duration
-                    km
-                  }
-                  exercises {
-                    id
-                    name
-                    exerciseTypes {
-                      edges {
-                        node {
-                          name
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    `,
-    { id: routineID },
-  ).toPromise();
-}
-
 const workoutMachine = createMachine(
   {
     id: "workout",
@@ -72,7 +32,7 @@ const workoutMachine = createMachine(
         | { type: "STOPWATCH_TICK" }
         | { type: "STOPWATCH_STOP" }
         | { type: "STOPWATCH_RESET" }
-        | { type: "LOAD_WORKOUT_LOGS" }
+        | { type: "LOAD_WORKOUT_LOGS"; value: useStartWorkoutFormFragment$data }
         | {
             type: "APPEND_WORKOUT_LOG_SET";
             value: { set: Set; workoutLogsIndex: number };
@@ -174,32 +134,22 @@ const workoutMachine = createMachine(
             states: {
               emptyFields: {
                 on: {
-                  LOAD_WORKOUT_LOGS: "loadingWorkoutLogs",
-                },
-              },
-              loadingWorkoutLogs: {
-                invoke: {
-                  src: fromPromise(({ input }) =>
-                    fetchFormData(input.routineID),
-                  ),
-                  input: ({ context }) => ({ routineID: context.routineID }),
-                  onDone: {
-                    target: "editingWorkoutLogs",
+                  LOAD_WORKOUT_LOGS: {
                     actions: [
                       {
                         type: "loadWorkoutLogs",
                         params({ event }) {
-                          const data = event.output as workoutMachineQuery$data;
                           return {
-                            workoutLogs: processWorkoutLogs(data),
+                            workoutLogs: processWorkoutLogs(event.value),
                           };
                         },
                       },
                     ],
+                    target: "editingFirstStepForm",
                   },
                 },
               },
-              editingWorkoutLogs: {
+              editingFirstStepForm: {
                 on: {
                   APPEND_WORKOUT_LOG_SET: {
                     actions: [
@@ -246,13 +196,13 @@ const workoutMachine = createMachine(
                       },
                     ],
                   },
-                  EDIT_WORKOUT_DESCRIPTION: "editingWorkoutDescription",
+                  EDIT_WORKOUT_DESCRIPTION: "editingSecondStepForm",
                 },
               },
-              editingWorkoutDescription: {
+              editingSecondStepForm: {
                 on: {
                   SET_WORKOUT_DESCRIPTION: { actions: [] },
-                  GO_TO_EDIT_WORKOUT_LOGS: "editingWorkoutLogs",
+                  GO_TO_EDIT_WORKOUT_LOGS: "editingFirstStepForm",
                   CLEAR_FIELDS: "formResetted",
                 },
               },
@@ -306,8 +256,8 @@ const workoutMachine = createMachine(
   },
 );
 
-function processWorkoutLogs(data: workoutMachineQuery$data) {
-  const workoutLogs = data.node?.routineExercises?.edges?.map((rE) => {
+function processWorkoutLogs(data: useStartWorkoutFormFragment$data) {
+  const workoutLogs = data.routineExercises?.edges?.map((rE) => {
     if (rE?.node) {
       const exerciseTypes = rE.node.exercises.exerciseTypes.edges;
       const exerciseType =
