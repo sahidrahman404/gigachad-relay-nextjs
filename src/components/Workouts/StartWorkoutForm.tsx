@@ -89,7 +89,7 @@ function StartWorkoutForm({ queryRef }: StartWorkoutFormProps) {
   });
 
   function onSubmit() {
-    workoutActor.send({ type: "EDIT_WORKOUT_DESCRIPTION" });
+    workoutActor.send({ type: "GO_TO_EDIT_SECOND_STEP_FORM" });
     router.push(`/dashboard/routines/finish/${data.id}`);
   }
 

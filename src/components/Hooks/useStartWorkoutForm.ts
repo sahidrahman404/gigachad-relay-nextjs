@@ -43,9 +43,8 @@ function useStartWorkoutForm({ queryRef }: UseStartWorkoutFormProps) {
   const isInEmptyFieldsState = WorkoutMachineContext.useSelector((state) =>
     state.matches({ workingOut: { form: "emptyFields" } }),
   );
-  const isInEditingWorkoutDescriptionState = WorkoutMachineContext.useSelector(
-    (state) =>
-      state.matches({ workingOut: { form: "editingWorkoutDescription" } }),
+  const isInEditingSecondStepForm = WorkoutMachineContext.useSelector((state) =>
+    state.matches({ workingOut: { form: "editingSecondStepForm" } }),
   );
   const isInWorkoutStoppedState = WorkoutMachineContext.useSelector((state) =>
     state.matches("workoutStopped"),
@@ -65,10 +64,10 @@ function useStartWorkoutForm({ queryRef }: UseStartWorkoutFormProps) {
   }, [isInEmptyFieldsState]);
 
   useEffect(() => {
-    if (isInEditingWorkoutDescriptionState) {
-      workoutActor.send({ type: "GO_TO_EDIT_WORKOUT_LOGS" });
+    if (isInEditingSecondStepForm) {
+      workoutActor.send({ type: "GO_TO_EDIT_FIRST_STEP_FORM" });
     }
-  }, [isInEditingWorkoutDescriptionState]);
+  }, [isInEditingSecondStepForm]);
 }
 
 export { useStartWorkoutForm };

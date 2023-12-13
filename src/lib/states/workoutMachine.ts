@@ -37,17 +37,16 @@ const workoutMachine = createMachine(
             type: "APPEND_WORKOUT_LOG_SET";
             value: { set: Set; workoutLogsIndex: number };
           }
+        | { type: "EDIT_SET_OBJECT"; value: EditSetObject }
+        | { type: "GO_TO_EDIT_FIRST_STEP_FORM" }
+        | { type: "GO_TO_EDIT_SECOND_STEP_FORM" }
         | {
-            type: "EDIT_SET_OBJECT";
-            value: EditSetObject;
-          }
-        | { type: "GO_TO_EDIT_WORKOUT_LOGS" }
-        | {
-            type: "EDIT_WORKOUT_DESCRIPTION";
+            type: "SET_WORKOUT_IMAGE";
+            value: Pick<Context, "image">;
           }
         | {
             type: "SET_WORKOUT_DESCRIPTION";
-            value: Pick<Context, "description" | "image">;
+            value: Pick<Context, "description">;
           }
         | { type: "CLEAR_FIELDS" }
         | { type: "RESET" };
@@ -196,13 +195,14 @@ const workoutMachine = createMachine(
                       },
                     ],
                   },
-                  EDIT_WORKOUT_DESCRIPTION: "editingSecondStepForm",
+                  GO_TO_EDIT_SECOND_STEP_FORM: "editingSecondStepForm",
                 },
               },
               editingSecondStepForm: {
                 on: {
                   SET_WORKOUT_DESCRIPTION: { actions: [] },
-                  GO_TO_EDIT_WORKOUT_LOGS: "editingFirstStepForm",
+                  SET_WORKOUT_IMAGE: { actions: [] },
+                  GO_TO_EDIT_FIRST_STEP_FORM: "editingFirstStepForm",
                   CLEAR_FIELDS: "formResetted",
                 },
               },
@@ -326,7 +326,7 @@ function getTotalVolume(workoutLogs: Context["workoutLogs"]) {
   return totalVolume;
 }
 
-type EditSetWorkoutLogParams = {
+type EditSetWorkoutLogInplaceParams = {
   context: Context;
 } & EditSetObject;
 
@@ -336,7 +336,7 @@ function editSetWorkoutLogInplace({
   workoutLogsIndex,
   set,
   setIndex,
-}: EditSetWorkoutLogParams) {
+}: EditSetWorkoutLogInplaceParams) {
   switch (label) {
     case "duration":
       context.workoutLogs[workoutLogsIndex].sets[setIndex].duration =
