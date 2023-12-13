@@ -1,18 +1,20 @@
 import { Label } from "@radix-ui/react-label";
 import { WorkoutMachineContext } from "../Layout";
+import { Button } from "@/components/ReactAriaUI/Button";
+import { PauseCircle, PlayCircle } from "lucide-react";
 
 function WorkoutLogsStats() {
   return (
     <div className="col-span-full grid grid-cols-3">
-      <div>
+      <div className="flex flex-col justify-between">
         <Label className="text-muted-foreground">Duration</Label>
-        <GetWorkoutDuration />
+        <WorkoutStopwatch />
       </div>
-      <div>
+      <div className="flex flex-col justify-between">
         <Label className="text-muted-foreground">Volume</Label>
         <GetTotalVolume />
       </div>
-      <div>
+      <div className="flex flex-col justify-between">
         <Label className="text-muted-foreground">Sets</Label>
         <GetTotalSets />
       </div>
@@ -32,6 +34,29 @@ function GetTotalSets() {
   const sets = WorkoutMachineContext.useSelector((state) => state.context.sets);
 
   return <p>{sets}</p>;
+}
+
+function WorkoutStopwatch() {
+  const isStopwatchInStoppedState = WorkoutMachineContext.useSelector((state) =>
+    state.matches({ workingOut: { stopwatch: "stopwatchStopped" } }),
+  );
+  const workoutActor = WorkoutMachineContext.useActorRef();
+
+  return (
+    <div className="flex items-end">
+      <GetWorkoutDuration />
+      <Button
+        variant="ghost"
+        onPress={() => {
+          isStopwatchInStoppedState
+            ? workoutActor.send({ type: "STOPWATCH_START" })
+            : workoutActor.send({ type: "STOPWATCH_STOP" });
+        }}
+      >
+        {isStopwatchInStoppedState ? <PlayCircle /> : <PauseCircle />}
+      </Button>
+    </div>
+  );
 }
 
 function GetWorkoutDuration() {

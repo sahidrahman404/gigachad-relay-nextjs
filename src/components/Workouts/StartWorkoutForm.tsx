@@ -90,6 +90,7 @@ function StartWorkoutForm({ queryRef }: StartWorkoutFormProps) {
 
   function onSubmit() {
     workoutActor.send({ type: "GO_TO_EDIT_SECOND_STEP_FORM" });
+    workoutActor.send({ type: "STOPWATCH_STOP" });
     router.push(`/dashboard/routines/finish/${data.id}`);
   }
 
