@@ -11,6 +11,11 @@ type Context = {
   routineID: string;
   elapsed: number;
   createWorkoutLogsInput?: CreateWorkoutLogInput[];
+  timer: {
+    elapsed: number;
+    duration: number;
+    interval: number;
+  };
 } & WorkoutFormSchema;
 type Set = Pick<Context, "workoutLogs">["workoutLogs"][0]["sets"][0];
 type EditSetObject = {
@@ -32,6 +37,11 @@ const workoutMachine = createMachine(
         | { type: "STOPWATCH_TICK" }
         | { type: "STOPWATCH_STOP" }
         | { type: "STOPWATCH_RESET" }
+        | { type: "TIMER_DURATION_UPDATE"; value: number }
+        | { type: "TIMER_START" }
+        | { type: "TIMER_PAUSE" }
+        | { type: "TIMER_TICK" }
+        | { type: "TIMER_RESET" }
         | { type: "LOAD_WORKOUT_LOGS"; value: useStartWorkoutFormFragment$data }
         | {
             type: "APPEND_WORKOUT_LOG_SET";
@@ -47,7 +57,10 @@ const workoutMachine = createMachine(
           }
         | { type: "CLEAR_FIELDS" }
         | { type: "RESET" };
-      guards: { type: "canStartWorkout" };
+      guards:
+        | { type: "canStartWorkout" }
+        | { type: "canStartTimer" }
+        | { type: "canStopTimer" };
       actions:
         | { type: "setID"; params: Pick<Context, "routineID"> }
         | { type: "loadWorkoutLogs"; params: Pick<Context, "workoutLogs"> }
@@ -62,12 +75,20 @@ const workoutMachine = createMachine(
         | { type: "setTick" }
         | { type: "setDuration" }
         | { type: "resetStopwatch" }
+        | { type: "resetTimer" }
+        | { type: "setTimerTick"; params: Pick<Context, "timer"> }
+        | { type: "setTimerDuration"; params: Pick<Context, "timer"> }
         | { type: "clearFields" }
         | { type: "resetContext" };
     },
     context: {
       routineID: "",
       elapsed: 0,
+      timer: {
+        elapsed: 0,
+        duration: 0,
+        interval: 1,
+      },
       volume: 0,
       sets: 0,
       duration: "",
@@ -104,10 +125,6 @@ const workoutMachine = createMachine(
               stopwatchStopped: {
                 on: {
                   STOPWATCH_START: "stopwatchRunning",
-                  STOPWATCH_RESET: {
-                    actions: [{ type: "resetStopwatch" }],
-                    target: "stopwatchResetted",
-                  },
                 },
               },
               stopwatchRunning: {
@@ -124,14 +141,16 @@ const workoutMachine = createMachine(
                     actions: [{ type: "setTick" }, { type: "setDuration" }],
                   },
                   STOPWATCH_STOP: "stopwatchStopped",
-                  STOPWATCH_RESET: {
-                    actions: [{ type: "resetStopwatch" }],
-                    target: "stopwatchResetted",
-                  },
                 },
               },
               stopwatchResetted: {
                 type: "final",
+              },
+            },
+            on: {
+              STOPWATCH_RESET: {
+                actions: [{ type: "resetStopwatch" }],
+                target: ".stopwatchResetted",
               },
             },
           },
@@ -156,6 +175,83 @@ const workoutMachine = createMachine(
                 },
               },
               editingFirstStepForm: {
+                initial: "timer",
+                states: {
+                  timer: {
+                    initial: "timerStopped",
+                    states: {
+                      timerStopped: {
+                        on: {
+                          TIMER_START: {
+                            guard: "canStartTimer",
+                            target: "timerRunning",
+                          },
+                        },
+                      },
+                      timerRunning: {
+                        invoke: {
+                          src: fromCallback(
+                            ({
+                              sendBack,
+                              input: { interval: timerInterval },
+                            }) => {
+                              const interval = setInterval(() => {
+                                sendBack({ type: "TIMER_TICK" });
+                              }, 1000 * timerInterval);
+                              return () => clearInterval(interval);
+                            }
+                          ),
+                          input: ({ context }) => ({
+                            interval: context.timer.interval,
+                          }),
+                        },
+                        on: {
+                          TIMER_TICK: {
+                            actions: [
+                              {
+                                type: "setTimerTick",
+                                params({ context }) {
+                                  context.timer.elapsed +=
+                                    context.timer.interval;
+                                  return {
+                                    timer: context.timer,
+                                  };
+                                },
+                              },
+                            ],
+                          },
+                          TIMER_PAUSE: {
+                            target: "timerStopped",
+                          },
+                        },
+                        always: {
+                          guard: "canStopTimer",
+                          actions: ["resetTimer"],
+                          target: "timerStopped",
+                        },
+                      },
+                    },
+                    on: {
+                      TIMER_DURATION_UPDATE: {
+                        actions: [
+                          {
+                            type: "setTimerDuration",
+                            params({ context, event }) {
+                              context.timer.duration = event.value;
+                              return {
+                                timer: context.timer,
+                              };
+                            },
+                          },
+                        ],
+                      },
+                      TIMER_RESET: {
+                        actions: [{ type: "resetTimer" }],
+                        target: ".timerStopped",
+                      },
+                    },
+                  },
+                },
                 on: {
                   APPEND_WORKOUT_LOG_SET: {
                     actions: [
@@ -267,6 +363,12 @@ const workoutMachine = createMachine(
       canStartWorkout: ({ context }) => {
         return context.routineID.length === 0;
       },
+      canStartTimer: ({ context }) => {
+        return context.timer.elapsed < context.timer.duration;
+      },
+      canStopTimer: ({ context }) => {
+        return context.timer.elapsed >= context.timer.duration;
+      },
     },
     actions: {
       setID: assign(({}, params) => {
@@ -293,6 +395,12 @@ const workoutMachine = createMachine(
       setTick: assign({
         elapsed: ({ context }) => context.elapsed + 1,
       }),
+      setTimerTick: assign(({}, params) => {
+        return params;
+      }),
+      setTimerDuration: assign(({}, params) => {
+        return params;
+      }),
       setDuration: assign(({ context }) => {
         const duration = intervalToDuration({
           start: 0,
@@ -305,6 +413,15 @@ const workoutMachine = createMachine(
       resetStopwatch: assign(() => {
         return {
           elapsed: 0,
+        };
+      }),
+      resetTimer: assign(() => {
+        return {
+          timer: {
+            elapsed: 0,
+            duration: 0,
+            interval: 1,
+          },
         };
       }),
       clearFields: assign(() => {
@@ -323,6 +440,11 @@ const workoutMachine = createMachine(
         return {
           routineID: "",
           elapsed: 0,
+          timer: {
+            duration: 0,
+            elapsed: 0,
+            interval: 0,
+          },
           createWorkoutLogsInput: undefined,
           volume: 0,
           sets: 0,
@@ -333,7 +455,7 @@ const workoutMachine = createMachine(
         };
       }),
     },
-  },
+  }
 );
 
 function processWorkoutLogs(data: useStartWorkoutFormFragment$data) {
