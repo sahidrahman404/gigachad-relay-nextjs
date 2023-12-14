@@ -12,10 +12,10 @@ import { AddRoutineFormSchema } from "./AddRoutineForm";
 function GetRoutineExerciseSetsField() {
   const { index } = useContext(RoutineExerciseSetContext);
   const form = useFormContext<AddRoutineFormSchema>();
-  const exerciseSelectValue =
-    form.getValues().routineExercises[index].exerciseID;
+  const exerciseSelectValue = form.watch().routineExercises[index].exerciseID;
   const exerciseType =
     getExerciseTypeFromExerciseSelectInputValue(exerciseSelectValue);
+  console.log({ exerciseType, exerciseSelectValue });
 
   if (exerciseType === "Bodyweight") {
     return <BodyWeightField />;

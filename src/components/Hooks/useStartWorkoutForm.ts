@@ -16,6 +16,7 @@ const useStartWorkoutFormFragment = graphql`
             duration
             km
           }
+          restTimer
           exercises {
             id
             name

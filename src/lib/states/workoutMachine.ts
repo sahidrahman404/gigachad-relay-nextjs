@@ -479,6 +479,7 @@ function processWorkoutLogs(data: useStartWorkoutFormFragment$data) {
           };
         }),
         name: capitalizeFirstLetter(rE.node.exercises.name),
+        restTimer: rE.node.restTimer ?? "0",
         exerciseType: exerciseType,
         exerciseID: rE.node.exercises.id,
       };

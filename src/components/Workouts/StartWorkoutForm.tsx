@@ -30,6 +30,7 @@ const formSchema = z.object({
             km: z.coerce.number().positive().optional(),
           }),
         ),
+        restTimer: z.string().optional(),
         name: z.string(),
         exerciseType: z.string(),
         exerciseID: z.string().min(29),

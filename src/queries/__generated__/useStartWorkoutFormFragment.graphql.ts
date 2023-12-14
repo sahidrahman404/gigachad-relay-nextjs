@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<6cd702893f946eea73d27be036827aa4>>
+ * @generated SignedSource<<23004bb3c04296eba567ec57083a268f>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -26,6 +26,7 @@ export type useStartWorkoutFormFragment$data = {
           readonly id: string;
           readonly name: string;
         };
+        readonly restTimer: string | null;
         readonly sets: ReadonlyArray<{
           readonly duration: string | null;
           readonly kg: number | null;
@@ -130,6 +131,13 @@ return {
                 {
                   "alias": null,
                   "args": null,
+                  "kind": "ScalarField",
+                  "name": "restTimer",
+                  "storageKey": null
+                },
+                {
+                  "alias": null,
+                  "args": null,
                   "concreteType": "Exercise",
                   "kind": "LinkedField",
                   "name": "exercises",
@@ -189,6 +197,6 @@ return {
 };
 })();
 
-(node as any).hash = "78d156cbbb0421c9a8398112914cf20c";
+(node as any).hash = "9859d117f7ca5dbba5b821147c1dea19";
 
 export default node;

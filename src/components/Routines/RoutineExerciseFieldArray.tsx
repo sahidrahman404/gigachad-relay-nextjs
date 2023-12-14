@@ -15,6 +15,7 @@ import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { graphql } from "relay-runtime";
 import { RoutineExerciseFieldArrayFragment$key } from "@/queries/__generated__/RoutineExerciseFieldArrayFragment.graphql";
 import { useFragment } from "react-relay";
+import { RestTimerSelector } from "../common/RestTimerSelector";
 
 const RoutineExerciseFieldArrayFragment = graphql`
   fragment RoutineExerciseFieldArrayFragment on User {
@@ -41,16 +42,15 @@ function RoutineExerciseFieldArray({
       <div className="space-y-3" ref={parent}>
         {fields.map((field, index) => {
           return (
-            <FormField
-              key={field.id}
-              control={form.control}
-              name={`routineExercises.${index}.exerciseID`}
-              render={({ field }) => (
-                <Card className="col-span-full">
-                  <CardHeader>
-                    <CardTitle>Exercise and Sets</CardTitle>
-                  </CardHeader>
-                  <CardContent>
+            <Card key={field.id} className="col-span-full">
+              <CardHeader>
+                <CardTitle>Exercise and Sets</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <FormField
+                  control={form.control}
+                  name={`routineExercises.${index}.exerciseID`}
+                  render={({ field }) => (
                     <div className="grid grid-cols-4 space-x-2 md:space-x-4">
                       <FormItem className="col-span-3">
                         <FormLabel>Exercise</FormLabel>
@@ -71,13 +71,29 @@ function RoutineExerciseFieldArray({
                         Delete
                       </Button>
                     </div>
-                  </CardContent>
-                  <CardFooter>
-                    <RoutineExerciseSetsField index={index} />
-                  </CardFooter>
-                </Card>
-              )}
-            />
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name={`routineExercises.${index}.restTimer`}
+                  render={({ field }) => {
+                    return (
+                      <FormItem className="col-span-3">
+                        <FormLabel>Rest Timer</FormLabel>
+                        <RestTimerSelector
+                          value={field.value}
+                          onValueChange={field.onChange}
+                        />
+                        <FormMessage />
+                      </FormItem>
+                    );
+                  }}
+                />
+              </CardContent>
+              <CardFooter>
+                <RoutineExerciseSetsField index={index} />
+              </CardFooter>
+            </Card>
           );
         })}
       </div>
@@ -88,6 +104,7 @@ function RoutineExerciseFieldArray({
           onPress={() => {
             append({
               exerciseID: "",
+              restTimer: "0",
               sets: [],
             });
           }}
