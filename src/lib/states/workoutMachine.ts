@@ -199,7 +199,7 @@ const workoutMachine = createMachine(
                                 sendBack({ type: "TIMER_TICK" });
                               }, 1000 * timerInterval);
                               return () => clearInterval(interval);
-                            }
+                            },
                           ),
                           input: ({ context }) => ({
                             interval: context.timer.interval,
@@ -336,14 +336,16 @@ const workoutMachine = createMachine(
                     ],
                   },
                   GO_TO_EDIT_FIRST_STEP_FORM: "editingFirstStepForm",
-                  CLEAR_FIELDS: {
-                    actions: [{ type: "clearFields" }],
-                    target: "formResetted",
-                  },
                 },
               },
               formResetted: {
                 type: "final",
+              },
+            },
+            on: {
+              CLEAR_FIELDS: {
+                actions: [{ type: "clearFields" }],
+                target: ".formResetted",
               },
             },
           },
@@ -455,7 +457,7 @@ const workoutMachine = createMachine(
         };
       }),
     },
-  }
+  },
 );
 
 function processWorkoutLogs(data: useStartWorkoutFormFragment$data) {
