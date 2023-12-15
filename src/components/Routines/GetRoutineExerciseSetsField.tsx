@@ -15,7 +15,6 @@ function GetRoutineExerciseSetsField() {
   const exerciseSelectValue = form.watch().routineExercises[index].exerciseID;
   const exerciseType =
     getExerciseTypeFromExerciseSelectInputValue(exerciseSelectValue);
-  console.log({ exerciseType, exerciseSelectValue });
 
   if (exerciseType === "Bodyweight") {
     return <BodyWeightField />;

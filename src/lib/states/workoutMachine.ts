@@ -3,8 +3,9 @@ import { StartWorkoutFormSchema } from "@/components/Workouts/StartWorkoutForm";
 import { assign, createMachine, fromCallback } from "xstate";
 import { capitalizeFirstLetter } from "../utils";
 import { CreateWorkoutLogInput } from "@/queries/__generated__/FinishWorkoutForm_Mutation.graphql";
-import { intervalToDuration } from "date-fns";
+import { intervalToDuration, parse } from "date-fns";
 import { useStartWorkoutFormFragment$data } from "@/queries/__generated__/useStartWorkoutFormFragment.graphql";
+import { clearInterval, setInterval } from "worker-timers";
 
 type WorkoutFormSchema = StartWorkoutFormSchema & FinishWorkoutFormSchema;
 type Context = {
@@ -15,6 +16,7 @@ type Context = {
     elapsed: number;
     duration: number;
     interval: number;
+    type: "REST" | "EXERCISE";
   };
 } & WorkoutFormSchema;
 type Set = Pick<Context, "workoutLogs">["workoutLogs"][0]["sets"][0];
@@ -37,7 +39,11 @@ const workoutMachine = createMachine(
         | { type: "STOPWATCH_TICK" }
         | { type: "STOPWATCH_STOP" }
         | { type: "STOPWATCH_RESET" }
-        | { type: "TIMER_DURATION_UPDATE"; value: number }
+        | { type: "TIMER_DURATION_UPDATE"; value: { workoutLogsIndex: number } }
+        | {
+            type: "TIMER_EXERCISE_DURATION_UPDATE";
+            value: { workoutLogsIndex: number; setIndex: number };
+          }
         | { type: "TIMER_START" }
         | { type: "TIMER_PAUSE" }
         | { type: "TIMER_TICK" }
@@ -48,6 +54,10 @@ const workoutMachine = createMachine(
             value: { set: Set; workoutLogsIndex: number };
           }
         | { type: "EDIT_SET_OBJECT"; value: EditSetObject }
+        | {
+            type: "SET_REST_TIMER";
+            value: { restTimer: string; workoutLogsIndex: number };
+          }
         | { type: "GO_TO_EDIT_FIRST_STEP_FORM" }
         | { type: "GO_TO_EDIT_SECOND_STEP_FORM" }
         | { type: "SET_WORKOUT_IMAGE"; value: Pick<Context, "image"> }
@@ -65,6 +75,7 @@ const workoutMachine = createMachine(
         | { type: "setID"; params: Pick<Context, "routineID"> }
         | { type: "loadWorkoutLogs"; params: Pick<Context, "workoutLogs"> }
         | { type: "setWorkoutLogs"; params: Pick<Context, "workoutLogs"> }
+        | { type: "setRestTimer"; params: Pick<Context, "workoutLogs"> }
         | { type: "setWorkoutStats"; params: Pick<Context, "volume" | "sets"> }
         | {
             type: "createWorkoutLogsInput";
@@ -88,6 +99,7 @@ const workoutMachine = createMachine(
         elapsed: 0,
         duration: 0,
         interval: 1,
+        type: "REST",
       },
       volume: 0,
       sets: 0,
@@ -237,7 +249,41 @@ const workoutMachine = createMachine(
                           {
                             type: "setTimerDuration",
                             params({ context, event }) {
-                              context.timer.duration = event.value;
+                              const workoutLogsIndex =
+                                event.value.workoutLogsIndex;
+                              context.timer.duration = Number(
+                                context.workoutLogs[workoutLogsIndex].restTimer,
+                              );
+                              return {
+                                timer: context.timer,
+                              };
+                            },
+                          },
+                        ],
+                      },
+                      TIMER_EXERCISE_DURATION_UPDATE: {
+                        actions: [
+                          {
+                            type: "setTimerDuration",
+                            params({ context, event }) {
+                              const workoutLogsIndex =
+                                event.value.workoutLogsIndex;
+                              const setIndex = event.value.setIndex;
+                              const timeString =
+                                context.workoutLogs[workoutLogsIndex].sets[
+                                  setIndex
+                                ].duration ?? "00:00:00";
+                              const time = parse(
+                                timeString,
+                                "HH:mm:ss",
+                                new Date(),
+                              );
+                              const hours = time.getHours() * 3600;
+                              const minutes = time.getMinutes() * 60;
+                              const seconds = time.getSeconds();
+                              const duration = hours + minutes + seconds;
+                              context.timer.duration = duration;
+                              context.timer.type = "EXERCISE";
                               return {
                                 timer: context.timer,
                               };
@@ -293,6 +339,21 @@ const workoutMachine = createMachine(
                           return {
                             volume: volume,
                             sets: sets,
+                          };
+                        },
+                      },
+                    ],
+                  },
+                  SET_REST_TIMER: {
+                    actions: [
+                      {
+                        type: "setRestTimer",
+                        params({ context, event }) {
+                          const index = event.value.workoutLogsIndex;
+                          const duration = event.value.restTimer;
+                          context.workoutLogs[index]["restTimer"] = duration;
+                          return {
+                            workoutLogs: context.workoutLogs,
                           };
                         },
                       },
@@ -382,6 +443,9 @@ const workoutMachine = createMachine(
       setWorkoutLogs: assign(({}, params) => {
         return params;
       }),
+      setRestTimer: assign(({}, params) => {
+        return params;
+      }),
       setWorkoutStats: assign(({}, params) => {
         return params;
       }),
@@ -423,6 +487,7 @@ const workoutMachine = createMachine(
             elapsed: 0,
             duration: 0,
             interval: 1,
+            type: "REST" as const,
           },
         };
       }),
@@ -446,6 +511,7 @@ const workoutMachine = createMachine(
             duration: 0,
             elapsed: 0,
             interval: 0,
+            type: "REST" as const,
           },
           createWorkoutLogsInput: undefined,
           volume: 0,

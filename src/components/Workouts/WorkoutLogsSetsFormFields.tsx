@@ -20,6 +20,8 @@ import {
 import { TimeField } from "../ReactAriaUI/TimeField";
 import { Time, parseTime } from "@internationalized/date";
 import { WorkoutMachineContext } from "../Layout";
+import { useTimer } from "../Hooks/useTimer";
+import { PlayCircle } from "lucide-react";
 
 type SetFields = StartWorkoutFormSchema["workoutLogs"][0]["sets"][0];
 
@@ -127,6 +129,7 @@ function WorkoutLogsSetsFormFields({
   className,
 }: WorkoutLogsSetsFormFieldsProps) {
   const [parent] = useAutoAnimate();
+  const { isTimerRunning } = useTimer();
   const { index } = useContext(WorkoutLogsContext);
   const form = useFormContext<StartWorkoutFormSchema>();
   const fieldArray = useFieldArray({
@@ -154,6 +157,7 @@ function WorkoutLogsSetsFormFields({
                 <FormControl>
                   <Checkbox
                     checked={field.value}
+                    disabled={isTimerRunning}
                     onCheckedChange={(val) => {
                       field.onChange(val);
                       workoutActor.send({
@@ -167,6 +171,14 @@ function WorkoutLogsSetsFormFields({
                           workoutLogsIndex: index,
                         },
                       });
+                      if (val) {
+                        workoutActor.send({ type: "TIMER_RESET" });
+                        workoutActor.send({
+                          type: "TIMER_DURATION_UPDATE",
+                          value: { workoutLogsIndex: index },
+                        });
+                        workoutActor.send({ type: "TIMER_START" });
+                      }
                     }}
                   />
                 </FormControl>
@@ -274,13 +286,36 @@ function WeightField() {
 }
 
 function DurationField() {
+  const { isTimerRunning } = useTimer();
+  const workoutActor = WorkoutMachineContext.useActorRef();
   return (
     <WorkoutLogsSetsFormFields
       formFields={(form, index, setIndex) => {
         return (
           <>
             <SetField setIndex={setIndex} />
-
+            <div className="flex flex-col gap-y-4">
+              <FormLabel className="text-muted-foreground">Timer</FormLabel>
+              <Button
+                className="h-9"
+                variant="outline"
+                isDisabled={isTimerRunning}
+                onPress={() => {
+                  workoutActor.send({ type: "TIMER_RESET" });
+                  workoutActor.send({
+                    type: "TIMER_EXERCISE_DURATION_UPDATE",
+                    value: {
+                      workoutLogsIndex: index,
+                      setIndex: setIndex,
+                    },
+                  });
+                  workoutActor.send({ type: "TIMER_START" });
+                }}
+              >
+                <PlayCircle className="mr-2" />
+                Start
+              </Button>
+            </div>
             <WorkoutLogsSetFormField
               label="duration"
               form={form}
@@ -294,6 +329,7 @@ function DurationField() {
       appendArgument={{
         duration: "",
       }}
+      className="grid-cols-[31.6fr_31.6fr_31.6fr_.5fr]"
     />
   );
 }

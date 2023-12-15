@@ -28,6 +28,7 @@ import { InternalMetadata } from "@uppy/core";
 import { WorkoutMachineContext } from "../Layout";
 import { ToastAction } from "../ui/toast";
 import { useRouter } from "next/router";
+import { useTimer } from "../Hooks/useTimer";
 
 const FinishWorkoutFormMutation = graphql`
   mutation FinishWorkoutForm_Mutation($input: CreateWorkoutWithChildrenInput!) {
@@ -70,6 +71,7 @@ function FinishWorkoutForm() {
   );
   const workoutActor = WorkoutMachineContext.useActorRef();
   const router = useRouter();
+  const { isTimerRunning } = useTimer();
 
   const form = useForm<FinishWorkoutFormSchema>({
     resolver: zodResolver(formSchema),
@@ -151,13 +153,25 @@ function FinishWorkoutForm() {
         onSubmit={form.handleSubmit(onSubmit)}
         className="grid grid-cols-4 gap-y-3"
       >
-        <Button
-          type="submit"
-          className="col-span-4 justify-self-end"
-          isDisabled={isUploadInFlight || isMutationInFlight}
-        >
-          Submit
-        </Button>
+        <div className="col-span-4 md:col-start-2 md:col-span-2 grid grid-cols-2 gap-x-2">
+          <Button
+            type="button"
+            isDisabled={isTimerRunning}
+            variant="destructive"
+            onPress={() => {
+              workoutActor.send({ type: "RESET" });
+              router.push("/dashboard/routines");
+            }}
+          >
+            Discard
+          </Button>
+          <Button
+            type="submit"
+            isDisabled={isUploadInFlight || isMutationInFlight}
+          >
+            Submit
+          </Button>
+        </div>
 
         <FormField
           name="image"

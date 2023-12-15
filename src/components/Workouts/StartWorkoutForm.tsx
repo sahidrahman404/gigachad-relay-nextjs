@@ -13,6 +13,8 @@ import { graphql } from "relay-runtime";
 import { useFragment } from "react-relay";
 import { StartWorkoutFormFragment$key } from "@/queries/__generated__/StartWorkoutFormFragment.graphql";
 import { useStartWorkoutForm } from "../Hooks/useStartWorkoutForm";
+import { useTimer } from "../Hooks/useTimer";
+import { Timer } from "../Timer/Timer";
 
 const formSchema = z.object({
   volume: z.number(),
@@ -28,13 +30,13 @@ const formSchema = z.object({
             kg: z.coerce.number().positive().optional(),
             duration: z.string().optional(),
             km: z.coerce.number().positive().optional(),
-          }),
+          })
         ),
         restTimer: z.string().optional(),
         name: z.string(),
         exerciseType: z.string(),
         exerciseID: z.string().min(29),
-      }),
+      })
     )
     .refine(
       (wL) => {
@@ -51,7 +53,7 @@ const formSchema = z.object({
       },
       {
         message: "At least one set in the workout should be selected",
-      },
+      }
     ),
 });
 
@@ -71,11 +73,12 @@ type StartWorkoutFormProps = {
 function StartWorkoutForm({ queryRef }: StartWorkoutFormProps) {
   const data = useFragment(StartWorkoutFormFragment, queryRef);
   const workoutLogs = WorkoutMachineContext.useSelector(
-    (state) => state.context.workoutLogs,
+    (state) => state.context.workoutLogs
   );
   const workoutActor = WorkoutMachineContext.useActorRef();
   const { toast } = useToast();
   const router = useRouter();
+  const { isTimerRunning } = useTimer();
 
   useStartWorkoutForm({ queryRef: data });
 
@@ -117,15 +120,25 @@ function StartWorkoutForm({ queryRef }: StartWorkoutFormProps) {
         onSubmit={form.handleSubmit(onSubmit, onError)}
         className="grid grid-cols-4 gap-y-3"
       >
-        <Button
-          type="submit"
-          className="col-span-4 justify-self-end"
-          isDisabled={false}
-        >
-          Finish
-        </Button>
+        <div className="col-span-4 md:col-start-2 md:col-span-2 grid grid-cols-2 gap-x-2">
+          <Button
+            type="button"
+            isDisabled={isTimerRunning}
+            variant="destructive"
+            onPress={() => {
+              workoutActor.send({ type: "RESET" });
+              router.push("/dashboard/routines");
+            }}
+          >
+            Discard
+          </Button>
+          <Button type="submit" isDisabled={isTimerRunning}>
+            Finish
+          </Button>
+        </div>
 
         <WorkoutLogsStats />
+        <Timer />
         <WorkoutLogs />
       </form>
     </Form>

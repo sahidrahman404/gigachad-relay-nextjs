@@ -1,10 +1,11 @@
 import { createContext } from "react";
-import { GetWorkoutLogsSetsFields } from "./GetWorkoutLogsSetsFormFields";
 import { useFieldArray, useFormContext } from "react-hook-form";
 import { StartWorkoutFormSchema } from "./StartWorkoutForm";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { RestTimerSelector } from "../common/RestTimerSelector";
 import { FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
+import { GetWorkoutLogsSetsFields } from "./GetWorkoutLogsSetsFormFields";
+import { WorkoutMachineContext } from "../Layout";
 
 const WorkoutLogsContext = createContext<WorkoutLogsProps>(null!);
 
@@ -15,6 +16,7 @@ type WorkoutLogsProps = {
 
 function WorkoutLogs() {
   const form = useFormContext<StartWorkoutFormSchema>();
+  const workoutActor = WorkoutMachineContext.useActorRef();
 
   const { fields } = useFieldArray({
     name: "workoutLogs",
@@ -38,7 +40,16 @@ function WorkoutLogs() {
                       <FormLabel>Rest Timer</FormLabel>
                       <RestTimerSelector
                         value={field.value}
-                        onValueChange={field.onChange}
+                        onValueChange={(val) => {
+                          field.onChange(val);
+                          workoutActor.send({
+                            type: "SET_REST_TIMER",
+                            value: {
+                              workoutLogsIndex: index,
+                              restTimer: val,
+                            },
+                          });
+                        }}
                       />
                       <FormMessage />
                     </FormItem>

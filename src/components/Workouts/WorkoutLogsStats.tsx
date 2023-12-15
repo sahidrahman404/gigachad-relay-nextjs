@@ -5,7 +5,7 @@ import { PauseCircle, PlayCircle } from "lucide-react";
 
 function WorkoutLogsStats() {
   return (
-    <div className="col-span-full grid grid-cols-3">
+    <div className="col-span-full grid grid-cols-[50fr_25fr_25fr] md:grid-cols-3">
       <div className="flex flex-col justify-between">
         <Label className="text-muted-foreground">Duration</Label>
         <WorkoutStopwatch />

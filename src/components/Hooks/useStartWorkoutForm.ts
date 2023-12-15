@@ -56,7 +56,7 @@ function useStartWorkoutForm({ queryRef }: UseStartWorkoutFormProps) {
       workoutActor.send({ type: "WORKOUT_START", value: data.id });
       workoutActor.send({ type: "STOPWATCH_START" });
     }
-  }, [isInWorkoutStoppedState]);
+  }, []);
 
   useEffect(() => {
     if (isInEmptyFieldsState) {
