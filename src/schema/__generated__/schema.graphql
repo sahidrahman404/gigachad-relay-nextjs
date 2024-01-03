@@ -11,6 +11,10 @@ input ActivateUserInput {
   tokenPlainText: String!
 }
 
+type ActivateUserResult {
+  tokenPlainText: String!
+}
+
 input ActivationTokenInput {
   email: String!
 }
@@ -757,8 +761,8 @@ input MusclesGroupWhereInput {
 
 type Mutation {
   createUser(input: CreateUserInput!): User!
-  activateUser(input: ActivateUserInput!): AuthenticationToken!
-  updateUserPassword(input: ResetUserPasswordInput!): User!
+  activateUser(input: ActivateUserInput!): ActivateUserResult!
+  updateUserPassword(input: ResetUserPasswordInput!): ResetUserPasswordResult!
   createAuthenticationToken(input: LoginInput!): AuthenticationToken!
   createActivationToken(input: ActivationTokenInput!): User!
   createPasswordResetToken(input: ResetPasswordInput!): User!
@@ -1019,6 +1023,11 @@ input ResetPasswordInput {
 }
 
 input ResetUserPasswordInput {
+  password: String!
+  tokenPlainText: String!
+}
+
+type ResetUserPasswordResult {
   password: String!
   tokenPlainText: String!
 }

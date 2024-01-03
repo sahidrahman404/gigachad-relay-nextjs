@@ -7,13 +7,22 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useMutation } from "react-relay";
 import { z } from "zod";
-import { FormErrorMessage, GqlErrorStatus } from "../gql-helper/FormErrorMessage";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
+import {
+  FormErrorMessage,
+  GqlErrorStatus,
+} from "../gql-helper/FormErrorMessage";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "../ui/form";
 import { Input } from "../ui/input";
 import AuthButton from "./AuthButton";
 import { ShowPasswordCheckBox } from "./ShowPasswordCheckBox";
 import Logo from "../common/Logo";
-
 
 const formSchema = z
   .object({
@@ -29,15 +38,16 @@ const formSchema = z
   });
 
 export default function SignupForm() {
-  const router = useRouter()
-  const [showPassword, setShowPassword] = useState(false)
+  const router = useRouter();
+  const [showPassword, setShowPassword] = useState(false);
   const [status, setStatus] = useState<GqlErrorStatus>({
     error: null,
     message: null,
-    messages: null
+    messages: null,
   });
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
+    mode: "onBlur",
     defaultValues: {
       email: "",
       name: "",
@@ -47,7 +57,8 @@ export default function SignupForm() {
     },
   });
 
-  const [commitMutation, isMutationInFlight] = useMutation<user_Mutation>(UserMutation);
+  const [commitMutation, isMutationInFlight] =
+    useMutation<user_Mutation>(UserMutation);
   function onSubmit(val: z.infer<typeof formSchema>) {
     commitMutation({
       variables: {
@@ -56,7 +67,7 @@ export default function SignupForm() {
           name: val.name,
           username: val.username,
           hashedPassword: val.password,
-        }
+        },
       },
       onError: (err) => {
         setStatus((status) => ({
@@ -80,18 +91,18 @@ export default function SignupForm() {
           return;
         }
       },
-    })
+    });
   }
 
   return (
     <div className="mx-auto w-full max-w-sm lg:w-96">
       <div>
-        <Logo href="/"/>
+        <Logo href="/" />
         <h2 className="mt-8 text-2xl font-bold leading-9 tracking-tight text-gray-900">
           Sign up for a new account
         </h2>
         <p className="mt-2 text-sm leading-6 text-gray-500">
-          Already a member?{' '}
+          Already a member?{" "}
           <Link
             className="text-blue-600 decoration-2 hover:underline font-medium"
             href="/auth/signin"
@@ -184,11 +195,13 @@ export default function SignupForm() {
             <ShowPasswordCheckBox {...{ showPassword, setShowPassword }} />
             <FormErrorMessage status={status} />
             <div>
-              <AuthButton isMutationInFlight={isMutationInFlight}>Sign up</AuthButton>
+              <AuthButton isMutationInFlight={isMutationInFlight}>
+                Sign up
+              </AuthButton>
             </div>
           </form>
         </Form>
       </div>
     </div>
-  )
+  );
 }

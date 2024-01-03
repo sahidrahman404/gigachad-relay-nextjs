@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<ae0e29206c871ed2bc1693fb1ec1c16a>>
+ * @generated SignedSource<<34371410863fb302f255f8361fc5e327>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -18,10 +18,6 @@ export type activateUser_Mutation$variables = {
 export type activateUser_Mutation$data = {
   readonly activateUser: {
     readonly tokenPlainText: string;
-    readonly user: {
-      readonly id: string;
-      readonly username: string;
-    };
   };
 };
 export type activateUser_Mutation = {
@@ -47,7 +43,7 @@ v1 = [
         "variableName": "input"
       }
     ],
-    "concreteType": "AuthenticationToken",
+    "concreteType": "ActivateUserResult",
     "kind": "LinkedField",
     "name": "activateUser",
     "plural": false,
@@ -57,31 +53,6 @@ v1 = [
         "args": null,
         "kind": "ScalarField",
         "name": "tokenPlainText",
-        "storageKey": null
-      },
-      {
-        "alias": null,
-        "args": null,
-        "concreteType": "User",
-        "kind": "LinkedField",
-        "name": "user",
-        "plural": false,
-        "selections": [
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "id",
-            "storageKey": null
-          },
-          {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "username",
-            "storageKey": null
-          }
-        ],
         "storageKey": null
       }
     ],
@@ -106,16 +77,16 @@ return {
     "selections": (v1/*: any*/)
   },
   "params": {
-    "cacheID": "82b3ddcf2ee68ef94b8de2253673c4f2",
+    "cacheID": "1dbdcb8c3ed9cad8b949955e30069869",
     "id": null,
     "metadata": {},
     "name": "activateUser_Mutation",
     "operationKind": "mutation",
-    "text": "mutation activateUser_Mutation(\n  $input: ActivateUserInput!\n) {\n  activateUser(input: $input) {\n    tokenPlainText\n    user {\n      id\n      username\n    }\n  }\n}\n"
+    "text": "mutation activateUser_Mutation(\n  $input: ActivateUserInput!\n) {\n  activateUser(input: $input) {\n    tokenPlainText\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "6f24d8962eb6442f90d31efd6f893b6c";
+(node as any).hash = "fd412ae95057185889d7c12053dcb0db";
 
 export default node;

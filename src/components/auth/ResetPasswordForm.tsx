@@ -3,8 +3,18 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useMutation } from "react-relay";
 import { z } from "zod";
-import { FormErrorMessage, GqlErrorStatus } from "../gql-helper/FormErrorMessage";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
+import {
+  FormErrorMessage,
+  GqlErrorStatus,
+} from "../gql-helper/FormErrorMessage";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "../ui/form";
 import { Input } from "../ui/input";
 import AuthButton from "./AuthButton";
 import { ShowPasswordCheckBox } from "./ShowPasswordCheckBox";
@@ -13,7 +23,7 @@ import ResetPasswordMutation from "@/gql/resetPassword";
 import Link from "next/link";
 import Logo from "../common/Logo";
 import { removeTokenAndRedirect } from "@/lib/utils";
-
+import { toast } from "../ui/use-toast";
 
 const formSchema = z
   .object({
@@ -27,11 +37,11 @@ const formSchema = z
   });
 
 export default function ResetPasswordForm() {
-  const [showPassword, setShowPassword] = useState(false)
+  const [showPassword, setShowPassword] = useState(false);
   const [status, setStatus] = useState<GqlErrorStatus>({
     error: null,
     message: null,
-    messages: null
+    messages: null,
   });
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -42,14 +52,15 @@ export default function ResetPasswordForm() {
     },
   });
 
-  const [commitMutation, isMutationInFlight] = useMutation<resetPassword_Mutation>(ResetPasswordMutation);
+  const [commitMutation, isMutationInFlight] =
+    useMutation<resetPassword_Mutation>(ResetPasswordMutation);
   function onSubmit(val: z.infer<typeof formSchema>) {
     commitMutation({
       variables: {
         input: {
           tokenPlainText: val.token,
           password: val.password,
-        }
+        },
       },
       onError: (err) => {
         setStatus((status) => ({
@@ -59,7 +70,7 @@ export default function ResetPasswordForm() {
           messages: null,
         }));
       },
-      onCompleted: (res, err) => {
+      onCompleted: (_, err) => {
         if (err) {
           setStatus((status) => ({
             ...status,
@@ -67,17 +78,23 @@ export default function ResetPasswordForm() {
             message: null,
             messages: err,
           }));
-          return
+          return;
         }
-        removeTokenAndRedirect().then(()=>{})
+        toast({
+          title: "Success!",
+          description: "Your account password has been successfully changed.",
+        });
+        window.setTimeout(() => {
+          removeTokenAndRedirect().then(() => {});
+        }, 1500);
       },
-    })
+    });
   }
 
   return (
     <div className="mx-auto w-full max-w-sm lg:w-96">
       <div>
-        <Logo href="/"/>
+        <Logo href="/" />
         <h2 className="mt-8 text-2xl font-bold leading-9 tracking-tight text-gray-900">
           Reset your password
         </h2>
@@ -148,11 +165,13 @@ export default function ResetPasswordForm() {
             </div>
             <FormErrorMessage status={status} />
             <div>
-              <AuthButton isMutationInFlight={isMutationInFlight}>Reset</AuthButton>
+              <AuthButton isMutationInFlight={isMutationInFlight}>
+                Reset
+              </AuthButton>
             </div>
           </form>
         </Form>
       </div>
     </div>
-  )
+  );
 }
