@@ -77,7 +77,7 @@
 
 @layer utilities {
   .hd-screen {
-    height: 100dvh;
+    min-height: 100dvh;
   }
 }
 
