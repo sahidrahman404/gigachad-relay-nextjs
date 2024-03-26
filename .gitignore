@@ -35,3 +35,11 @@ yarn-error.log*
 next-env.d.ts
 .env.development
 .env.production
+
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
