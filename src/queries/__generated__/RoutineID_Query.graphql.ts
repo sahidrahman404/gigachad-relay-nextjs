@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<b626bb2167e8009c62b6e3fc18c79350>>
+ * @generated SignedSource<<3c3a71cd9f3487bfa1fc9f84dd9d64f9>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -16,10 +16,10 @@ export type RoutineID_Query$variables = {
 export type RoutineID_Query$data = {
   readonly node: {
     readonly " $fragmentSpreads": FragmentRefs<"StartWorkoutFormFragment">;
-  } | null;
+  } | null | undefined;
   readonly viewer: {
     readonly " $fragmentSpreads": FragmentRefs<"useAuthRedirectFragment">;
-  } | null;
+  } | null | undefined;
 };
 export type RoutineID_Query = {
   response: RoutineID_Query$data;

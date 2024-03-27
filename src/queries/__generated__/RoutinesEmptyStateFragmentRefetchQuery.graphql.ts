@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<f05de23d6f76b00122be5622a332fcc4>>
+ * @generated SignedSource<<df8aaf92673749dd6ed7f281513825b9>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,14 +11,14 @@
 import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type RoutinesEmptyStateFragmentRefetchQuery$variables = {
-  count?: number | null;
-  cursor?: any | null;
+  count?: number | null | undefined;
+  cursor?: any | null | undefined;
   id: string;
 };
 export type RoutinesEmptyStateFragmentRefetchQuery$data = {
   readonly node: {
     readonly " $fragmentSpreads": FragmentRefs<"RoutinesEmptyStateFragment">;
-  } | null;
+  } | null | undefined;
 };
 export type RoutinesEmptyStateFragmentRefetchQuery = {
   response: RoutinesEmptyStateFragmentRefetchQuery$data;

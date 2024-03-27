@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<15f6f2f5b4d3bb19ced756cccffce084>>
+ * @generated SignedSource<<05694a7eb91b70f1b3b5a6ec22bbfd8e>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -12,15 +12,15 @@ import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type OrderDirection = "ASC" | "DESC" | "%future added value";
 export type ExerciseSelectInputFragmentQuery$variables = {
-  count?: number | null;
-  cursor?: any | null;
+  count?: number | null | undefined;
+  cursor?: any | null | undefined;
   id: string;
-  orderby?: OrderDirection | null;
+  orderby?: OrderDirection | null | undefined;
 };
 export type ExerciseSelectInputFragmentQuery$data = {
   readonly node: {
     readonly " $fragmentSpreads": FragmentRefs<"ExerciseSelectInputFragment">;
-  } | null;
+  } | null | undefined;
 };
 export type ExerciseSelectInputFragmentQuery = {
   response: ExerciseSelectInputFragmentQuery$data;

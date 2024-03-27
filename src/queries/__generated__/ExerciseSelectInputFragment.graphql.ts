@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<c99e9388eca08a2ef7bacbb13fd79ac0>>
+ * @generated SignedSource<<5859518f78c51590bdd0fbd3a826422c>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -18,16 +18,16 @@ export type ExerciseSelectInputFragment$data = {
           readonly edges: ReadonlyArray<{
             readonly node: {
               readonly name: string;
-            } | null;
-          } | null> | null;
+            } | null | undefined;
+          } | null | undefined> | null | undefined;
         };
         readonly id: string;
         readonly image: {
           readonly " $fragmentSpreads": FragmentRefs<"ImageFragment">;
-        } | null;
+        } | null | undefined;
         readonly name: string;
-      } | null;
-    } | null> | null;
+      } | null | undefined;
+    } | null | undefined> | null | undefined;
     readonly pageInfo: {
       readonly hasNextPage: boolean;
     };
@@ -99,7 +99,10 @@ return {
         "node"
       ],
       "operation": require('./ExerciseSelectInputFragmentQuery.graphql'),
-      "identifierField": "id"
+      "identifierInfo": {
+        "identifierField": "id",
+        "identifierQueryVariableName": "id"
+      }
     }
   },
   "name": "ExerciseSelectInputFragment",

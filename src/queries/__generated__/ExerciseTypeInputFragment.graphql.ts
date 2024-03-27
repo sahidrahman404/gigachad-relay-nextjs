@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<cd1a0a6e9ce00eca6c1e7ab385aa071e>>
+ * @generated SignedSource<<fb1a68d81fc92743aa51df2d98b0494e>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -17,8 +17,8 @@ export type ExerciseTypeInputFragment$data = {
         readonly description: string;
         readonly id: string;
         readonly name: string;
-      } | null;
-    } | null> | null;
+      } | null | undefined;
+    } | null | undefined> | null | undefined;
   };
   readonly " $fragmentType": "ExerciseTypeInputFragment";
 };

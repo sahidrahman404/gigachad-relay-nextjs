@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<2bdf3b25534fa0504bec2156ccd7471c>>
+ * @generated SignedSource<<7fe6afe721e1be422178b2d721b11b3c>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,28 +11,28 @@
 import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type ImageFragment$data = {
-  readonly alt: string | null;
-  readonly aspectRatio: number | null;
-  readonly breakpoints: ReadonlyArray<number | null> | null;
-  readonly decoding: string | null;
-  readonly fetchPriority: string | null;
-  readonly height: number | null;
+  readonly alt: string | null | undefined;
+  readonly aspectRatio: number | null | undefined;
+  readonly breakpoints: ReadonlyArray<number | null | undefined> | null | undefined;
+  readonly decoding: string | null | undefined;
+  readonly fetchPriority: string | null | undefined;
+  readonly height: number | null | undefined;
   readonly layout: string;
-  readonly loading: string | null;
+  readonly loading: string | null | undefined;
   readonly objectFit: string;
   readonly priority: boolean;
-  readonly role: string | null;
-  readonly sizes: string | null;
+  readonly role: string | null | undefined;
+  readonly sizes: string | null | undefined;
   readonly src: string;
   readonly srcset: string;
   readonly style: {
-    readonly aspectRatio: string | null;
-    readonly height: string | null;
-    readonly maxHeight: string | null;
-    readonly maxWidth: string | null;
-    readonly width: string | null;
+    readonly aspectRatio: string | null | undefined;
+    readonly height: string | null | undefined;
+    readonly maxHeight: string | null | undefined;
+    readonly maxWidth: string | null | undefined;
+    readonly width: string | null | undefined;
   };
-  readonly width: number | null;
+  readonly width: number | null | undefined;
   readonly " $fragmentType": "ImageFragment";
 };
 export type ImageFragment$key = {

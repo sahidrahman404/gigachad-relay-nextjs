@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<d4e51533583708f2d3a3fce193c76685>>
+ * @generated SignedSource<<b9c75450ba717f03dc7ef0a64f297638>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -17,8 +17,8 @@ export type ExercisesFragment$data = {
       readonly node: {
         readonly id: string;
         readonly " $fragmentSpreads": FragmentRefs<"ExerciseFragment">;
-      } | null;
-    } | null> | null;
+      } | null | undefined;
+    } | null | undefined> | null | undefined;
     readonly pageInfo: {
       readonly hasNextPage: boolean;
     };
@@ -93,7 +93,10 @@ return {
         "node"
       ],
       "operation": require('./ExercisesFragmentPaginationQuery.graphql'),
-      "identifierField": "id"
+      "identifierInfo": {
+        "identifierField": "id",
+        "identifierQueryVariableName": "id"
+      }
     }
   },
   "name": "ExercisesFragment",

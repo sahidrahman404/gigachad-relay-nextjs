@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<4fa0da5852096ec6fbcfd2f1bb73dfa1>>
+ * @generated SignedSource<<0e142f40cdc05b5d822c62ae18a1564f>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,8 +11,8 @@
 import { ConcreteRequest, Mutation } from 'relay-runtime';
 export type CreateRoutineWithChildrenInput = {
   name: string;
-  reminder?: ReadonlyArray<CreateRoutineReminderInput> | null;
-  routineExercises?: ReadonlyArray<CreateRoutineExerciseInput> | null;
+  reminder?: ReadonlyArray<CreateRoutineReminderInput> | null | undefined;
+  routineExercises?: ReadonlyArray<CreateRoutineExerciseInput> | null | undefined;
 };
 export type CreateRoutineReminderInput = {
   day: number;
@@ -22,14 +22,14 @@ export type CreateRoutineReminderInput = {
 };
 export type CreateRoutineExerciseInput = {
   exerciseID: string;
-  restTime?: string | null;
-  sets?: ReadonlyArray<SetInput> | null;
+  restTime?: string | null | undefined;
+  sets?: ReadonlyArray<SetInput> | null | undefined;
 };
 export type SetInput = {
-  duration?: string | null;
-  kg?: number | null;
-  km?: number | null;
-  reps?: number | null;
+  duration?: string | null | undefined;
+  kg?: number | null | undefined;
+  km?: number | null | undefined;
+  reps?: number | null | undefined;
 };
 export type AddRoutineForm_Mutation$variables = {
   input: CreateRoutineWithChildrenInput;
@@ -42,13 +42,13 @@ export type AddRoutineForm_Mutation$data = {
         readonly node: {
           readonly exerciseID: string;
           readonly sets: ReadonlyArray<{
-            readonly duration: string | null;
-            readonly kg: number | null;
-            readonly km: number | null;
-            readonly reps: number | null;
+            readonly duration: string | null | undefined;
+            readonly kg: number | null | undefined;
+            readonly km: number | null | undefined;
+            readonly reps: number | null | undefined;
           }>;
-        } | null;
-      } | null> | null;
+        } | null | undefined;
+      } | null | undefined> | null | undefined;
     };
   };
 };

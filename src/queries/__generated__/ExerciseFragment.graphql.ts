@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<8fd6b22a583f1299c5e619114fd2ae9d>>
+ * @generated SignedSource<<59ea3e1389113909890d051447c5d3c4>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -16,21 +16,21 @@ export type ExerciseFragment$data = {
       readonly node: {
         readonly id: string;
         readonly name: string;
-      } | null;
-    } | null> | null;
+      } | null | undefined;
+    } | null | undefined> | null | undefined;
   };
-  readonly howTo: string | null;
+  readonly howTo: string | null | undefined;
   readonly id: string;
   readonly image: {
     readonly " $fragmentSpreads": FragmentRefs<"ImageFragment">;
-  } | null;
+  } | null | undefined;
   readonly musclesGroups: {
     readonly edges: ReadonlyArray<{
       readonly node: {
         readonly id: string;
         readonly name: string;
-      } | null;
-    } | null> | null;
+      } | null | undefined;
+    } | null | undefined> | null | undefined;
   };
   readonly name: string;
   readonly " $fragmentType": "ExerciseFragment";

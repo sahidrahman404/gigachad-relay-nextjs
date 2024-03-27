@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<43271b5fcfe3aa158365b13020ea4c76>>
+ * @generated SignedSource<<dd7802d7ae55b32109241554de7d01bf>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -16,8 +16,8 @@ export type WorkoutsFragment$data = {
     readonly edges: ReadonlyArray<{
       readonly node: {
         readonly id: string;
-      } | null;
-    } | null> | null;
+      } | null | undefined;
+    } | null | undefined> | null | undefined;
   };
   readonly " $fragmentType": "WorkoutsFragment";
 };
@@ -73,7 +73,10 @@ return {
         "node"
       ],
       "operation": require('./WorkoutsFragmentPaginationQuery.graphql'),
-      "identifierField": "id"
+      "identifierInfo": {
+        "identifierField": "id",
+        "identifierQueryVariableName": "id"
+      }
     }
   },
   "name": "WorkoutsFragment",

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<c0720176d5a800e5491c3144596a0afb>>
+ * @generated SignedSource<<ae7b7d6105e73fbe7329d68c24b6a175>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -17,10 +17,10 @@ export type MusclesGroupInputFragment$data = {
         readonly id: string;
         readonly image: {
           readonly " $fragmentSpreads": FragmentRefs<"ImageFragment">;
-        } | null;
+        } | null | undefined;
         readonly name: string;
-      } | null;
-    } | null> | null;
+      } | null | undefined;
+    } | null | undefined> | null | undefined;
   };
   readonly " $fragmentType": "MusclesGroupInputFragment";
 };

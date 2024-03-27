@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<49e44b27fe689e5fcc8e63a10b37fd8a>>
+ * @generated SignedSource<<e3765f7748e8dace071a599bdd8bde3f>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,22 +11,22 @@
 import { ConcreteRequest, Mutation } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type CreateExerciseInput = {
-  exerciseTypeIDs?: ReadonlyArray<string> | null;
-  howTo?: string | null;
-  image?: ImageInput | null;
-  musclesGroupIDs?: ReadonlyArray<string> | null;
+  exerciseTypeIDs?: ReadonlyArray<string> | null | undefined;
+  howTo?: string | null | undefined;
+  image?: ImageInput | null | undefined;
+  musclesGroupIDs?: ReadonlyArray<string> | null | undefined;
   name: string;
-  userID?: string | null;
+  userID?: string | null | undefined;
 };
 export type ImageInput = {
-  aspectRatio?: number | null;
-  breakPoints?: ReadonlyArray<number> | null;
+  aspectRatio?: number | null | undefined;
+  breakPoints?: ReadonlyArray<number> | null | undefined;
   filename: string;
-  height?: number | null;
+  height?: number | null | undefined;
   layout: string;
   objectFit: string;
   priority: boolean;
-  width?: number | null;
+  width?: number | null | undefined;
 };
 export type AddExerciseForm_Mutation$variables = {
   input: CreateExerciseInput;
@@ -37,20 +37,20 @@ export type AddExerciseForm_Mutation$data = {
       readonly edges: ReadonlyArray<{
         readonly node: {
           readonly id: string;
-        } | null;
-      } | null> | null;
+        } | null | undefined;
+      } | null | undefined> | null | undefined;
     };
-    readonly howTo: string | null;
+    readonly howTo: string | null | undefined;
     readonly id: string;
     readonly image: {
       readonly " $fragmentSpreads": FragmentRefs<"ImageFragment">;
-    } | null;
+    } | null | undefined;
     readonly musclesGroups: {
       readonly edges: ReadonlyArray<{
         readonly node: {
           readonly id: string;
-        } | null;
-      } | null> | null;
+        } | null | undefined;
+      } | null | undefined> | null | undefined;
     };
     readonly name: string;
   };

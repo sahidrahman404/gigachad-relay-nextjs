@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<8023073000d268777e8c781cf933e2e2>>
+ * @generated SignedSource<<68b834c73f649a2be5a82719be8e176f>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -15,14 +15,14 @@ export type CreateMusclesGroupInput = {
   name: string;
 };
 export type ImageInput = {
-  aspectRatio?: number | null;
-  breakPoints?: ReadonlyArray<number> | null;
+  aspectRatio?: number | null | undefined;
+  breakPoints?: ReadonlyArray<number> | null | undefined;
   filename: string;
-  height?: number | null;
+  height?: number | null | undefined;
   layout: string;
   objectFit: string;
   priority: boolean;
-  width?: number | null;
+  width?: number | null | undefined;
 };
 export type MusclesGroupForm_Mutation$variables = {
   connections: ReadonlyArray<string>;
@@ -33,7 +33,7 @@ export type MusclesGroupForm_Mutation$data = {
     readonly id: string;
     readonly image: {
       readonly " $fragmentSpreads": FragmentRefs<"ImageFragment">;
-    } | null;
+    } | null | undefined;
     readonly name: string;
   };
 };

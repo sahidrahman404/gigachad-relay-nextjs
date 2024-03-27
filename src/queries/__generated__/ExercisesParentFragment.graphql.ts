@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<64665d94769a3ebd533e7594f6528361>>
+ * @generated SignedSource<<946dc8ef1dc74971366721d36737b303>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -13,7 +13,7 @@ import { FragmentRefs } from "relay-runtime";
 export type ExercisesParentFragment$data = {
   readonly viewer: {
     readonly " $fragmentSpreads": FragmentRefs<"ExercisesFragment">;
-  } | null;
+  } | null | undefined;
   readonly " $fragmentSpreads": FragmentRefs<"ExercisesFilterSortFragment">;
   readonly " $fragmentType": "ExercisesParentFragment";
 };

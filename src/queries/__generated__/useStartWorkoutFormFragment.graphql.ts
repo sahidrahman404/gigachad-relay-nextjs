@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<57bc97c387a20a33279e3d354e1387e2>>
+ * @generated SignedSource<<f0faa8b578ff8893fd7636ea4624206d>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -20,21 +20,21 @@ export type useStartWorkoutFormFragment$data = {
             readonly edges: ReadonlyArray<{
               readonly node: {
                 readonly name: string;
-              } | null;
-            } | null> | null;
+              } | null | undefined;
+            } | null | undefined> | null | undefined;
           };
           readonly id: string;
           readonly name: string;
         };
-        readonly restTime: string | null;
+        readonly restTime: string | null | undefined;
         readonly sets: ReadonlyArray<{
-          readonly duration: string | null;
-          readonly kg: number | null;
-          readonly km: number | null;
-          readonly reps: number | null;
+          readonly duration: string | null | undefined;
+          readonly kg: number | null | undefined;
+          readonly km: number | null | undefined;
+          readonly reps: number | null | undefined;
         }>;
-      } | null;
-    } | null> | null;
+      } | null | undefined;
+    } | null | undefined> | null | undefined;
   };
   readonly " $fragmentType": "useStartWorkoutFormFragment";
 };

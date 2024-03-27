@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<5d465c23506e5c3113327293c2b9bc6b>>
+ * @generated SignedSource<<096c5b23180ba432d396de1c0cee4842>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,32 +10,32 @@
 
 import { ConcreteRequest, Mutation } from 'relay-runtime';
 export type CreateWorkoutWithChildrenInput = {
-  description?: string | null;
+  description?: string | null | undefined;
   duration: string;
-  image?: ImageInput | null;
+  image?: ImageInput | null | undefined;
   sets: number;
   volume: number;
-  workoutLogs?: ReadonlyArray<CreateWorkoutLogInput> | null;
+  workoutLogs?: ReadonlyArray<CreateWorkoutLogInput> | null | undefined;
 };
 export type ImageInput = {
-  aspectRatio?: number | null;
-  breakPoints?: ReadonlyArray<number> | null;
+  aspectRatio?: number | null | undefined;
+  breakPoints?: ReadonlyArray<number> | null | undefined;
   filename: string;
-  height?: number | null;
+  height?: number | null | undefined;
   layout: string;
   objectFit: string;
   priority: boolean;
-  width?: number | null;
+  width?: number | null | undefined;
 };
 export type CreateWorkoutLogInput = {
   exerciseID: string;
   sets: ReadonlyArray<SetInput>;
 };
 export type SetInput = {
-  duration?: string | null;
-  kg?: number | null;
-  km?: number | null;
-  reps?: number | null;
+  duration?: string | null | undefined;
+  kg?: number | null | undefined;
+  km?: number | null | undefined;
+  reps?: number | null | undefined;
 };
 export type FinishWorkoutForm_Mutation$variables = {
   input: CreateWorkoutWithChildrenInput;
@@ -48,14 +48,14 @@ export type FinishWorkoutForm_Mutation$data = {
         readonly node: {
           readonly exerciseID: string;
           readonly sets: ReadonlyArray<{
-            readonly duration: string | null;
-            readonly kg: number | null;
-            readonly km: number | null;
-            readonly reps: number | null;
+            readonly duration: string | null | undefined;
+            readonly kg: number | null | undefined;
+            readonly km: number | null | undefined;
+            readonly reps: number | null | undefined;
           }>;
           readonly workoutID: string;
-        } | null;
-      } | null> | null;
+        } | null | undefined;
+      } | null | undefined> | null | undefined;
     };
   };
 };

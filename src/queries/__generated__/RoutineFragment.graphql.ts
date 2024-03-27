@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<13599c72070083465fb79374b8552933>>
+ * @generated SignedSource<<aae5e78c94998c3614f5f5539f8c4d35>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -19,8 +19,8 @@ export type RoutineFragment$data = {
         readonly exercises: {
           readonly name: string;
         };
-      } | null;
-    } | null> | null;
+      } | null | undefined;
+    } | null | undefined> | null | undefined;
   };
   readonly " $fragmentType": "RoutineFragment";
 };

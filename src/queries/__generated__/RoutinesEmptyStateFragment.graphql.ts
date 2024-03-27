@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<0e9202370548e9258aa81d2293f57ce3>>
+ * @generated SignedSource<<909bc36f4fb367c964940169cd6d74ff>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -16,8 +16,8 @@ export type RoutinesEmptyStateFragment$data = {
       readonly node: {
         readonly id: string;
         readonly name: string;
-      } | null;
-    } | null> | null;
+      } | null | undefined;
+    } | null | undefined> | null | undefined;
   };
   readonly id: string;
   readonly " $fragmentType": "RoutinesEmptyStateFragment";
@@ -74,7 +74,10 @@ return {
         "node"
       ],
       "operation": require('./RoutinesEmptyStateFragmentRefetchQuery.graphql'),
-      "identifierField": "id"
+      "identifierInfo": {
+        "identifierField": "id",
+        "identifierQueryVariableName": "id"
+      }
     }
   },
   "name": "RoutinesEmptyStateFragment",

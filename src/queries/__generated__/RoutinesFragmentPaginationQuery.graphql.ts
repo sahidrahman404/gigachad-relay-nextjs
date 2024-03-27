@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<53b3c9d59fd865a09d6d2ea1ac306480>>
+ * @generated SignedSource<<afd5968fff06ef9ffd8deb3d25e7500a>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -12,15 +12,15 @@ import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type OrderDirection = "ASC" | "DESC" | "%future added value";
 export type RoutinesFragmentPaginationQuery$variables = {
-  count?: number | null;
-  cursor?: any | null;
+  count?: number | null | undefined;
+  cursor?: any | null | undefined;
   id: string;
-  orderby?: OrderDirection | null;
+  orderby?: OrderDirection | null | undefined;
 };
 export type RoutinesFragmentPaginationQuery$data = {
   readonly node: {
     readonly " $fragmentSpreads": FragmentRefs<"RoutinesFragment">;
-  } | null;
+  } | null | undefined;
 };
 export type RoutinesFragmentPaginationQuery = {
   response: RoutinesFragmentPaginationQuery$data;

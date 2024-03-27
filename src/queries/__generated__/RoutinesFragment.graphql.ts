@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<d32d3685c0483c759952a88f86cfcaf7>>
+ * @generated SignedSource<<ec590d2a9d192b4fa37ad6e9b72acdc0>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -17,8 +17,8 @@ export type RoutinesFragment$data = {
       readonly node: {
         readonly id: string;
         readonly " $fragmentSpreads": FragmentRefs<"RoutineFragment">;
-      } | null;
-    } | null> | null;
+      } | null | undefined;
+    } | null | undefined> | null | undefined;
   };
   readonly " $fragmentSpreads": FragmentRefs<"RoutinesEmptyStateFragment">;
   readonly " $fragmentType": "RoutinesFragment";
@@ -80,7 +80,10 @@ return {
         "node"
       ],
       "operation": require('./RoutinesFragmentPaginationQuery.graphql'),
-      "identifierField": "id"
+      "identifierInfo": {
+        "identifierField": "id",
+        "identifierQueryVariableName": "id"
+      }
     }
   },
   "name": "RoutinesFragment",

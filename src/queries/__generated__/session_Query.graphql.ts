@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<c519afa8a7cf39f463e99599ad8b1625>>
+ * @generated SignedSource<<1bc8d40b2aababeeb0107ee6863bf286>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,12 +10,12 @@
 
 import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type session_Query$variables = {};
+export type session_Query$variables = Record<PropertyKey, never>;
 export type session_Query$data = {
   readonly viewer: {
     readonly id: string;
     readonly " $fragmentSpreads": FragmentRefs<"useAuthRedirectFragment">;
-  } | null;
+  } | null | undefined;
 };
 export type session_Query = {
   response: session_Query$data;
