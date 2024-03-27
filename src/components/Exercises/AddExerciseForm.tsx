@@ -31,7 +31,7 @@ import { useToast } from "../ui/use-toast";
 import { ExerciseTypeID, MusclesGroupID, image } from "@/lib/zod";
 import { ExercisesFragment } from "./Exercises";
 import { ExercisesFragment$key } from "@/queries/__generated__/ExercisesFragment.graphql";
-import ConnectionHandler from "relay-connection-handler-plus";
+import { addExerciseFormUpdater } from "@/lib/relay/addExerciseFormUpdater";
 
 const ExerciseMutation = graphql`
   mutation AddExerciseForm_Mutation($input: CreateExerciseInput!) {
@@ -42,6 +42,20 @@ const ExerciseMutation = graphql`
         ...ImageFragment
       }
       howTo
+      exerciseTypes {
+        edges {
+          node {
+            id
+          }
+        }
+      }
+      musclesGroups {
+        edges {
+          node {
+            id
+          }
+        }
+      }
     }
   }
 `;
@@ -73,7 +87,7 @@ function AddExerciseForm({
   const data = useFragment(ExerciseFormFragment, queryRef);
   const dataExercisesFragment = useFragment(
     ExercisesFragment,
-    exercisesFragmentQueryRef,
+    exercisesFragmentQueryRef
   );
   const [uppy] = useState(() => createUppy());
   const imageInputRef = useRef<null | HTMLInputElement>(null);
@@ -125,28 +139,10 @@ function AddExerciseForm({
               : null,
           },
         },
-        updater: (store) => {
-          const userRecord = store.get(dataExercisesFragment.id);
-          const connectionRecords = ConnectionHandler.getConnections(
-            userRecord!,
-            "ExercisesFragment_exercises",
-          );
-
-          // Create a new local Comment record
-          const id = `client:new_exercise:${crypto.randomUUID()}`;
-          const newExerciseRecord = store.create(id, "Exercise");
-
-          // Create new edge
-          const newEdge = ConnectionHandler.createEdge(
-            store,
-            connectionRecords[0],
-            newExerciseRecord,
-            "ExerciseEdge" /* GraphQl Type for edge */,
-          );
-
-          connectionRecords.forEach((cR) => {
-            ConnectionHandler.insertEdgeBefore(cR, newEdge);
-          });
+        updater: (store, data) => {
+          if (data !== undefined && data !== null) {
+            addExerciseFormUpdater(store, data, dataExercisesFragment.id);
+          }
         },
         onError: () => {
           toast({
