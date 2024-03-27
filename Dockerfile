@@ -1,43 +1,73 @@
-# syntax = docker/dockerfile:1
-
 # Adjust NODE_VERSION as desired
-ARG NODE_VERSION=20.10.0
-FROM node:${NODE_VERSION}-alpine as base
+ARG NODE_VERSION=21
+FROM node:${NODE_VERSION}-alpine AS base
 
 LABEL fly_launch_runtime="Next.js"
 
-# Next.js app lives here
+# Install dependencies only when needed
+FROM base AS deps
+# Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
+RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
-# Set production environment
-ENV NODE_ENV=production
+# Install dependencies based on the preferred package manager
+COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* ./
+RUN \
+  if [ -f yarn.lock ]; then yarn --frozen-lockfile; \
+  elif [ -f package-lock.json ]; then npm ci; \
+  elif [ -f pnpm-lock.yaml ]; then corepack enable pnpm && pnpm i --frozen-lockfile; \
+  else echo "Lockfile not found." && exit 1; \
+  fi
 
-ARG PNPM_VERSION=8.10.5
-RUN npm install -g pnpm@$PNPM_VERSION
 
+# Rebuild the source code only when needed
+FROM base AS builder
+WORKDIR /app
+COPY --from=deps /app/node_modules ./node_modules
+COPY . .
 
-# Throw-away build stage to reduce size of final image
-FROM base as build
+# Next.js collects completely anonymous telemetry data about general usage.
+# Learn more here: https://nextjs.org/telemetry
+# Uncomment the following line in case you want to disable telemetry during the build.
+# ENV NEXT_TELEMETRY_DISABLED 1
 
-# Install node modules
-COPY --link package.json pnpm-lock.yaml ./
-RUN pnpm install --frozen-lockfile --prod=false
+RUN \
+  if [ -f yarn.lock ]; then yarn run build; \
+  elif [ -f package-lock.json ]; then npm run build; \
+  elif [ -f pnpm-lock.yaml ]; then corepack enable pnpm && pnpm run build; \
+  else echo "Lockfile not found." && exit 1; \
+  fi
 
-# Copy application code
-COPY --link . .
+# Production image, copy all the files and run next
+FROM base AS runner
+WORKDIR /app
 
-# Build application
-RUN pnpm run build
+ENV NODE_ENV production
+# Uncomment the following line in case you want to disable telemetry during runtime.
+# ENV NEXT_TELEMETRY_DISABLED 1
 
-# Remove development dependencies
-RUN pnpm prune --prod
+RUN addgroup --system --gid 1001 nodejs
+RUN adduser --system --uid 1001 nextjs
 
-# Final stage for app image
-FROM base
+COPY --from=builder /app/public ./public
 
-# Copy built application
-COPY --from=build /app /app
+# Set the correct permission for prerender cache
+RUN mkdir .next
+RUN chown nextjs:nodejs .next
 
-# Start the server by default, this can be overwritten at runtime
-EXPOSE 8080
-CMD [ "pnpm", "run", "start" ]
+# Automatically leverage output traces to reduce image size
+# https://nextjs.org/docs/advanced-features/output-file-tracing
+COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+
+USER nextjs
+
+EXPOSE 3000
+
+ENV PORT 3000
+# set hostname to localhost
+ENV HOSTNAME "0.0.0.0"
+
+# server.js is created by next build from the standalone output
+# https://nextjs.org/docs/pages/api-reference/next-config-js/output
+CMD ["node", "server.js"]

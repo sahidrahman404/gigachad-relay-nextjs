@@ -3,6 +3,7 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
+  output: "standalone",
   reactStrictMode: true,
   webpack: (config, { isServer, webpack }) => {
     if (!isServer) {
