@@ -63,7 +63,7 @@ const addRoutineformSchema = z.object({
             km: z.coerce.number().positive().optional(),
           }),
         ),
-        restTimer: z.string().optional(),
+        restTime: z.string().optional(),
         exerciseID: z
           .string()
           .min(29, { message: "Exercise must be selected" }),

@@ -33,7 +33,7 @@ function WorkoutLogs() {
             <CardContent className="space-y-4">
               <FormField
                 control={form.control}
-                name={`workoutLogs.${index}.restTimer`}
+                name={`workoutLogs.${index}.restTime`}
                 render={({ field }) => {
                   return (
                     <FormItem className="col-span-3">
@@ -46,7 +46,7 @@ function WorkoutLogs() {
                             type: "SET_REST_TIMER",
                             value: {
                               workoutLogsIndex: index,
-                              restTimer: val,
+                              restTime: val,
                             },
                           });
                         }}

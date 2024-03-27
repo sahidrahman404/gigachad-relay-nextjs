@@ -56,7 +56,7 @@ const workoutMachine = createMachine(
         | { type: "EDIT_SET_OBJECT"; value: EditSetObject }
         | {
             type: "SET_REST_TIMER";
-            value: { restTimer: string; workoutLogsIndex: number };
+            value: { restTime: string; workoutLogsIndex: number };
           }
         | { type: "GO_TO_EDIT_FIRST_STEP_FORM" }
         | { type: "GO_TO_EDIT_SECOND_STEP_FORM" }
@@ -252,7 +252,7 @@ const workoutMachine = createMachine(
                               const workoutLogsIndex =
                                 event.value.workoutLogsIndex;
                               context.timer.duration = Number(
-                                context.workoutLogs[workoutLogsIndex].restTimer,
+                                context.workoutLogs[workoutLogsIndex].restTime,
                               );
                               return {
                                 timer: context.timer,
@@ -350,8 +350,8 @@ const workoutMachine = createMachine(
                         type: "setRestTimer",
                         params({ context, event }) {
                           const index = event.value.workoutLogsIndex;
-                          const duration = event.value.restTimer;
-                          context.workoutLogs[index]["restTimer"] = duration;
+                          const duration = event.value.restTime;
+                          context.workoutLogs[index]["restTime"] = duration;
                           return {
                             workoutLogs: context.workoutLogs,
                           };
@@ -545,7 +545,7 @@ function processWorkoutLogs(data: useStartWorkoutFormFragment$data) {
           };
         }),
         name: capitalizeFirstLetter(rE.node.exercises.name),
-        restTimer: rE.node.restTimer ?? "0",
+        restTime: rE.node.restTime ?? "0",
         exerciseType: exerciseType,
         exerciseID: rE.node.exercises.id,
       };

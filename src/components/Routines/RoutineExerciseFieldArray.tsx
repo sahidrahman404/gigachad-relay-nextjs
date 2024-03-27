@@ -75,7 +75,7 @@ function RoutineExerciseFieldArray({
                 />
                 <FormField
                   control={form.control}
-                  name={`routineExercises.${index}.restTimer`}
+                  name={`routineExercises.${index}.restTime`}
                   render={({ field }) => {
                     return (
                       <FormItem className="col-span-3">
@@ -104,7 +104,7 @@ function RoutineExerciseFieldArray({
           onPress={() => {
             append({
               exerciseID: "",
-              restTimer: "0",
+              restTime: "0",
               sets: [],
             });
           }}

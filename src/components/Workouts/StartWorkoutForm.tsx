@@ -30,13 +30,13 @@ const formSchema = z.object({
             kg: z.coerce.number().positive().optional(),
             duration: z.string().optional(),
             km: z.coerce.number().positive().optional(),
-          })
+          }),
         ),
-        restTimer: z.string().optional(),
+        restTime: z.string().optional(),
         name: z.string(),
         exerciseType: z.string(),
         exerciseID: z.string().min(29),
-      })
+      }),
     )
     .refine(
       (wL) => {
@@ -53,7 +53,7 @@ const formSchema = z.object({
       },
       {
         message: "At least one set in the workout should be selected",
-      }
+      },
     ),
 });
 
@@ -73,7 +73,7 @@ type StartWorkoutFormProps = {
 function StartWorkoutForm({ queryRef }: StartWorkoutFormProps) {
   const data = useFragment(StartWorkoutFormFragment, queryRef);
   const workoutLogs = WorkoutMachineContext.useSelector(
-    (state) => state.context.workoutLogs
+    (state) => state.context.workoutLogs,
   );
   const workoutActor = WorkoutMachineContext.useActorRef();
   const { toast } = useToast();

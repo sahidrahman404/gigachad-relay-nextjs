@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<3bf74c7d88989a969a95a33980a88ba8>>
+ * @generated SignedSource<<b0ec545d8a9d283223b24ba3a1374d3f>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -302,6 +302,21 @@ export type RoutineWhereInput = {
   nameNotIn?: ReadonlyArray<string> | null;
   not?: RoutineWhereInput | null;
   or?: ReadonlyArray<RoutineWhereInput> | null;
+  reminderID?: string | null;
+  reminderIDContains?: string | null;
+  reminderIDContainsFold?: string | null;
+  reminderIDEqualFold?: string | null;
+  reminderIDGT?: string | null;
+  reminderIDGTE?: string | null;
+  reminderIDHasPrefix?: string | null;
+  reminderIDHasSuffix?: string | null;
+  reminderIDIn?: ReadonlyArray<string> | null;
+  reminderIDIsNil?: boolean | null;
+  reminderIDLT?: string | null;
+  reminderIDLTE?: string | null;
+  reminderIDNEQ?: string | null;
+  reminderIDNotIn?: ReadonlyArray<string> | null;
+  reminderIDNotNil?: boolean | null;
   userID?: string | null;
   userIDContains?: string | null;
   userIDContainsFold?: string | null;
@@ -328,21 +343,21 @@ export type RoutineExerciseWhereInput = {
   idNotIn?: ReadonlyArray<string> | null;
   not?: RoutineExerciseWhereInput | null;
   or?: ReadonlyArray<RoutineExerciseWhereInput> | null;
-  restTimer?: string | null;
-  restTimerContains?: string | null;
-  restTimerContainsFold?: string | null;
-  restTimerEqualFold?: string | null;
-  restTimerGT?: string | null;
-  restTimerGTE?: string | null;
-  restTimerHasPrefix?: string | null;
-  restTimerHasSuffix?: string | null;
-  restTimerIn?: ReadonlyArray<string> | null;
-  restTimerIsNil?: boolean | null;
-  restTimerLT?: string | null;
-  restTimerLTE?: string | null;
-  restTimerNEQ?: string | null;
-  restTimerNotIn?: ReadonlyArray<string> | null;
-  restTimerNotNil?: boolean | null;
+  restTime?: string | null;
+  restTimeContains?: string | null;
+  restTimeContainsFold?: string | null;
+  restTimeEqualFold?: string | null;
+  restTimeGT?: string | null;
+  restTimeGTE?: string | null;
+  restTimeHasPrefix?: string | null;
+  restTimeHasSuffix?: string | null;
+  restTimeIn?: ReadonlyArray<string> | null;
+  restTimeIsNil?: boolean | null;
+  restTimeLT?: string | null;
+  restTimeLTE?: string | null;
+  restTimeNEQ?: string | null;
+  restTimeNotIn?: ReadonlyArray<string> | null;
+  restTimeNotNil?: boolean | null;
 };
 export type WorkoutWhereInput = {
   and?: ReadonlyArray<WorkoutWhereInput> | null;

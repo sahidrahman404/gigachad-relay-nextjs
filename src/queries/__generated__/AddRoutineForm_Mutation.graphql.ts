@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<bf495fdec18ac263987d4c2d79dab78b>>
+ * @generated SignedSource<<4fa0da5852096ec6fbcfd2f1bb73dfa1>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,11 +11,18 @@
 import { ConcreteRequest, Mutation } from 'relay-runtime';
 export type CreateRoutineWithChildrenInput = {
   name: string;
+  reminder?: ReadonlyArray<CreateRoutineReminderInput> | null;
   routineExercises?: ReadonlyArray<CreateRoutineExerciseInput> | null;
+};
+export type CreateRoutineReminderInput = {
+  day: number;
+  hour: number;
+  minute: number;
+  second: number;
 };
 export type CreateRoutineExerciseInput = {
   exerciseID: string;
-  restTimer?: string | null;
+  restTime?: string | null;
   sets?: ReadonlyArray<SetInput> | null;
 };
 export type SetInput = {
