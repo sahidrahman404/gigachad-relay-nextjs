@@ -10,7 +10,7 @@ const UseAuthRedirectFragment = graphql`
 `;
 
 type UseAuthRedirectProps = {
-  user: useAuthRedirectFragment$key | null;
+  user: useAuthRedirectFragment$key | null | undefined;
 };
 
 function useRedirectIfUserExist({ user }: UseAuthRedirectProps) {
@@ -29,7 +29,7 @@ function useRedirectIfUserNotExist({ user }: UseAuthRedirectProps) {
   const router = useRouter();
 
   useEffect(() => {
-    if (!data?.id) {
+    if (data === undefined || data === null) {
       router.push("/auth/signin");
       return;
     }

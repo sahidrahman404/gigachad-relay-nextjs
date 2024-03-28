@@ -70,7 +70,9 @@ type ExercisesProps = ComponentProps<"div"> & {
   queryRef: ExercisesParentFragment$key;
 };
 
-const ExercisesData = createContext<ExercisesFragment$key | null>(null);
+const ExercisesData = createContext<ExercisesFragment$key | null | undefined>(
+  null,
+);
 
 function Exercises({ queryRef, className }: ExercisesProps) {
   const [isPending, startTransition] = useTransition();
