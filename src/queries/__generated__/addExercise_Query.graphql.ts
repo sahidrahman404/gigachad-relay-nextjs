@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<061c433f43b9cbb59bea215272e7eae1>>
+ * @generated SignedSource<<882f9a9fb705f6e465ea738409d3a2b2>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -526,12 +526,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "645d94c05daa9ade697c61aab773d4ae",
+    "cacheID": "ae9d99e083b5cb074d09945b666b3525",
     "id": null,
     "metadata": {},
     "name": "addExercise_Query",
     "operationKind": "query",
-    "text": "query addExercise_Query {\n  viewer {\n    ...useAuthRedirectFragment\n    ...ExercisesFragment\n    id\n  }\n  ...AddExerciseFormFragment\n}\n\nfragment AddExerciseFormFragment on Query {\n  ...MusclesGroupInputFragment\n  ...ExerciseTypeInputFragment\n}\n\nfragment ExerciseCardFragment on Exercise {\n  id\n  name\n  image {\n    ...ImageFragment\n  }\n  musclesGroups {\n    edges {\n      node {\n        id\n        name\n      }\n    }\n  }\n  exerciseTypes {\n    edges {\n      node {\n        id\n        name\n      }\n    }\n  }\n}\n\nfragment ExerciseTypeInputFragment on Query {\n  exerciseTypes {\n    edges {\n      node {\n        id\n        name\n        description\n      }\n    }\n  }\n}\n\nfragment ExercisesFragment on User {\n  id\n  exercises(first: 4, where: {hasExerciseTypesWith: [], hasMusclesGroupsWith: []}, orderBy: {direction: DESC, field: ID}) {\n    edges {\n      node {\n        id\n        ...ExerciseCardFragment\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n\nfragment ImageFragment on Image {\n  src\n  srcset\n  width\n  height\n  priority\n  loading\n  fetchPriority\n  decoding\n  layout\n  aspectRatio\n  objectFit\n  breakpoints\n  alt\n  role\n  sizes\n  style {\n    aspectRatio\n    height\n    maxHeight\n    maxWidth\n    width\n  }\n}\n\nfragment MusclesGroupInputFragment on Query {\n  musclesGroups {\n    edges {\n      node {\n        id\n        name\n        image {\n          ...ImageFragment\n        }\n      }\n    }\n  }\n}\n\nfragment useAuthRedirectFragment on User {\n  id\n}\n"
+    "text": "query addExercise_Query {\n  viewer {\n    ...useAuthRedirectFragment\n    ...ExercisesFragment\n    id\n  }\n  ...AddExerciseFormFragment\n}\n\nfragment AddExerciseFormFragment on Query {\n  ...MusclesGroupInputFragment\n  ...ExerciseTypeInputFragment\n}\n\nfragment ExerciseCardFragment on Exercise {\n  id\n  name\n  image {\n    ...ImageFragment\n  }\n  musclesGroups {\n    ...MusclesGroupBadgeFragment\n  }\n  exerciseTypes {\n    ...ExerciseTypeBadgeFragment\n  }\n}\n\nfragment ExerciseTypeBadgeFragment on ExerciseTypeConnection {\n  edges {\n    node {\n      id\n      name\n    }\n  }\n}\n\nfragment ExerciseTypeInputFragment on Query {\n  exerciseTypes {\n    edges {\n      node {\n        id\n        name\n        description\n      }\n    }\n  }\n}\n\nfragment ExercisesFragment on User {\n  id\n  exercises(first: 4, where: {hasExerciseTypesWith: [], hasMusclesGroupsWith: []}, orderBy: {direction: DESC, field: ID}) {\n    edges {\n      node {\n        id\n        ...ExerciseCardFragment\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n\nfragment ImageFragment on Image {\n  src\n  srcset\n  width\n  height\n  priority\n  loading\n  fetchPriority\n  decoding\n  layout\n  aspectRatio\n  objectFit\n  breakpoints\n  alt\n  role\n  sizes\n  style {\n    aspectRatio\n    height\n    maxHeight\n    maxWidth\n    width\n  }\n}\n\nfragment MusclesGroupBadgeFragment on MusclesGroupConnection {\n  edges {\n    node {\n      id\n      name\n    }\n  }\n}\n\nfragment MusclesGroupInputFragment on Query {\n  musclesGroups {\n    edges {\n      node {\n        id\n        name\n        image {\n          ...ImageFragment\n        }\n      }\n    }\n  }\n}\n\nfragment useAuthRedirectFragment on User {\n  id\n}\n"
   }
 };
 })();

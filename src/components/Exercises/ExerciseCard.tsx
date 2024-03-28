@@ -15,6 +15,8 @@ import { cn } from "@/lib/utils";
 import { ComponentProps } from "react";
 import { ExerciseAction } from "./ExerciseAction";
 import { ExerciseCardFragment$key } from "@/queries/__generated__/ExerciseCardFragment.graphql";
+import { MusclesGroupBadge } from "./MusclesGroupBadge";
+import { ExerciseTypeBadge } from "./ExerciseTypeBadge";
 
 const ExerciseCardFragment = graphql`
   fragment ExerciseCardFragment on Exercise {
@@ -24,20 +26,10 @@ const ExerciseCardFragment = graphql`
       ...ImageFragment
     }
     musclesGroups {
-      edges {
-        node {
-          id
-          name
-        }
-      }
+      ...MusclesGroupBadgeFragment
     }
     exerciseTypes {
-      edges {
-        node {
-          id
-          name
-        }
-      }
+      ...ExerciseTypeBadgeFragment
     }
   }
 `;
@@ -57,23 +49,21 @@ function ExerciseCard({ queryRef, className }: ExerciseProps) {
         <div className="flex flex-col">
           <CardTitle className="text-lg">{data.name}</CardTitle>
           <CardDescription>
-            {data.exerciseTypes?.edges?.map((et, i) => {
-              if (i === 0 && et?.node) {
-                return <span key={et.node.id}>{et.node.name}</span>;
-              }
-            })}
+            <ExerciseTypeBadge
+              queryRef={data.exerciseTypes}
+              configVariant={{ variant: "secondary" }}
+            />
           </CardDescription>
         </div>
       </CardHeader>
       <CardContent className="space-y-2">
-        <span className="text-sm text-muted-foreground">Muscles Group</span>
-        <p className="bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80 max-w-min px-3 py-1 rounded-md text-md font-semibold">
-          {data.musclesGroups?.edges?.map((mg, i) => {
-            if (i === 0 && mg?.node) {
-              return <span key={mg.node.id}>{mg.node.name}</span>;
-            }
-          })}
-        </p>
+        <div className="space-y-1">
+          <p className="text-sm text-muted-foreground">Muscles Group</p>
+          <MusclesGroupBadge
+            queryRef={data.musclesGroups}
+            configVariant={{ variant: "default" }}
+          />
+        </div>
       </CardContent>
       <CardFooter className="flex justify-end">
         <ExerciseAction exerciseID={data.id} />

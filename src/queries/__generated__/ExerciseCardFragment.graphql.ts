@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<12b704ed88d967dfdd800ef40d271b5c>>
+ * @generated SignedSource<<eae7f49f80bb41a8d4d0fb5d572580f3>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -12,24 +12,14 @@ import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type ExerciseCardFragment$data = {
   readonly exerciseTypes: {
-    readonly edges: ReadonlyArray<{
-      readonly node: {
-        readonly id: string;
-        readonly name: string;
-      } | null | undefined;
-    } | null | undefined> | null | undefined;
+    readonly " $fragmentSpreads": FragmentRefs<"ExerciseTypeBadgeFragment">;
   };
   readonly id: string;
   readonly image: {
     readonly " $fragmentSpreads": FragmentRefs<"ImageFragment">;
   } | null | undefined;
   readonly musclesGroups: {
-    readonly edges: ReadonlyArray<{
-      readonly node: {
-        readonly id: string;
-        readonly name: string;
-      } | null | undefined;
-    } | null | undefined> | null | undefined;
+    readonly " $fragmentSpreads": FragmentRefs<"MusclesGroupBadgeFragment">;
   };
   readonly name: string;
   readonly " $fragmentType": "ExerciseCardFragment";
@@ -39,33 +29,26 @@ export type ExerciseCardFragment$key = {
   readonly " $fragmentSpreads": FragmentRefs<"ExerciseCardFragment">;
 };
 
-const node: ReaderFragment = (function(){
-var v0 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "id",
-  "storageKey": null
-},
-v1 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "name",
-  "storageKey": null
-},
-v2 = [
-  (v0/*: any*/),
-  (v1/*: any*/)
-];
-return {
+const node: ReaderFragment = {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
   "name": "ExerciseCardFragment",
   "selections": [
-    (v0/*: any*/),
-    (v1/*: any*/),
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "id",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "name",
+      "storageKey": null
+    },
     {
       "alias": null,
       "args": null,
@@ -91,25 +74,9 @@ return {
       "plural": false,
       "selections": [
         {
-          "alias": null,
           "args": null,
-          "concreteType": "MusclesGroupEdge",
-          "kind": "LinkedField",
-          "name": "edges",
-          "plural": true,
-          "selections": [
-            {
-              "alias": null,
-              "args": null,
-              "concreteType": "MusclesGroup",
-              "kind": "LinkedField",
-              "name": "node",
-              "plural": false,
-              "selections": (v2/*: any*/),
-              "storageKey": null
-            }
-          ],
-          "storageKey": null
+          "kind": "FragmentSpread",
+          "name": "MusclesGroupBadgeFragment"
         }
       ],
       "storageKey": null
@@ -123,25 +90,9 @@ return {
       "plural": false,
       "selections": [
         {
-          "alias": null,
           "args": null,
-          "concreteType": "ExerciseTypeEdge",
-          "kind": "LinkedField",
-          "name": "edges",
-          "plural": true,
-          "selections": [
-            {
-              "alias": null,
-              "args": null,
-              "concreteType": "ExerciseType",
-              "kind": "LinkedField",
-              "name": "node",
-              "plural": false,
-              "selections": (v2/*: any*/),
-              "storageKey": null
-            }
-          ],
-          "storageKey": null
+          "kind": "FragmentSpread",
+          "name": "ExerciseTypeBadgeFragment"
         }
       ],
       "storageKey": null
@@ -150,8 +101,7 @@ return {
   "type": "Exercise",
   "abstractKey": null
 };
-})();
 
-(node as any).hash = "6a5de4c60c59a93210268ea9851cd666";
+(node as any).hash = "98ad5228d7c10eb7193e08dbc33fbaa2";
 
 export default node;
