@@ -22,13 +22,9 @@ function useExercisesQsFilter({
   useEffect(() => {
     const isExerciseTypeFilter = typeof exerciseTypeID === "string";
     const isMusclesGroupFilter = typeof musclesGroupID === "string";
-    if (isExerciseTypeFilter) {
-      dispatch({ type: "set_exercise_type", payload: exerciseTypeID });
-    }
-    if (isMusclesGroupFilter) {
-      dispatch({ type: "set_muscles_group", payload: musclesGroupID });
-    }
     if (isExerciseTypeFilter || isMusclesGroupFilter) {
+      dispatch({ type: "set_exercise_type", payload: "" });
+      dispatch({ type: "set_muscles_group", payload: "" });
       startTransition(() => {
         refetch({
           orderby: "DESC",
@@ -41,6 +37,13 @@ function useExercisesQsFilter({
         });
       });
       router.replace("/dashboard/exercises", undefined, { shallow: true });
+    }
+
+    if (isExerciseTypeFilter) {
+      dispatch({ type: "set_exercise_type", payload: exerciseTypeID });
+    }
+    if (isMusclesGroupFilter) {
+      dispatch({ type: "set_muscles_group", payload: musclesGroupID });
     }
   }, [musclesGroupID, exerciseTypeID]);
 }
