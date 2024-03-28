@@ -17,9 +17,13 @@ const ExerciseTypeBadgeFragment = graphql`
 
 type ExerciseTypeBadgeProps = {
   queryRef: ExerciseTypeBadgeFragment$key;
+  configVariant?: Parameters<typeof badgeVariants>[0];
 };
 
-function ExerciseTypeBadge({ queryRef }: ExerciseTypeBadgeProps) {
+function ExerciseTypeBadge({
+  queryRef,
+  configVariant = { variant: "outline" },
+}: ExerciseTypeBadgeProps) {
   const data = useFragment(ExerciseTypeBadgeFragment, queryRef);
   const exerciseTypes = data.edges;
 
@@ -29,7 +33,7 @@ function ExerciseTypeBadge({ queryRef }: ExerciseTypeBadgeProps) {
 
   return (
     <Link
-      className={badgeVariants({ variant: "outline" })}
+      className={badgeVariants(configVariant)}
       href={`/dashboard/exercises?et=${exerciseTypes[0].node.id}`}
     >
       {exerciseTypes[0].node.name}

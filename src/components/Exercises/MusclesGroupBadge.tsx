@@ -17,9 +17,13 @@ const MusclesGroupBadgeFragment = graphql`
 
 type MusclesGroupBadgeProps = {
   queryRef: MusclesGroupBadgeFragment$key;
+  configVariant?: Parameters<typeof badgeVariants>[0];
 };
 
-function MusclesGroupBadge({ queryRef }: MusclesGroupBadgeProps) {
+function MusclesGroupBadge({
+  queryRef,
+  configVariant = { variant: "outline" },
+}: MusclesGroupBadgeProps) {
   const data = useFragment(MusclesGroupBadgeFragment, queryRef);
   const musclesGroups = data.edges;
   if (!musclesGroups || !musclesGroups[0] || !musclesGroups[0].node) {
@@ -28,7 +32,7 @@ function MusclesGroupBadge({ queryRef }: MusclesGroupBadgeProps) {
 
   return (
     <Link
-      className={badgeVariants({ variant: "outline" })}
+      className={badgeVariants(configVariant)}
       href={`/dashboard/exercises?mg=${musclesGroups[0].node.id}`}
     >
       {musclesGroups[0].node.name}
