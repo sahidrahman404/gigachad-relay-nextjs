@@ -1,5 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { useFragment, useMutation } from "react-relay";
 import { graphql } from "relay-runtime";
 import { z } from "zod";
@@ -87,9 +87,9 @@ function AddExerciseForm({
   const data = useFragment(ExerciseFormFragment, queryRef);
   const dataExercisesFragment = useFragment(
     ExercisesFragment,
-    exercisesFragmentQueryRef
+    exercisesFragmentQueryRef,
   );
-  const [uppy] = useState(() => createUppy());
+  const uppy = useMemo(() => createUppy(), []);
   const imageInputRef = useRef<null | HTMLInputElement>(null);
   const [commitMutation, isMutationInFlight] =
     useMutation<AddExerciseForm_Mutation>(ExerciseMutation);
