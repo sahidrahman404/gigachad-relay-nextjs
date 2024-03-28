@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<123a6db1d0c294a136e938a69d2061cf>>
+ * @generated SignedSource<<24cdc1d6a0a5639da0ece823eea494ac>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -228,12 +228,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "2c8bcc5ec555415ca6a0afdbb0e7c4ae",
+    "cacheID": "94b74a0c04c7b718aabef91bd4034f4e",
     "id": null,
     "metadata": {},
     "name": "ExerciseID_Query",
     "operationKind": "query",
-    "text": "query ExerciseID_Query(\n  $exerciseID: ID!\n) {\n  viewer {\n    ...useAuthRedirectFragment\n    id\n  }\n  node(id: $exerciseID) {\n    __typename\n    ... on Exercise {\n      ...ExerciseFragment\n    }\n    id\n  }\n}\n\nfragment ExerciseFragment on Exercise {\n  name\n  howTo\n  musclesGroups {\n    edges {\n      node {\n        id\n        name\n      }\n    }\n  }\n  exerciseTypes {\n    edges {\n      node {\n        id\n        name\n      }\n    }\n  }\n}\n\nfragment useAuthRedirectFragment on User {\n  id\n}\n"
+    "text": "query ExerciseID_Query(\n  $exerciseID: ID!\n) {\n  viewer {\n    ...useAuthRedirectFragment\n    id\n  }\n  node(id: $exerciseID) {\n    __typename\n    ... on Exercise {\n      ...ExerciseFragment\n    }\n    id\n  }\n}\n\nfragment ExerciseFragment on Exercise {\n  name\n  howTo\n  musclesGroups {\n    ...MusclesGroupBadgeFragment\n  }\n  exerciseTypes {\n    ...ExerciseTypeBadgeFragment\n  }\n}\n\nfragment ExerciseTypeBadgeFragment on ExerciseTypeConnection {\n  edges {\n    node {\n      id\n      name\n    }\n  }\n}\n\nfragment MusclesGroupBadgeFragment on MusclesGroupConnection {\n  edges {\n    node {\n      id\n      name\n    }\n  }\n}\n\nfragment useAuthRedirectFragment on User {\n  id\n}\n"
   }
 };
 })();
