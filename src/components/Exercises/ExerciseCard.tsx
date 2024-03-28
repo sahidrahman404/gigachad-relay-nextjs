@@ -1,4 +1,3 @@
-import { ExerciseFragment$key } from "@/queries/__generated__/ExerciseFragment.graphql";
 import { useFragment } from "react-relay";
 import { graphql } from "relay-runtime";
 import {
@@ -15,9 +14,10 @@ import { Image } from "../Image/Image";
 import { cn } from "@/lib/utils";
 import { ComponentProps } from "react";
 import { ExerciseAction } from "./ExerciseAction";
+import { ExerciseCardFragment$key } from "@/queries/__generated__/ExerciseCardFragment.graphql";
 
-const ExerciseFragment = graphql`
-  fragment ExerciseFragment on Exercise {
+const ExerciseCardFragment = graphql`
+  fragment ExerciseCardFragment on Exercise {
     id
     name
     image {
@@ -44,11 +44,11 @@ const ExerciseFragment = graphql`
 `;
 
 type ExerciseProps = ComponentProps<"div"> & {
-  queryRef: ExerciseFragment$key;
+  queryRef: ExerciseCardFragment$key;
 };
 
-function Exercise({ queryRef, className }: ExerciseProps) {
-  const data = useFragment(ExerciseFragment, queryRef);
+function ExerciseCard({ queryRef, className }: ExerciseProps) {
+  const data = useFragment(ExerciseCardFragment, queryRef);
   return (
     <Card className={cn("w-full", className)}>
       <CardHeader className="flex flex-row items-end gap-x-5">
@@ -83,4 +83,4 @@ function Exercise({ queryRef, className }: ExerciseProps) {
   );
 }
 
-export { Exercise };
+export { ExerciseCard };

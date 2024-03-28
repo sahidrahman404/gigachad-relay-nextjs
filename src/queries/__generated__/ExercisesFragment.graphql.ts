@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<b9c75450ba717f03dc7ef0a64f297638>>
+ * @generated SignedSource<<df864a64f4d27358ef1b3bc9bbee69ce>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -16,7 +16,7 @@ export type ExercisesFragment$data = {
     readonly edges: ReadonlyArray<{
       readonly node: {
         readonly id: string;
-        readonly " $fragmentSpreads": FragmentRefs<"ExerciseFragment">;
+        readonly " $fragmentSpreads": FragmentRefs<"ExerciseCardFragment">;
       } | null | undefined;
     } | null | undefined> | null | undefined;
     readonly pageInfo: {
@@ -163,7 +163,7 @@ return {
                 {
                   "args": null,
                   "kind": "FragmentSpread",
-                  "name": "ExerciseFragment"
+                  "name": "ExerciseCardFragment"
                 },
                 {
                   "alias": null,
@@ -231,6 +231,6 @@ return {
 };
 })();
 
-(node as any).hash = "981628dae6ccd7f6685ef8d9ab0e04ae";
+(node as any).hash = "cf700d5e6905bb7b054815db9da35d89";
 
 export default node;

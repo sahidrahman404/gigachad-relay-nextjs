@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<935cf7b55e28c8c75a206fca54fae059>>
+ * @generated SignedSource<<89eea2d771aab387744d9c50ebd48d96>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -1061,16 +1061,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "6a61f8b20694353c862b5daeaa04d7a8",
+    "cacheID": "de4b6d5ea6a1502e94594300acada2bb",
     "id": null,
     "metadata": {},
     "name": "ExercisesFragmentPaginationQuery",
     "operationKind": "query",
-    "text": "query ExercisesFragmentPaginationQuery(\n  $count: Int = 4\n  $cursor: Cursor\n  $exerciseTypeWhereInput: [ExerciseTypeWhereInput!] = []\n  $musclesGroupWhereInput: [MusclesGroupWhereInput!] = []\n  $orderby: OrderDirection = DESC\n  $id: ID!\n) {\n  node(id: $id) {\n    __typename\n    ...ExercisesFragment_1FK7Ak\n    id\n  }\n}\n\nfragment ExerciseFragment on Exercise {\n  id\n  name\n  image {\n    ...ImageFragment\n  }\n  howTo\n  musclesGroups {\n    edges {\n      node {\n        id\n        name\n      }\n    }\n  }\n  exerciseTypes {\n    edges {\n      node {\n        id\n        name\n      }\n    }\n  }\n}\n\nfragment ExercisesFragment_1FK7Ak on User {\n  id\n  exercises(after: $cursor, first: $count, where: {hasExerciseTypesWith: $exerciseTypeWhereInput, hasMusclesGroupsWith: $musclesGroupWhereInput}, orderBy: {direction: $orderby, field: ID}) {\n    edges {\n      node {\n        id\n        ...ExerciseFragment\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n\nfragment ImageFragment on Image {\n  src\n  srcset\n  width\n  height\n  priority\n  loading\n  fetchPriority\n  decoding\n  layout\n  aspectRatio\n  objectFit\n  breakpoints\n  alt\n  role\n  sizes\n  style {\n    aspectRatio\n    height\n    maxHeight\n    maxWidth\n    width\n  }\n}\n"
+    "text": "query ExercisesFragmentPaginationQuery(\n  $count: Int = 4\n  $cursor: Cursor\n  $exerciseTypeWhereInput: [ExerciseTypeWhereInput!] = []\n  $musclesGroupWhereInput: [MusclesGroupWhereInput!] = []\n  $orderby: OrderDirection = DESC\n  $id: ID!\n) {\n  node(id: $id) {\n    __typename\n    ...ExercisesFragment_1FK7Ak\n    id\n  }\n}\n\nfragment ExerciseCardFragment on Exercise {\n  id\n  name\n  image {\n    ...ImageFragment\n  }\n  howTo\n  musclesGroups {\n    edges {\n      node {\n        id\n        name\n      }\n    }\n  }\n  exerciseTypes {\n    edges {\n      node {\n        id\n        name\n      }\n    }\n  }\n}\n\nfragment ExercisesFragment_1FK7Ak on User {\n  id\n  exercises(after: $cursor, first: $count, where: {hasExerciseTypesWith: $exerciseTypeWhereInput, hasMusclesGroupsWith: $musclesGroupWhereInput}, orderBy: {direction: $orderby, field: ID}) {\n    edges {\n      node {\n        id\n        ...ExerciseCardFragment\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n\nfragment ImageFragment on Image {\n  src\n  srcset\n  width\n  height\n  priority\n  loading\n  fetchPriority\n  decoding\n  layout\n  aspectRatio\n  objectFit\n  breakpoints\n  alt\n  role\n  sizes\n  style {\n    aspectRatio\n    height\n    maxHeight\n    maxWidth\n    width\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "981628dae6ccd7f6685ef8d9ab0e04ae";
+(node as any).hash = "cf700d5e6905bb7b054815db9da35d89";
 
 export default node;

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<59ea3e1389113909890d051447c5d3c4>>
+ * @generated SignedSource<<e2ba751dd1ea21321075904494c4790c>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,7 +10,7 @@
 
 import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type ExerciseFragment$data = {
+export type ExerciseCardFragment$data = {
   readonly exerciseTypes: {
     readonly edges: ReadonlyArray<{
       readonly node: {
@@ -33,11 +33,11 @@ export type ExerciseFragment$data = {
     } | null | undefined> | null | undefined;
   };
   readonly name: string;
-  readonly " $fragmentType": "ExerciseFragment";
+  readonly " $fragmentType": "ExerciseCardFragment";
 };
-export type ExerciseFragment$key = {
-  readonly " $data"?: ExerciseFragment$data;
-  readonly " $fragmentSpreads": FragmentRefs<"ExerciseFragment">;
+export type ExerciseCardFragment$key = {
+  readonly " $data"?: ExerciseCardFragment$data;
+  readonly " $fragmentSpreads": FragmentRefs<"ExerciseCardFragment">;
 };
 
 const node: ReaderFragment = (function(){
@@ -63,7 +63,7 @@ return {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
-  "name": "ExerciseFragment",
+  "name": "ExerciseCardFragment",
   "selections": [
     (v0/*: any*/),
     (v1/*: any*/),
@@ -160,6 +160,6 @@ return {
 };
 })();
 
-(node as any).hash = "a8d43020eb2584463a24654a8c9e0876";
+(node as any).hash = "10b936520e6b249f21d62137e43969fa";
 
 export default node;

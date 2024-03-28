@@ -1,7 +1,7 @@
 import { ExercisesFragment$key } from "@/queries/__generated__/ExercisesFragment.graphql";
 import { useFragment, usePaginationFragment } from "react-relay";
 import { OperationType, graphql } from "relay-runtime";
-import { Exercise } from "./Exercise";
+import { ExerciseCard } from "./ExerciseCard";
 import { LinkButton } from "../ReactAriaUI/LinkButton";
 import {
   ComponentProps,
@@ -56,7 +56,7 @@ const ExercisesFragment = graphql`
       edges {
         node {
           id
-          ...ExerciseFragment
+          ...ExerciseCardFragment
         }
       }
       pageInfo {
@@ -130,7 +130,7 @@ function Exercises({ queryRef, className }: ExercisesProps) {
           {exerciseEdges?.map((ex) => {
             if (ex?.node) {
               return (
-                <Exercise
+                <ExerciseCard
                   className="col-span-4 md:col-span-2 md:odd:justify-self-end md:even:justify-self-start"
                   queryRef={ex.node}
                   key={ex.node.id}
