@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<e2ba751dd1ea21321075904494c4790c>>
+ * @generated SignedSource<<12b704ed88d967dfdd800ef40d271b5c>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -19,7 +19,6 @@ export type ExerciseCardFragment$data = {
       } | null | undefined;
     } | null | undefined> | null | undefined;
   };
-  readonly howTo: string | null | undefined;
   readonly id: string;
   readonly image: {
     readonly " $fragmentSpreads": FragmentRefs<"ImageFragment">;
@@ -81,13 +80,6 @@ return {
           "name": "ImageFragment"
         }
       ],
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "howTo",
       "storageKey": null
     },
     {
@@ -160,6 +152,6 @@ return {
 };
 })();
 
-(node as any).hash = "10b936520e6b249f21d62137e43969fa";
+(node as any).hash = "6a5de4c60c59a93210268ea9851cd666";
 
 export default node;

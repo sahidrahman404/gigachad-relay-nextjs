@@ -23,7 +23,6 @@ const ExerciseCardFragment = graphql`
     image {
       ...ImageFragment
     }
-    howTo
     musclesGroups {
       edges {
         node {
