@@ -16,6 +16,7 @@ import { ExercisesParentFragment$key } from "@/queries/__generated__/ExercisesPa
 import { ExercisesFilterSort } from "./ExercisesFilterSort";
 import { ExercisesEmptyState } from "./ExercisesEmptyState";
 import { useExercisesFilterSort } from "../Hooks/useExercisesFilterSort";
+import { useExercisesQsFilter } from "../Hooks/useExercisesQsFilter";
 
 const ExercisesParentFragment = graphql`
   fragment ExercisesParentFragment on Query {
@@ -82,6 +83,8 @@ function Exercises({ queryRef, className }: ExercisesProps) {
     ExercisesFragment$key
   >(ExercisesFragment, query.viewer);
   const [state, dispatch] = useExercisesFilterSort();
+
+  useExercisesQsFilter({ startTransition, refetch, dispatch });
 
   const onLoadMore = useCallback(() => {
     startTransition(() => {

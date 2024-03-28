@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<0819ea4c5f38c0128bc1b392e69b2fd2>>
+ * @generated SignedSource<<123a6db1d0c294a136e938a69d2061cf>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -15,7 +15,7 @@ export type ExerciseID_Query$variables = {
 };
 export type ExerciseID_Query$data = {
   readonly node: {
-    readonly id?: string;
+    readonly " $fragmentSpreads": FragmentRefs<"ExerciseFragment">;
   } | null | undefined;
   readonly viewer: {
     readonly " $fragmentSpreads": FragmentRefs<"useAuthRedirectFragment">;
@@ -48,8 +48,16 @@ v2 = {
   "name": "id",
   "storageKey": null
 },
-v3 = [
-  (v2/*: any*/)
+v3 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "name",
+  "storageKey": null
+},
+v4 = [
+  (v2/*: any*/),
+  (v3/*: any*/)
 ];
 return {
   "fragment": {
@@ -84,7 +92,13 @@ return {
         "selections": [
           {
             "kind": "InlineFragment",
-            "selections": (v3/*: any*/),
+            "selections": [
+              {
+                "args": null,
+                "kind": "FragmentSpread",
+                "name": "ExerciseFragment"
+              }
+            ],
             "type": "Exercise",
             "abstractKey": null
           }
@@ -108,7 +122,9 @@ return {
         "kind": "LinkedField",
         "name": "viewer",
         "plural": false,
-        "selections": (v3/*: any*/),
+        "selections": [
+          (v2/*: any*/)
+        ],
         "storageKey": null
       },
       {
@@ -126,6 +142,85 @@ return {
             "name": "__typename",
             "storageKey": null
           },
+          {
+            "kind": "InlineFragment",
+            "selections": [
+              (v3/*: any*/),
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "howTo",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "MusclesGroupConnection",
+                "kind": "LinkedField",
+                "name": "musclesGroups",
+                "plural": false,
+                "selections": [
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "MusclesGroupEdge",
+                    "kind": "LinkedField",
+                    "name": "edges",
+                    "plural": true,
+                    "selections": [
+                      {
+                        "alias": null,
+                        "args": null,
+                        "concreteType": "MusclesGroup",
+                        "kind": "LinkedField",
+                        "name": "node",
+                        "plural": false,
+                        "selections": (v4/*: any*/),
+                        "storageKey": null
+                      }
+                    ],
+                    "storageKey": null
+                  }
+                ],
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "ExerciseTypeConnection",
+                "kind": "LinkedField",
+                "name": "exerciseTypes",
+                "plural": false,
+                "selections": [
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "ExerciseTypeEdge",
+                    "kind": "LinkedField",
+                    "name": "edges",
+                    "plural": true,
+                    "selections": [
+                      {
+                        "alias": null,
+                        "args": null,
+                        "concreteType": "ExerciseType",
+                        "kind": "LinkedField",
+                        "name": "node",
+                        "plural": false,
+                        "selections": (v4/*: any*/),
+                        "storageKey": null
+                      }
+                    ],
+                    "storageKey": null
+                  }
+                ],
+                "storageKey": null
+              }
+            ],
+            "type": "Exercise",
+            "abstractKey": null
+          },
           (v2/*: any*/)
         ],
         "storageKey": null
@@ -133,16 +228,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "031233dd723fe7abb4753cac0b93474e",
+    "cacheID": "2c8bcc5ec555415ca6a0afdbb0e7c4ae",
     "id": null,
     "metadata": {},
     "name": "ExerciseID_Query",
     "operationKind": "query",
-    "text": "query ExerciseID_Query(\n  $exerciseID: ID!\n) {\n  viewer {\n    ...useAuthRedirectFragment\n    id\n  }\n  node(id: $exerciseID) {\n    __typename\n    ... on Exercise {\n      id\n    }\n    id\n  }\n}\n\nfragment useAuthRedirectFragment on User {\n  id\n}\n"
+    "text": "query ExerciseID_Query(\n  $exerciseID: ID!\n) {\n  viewer {\n    ...useAuthRedirectFragment\n    id\n  }\n  node(id: $exerciseID) {\n    __typename\n    ... on Exercise {\n      ...ExerciseFragment\n    }\n    id\n  }\n}\n\nfragment ExerciseFragment on Exercise {\n  name\n  howTo\n  musclesGroups {\n    edges {\n      node {\n        id\n        name\n      }\n    }\n  }\n  exerciseTypes {\n    edges {\n      node {\n        id\n        name\n      }\n    }\n  }\n}\n\nfragment useAuthRedirectFragment on User {\n  id\n}\n"
   }
 };
 })();
 
-(node as any).hash = "cbf4e4d3ff04b2669ca2632acacbadf0";
+(node as any).hash = "adde466c7cb17ce6777cb3589f97da3d";
 
 export default node;

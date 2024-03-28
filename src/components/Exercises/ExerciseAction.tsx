@@ -20,7 +20,7 @@ function ExerciseAction({ exerciseID }: ExerciseActionProps) {
         <MenubarTrigger>Action</MenubarTrigger>
         <MenubarContent>
           <MenubarItem asChild>
-            <Link href="/dashboard/exercises/add">View</Link>
+            <Link href={`/dashboard/exercises/${exerciseID}`}>View</Link>
           </MenubarItem>
           <MenubarSeparator />
           <MenubarItem>Edit</MenubarItem>
