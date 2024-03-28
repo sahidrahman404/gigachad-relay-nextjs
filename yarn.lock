@@ -3092,6 +3092,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/react-relay@npm:^16.0.6":
+  version: 16.0.6
+  resolution: "@types/react-relay@npm:16.0.6"
+  dependencies:
+    "@types/react": "npm:*"
+    "@types/relay-runtime": "npm:*"
+  checksum: 10c0/91a7b2e3e95610dc5ba4a994e847dd250cb6b95c5757a15662d36ab601abaddef970dd09f104333c43416b5ef0901101b55d0507fd999af60873ed849c4e9d76
+  languageName: node
+  linkType: hard
+
 "@types/react@npm:*":
   version: 18.2.71
   resolution: "@types/react@npm:18.2.71"
@@ -3113,7 +3123,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/relay-runtime@npm:>=9.1.0":
+"@types/relay-runtime@npm:*, @types/relay-runtime@npm:>=9.1.0, @types/relay-runtime@npm:^14.1.23":
   version: 14.1.23
   resolution: "@types/relay-runtime@npm:14.1.23"
   checksum: 10c0/cc19503b42a1064f7e323c06be5de517691a0a7dd7f059c8cc1974c8f39751fe98ff309fe29aca87098dba14a2cae6d197025653c72edce1875e7163f76e3033
@@ -5149,6 +5159,8 @@ __metadata:
     "@types/node": "npm:^20.11.30"
     "@types/react": "npm:^18.2.73"
     "@types/react-dom": "npm:^18.2.22"
+    "@types/react-relay": "npm:^16.0.6"
+    "@types/relay-runtime": "npm:^14.1.23"
     "@uppy/aws-s3": "npm:^3.6.2"
     "@uppy/core": "npm:^3.10.0"
     "@uppy/dashboard": "npm:^3.8.0"
