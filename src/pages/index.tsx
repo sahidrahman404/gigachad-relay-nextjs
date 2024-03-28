@@ -1,11 +1,11 @@
 import Logo from "@/components/common/Logo";
 import { Button } from "@/components/ui/button";
 import SessionQuery from "@/gql/session";
-import { getClientEnvironment } from "@/lib/relay_client_environment";
+import { createRelayPage } from "@/lib/relay/createRelayPage";
 import { session_Query } from "@/queries/__generated__/session_Query.graphql";
 import Link from "next/link";
 import { usePreloadedQuery } from "react-relay";
-import { RelayProps, withRelay } from "relay-nextjs";
+import { RelayProps } from "relay-nextjs";
 
 function MarketingPage({ preloadedQuery }: RelayProps<{}, session_Query>) {
   const query = usePreloadedQuery(SessionQuery, preloadedQuery);
@@ -152,43 +152,4 @@ function MarketingPage({ preloadedQuery }: RelayProps<{}, session_Query>) {
   );
 }
 
-function Loading() {
-  return <div>Loading...</div>;
-}
-
-export default withRelay(MarketingPage, SessionQuery, {
-  // Fallback to render while the page is loading.
-  // This property is optional.
-  fallback: <Loading />,
-  // Create a Relay environment on the client-side.
-  // Note: This function must always return the same value.
-  createClientEnvironment: () => getClientEnvironment()!,
-  // Gets server side props for the page.
-  serverSideProps: async (ctx) => {
-    // This is an example of getting an auth token from the request context.
-    // If you don't need to authenticate users this can be removed and return an
-    // empty object instead.
-    //@ts-ignore
-    const token = ctx.req?.cookies["auth"] ?? null;
-    // if (token == null) {
-    //   return {
-    //     redirect: { destination: '/login', permanent: false },
-    //   };
-    // }
-
-    return { token };
-  },
-  // Server-side props can be accessed as the second argument
-  // to this function.
-  createServerEnvironment: async (
-    _,
-    // The object returned from serverSideProps. If you don't need a token
-    // you can remove this argument.
-    { token }: { token: string | null },
-  ) => {
-    const { createServerEnvironment } = await import(
-      "@/lib/server/relay_server_environment"
-    );
-    return createServerEnvironment(token);
-  },
-});
+export default createRelayPage(MarketingPage, SessionQuery);

@@ -1,10 +1,10 @@
 import { useRedirectIfUserNotExist } from "@/components/Hooks/useAuthRedirect";
 import Layout from "@/components/Layout";
 import { Routines } from "@/components/Routines/Routines";
-import { getClientEnvironment } from "@/lib/relay_client_environment";
+import { createRelayPage } from "@/lib/relay/createRelayPage";
 import { routines_Query } from "@/queries/__generated__/routines_Query.graphql";
 import { usePreloadedQuery } from "react-relay";
-import { RelayProps, withRelay } from "relay-nextjs";
+import { RelayProps } from "relay-nextjs";
 import { graphql } from "relay-runtime";
 
 const RoutinesQuery = graphql`
@@ -16,7 +16,7 @@ const RoutinesQuery = graphql`
   }
 `;
 
-function PRoutines({ preloadedQuery }: RelayProps<{}, routines_Query>) {
+function RoutinesPage({ preloadedQuery }: RelayProps<{}, routines_Query>) {
   const data = usePreloadedQuery(RoutinesQuery, preloadedQuery);
   useRedirectIfUserNotExist({
     user: data.viewer,
@@ -29,29 +29,11 @@ function PRoutines({ preloadedQuery }: RelayProps<{}, routines_Query>) {
   return <Routines queryRef={data.viewer} />;
 }
 
-function Loading() {
-  return <div>Loading...</div>;
-}
-
-const RoutinesPage = withRelay(PRoutines, RoutinesQuery, {
-  fallback: <Loading />,
-  createClientEnvironment: () => getClientEnvironment()!,
-  serverSideProps: async (ctx) => {
-    //@ts-ignore
-    const token = ctx.req?.cookies["auth"] ?? null;
-    return { token };
-  },
-  createServerEnvironment: async (_, { token }: { token: string | null }) => {
-    const { createServerEnvironment } = await import(
-      "@/lib/server/relay_server_environment"
-    );
-    return createServerEnvironment(token);
-  },
-});
+const RoutinesPageDefault = createRelayPage(RoutinesPage, RoutinesQuery);
 
 // @ts-ignore
-RoutinesPage.getLayout = function getLayout(page: ReactNode) {
+RoutinesPageDefault.getLayout = function getLayout(page: ReactNode) {
   return <Layout>{page}</Layout>;
 };
 
-export default RoutinesPage;
+export default RoutinesPageDefault;

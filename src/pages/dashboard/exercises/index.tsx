@@ -1,10 +1,11 @@
 import { Exercises } from "@/components/Exercises/Exercises";
 import { useRedirectIfUserNotExist } from "@/components/Hooks/useAuthRedirect";
 import Layout from "@/components/Layout";
-import { getClientEnvironment } from "@/lib/relay_client_environment";
+import { createRelayPage } from "@/lib/relay/createRelayPage";
 import { exercises_Query } from "@/queries/__generated__/exercises_Query.graphql";
+import { ReactNode } from "react";
 import { usePreloadedQuery } from "react-relay";
-import { RelayProps, withRelay } from "relay-nextjs";
+import { RelayProps } from "relay-nextjs";
 import { graphql } from "relay-runtime";
 
 const ExercisesQuery = graphql`
@@ -16,15 +17,11 @@ const ExercisesQuery = graphql`
   }
 `;
 
-function PExercises({ preloadedQuery }: RelayProps<{}, exercises_Query>) {
+function ExercisesPage({ preloadedQuery }: RelayProps<{}, exercises_Query>) {
   const data = usePreloadedQuery(ExercisesQuery, preloadedQuery);
   useRedirectIfUserNotExist({
     user: data.viewer,
   });
-
-  if (!data.viewer) {
-    return null;
-  }
 
   return (
     <Exercises
@@ -34,29 +31,11 @@ function PExercises({ preloadedQuery }: RelayProps<{}, exercises_Query>) {
   );
 }
 
-function Loading() {
-  return <div>Loading...</div>;
-}
-
-const ExercisesPage = withRelay(PExercises, ExercisesQuery, {
-  fallback: <Loading />,
-  createClientEnvironment: () => getClientEnvironment()!,
-  serverSideProps: async (ctx) => {
-    //@ts-ignore
-    const token = ctx.req?.cookies["auth"] ?? null;
-    return { token };
-  },
-  createServerEnvironment: async (_, { token }: { token: string | null }) => {
-    const { createServerEnvironment } = await import(
-      "@/lib/server/relay_server_environment"
-    );
-    return createServerEnvironment(token);
-  },
-});
+const ExercisesPageDefault = createRelayPage(ExercisesPage, ExercisesQuery);
 
 // @ts-ignore
-ExercisesPage.getLayout = function getLayout(page: ReactNode) {
+ExercisesPageDefault.getLayout = function getLayout(page: ReactNode) {
   return <Layout>{page}</Layout>;
 };
 
-export default ExercisesPage;
+export default ExercisesPageDefault;

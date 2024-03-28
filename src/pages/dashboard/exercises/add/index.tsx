@@ -1,10 +1,10 @@
 import { AddExerciseForm } from "@/components/Exercises/AddExerciseForm";
 import { useRedirectIfUserNotExist } from "@/components/Hooks/useAuthRedirect";
 import Layout from "@/components/Layout";
-import { getClientEnvironment } from "@/lib/relay_client_environment";
+import { createRelayPage } from "@/lib/relay/createRelayPage";
 import { addExercise_Query } from "@/queries/__generated__/addExercise_Query.graphql";
 import { usePreloadedQuery } from "react-relay";
-import { RelayProps, withRelay } from "relay-nextjs";
+import { RelayProps } from "relay-nextjs";
 import { graphql } from "relay-runtime";
 
 const AddExerciseQuery = graphql`
@@ -17,7 +17,9 @@ const AddExerciseQuery = graphql`
   }
 `;
 
-function AddExercise({ preloadedQuery }: RelayProps<{}, addExercise_Query>) {
+function AddExercisePage({
+  preloadedQuery,
+}: RelayProps<{}, addExercise_Query>) {
   const data = usePreloadedQuery(AddExerciseQuery, preloadedQuery);
   useRedirectIfUserNotExist({
     user: data.viewer,
@@ -32,29 +34,14 @@ function AddExercise({ preloadedQuery }: RelayProps<{}, addExercise_Query>) {
   );
 }
 
-function Loading() {
-  return <div>Loading...</div>;
-}
-
-const AddExercisePage = withRelay(AddExercise, AddExerciseQuery, {
-  fallback: <Loading />,
-  createClientEnvironment: () => getClientEnvironment()!,
-  serverSideProps: async (ctx) => {
-    //@ts-ignore
-    const token = ctx.req?.cookies["auth"] ?? null;
-    return { token };
-  },
-  createServerEnvironment: async (_, { token }: { token: string | null }) => {
-    const { createServerEnvironment } = await import(
-      "@/lib/server/relay_server_environment"
-    );
-    return createServerEnvironment(token);
-  },
-});
+const AddExercisePageDefault = createRelayPage(
+  AddExercisePage,
+  AddExerciseQuery,
+);
 
 // @ts-ignore
-AddExercisePage.getLayout = function getLayout(page: ReactNode) {
+AddExercisePageDefault.getLayout = function getLayout(page: ReactNode) {
   return <Layout>{page}</Layout>;
 };
 
-export default AddExercisePage;
+export default AddExercisePageDefault;
