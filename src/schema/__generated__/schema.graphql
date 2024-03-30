@@ -28,7 +28,6 @@ input CreateExerciseInput {
   name: String!
   image: ImageInput
   howTo: String
-  userID: ID
   musclesGroupIDs: [ID!]
   exerciseTypeIDs: [ID!]
 }
@@ -781,6 +780,7 @@ type Mutation {
   deleteRoutine(input: DeleteRoutineInput!): Routine
   createMusclesGroup(input: CreateMusclesGroupInput!): MusclesGroup!
   createExercise(input: CreateExerciseInput!): Exercise!
+  updateExercise(input: UpdateExerciseInput!): Exercise!
   deleteExercise(input: DeleteExerciseInput!): Exercise!
   createExerciseType(input: CreateExerciseTypeInput!): ExerciseType!
   createWorkoutWithChildren(input: CreateWorkoutWithChildrenInput!): Workout!
@@ -1401,6 +1401,15 @@ input TokenWhereInput {
   """users edge predicates"""
   hasUsers: Boolean
   hasUsersWith: [UserWhereInput!]
+}
+
+input UpdateExerciseInput {
+  id: ID!
+  name: String!
+  image: ImageInput
+  howTo: String
+  musclesGroupIDs: [ID!]
+  exerciseTypeIDs: [ID!]
 }
 
 """
