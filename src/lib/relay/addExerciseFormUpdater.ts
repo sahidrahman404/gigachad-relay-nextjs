@@ -6,24 +6,22 @@ import { AddExerciseForm_Mutation$data } from "@/queries/__generated__/AddExerci
 function addExerciseFormUpdater<T>(
   store: RecordSourceSelectorProxy<T>,
   data: AddExerciseForm_Mutation$data,
-  userID: string
+  userID: string,
 ) {
-  const exerciseTypeID =
-    data.createExercise.exerciseTypes.edges !== null
-      ? data.createExercise.exerciseTypes.edges[0] !== null
-        ? data.createExercise.exerciseTypes.edges[0].node !== null
-          ? data.createExercise.exerciseTypes.edges[0].node.id
-          : ""
+  const exerciseTypeID = data.createExercise.exerciseTypes.edges
+    ? data.createExercise.exerciseTypes.edges[0]
+      ? data.createExercise.exerciseTypes.edges[0].node
+        ? data.createExercise.exerciseTypes.edges[0].node.id
         : ""
-      : "";
-  const musclesGroupID =
-    data.createExercise.musclesGroups.edges !== null
-      ? data.createExercise.musclesGroups.edges[0] !== null
-        ? data.createExercise.musclesGroups.edges[0].node !== null
-          ? data.createExercise.musclesGroups.edges[0].node.id
-          : ""
+      : ""
+    : "";
+  const musclesGroupID = data.createExercise.musclesGroups.edges
+    ? data.createExercise.musclesGroups.edges[0]
+      ? data.createExercise.musclesGroups.edges[0].node
+        ? data.createExercise.musclesGroups.edges[0].node.id
         : ""
-      : "";
+      : ""
+    : "";
   const userRecord = store.get(userID);
   const connectionRecords = ConnectionHandler.getConnections(
     userRecord!,
@@ -59,7 +57,7 @@ function addExerciseFormUpdater<T>(
       }
 
       return true;
-    }
+    },
   );
 
   prependExerciseEdge(store, connectionRecords);
