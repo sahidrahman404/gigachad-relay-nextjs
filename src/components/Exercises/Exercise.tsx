@@ -6,12 +6,23 @@ import { ExerciseTypeBadge } from "./ExerciseTypeBadge";
 
 const ExerciseFragment = graphql`
   fragment ExerciseFragment on Exercise {
+    id
     name
     howTo
     musclesGroups {
+      edges {
+        node {
+          id
+        }
+      }
       ...MusclesGroupBadgeFragment
     }
     exerciseTypes {
+      edges {
+        node {
+          id
+        }
+      }
       ...ExerciseTypeBadgeFragment
     }
   }
@@ -38,4 +49,4 @@ function Exercise({ queryRef }: ExerciseProps) {
   );
 }
 
-export { Exercise };
+export { Exercise, ExerciseFragment };

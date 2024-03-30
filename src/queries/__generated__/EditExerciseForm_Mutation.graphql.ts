@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<769c3016b421bfb3ad8727c2e8c2e98a>>
+ * @generated SignedSource<<02f34b58587345c49054d27ff253722b>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,9 +10,10 @@
 
 import { ConcreteRequest, Mutation } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type CreateExerciseInput = {
+export type UpdateExerciseInput = {
   exerciseTypeIDs?: ReadonlyArray<string> | null | undefined;
   howTo?: string | null | undefined;
+  id: string;
   image?: ImageInput | null | undefined;
   musclesGroupIDs?: ReadonlyArray<string> | null | undefined;
   name: string;
@@ -27,36 +28,17 @@ export type ImageInput = {
   priority: boolean;
   width?: number | null | undefined;
 };
-export type AddExerciseForm_Mutation$variables = {
-  input: CreateExerciseInput;
+export type EditExerciseForm_Mutation$variables = {
+  input: UpdateExerciseInput;
 };
-export type AddExerciseForm_Mutation$data = {
-  readonly createExercise: {
-    readonly exerciseTypes: {
-      readonly edges: ReadonlyArray<{
-        readonly node: {
-          readonly id: string;
-        } | null | undefined;
-      } | null | undefined> | null | undefined;
-    };
-    readonly howTo: string | null | undefined;
-    readonly id: string;
-    readonly image: {
-      readonly " $fragmentSpreads": FragmentRefs<"ImageFragment">;
-    } | null | undefined;
-    readonly musclesGroups: {
-      readonly edges: ReadonlyArray<{
-        readonly node: {
-          readonly id: string;
-        } | null | undefined;
-      } | null | undefined> | null | undefined;
-    };
-    readonly name: string;
+export type EditExerciseForm_Mutation$data = {
+  readonly updateExercise: {
+    readonly " $fragmentSpreads": FragmentRefs<"ExerciseCardFragment" | "ExerciseFragment">;
   };
 };
-export type AddExerciseForm_Mutation = {
-  response: AddExerciseForm_Mutation$data;
-  variables: AddExerciseForm_Mutation$variables;
+export type EditExerciseForm_Mutation = {
+  response: EditExerciseForm_Mutation$data;
+  variables: EditExerciseForm_Mutation$variables;
 };
 
 const node: ConcreteRequest = (function(){
@@ -92,133 +74,52 @@ v4 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "howTo",
-  "storageKey": null
-},
-v5 = [
-  (v2/*: any*/)
-],
-v6 = {
-  "alias": null,
-  "args": null,
-  "concreteType": "ExerciseTypeConnection",
-  "kind": "LinkedField",
-  "name": "exerciseTypes",
-  "plural": false,
-  "selections": [
-    {
-      "alias": null,
-      "args": null,
-      "concreteType": "ExerciseTypeEdge",
-      "kind": "LinkedField",
-      "name": "edges",
-      "plural": true,
-      "selections": [
-        {
-          "alias": null,
-          "args": null,
-          "concreteType": "ExerciseType",
-          "kind": "LinkedField",
-          "name": "node",
-          "plural": false,
-          "selections": (v5/*: any*/),
-          "storageKey": null
-        }
-      ],
-      "storageKey": null
-    }
-  ],
-  "storageKey": null
-},
-v7 = {
-  "alias": null,
-  "args": null,
-  "concreteType": "MusclesGroupConnection",
-  "kind": "LinkedField",
-  "name": "musclesGroups",
-  "plural": false,
-  "selections": [
-    {
-      "alias": null,
-      "args": null,
-      "concreteType": "MusclesGroupEdge",
-      "kind": "LinkedField",
-      "name": "edges",
-      "plural": true,
-      "selections": [
-        {
-          "alias": null,
-          "args": null,
-          "concreteType": "MusclesGroup",
-          "kind": "LinkedField",
-          "name": "node",
-          "plural": false,
-          "selections": (v5/*: any*/),
-          "storageKey": null
-        }
-      ],
-      "storageKey": null
-    }
-  ],
-  "storageKey": null
-},
-v8 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
   "name": "width",
   "storageKey": null
 },
-v9 = {
+v5 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "height",
   "storageKey": null
 },
-v10 = {
+v6 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "aspectRatio",
   "storageKey": null
-};
+},
+v7 = [
+  (v2/*: any*/),
+  (v3/*: any*/)
+];
 return {
   "fragment": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "AddExerciseForm_Mutation",
+    "name": "EditExerciseForm_Mutation",
     "selections": [
       {
         "alias": null,
         "args": (v1/*: any*/),
         "concreteType": "Exercise",
         "kind": "LinkedField",
-        "name": "createExercise",
+        "name": "updateExercise",
         "plural": false,
         "selections": [
-          (v2/*: any*/),
-          (v3/*: any*/),
           {
-            "alias": null,
             "args": null,
-            "concreteType": "Image",
-            "kind": "LinkedField",
-            "name": "image",
-            "plural": false,
-            "selections": [
-              {
-                "args": null,
-                "kind": "FragmentSpread",
-                "name": "ImageFragment"
-              }
-            ],
-            "storageKey": null
+            "kind": "FragmentSpread",
+            "name": "ExerciseCardFragment"
           },
-          (v4/*: any*/),
-          (v6/*: any*/),
-          (v7/*: any*/)
+          {
+            "args": null,
+            "kind": "FragmentSpread",
+            "name": "ExerciseFragment"
+          }
         ],
         "storageKey": null
       }
@@ -230,14 +131,14 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "AddExerciseForm_Mutation",
+    "name": "EditExerciseForm_Mutation",
     "selections": [
       {
         "alias": null,
         "args": (v1/*: any*/),
         "concreteType": "Exercise",
         "kind": "LinkedField",
-        "name": "createExercise",
+        "name": "updateExercise",
         "plural": false,
         "selections": [
           (v2/*: any*/),
@@ -264,8 +165,8 @@ return {
                 "name": "srcset",
                 "storageKey": null
               },
-              (v8/*: any*/),
-              (v9/*: any*/),
+              (v4/*: any*/),
+              (v5/*: any*/),
               {
                 "alias": null,
                 "args": null,
@@ -301,7 +202,7 @@ return {
                 "name": "layout",
                 "storageKey": null
               },
-              (v10/*: any*/),
+              (v6/*: any*/),
               {
                 "alias": null,
                 "args": null,
@@ -345,8 +246,8 @@ return {
                 "name": "style",
                 "plural": false,
                 "selections": [
-                  (v10/*: any*/),
-                  (v9/*: any*/),
+                  (v6/*: any*/),
+                  (v5/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -361,32 +262,100 @@ return {
                     "name": "maxWidth",
                     "storageKey": null
                   },
-                  (v8/*: any*/)
+                  (v4/*: any*/)
                 ],
                 "storageKey": null
               }
             ],
             "storageKey": null
           },
-          (v4/*: any*/),
-          (v6/*: any*/),
-          (v7/*: any*/)
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "MusclesGroupConnection",
+            "kind": "LinkedField",
+            "name": "musclesGroups",
+            "plural": false,
+            "selections": [
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "MusclesGroupEdge",
+                "kind": "LinkedField",
+                "name": "edges",
+                "plural": true,
+                "selections": [
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "MusclesGroup",
+                    "kind": "LinkedField",
+                    "name": "node",
+                    "plural": false,
+                    "selections": (v7/*: any*/),
+                    "storageKey": null
+                  }
+                ],
+                "storageKey": null
+              }
+            ],
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "ExerciseTypeConnection",
+            "kind": "LinkedField",
+            "name": "exerciseTypes",
+            "plural": false,
+            "selections": [
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "ExerciseTypeEdge",
+                "kind": "LinkedField",
+                "name": "edges",
+                "plural": true,
+                "selections": [
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "ExerciseType",
+                    "kind": "LinkedField",
+                    "name": "node",
+                    "plural": false,
+                    "selections": (v7/*: any*/),
+                    "storageKey": null
+                  }
+                ],
+                "storageKey": null
+              }
+            ],
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "howTo",
+            "storageKey": null
+          }
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "e7fc2aa1d1dcbe5f2f7e0de2fb064e74",
+    "cacheID": "685ed0cddd2a88499f2b444b8dddd343",
     "id": null,
     "metadata": {},
-    "name": "AddExerciseForm_Mutation",
+    "name": "EditExerciseForm_Mutation",
     "operationKind": "mutation",
-    "text": "mutation AddExerciseForm_Mutation(\n  $input: CreateExerciseInput!\n) {\n  createExercise(input: $input) {\n    id\n    name\n    image {\n      ...ImageFragment\n    }\n    howTo\n    exerciseTypes {\n      edges {\n        node {\n          id\n        }\n      }\n    }\n    musclesGroups {\n      edges {\n        node {\n          id\n        }\n      }\n    }\n  }\n}\n\nfragment ImageFragment on Image {\n  src\n  srcset\n  width\n  height\n  priority\n  loading\n  fetchPriority\n  decoding\n  layout\n  aspectRatio\n  objectFit\n  breakpoints\n  alt\n  role\n  sizes\n  style {\n    aspectRatio\n    height\n    maxHeight\n    maxWidth\n    width\n  }\n}\n"
+    "text": "mutation EditExerciseForm_Mutation(\n  $input: UpdateExerciseInput!\n) {\n  updateExercise(input: $input) {\n    ...ExerciseCardFragment\n    ...ExerciseFragment\n    id\n  }\n}\n\nfragment ExerciseCardFragment on Exercise {\n  id\n  name\n  image {\n    ...ImageFragment\n  }\n  musclesGroups {\n    ...MusclesGroupBadgeFragment\n  }\n  exerciseTypes {\n    ...ExerciseTypeBadgeFragment\n  }\n}\n\nfragment ExerciseFragment on Exercise {\n  id\n  name\n  howTo\n  musclesGroups {\n    edges {\n      node {\n        id\n      }\n    }\n    ...MusclesGroupBadgeFragment\n  }\n  exerciseTypes {\n    edges {\n      node {\n        id\n      }\n    }\n    ...ExerciseTypeBadgeFragment\n  }\n}\n\nfragment ExerciseTypeBadgeFragment on ExerciseTypeConnection {\n  edges {\n    node {\n      id\n      name\n    }\n  }\n}\n\nfragment ImageFragment on Image {\n  src\n  srcset\n  width\n  height\n  priority\n  loading\n  fetchPriority\n  decoding\n  layout\n  aspectRatio\n  objectFit\n  breakpoints\n  alt\n  role\n  sizes\n  style {\n    aspectRatio\n    height\n    maxHeight\n    maxWidth\n    width\n  }\n}\n\nfragment MusclesGroupBadgeFragment on MusclesGroupConnection {\n  edges {\n    node {\n      id\n      name\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "9cc157886d67d3aade6e763ea7c14906";
+(node as any).hash = "856af7be21d40d91dacacb27994524ea";
 
 export default node;

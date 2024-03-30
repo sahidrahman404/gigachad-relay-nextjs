@@ -23,7 +23,9 @@ function ExerciseAction({ exerciseID }: ExerciseActionProps) {
             <Link href={`/dashboard/exercises/${exerciseID}`}>View</Link>
           </MenubarItem>
           <MenubarSeparator />
-          <MenubarItem>Edit</MenubarItem>
+          <MenubarItem asChild>
+            <Link href={`/dashboard/exercises/edit/${exerciseID}`}>Edit</Link>
+          </MenubarItem>
           <MenubarSeparator />
           <DeleteExerciseDialog
             id={exerciseID}
