@@ -10,9 +10,9 @@ function cn(...inputs: ClassValue[]) {
 }
 
 async function removeTokenAndRedirect() {
-  const hostname = process.env.NEXT_PUBLIC_BACKEND_HOSTNAME;
+  const url = process.env.NEXT_PUBLIC_BACKEND_URL;
   const token = await getToken();
-  await fetch(`${hostname}/v1/tokens/delete/${token}`, {
+  await fetch(`${url}/v1/tokens/delete/${token}`, {
     method: "DELETE",
     credentials: "include",
   });
@@ -21,8 +21,8 @@ async function removeTokenAndRedirect() {
 }
 
 async function getToken(): Promise<string | null> {
-  const hostname = process.env.NEXT_PUBLIC_BACKEND_HOSTNAME;
-  const response = await fetch(`${hostname}/v1/tokens/get`, {
+  const url = process.env.NEXT_PUBLIC_BACKEND_URL;
+  const response = await fetch(`${url}/v1/tokens/get`, {
     credentials: "include",
   });
   const token = (await response.json()) as string | null;
@@ -30,8 +30,8 @@ async function getToken(): Promise<string | null> {
 }
 
 function setTokenAndRedirect(token: string) {
-  const hostname = process.env.NEXT_PUBLIC_BACKEND_HOSTNAME;
-  fetch(`${hostname}/v1/tokens/set/${token}`, {
+  const url = process.env.NEXT_PUBLIC_BACKEND_URL;
+  fetch(`${url}/v1/tokens/set/${token}`, {
     credentials: "include",
   }).then((_) => {
     window.location.replace(`/dashboard/routines`);

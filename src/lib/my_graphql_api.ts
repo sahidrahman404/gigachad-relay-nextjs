@@ -17,8 +17,8 @@ export default async function makeGraphQLRequest({
           Authorization: `Bearer ${token}`,
         }
       : undefined;
-  const hostname = process.env.NEXT_PUBLIC_BACKEND_HOSTNAME;
-  const response = await fetch(`${hostname}/query`, {
+  const url = process.env.NEXT_PUBLIC_BACKEND_URL;
+  const response = await fetch(`${url}/query`, {
     method: "POST",
     credentials: "include",
     headers: {
