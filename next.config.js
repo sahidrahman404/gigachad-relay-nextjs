@@ -1,5 +1,14 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  compiler: {
+    relay: {
+      // This should match relay.config.js
+      src: "./",
+      artifactDirectory: "src/queries/__generated__",
+      language: "typescript",
+      eagerEsModules: false,
+    },
+  },
   images: {
     unoptimized: true,
   },
