@@ -197,18 +197,25 @@ function EditExerciseForm({
             <FormItem className="col-span-2">
               <FormLabel>Image</FormLabel>
               <FormControl>
-                <Input
-                  type="file"
-                  onBlur={field.onBlur}
-                  name={field.name}
-                  ref={imageInputRef}
-                  onChange={(e) => {
-                    imageFieldOnChange({
-                      event: e,
-                      field: field,
-                    });
-                  }}
-                />
+                <div className="flex gap-2 lg:gap-3">
+                  {dataExerciseFragment.image ? (
+                    <Avatar>
+                      <Image image={dataExerciseFragment.image} />
+                    </Avatar>
+                  ) : null}
+                  <Input
+                    type="file"
+                    onBlur={field.onBlur}
+                    name={field.name}
+                    ref={imageInputRef}
+                    onChange={(e) => {
+                      imageFieldOnChange({
+                        event: e,
+                        field: field,
+                      });
+                    }}
+                  />
+                </div>
               </FormControl>
               <FormMessage />
             </FormItem>

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<ed5af97355f0e6fb058824694a3f0b3d>>
+ * @generated SignedSource<<918166632975d86ac82015ab2a74aef0>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -56,31 +56,157 @@ v3 = {
   "name": "name",
   "storageKey": null
 },
-v4 = [
-  (v2/*: any*/),
-  (v3/*: any*/)
-],
-v5 = {
+v4 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "width",
   "storageKey": null
 },
-v6 = {
+v5 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "height",
   "storageKey": null
 },
-v7 = {
+v6 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "aspectRatio",
   "storageKey": null
-};
+},
+v7 = {
+  "alias": null,
+  "args": null,
+  "concreteType": "Image",
+  "kind": "LinkedField",
+  "name": "image",
+  "plural": false,
+  "selections": [
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "src",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "srcset",
+      "storageKey": null
+    },
+    (v4/*: any*/),
+    (v5/*: any*/),
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "priority",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "loading",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "fetchPriority",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "decoding",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "layout",
+      "storageKey": null
+    },
+    (v6/*: any*/),
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "objectFit",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "breakpoints",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "alt",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "role",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "sizes",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "Style",
+      "kind": "LinkedField",
+      "name": "style",
+      "plural": false,
+      "selections": [
+        (v6/*: any*/),
+        (v5/*: any*/),
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "maxHeight",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "maxWidth",
+          "storageKey": null
+        },
+        (v4/*: any*/)
+      ],
+      "storageKey": null
+    }
+  ],
+  "storageKey": null
+},
+v8 = [
+  (v2/*: any*/),
+  (v3/*: any*/)
+];
 return {
   "fragment": {
     "argumentDefinitions": (v0/*: any*/),
@@ -181,6 +307,7 @@ return {
                 "name": "howTo",
                 "storageKey": null
               },
+              (v7/*: any*/),
               {
                 "alias": null,
                 "args": null,
@@ -204,7 +331,7 @@ return {
                         "kind": "LinkedField",
                         "name": "node",
                         "plural": false,
-                        "selections": (v4/*: any*/),
+                        "selections": (v8/*: any*/),
                         "storageKey": null
                       }
                     ],
@@ -236,7 +363,7 @@ return {
                         "kind": "LinkedField",
                         "name": "node",
                         "plural": false,
-                        "selections": (v4/*: any*/),
+                        "selections": (v8/*: any*/),
                         "storageKey": null
                       }
                     ],
@@ -278,132 +405,7 @@ return {
                 "selections": [
                   (v2/*: any*/),
                   (v3/*: any*/),
-                  {
-                    "alias": null,
-                    "args": null,
-                    "concreteType": "Image",
-                    "kind": "LinkedField",
-                    "name": "image",
-                    "plural": false,
-                    "selections": [
-                      {
-                        "alias": null,
-                        "args": null,
-                        "kind": "ScalarField",
-                        "name": "src",
-                        "storageKey": null
-                      },
-                      {
-                        "alias": null,
-                        "args": null,
-                        "kind": "ScalarField",
-                        "name": "srcset",
-                        "storageKey": null
-                      },
-                      (v5/*: any*/),
-                      (v6/*: any*/),
-                      {
-                        "alias": null,
-                        "args": null,
-                        "kind": "ScalarField",
-                        "name": "priority",
-                        "storageKey": null
-                      },
-                      {
-                        "alias": null,
-                        "args": null,
-                        "kind": "ScalarField",
-                        "name": "loading",
-                        "storageKey": null
-                      },
-                      {
-                        "alias": null,
-                        "args": null,
-                        "kind": "ScalarField",
-                        "name": "fetchPriority",
-                        "storageKey": null
-                      },
-                      {
-                        "alias": null,
-                        "args": null,
-                        "kind": "ScalarField",
-                        "name": "decoding",
-                        "storageKey": null
-                      },
-                      {
-                        "alias": null,
-                        "args": null,
-                        "kind": "ScalarField",
-                        "name": "layout",
-                        "storageKey": null
-                      },
-                      (v7/*: any*/),
-                      {
-                        "alias": null,
-                        "args": null,
-                        "kind": "ScalarField",
-                        "name": "objectFit",
-                        "storageKey": null
-                      },
-                      {
-                        "alias": null,
-                        "args": null,
-                        "kind": "ScalarField",
-                        "name": "breakpoints",
-                        "storageKey": null
-                      },
-                      {
-                        "alias": null,
-                        "args": null,
-                        "kind": "ScalarField",
-                        "name": "alt",
-                        "storageKey": null
-                      },
-                      {
-                        "alias": null,
-                        "args": null,
-                        "kind": "ScalarField",
-                        "name": "role",
-                        "storageKey": null
-                      },
-                      {
-                        "alias": null,
-                        "args": null,
-                        "kind": "ScalarField",
-                        "name": "sizes",
-                        "storageKey": null
-                      },
-                      {
-                        "alias": null,
-                        "args": null,
-                        "concreteType": "Style",
-                        "kind": "LinkedField",
-                        "name": "style",
-                        "plural": false,
-                        "selections": [
-                          (v7/*: any*/),
-                          (v6/*: any*/),
-                          {
-                            "alias": null,
-                            "args": null,
-                            "kind": "ScalarField",
-                            "name": "maxHeight",
-                            "storageKey": null
-                          },
-                          {
-                            "alias": null,
-                            "args": null,
-                            "kind": "ScalarField",
-                            "name": "maxWidth",
-                            "storageKey": null
-                          },
-                          (v5/*: any*/)
-                        ],
-                        "storageKey": null
-                      }
-                    ],
-                    "storageKey": null
-                  }
+                  (v7/*: any*/)
                 ],
                 "storageKey": null
               }
@@ -458,12 +460,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "6fbc8b83dfbde6255a43067c3e960629",
+    "cacheID": "ff992a54a4a997e6c1d6b914c08bbb61",
     "id": null,
     "metadata": {},
     "name": "ExerciseIDEdit_Query",
     "operationKind": "query",
-    "text": "query ExerciseIDEdit_Query(\n  $exerciseID: ID!\n) {\n  viewer {\n    ...useAuthRedirectFragment\n    id\n  }\n  node(id: $exerciseID) {\n    __typename\n    ... on Exercise {\n      ...ExerciseFragment\n    }\n    id\n  }\n  ...EditExerciseFormFragment\n}\n\nfragment EditExerciseFormFragment on Query {\n  ...MusclesGroupInputFragment\n  ...ExerciseTypeInputFragment\n}\n\nfragment ExerciseFragment on Exercise {\n  id\n  name\n  howTo\n  musclesGroups {\n    edges {\n      node {\n        id\n      }\n    }\n    ...MusclesGroupBadgeFragment\n  }\n  exerciseTypes {\n    edges {\n      node {\n        id\n      }\n    }\n    ...ExerciseTypeBadgeFragment\n  }\n}\n\nfragment ExerciseTypeBadgeFragment on ExerciseTypeConnection {\n  edges {\n    node {\n      id\n      name\n    }\n  }\n}\n\nfragment ExerciseTypeInputFragment on Query {\n  exerciseTypes {\n    edges {\n      node {\n        id\n        name\n        description\n      }\n    }\n  }\n}\n\nfragment ImageFragment on Image {\n  src\n  srcset\n  width\n  height\n  priority\n  loading\n  fetchPriority\n  decoding\n  layout\n  aspectRatio\n  objectFit\n  breakpoints\n  alt\n  role\n  sizes\n  style {\n    aspectRatio\n    height\n    maxHeight\n    maxWidth\n    width\n  }\n}\n\nfragment MusclesGroupBadgeFragment on MusclesGroupConnection {\n  edges {\n    node {\n      id\n      name\n    }\n  }\n}\n\nfragment MusclesGroupInputFragment on Query {\n  musclesGroups {\n    edges {\n      node {\n        id\n        name\n        image {\n          ...ImageFragment\n        }\n      }\n    }\n  }\n}\n\nfragment useAuthRedirectFragment on User {\n  id\n}\n"
+    "text": "query ExerciseIDEdit_Query(\n  $exerciseID: ID!\n) {\n  viewer {\n    ...useAuthRedirectFragment\n    id\n  }\n  node(id: $exerciseID) {\n    __typename\n    ... on Exercise {\n      ...ExerciseFragment\n    }\n    id\n  }\n  ...EditExerciseFormFragment\n}\n\nfragment EditExerciseFormFragment on Query {\n  ...MusclesGroupInputFragment\n  ...ExerciseTypeInputFragment\n}\n\nfragment ExerciseFragment on Exercise {\n  id\n  name\n  howTo\n  image {\n    ...ImageFragment\n  }\n  musclesGroups {\n    edges {\n      node {\n        id\n      }\n    }\n    ...MusclesGroupBadgeFragment\n  }\n  exerciseTypes {\n    edges {\n      node {\n        id\n      }\n    }\n    ...ExerciseTypeBadgeFragment\n  }\n}\n\nfragment ExerciseTypeBadgeFragment on ExerciseTypeConnection {\n  edges {\n    node {\n      id\n      name\n    }\n  }\n}\n\nfragment ExerciseTypeInputFragment on Query {\n  exerciseTypes {\n    edges {\n      node {\n        id\n        name\n        description\n      }\n    }\n  }\n}\n\nfragment ImageFragment on Image {\n  src\n  srcset\n  width\n  height\n  priority\n  loading\n  fetchPriority\n  decoding\n  layout\n  aspectRatio\n  objectFit\n  breakpoints\n  alt\n  role\n  sizes\n  style {\n    aspectRatio\n    height\n    maxHeight\n    maxWidth\n    width\n  }\n}\n\nfragment MusclesGroupBadgeFragment on MusclesGroupConnection {\n  edges {\n    node {\n      id\n      name\n    }\n  }\n}\n\nfragment MusclesGroupInputFragment on Query {\n  musclesGroups {\n    edges {\n      node {\n        id\n        name\n        image {\n          ...ImageFragment\n        }\n      }\n    }\n  }\n}\n\nfragment useAuthRedirectFragment on User {\n  id\n}\n"
   }
 };
 })();

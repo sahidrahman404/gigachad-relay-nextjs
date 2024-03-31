@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<02f34b58587345c49054d27ff253722b>>
+ * @generated SignedSource<<572e809f95dae5b47056b47e4441a465>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -346,12 +346,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "685ed0cddd2a88499f2b444b8dddd343",
+    "cacheID": "5ddb33b4d3833501b298c94fa44d3044",
     "id": null,
     "metadata": {},
     "name": "EditExerciseForm_Mutation",
     "operationKind": "mutation",
-    "text": "mutation EditExerciseForm_Mutation(\n  $input: UpdateExerciseInput!\n) {\n  updateExercise(input: $input) {\n    ...ExerciseCardFragment\n    ...ExerciseFragment\n    id\n  }\n}\n\nfragment ExerciseCardFragment on Exercise {\n  id\n  name\n  image {\n    ...ImageFragment\n  }\n  musclesGroups {\n    ...MusclesGroupBadgeFragment\n  }\n  exerciseTypes {\n    ...ExerciseTypeBadgeFragment\n  }\n}\n\nfragment ExerciseFragment on Exercise {\n  id\n  name\n  howTo\n  musclesGroups {\n    edges {\n      node {\n        id\n      }\n    }\n    ...MusclesGroupBadgeFragment\n  }\n  exerciseTypes {\n    edges {\n      node {\n        id\n      }\n    }\n    ...ExerciseTypeBadgeFragment\n  }\n}\n\nfragment ExerciseTypeBadgeFragment on ExerciseTypeConnection {\n  edges {\n    node {\n      id\n      name\n    }\n  }\n}\n\nfragment ImageFragment on Image {\n  src\n  srcset\n  width\n  height\n  priority\n  loading\n  fetchPriority\n  decoding\n  layout\n  aspectRatio\n  objectFit\n  breakpoints\n  alt\n  role\n  sizes\n  style {\n    aspectRatio\n    height\n    maxHeight\n    maxWidth\n    width\n  }\n}\n\nfragment MusclesGroupBadgeFragment on MusclesGroupConnection {\n  edges {\n    node {\n      id\n      name\n    }\n  }\n}\n"
+    "text": "mutation EditExerciseForm_Mutation(\n  $input: UpdateExerciseInput!\n) {\n  updateExercise(input: $input) {\n    ...ExerciseCardFragment\n    ...ExerciseFragment\n    id\n  }\n}\n\nfragment ExerciseCardFragment on Exercise {\n  id\n  name\n  image {\n    ...ImageFragment\n  }\n  musclesGroups {\n    ...MusclesGroupBadgeFragment\n  }\n  exerciseTypes {\n    ...ExerciseTypeBadgeFragment\n  }\n}\n\nfragment ExerciseFragment on Exercise {\n  id\n  name\n  howTo\n  image {\n    ...ImageFragment\n  }\n  musclesGroups {\n    edges {\n      node {\n        id\n      }\n    }\n    ...MusclesGroupBadgeFragment\n  }\n  exerciseTypes {\n    edges {\n      node {\n        id\n      }\n    }\n    ...ExerciseTypeBadgeFragment\n  }\n}\n\nfragment ExerciseTypeBadgeFragment on ExerciseTypeConnection {\n  edges {\n    node {\n      id\n      name\n    }\n  }\n}\n\nfragment ImageFragment on Image {\n  src\n  srcset\n  width\n  height\n  priority\n  loading\n  fetchPriority\n  decoding\n  layout\n  aspectRatio\n  objectFit\n  breakpoints\n  alt\n  role\n  sizes\n  style {\n    aspectRatio\n    height\n    maxHeight\n    maxWidth\n    width\n  }\n}\n\nfragment MusclesGroupBadgeFragment on MusclesGroupConnection {\n  edges {\n    node {\n      id\n      name\n    }\n  }\n}\n"
   }
 };
 })();

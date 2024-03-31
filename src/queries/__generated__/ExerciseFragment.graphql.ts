@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<a1e46165ff2f7c8ba1b696196ada065d>>
+ * @generated SignedSource<<660b37e5e022bf45414bec8c4f2fc521>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -21,6 +21,9 @@ export type ExerciseFragment$data = {
   };
   readonly howTo: string | null | undefined;
   readonly id: string;
+  readonly image: {
+    readonly " $fragmentSpreads": FragmentRefs<"ImageFragment">;
+  } | null | undefined;
   readonly musclesGroups: {
     readonly edges: ReadonlyArray<{
       readonly node: {
@@ -67,6 +70,22 @@ return {
       "args": null,
       "kind": "ScalarField",
       "name": "howTo",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "Image",
+      "kind": "LinkedField",
+      "name": "image",
+      "plural": false,
+      "selections": [
+        {
+          "args": null,
+          "kind": "FragmentSpread",
+          "name": "ImageFragment"
+        }
+      ],
       "storageKey": null
     },
     {
@@ -149,6 +168,6 @@ return {
 };
 })();
 
-(node as any).hash = "d43224695d89263badbf3f7279a46209";
+(node as any).hash = "3be52f105f8aa0a3de21cdab1cb0af74";
 
 export default node;

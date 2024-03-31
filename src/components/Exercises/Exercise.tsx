@@ -9,6 +9,9 @@ const ExerciseFragment = graphql`
     id
     name
     howTo
+    image {
+      ...ImageFragment
+    }
     musclesGroups {
       edges {
         node {
