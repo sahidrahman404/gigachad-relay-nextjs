@@ -18,9 +18,8 @@ import { useFragment, useMutation } from "react-relay";
 import { AddRoutineForm_Mutation } from "@/queries/__generated__/AddRoutineForm_Mutation.graphql";
 import { AddRoutineFormFragment$key } from "@/queries/__generated__/AddRoutineFormFragment.graphql";
 import { checkDuplicate } from "@/lib/utils";
-import { useToast } from "../ui/use-toast";
-import { ToastAction } from "../ui/toast";
 import { RoutineExerciseFieldArray } from "./RoutineExerciseFieldArray";
+import { toast } from "sonner";
 
 const RoutineMutation = graphql`
   mutation AddRoutineForm_Mutation($input: CreateRoutineWithChildrenInput!) {
@@ -91,7 +90,6 @@ type AddRoutineFormReturn = UseFormReturn<AddRoutineFormSchema, any, undefined>;
 function AddRoutineForm({ queryRef }: AddRoutineFormProps) {
   const [commitMutation, isMutationInFlight] =
     useMutation<AddRoutineForm_Mutation>(RoutineMutation);
-  const { toast } = useToast();
   const data = useFragment(AddRoutineFormFragment, queryRef);
   const form = useForm<AddRoutineFormSchema>({
     resolver: zodResolver(addRoutineformSchema),
@@ -139,19 +137,10 @@ function AddRoutineForm({ queryRef }: AddRoutineFormProps) {
         }
       },
       onError: () => {
-        toast({
-          variant: "destructive",
-          title: "Uh oh! Something went wrong.",
-          description: "There was a problem with your request.",
-          action: <ToastAction altText="Try again">Try again</ToastAction>,
-        });
+        toast.error("There was a problem with your request");
       },
       onCompleted: () => {
-        toast({
-          variant: "default",
-          title: "Success! Routine added",
-          description: "The routine was added to your collection",
-        });
+        toast.success("The routine was added");
       },
     });
   }
@@ -159,12 +148,7 @@ function AddRoutineForm({ queryRef }: AddRoutineFormProps) {
   function onError(errVal: FieldErrors<AddRoutineFormSchema>) {
     const routineExercisesErr = errVal.routineExercises;
     if (routineExercisesErr && routineExercisesErr?.root?.message) {
-      toast({
-        variant: "destructive",
-        title: "Uh oh! Something went wrong.",
-        description: routineExercisesErr.root.message,
-        action: <ToastAction altText="Try again">Try again</ToastAction>,
-      });
+      toast.error(routineExercisesErr.root.message);
     }
   }
 

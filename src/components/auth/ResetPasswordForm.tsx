@@ -23,7 +23,7 @@ import ResetPasswordMutation from "@/gql/resetPassword";
 import Link from "next/link";
 import Logo from "../common/Logo";
 import { removeTokenAndRedirect } from "@/lib/utils";
-import { toast } from "../ui/use-toast";
+import { toast } from "sonner";
 
 const formSchema = z
   .object({
@@ -80,10 +80,7 @@ export default function ResetPasswordForm() {
           }));
           return;
         }
-        toast({
-          title: "Success!",
-          description: "Your account password has been successfully changed.",
-        });
+        toast.success("Your account password was changed.");
         window.setTimeout(() => {
           removeTokenAndRedirect().then(() => {});
         }, 1500);

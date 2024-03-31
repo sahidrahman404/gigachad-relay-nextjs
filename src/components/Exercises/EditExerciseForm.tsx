@@ -24,13 +24,14 @@ import { useCreateEditor } from "@/components/Hooks/useCreateEditor";
 import { EditorField } from "@/components/Editor/Editor";
 import { MusclesGroupInput } from "./MusclesGroupInput";
 import { ExerciseTypeInput } from "./ExerciseTypeInput";
-import { ToastAction } from "@/components/ui/toast";
-import { useToast } from "../ui/use-toast";
 import { ExerciseTypeID, MusclesGroupID, image } from "@/lib/zod";
 import { EditExerciseFormFragment$key } from "@/queries/__generated__/EditExerciseFormFragment.graphql";
 import { EditExerciseForm_Mutation } from "@/queries/__generated__/EditExerciseForm_Mutation.graphql";
 import { ExerciseFragment$key } from "@/queries/__generated__/ExerciseFragment.graphql";
 import { ExerciseFragment } from "./Exercise";
+import { Image } from "../Image/Image";
+import { Avatar } from "../ui/avatar";
+import { toast } from "sonner";
 
 const EditExerciseMutation = graphql`
   mutation EditExerciseForm_Mutation($input: UpdateExerciseInput!) {
@@ -79,7 +80,6 @@ function EditExerciseForm({
   const [commitMutation, isMutationInFlight] =
     useMutation<EditExerciseForm_Mutation>(EditExerciseMutation);
   const [isUploadInFlight, setIsUploadInFlight] = useState(false);
-  const { toast } = useToast();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -111,6 +111,7 @@ function EditExerciseForm({
   });
 
   function onSubmit(val: z.infer<typeof formSchema>) {
+    console.log("render");
     const image = val.image;
     const mutation = (meta?: InternalMetadata & Record<string, unknown>) => {
       commitMutation({
@@ -134,19 +135,10 @@ function EditExerciseForm({
           },
         },
         onError: () => {
-          toast({
-            variant: "destructive",
-            title: "Uh oh! Something went wrong.",
-            description: "There was a problem with your request.",
-            action: <ToastAction altText="Try again">Try again</ToastAction>,
-          });
+          toast.error("There was a problem with your request.");
         },
         onCompleted: () => {
-          toast({
-            variant: "default",
-            title: "Success! Exercise edited",
-            description: "The exercise was edited",
-          });
+          toast.success("The exercise was edited");
         },
       });
     };

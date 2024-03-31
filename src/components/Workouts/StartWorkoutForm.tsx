@@ -5,8 +5,7 @@ import { Form } from "../ui/form";
 import { Button } from "../ReactAriaUI/Button";
 import { WorkoutLogs } from "./WorkoutLogs";
 import { WorkoutLogsStats } from "./WorkoutLogsStats";
-import { useToast } from "../ui/use-toast";
-import { ToastAction } from "../ui/toast";
+import { toast } from "sonner";
 import { useRouter } from "next/router";
 import { WorkoutMachineContext } from "../Layout";
 import { graphql } from "relay-runtime";
@@ -76,7 +75,6 @@ function StartWorkoutForm({ queryRef }: StartWorkoutFormProps) {
     (state) => state.context.workoutLogs,
   );
   const workoutActor = WorkoutMachineContext.useActorRef();
-  const { toast } = useToast();
   const router = useRouter();
   const { isTimerRunning } = useTimer();
 
@@ -105,12 +103,7 @@ function StartWorkoutForm({ queryRef }: StartWorkoutFormProps) {
       Object.entries(workoutLogsErr as any).length === 1 &&
       workoutLogsErr?.root?.message
     ) {
-      toast({
-        variant: "destructive",
-        title: "Uh oh! Something went wrong.",
-        description: workoutLogsErr.root.message,
-        action: <ToastAction altText="Try again">Try again</ToastAction>,
-      });
+      toast.error("Uh oh! Something went wrong.");
     }
   }
 

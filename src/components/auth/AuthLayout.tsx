@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { Toaster } from "../ui/toaster";
+import { Toaster } from "../ui/sonner";
 
 export default function AuthLayout({ children }: { children: ReactNode }) {
   return (
@@ -14,7 +14,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
           alt=""
         />
       </div>
-      <Toaster />
+      <Toaster richColors />
     </div>
   );
 }

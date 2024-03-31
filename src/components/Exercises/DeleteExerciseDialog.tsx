@@ -12,7 +12,7 @@ import { graphql } from "relay-runtime";
 import { Button } from "../ReactAriaUI/Button";
 import { useFragment, useMutation } from "react-relay";
 import { DeleteExerciseDialog_Mutation } from "@/queries/__generated__/DeleteExerciseDialog_Mutation.graphql";
-import { useToast } from "../ui/use-toast";
+import { toast } from "sonner";
 import { ExercisesData, ExercisesFragment } from "./Exercises";
 import { ExercisesFragment$key } from "@/queries/__generated__/ExercisesFragment.graphql";
 import ConnectionHandler from "relay-connection-handler-plus";
@@ -36,7 +36,6 @@ function DeleteExerciseDialog({ id, Trigger }: DeleteExerciseDialogProps) {
   const [open, setOpen] = useState(false);
   const [commitMutation, isMutationInFlight] =
     useMutation<DeleteExerciseDialog_Mutation>(DeleteExerciseDialogMutation);
-  const { toast } = useToast();
 
   if (!data) {
     return null;
@@ -85,10 +84,7 @@ function DeleteExerciseDialog({ id, Trigger }: DeleteExerciseDialogProps) {
                 },
                 onCompleted(_, errors) {
                   if (errors === null) {
-                    toast({
-                      variant: "default",
-                      title: "The exercise was deleted",
-                    });
+                    toast.success("The exercise was deleted");
                   }
                 },
               });

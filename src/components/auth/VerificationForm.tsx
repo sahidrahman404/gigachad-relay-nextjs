@@ -22,7 +22,7 @@ import { activateUser_Mutation } from "@/queries/__generated__/activateUser_Muta
 import ActivateUserMutation from "@/gql/activateUser";
 import Logo from "../common/Logo";
 import { useRouter } from "next/router";
-import { toast } from "@/components/ui/use-toast";
+import { toast } from "sonner";
 
 const formSchema = z.object({
   token: z.string().min(26).max(26),
@@ -73,10 +73,7 @@ export default function VerificationForm() {
           return;
         }
         if (res.activateUser) {
-          toast({
-            title: "Congratulations!",
-            description: "Your account has been successfully activated.",
-          });
+          toast.success("Your account was activated");
           router.push("/auth/signin");
         }
       },

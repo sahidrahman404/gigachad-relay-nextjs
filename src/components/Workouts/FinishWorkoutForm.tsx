@@ -1,7 +1,6 @@
 import { image } from "@/lib/zod";
 import { graphql } from "relay-runtime";
 import { z } from "zod";
-import { useToast } from "../ui/use-toast";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -26,9 +25,9 @@ import { useMutation } from "react-relay";
 import { FinishWorkoutForm_Mutation } from "@/queries/__generated__/FinishWorkoutForm_Mutation.graphql";
 import { InternalMetadata } from "@uppy/core";
 import { WorkoutMachineContext } from "../Layout";
-import { ToastAction } from "../ui/toast";
 import { useRouter } from "next/router";
 import { useTimer } from "../Hooks/useTimer";
+import { toast } from "sonner";
 
 const FinishWorkoutFormMutation = graphql`
   mutation FinishWorkoutForm_Mutation($input: CreateWorkoutWithChildrenInput!) {
@@ -63,7 +62,6 @@ function FinishWorkoutForm() {
   const imageInputRef = useRef<HTMLInputElement | null>(null);
   const [commitMutation, isMutationInFlight] =
     useMutation<FinishWorkoutForm_Mutation>(FinishWorkoutFormMutation);
-  const { toast } = useToast();
   const [uppy] = useState(() => createUppy());
   const [isUploadInFlight, setIsUploadInFlight] = useState(false);
   const workoutContext = WorkoutMachineContext.useSelector(
@@ -121,12 +119,7 @@ function FinishWorkoutForm() {
           },
         },
         onError: () => {
-          toast({
-            variant: "destructive",
-            title: "Uh oh! Something went wrong.",
-            description: "There was a problem with your request.",
-            action: <ToastAction altText="Try again">Try again</ToastAction>,
-          });
+          toast.error("There was a problem with your request.");
         },
         onCompleted: () => {
           workoutActor.send({ type: "RESET" });

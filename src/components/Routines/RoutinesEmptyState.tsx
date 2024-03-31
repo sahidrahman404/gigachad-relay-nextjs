@@ -4,8 +4,7 @@ import { RoutinesEmptyStateFragment$key } from "@/queries/__generated__/Routines
 import { usePaginationFragment } from "react-relay";
 import { Button } from "../ReactAriaUI/Button";
 import { useRouter } from "next/router";
-import { useToast } from "../ui/use-toast";
-import { ToastAction } from "../ui/toast";
+import { toast } from "sonner";
 import { LinkButton } from "../ReactAriaUI/LinkButton";
 
 const RoutinesEmptyStateFragment = graphql`
@@ -37,7 +36,6 @@ function RoutinesEmptyState({ queryRef }: RoutinesEmptyStateProps) {
     queryRef,
   );
   const router = useRouter();
-  const { toast } = useToast();
   return (
     <div>
       <div className="flex flex-col items-center gap-y-4 mt-10">
@@ -52,21 +50,7 @@ function RoutinesEmptyState({ queryRef }: RoutinesEmptyStateProps) {
           onPress={() => {
             loadNext(1);
             if (!data.exercises.edges || data.exercises.edges.length === 0) {
-              toast({
-                title: "No Exercises Available",
-                description:
-                  "Please add exercises to your collection before creating a routine",
-                action: (
-                  <ToastAction altText="Add exercises" asChild>
-                    <LinkButton
-                      href={"/dashboard/exercises/add"}
-                      variant="outline"
-                    >
-                      Add Exercises
-                    </LinkButton>
-                  </ToastAction>
-                ),
-              });
+              toast(<ErrorEmptyExercise />);
               return;
             }
             router.push("/dashboard/routines/add");
@@ -74,6 +58,23 @@ function RoutinesEmptyState({ queryRef }: RoutinesEmptyStateProps) {
         >
           Add Routines
         </Button>
+      </div>
+    </div>
+  );
+}
+
+function ErrorEmptyExercise() {
+  return (
+    <div className="space-y-2">
+      <p>Please add exercises to your collection before creating a routine</p>
+      <div className="flex">
+        <LinkButton
+          href={"/dashboard/exercises/add"}
+          className="ml-auto"
+          variant="outline"
+        >
+          Add Exercises
+        </LinkButton>
       </div>
     </div>
   );

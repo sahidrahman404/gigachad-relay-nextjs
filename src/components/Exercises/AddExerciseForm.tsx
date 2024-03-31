@@ -26,12 +26,11 @@ import { MusclesGroupInput } from "./MusclesGroupInput";
 import { AddExerciseFormFragment$key } from "@/queries/__generated__/AddExerciseFormFragment.graphql";
 import { AddExerciseForm_Mutation } from "@/queries/__generated__/AddExerciseForm_Mutation.graphql";
 import { ExerciseTypeInput } from "./ExerciseTypeInput";
-import { ToastAction } from "@/components/ui/toast";
-import { useToast } from "../ui/use-toast";
 import { ExerciseTypeID, MusclesGroupID, image } from "@/lib/zod";
 import { ExercisesFragment } from "./Exercises";
 import { ExercisesFragment$key } from "@/queries/__generated__/ExercisesFragment.graphql";
 import { addExerciseFormUpdater } from "@/lib/relay/addExerciseFormUpdater";
+import { toast } from "sonner";
 
 const ExerciseMutation = graphql`
   mutation AddExerciseForm_Mutation($input: CreateExerciseInput!) {
@@ -94,7 +93,6 @@ function AddExerciseForm({
   const [commitMutation, isMutationInFlight] =
     useMutation<AddExerciseForm_Mutation>(ExerciseMutation);
   const [isUploadInFlight, setIsUploadInFlight] = useState(false);
-  const { toast } = useToast();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -145,19 +143,10 @@ function AddExerciseForm({
           }
         },
         onError: () => {
-          toast({
-            variant: "destructive",
-            title: "Uh oh! Something went wrong.",
-            description: "There was a problem with your request.",
-            action: <ToastAction altText="Try again">Try again</ToastAction>,
-          });
+          toast.error("There was a problem with your request");
         },
         onCompleted: () => {
-          toast({
-            variant: "default",
-            title: "Success! Exercise added",
-            description: "The exercise was added to your collection",
-          });
+          toast.success("The exercise was added");
         },
       });
     };
