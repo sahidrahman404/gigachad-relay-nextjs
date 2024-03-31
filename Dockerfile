@@ -3,7 +3,7 @@ ARG NODE_VERSION=21
 FROM node:${NODE_VERSION}-alpine AS base
 
 LABEL fly_launch_runtime="Next.js"
-
+RUN corepack enable
 # Install dependencies only when needed
 FROM base AS deps
 # Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
@@ -11,19 +11,19 @@ RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
 # Install dependencies based on the preferred package manager
-COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* ./
-RUN \
-  if [ -f yarn.lock ]; then yarn --frozen-lockfile; \
-  elif [ -f package-lock.json ]; then npm ci; \
-  elif [ -f pnpm-lock.yaml ]; then corepack enable pnpm && pnpm i --frozen-lockfile; \
-  else echo "Lockfile not found." && exit 1; \
-  fi
+COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* .docker.yarnrc.yml ./
+RUN mv .docker.yarnrc.yml .yarnrc.yml
 
+RUN yarn --immutable
 
 # Rebuild the source code only when needed
 FROM base AS builder
+ARG NEXT_PUBLIC_SIGN_S3_URL=https://api.gigachad.buzz/v1/tokens/sign-s3
+ARG NEXT_PUBLIC_FRONTEND_URL=https://gigachad.buzz
+ARG NEXT_PUBLIC_BACKEND_URL=https://api.gigachad.buzz
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
+COPY --from=deps /app/.yarnrc.yml ./.yarnrc.yml
 COPY . .
 
 # Next.js collects completely anonymous telemetry data about general usage.
@@ -31,12 +31,7 @@ COPY . .
 # Uncomment the following line in case you want to disable telemetry during the build.
 # ENV NEXT_TELEMETRY_DISABLED 1
 
-RUN \
-  if [ -f yarn.lock ]; then yarn run build; \
-  elif [ -f package-lock.json ]; then npm run build; \
-  elif [ -f pnpm-lock.yaml ]; then corepack enable pnpm && pnpm run build; \
-  else echo "Lockfile not found." && exit 1; \
-  fi
+RUN yarn build
 
 # Production image, copy all the files and run next
 FROM base AS runner
