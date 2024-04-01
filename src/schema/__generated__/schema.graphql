@@ -74,7 +74,7 @@ input CreateRoutineReminderInput {
 
 input CreateRoutineWithChildrenInput {
   name: String!
-  reminder: [CreateRoutineReminderInput!]
+  reminders: [CreateRoutineReminderInput!]
   routineExercises: [CreateRoutineExerciseInput!]
 }
 
@@ -1455,7 +1455,7 @@ input UpdateRoutineSchedulesInput {
 input UpdateRoutineWithChildrenInput {
   id: ID!
   name: String!
-  reminder: UpdateRoutineSchedulesInput
+  reminders: UpdateRoutineSchedulesInput
   routineExercises: [UpdateRoutineExerciseInput!]
 }
 

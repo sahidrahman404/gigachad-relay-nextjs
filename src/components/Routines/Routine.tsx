@@ -12,6 +12,16 @@ import { capitalizeFirstLetter } from "@/lib/utils";
 import { WorkoutMachineContext } from "../Layout";
 import { Button } from "../ReactAriaUI/Button";
 import { useRouter } from "next/router";
+import {
+  Menubar,
+  MenubarContent,
+  MenubarItem,
+  MenubarMenu,
+  MenubarSeparator,
+  MenubarTrigger,
+} from "@/components/ui/menubar";
+import Link from "next/link";
+import { DeleteRoutineDialog } from "./DeleteRoutineDialog";
 
 const RoutineFragment = graphql`
   fragment RoutineFragment on Routine {
@@ -54,9 +64,35 @@ function Routine({ queryRef }: RoutineProps) {
 
   return (
     <Card>
-      <CardHeader>
-        <CardTitle>{capitalizeFirstLetter(data.name)}</CardTitle>
-        <CardDescription>{exercises}</CardDescription>
+      <CardHeader className="flex-row items-start">
+        <div className="space-y-1.5">
+          <CardTitle>{capitalizeFirstLetter(data.name)}</CardTitle>
+          <CardDescription>{exercises}</CardDescription>
+        </div>
+        <Menubar className="ml-auto">
+          <MenubarMenu>
+            <MenubarTrigger>Action</MenubarTrigger>
+            <MenubarContent>
+              <MenubarItem asChild>
+                <Link href={`/dashboard/routines/edit/${data.id}`}>Edit</Link>
+              </MenubarItem>
+              <MenubarSeparator />
+              <DeleteRoutineDialog
+                id={data.id}
+                Trigger={
+                  <MenubarItem
+                    className="text-destructive focus:text-destructive"
+                    onSelect={(e) => {
+                      e.preventDefault();
+                    }}
+                  >
+                    Delete
+                  </MenubarItem>
+                }
+              />
+            </MenubarContent>
+          </MenubarMenu>
+        </Menubar>
       </CardHeader>
       <CardFooter className="flex flex-col items-stretch md:block">
         <Button

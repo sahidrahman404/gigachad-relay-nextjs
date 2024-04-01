@@ -15,11 +15,17 @@ import { getIDFromExerciseSelectInputValue } from "./ExerciseSelectInput";
 import { graphql } from "relay-runtime";
 import ConnectionHandler from "relay-connection-handler-plus";
 import { useFragment, useMutation } from "react-relay";
-import { AddRoutineForm_Mutation } from "@/queries/__generated__/AddRoutineForm_Mutation.graphql";
+import {
+  AddRoutineForm_Mutation,
+  CreateRoutineReminderInput,
+} from "@/queries/__generated__/AddRoutineForm_Mutation.graphql";
 import { AddRoutineFormFragment$key } from "@/queries/__generated__/AddRoutineFormFragment.graphql";
 import { checkDuplicate } from "@/lib/utils";
 import { RoutineExerciseFieldArray } from "./RoutineExerciseFieldArray";
 import { toast } from "sonner";
+import { Reminders } from "./Reminders";
+import { useState } from "react";
+import { prependRoutineEdge } from "@/lib/relay/prependEdge";
 
 const RoutineMutation = graphql`
   mutation AddRoutineForm_Mutation($input: CreateRoutineWithChildrenInput!) {
@@ -51,6 +57,12 @@ const AddRoutineFormFragment = graphql`
 
 const addRoutineformSchema = z.object({
   name: z.string().min(3),
+  reminders: z.array(
+    z.object({
+      day: z.coerce.number().positive(),
+      time: z.string(),
+    }),
+  ),
   routineExercises: z
     .array(
       z.object({
@@ -96,17 +108,22 @@ function AddRoutineForm({ queryRef }: AddRoutineFormProps) {
     mode: "onBlur",
     defaultValues: {
       name: "",
+      reminders: [],
       routineExercises: [],
     },
   });
+  const [sendReminder, setSendReminder] = useState(false);
 
   function onSubmit(val: AddRoutineFormSchema) {
     form.reset();
+    setSendReminder(false);
     const routineExercises = buildRoutineExercisesInputMutation(val);
+    const reminders = buildRoutineRemindersInputMutation({ val, sendReminder });
     commitMutation({
       variables: {
         input: {
           name: val.name,
+          reminders: reminders,
           routineExercises: routineExercises,
         },
       },
@@ -117,24 +134,7 @@ function AddRoutineForm({ queryRef }: AddRoutineFormProps) {
           userRecord!,
           "RoutinesFragment_routines",
         );
-
-        if (connectionRecords.length > 0) {
-          // Create a new local Comment record
-          const id = `client:new_routine:${crypto.randomUUID()}`;
-          const newRoutineRecord = store.create(id, "Routine");
-
-          // Create new edge
-          const newEdge = ConnectionHandler.createEdge(
-            store,
-            connectionRecords[0],
-            newRoutineRecord,
-            "RoutineEdge" /* GraphQl Type for edge */,
-          );
-
-          connectionRecords.forEach((cR) => {
-            ConnectionHandler.insertEdgeBefore(cR, newEdge);
-          });
-        }
+        prependRoutineEdge(store, connectionRecords);
       },
       onError: () => {
         toast.error("There was a problem with your request");
@@ -178,6 +178,11 @@ function AddRoutineForm({ queryRef }: AddRoutineFormProps) {
             </FormItem>
           )}
         />
+        <Reminders
+          className="col-span-full"
+          sendReminder={sendReminder}
+          setSendReminder={setSendReminder}
+        />
         <RoutineExerciseFieldArray queryRef={data} />
       </form>
     </Form>
@@ -194,6 +199,35 @@ function buildRoutineExercisesInputMutation(
       exerciseID: exerciseID,
     };
   });
+}
+
+type BuildRoutineRemindersInputMutationParams = {
+  val: AddRoutineFormSchema;
+  sendReminder: boolean;
+};
+
+function buildRoutineRemindersInputMutation({
+  val,
+  sendReminder,
+}: BuildRoutineRemindersInputMutationParams):
+  | CreateRoutineReminderInput[]
+  | null {
+  if (sendReminder === true && val.reminders.length > 0) {
+    return val.reminders.map((reminder) => {
+      const date = new Date();
+      const time = reminder.time.split(":");
+      date.setHours(Number(time[0]));
+      date.setMinutes(Number(time[1]));
+      date.setSeconds(Number(time[2]));
+      return {
+        day: reminder.day,
+        hour: date.getUTCHours(),
+        minute: date.getUTCMinutes(),
+        second: date.getUTCSeconds(),
+      };
+    });
+  }
+  return null;
 }
 
 export { AddRoutineForm, addRoutineformSchema };

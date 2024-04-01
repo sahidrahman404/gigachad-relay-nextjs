@@ -6,7 +6,7 @@ import {
 
 function prependExerciseEdge<T>(
   store: RecordSourceSelectorProxy<T>,
-  connectionRecords: RecordProxy<{}>[] | null | undefined
+  connectionRecords: RecordProxy<{}>[] | null | undefined,
 ) {
   if (connectionRecords !== null && connectionRecords !== undefined)
     for (const connectionRecord of connectionRecords) {
@@ -15,7 +15,23 @@ function prependExerciseEdge<T>(
         connectionRecord,
         "new_exercise",
         "Exercise",
-        "ExerciseEdge"
+        "ExerciseEdge",
+      );
+    }
+}
+
+function prependRoutineEdge<T>(
+  store: RecordSourceSelectorProxy<T>,
+  connectionRecords: RecordProxy<{}>[] | null | undefined,
+) {
+  if (connectionRecords !== null && connectionRecords !== undefined)
+    for (const connectionRecord of connectionRecords) {
+      prependEdge(
+        store,
+        connectionRecord,
+        "new_routine",
+        "Routine",
+        "RoutineEdge",
       );
     }
 }
@@ -25,7 +41,7 @@ const prependEdge = <T>(
   connectionRecord: RecordProxy<{}> | null | undefined,
   newID: `new_${string}`,
   typeName: string,
-  edgeType: string
+  edgeType: string,
 ) => {
   if (connectionRecord !== null && connectionRecord !== undefined) {
     const id = `client:${newID}:${crypto.randomUUID()}`;
@@ -34,10 +50,10 @@ const prependEdge = <T>(
       store,
       connectionRecord,
       newRecord,
-      edgeType
+      edgeType,
     );
     ConnectionHandler.insertEdgeBefore(connectionRecord, newEdge);
   }
 };
 
-export { prependExerciseEdge };
+export { prependExerciseEdge, prependRoutineEdge };
