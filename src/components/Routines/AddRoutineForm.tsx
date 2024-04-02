@@ -17,7 +17,7 @@ import ConnectionHandler from "relay-connection-handler-plus";
 import { useFragment, useMutation } from "react-relay";
 import {
   AddRoutineForm_Mutation,
-  CreateRoutineReminderInput,
+  ReminderInput,
 } from "@/queries/__generated__/AddRoutineForm_Mutation.graphql";
 import { AddRoutineFormFragment$key } from "@/queries/__generated__/AddRoutineFormFragment.graphql";
 import { checkDuplicate } from "@/lib/utils";
@@ -59,21 +59,25 @@ const addRoutineformSchema = z.object({
   name: z.string().min(3),
   reminders: z.array(
     z.object({
-      day: z.coerce.number().positive(),
+      day: z.coerce.number().refine((d) => d >= 0),
       time: z.string(),
     }),
   ),
   routineExercises: z
     .array(
       z.object({
-        sets: z.array(
-          z.object({
-            reps: z.coerce.number().positive().optional(),
-            kg: z.coerce.number().positive().optional(),
-            duration: z.string().optional(),
-            km: z.coerce.number().positive().optional(),
+        sets: z
+          .array(
+            z.object({
+              reps: z.coerce.number().positive().optional(),
+              kg: z.coerce.number().positive().optional(),
+              duration: z.string().optional(),
+              km: z.coerce.number().positive().optional(),
+            }),
+          )
+          .refine((sets) => sets.length > 0, {
+            message: "Exercise must have sets",
           }),
-        ),
         restTime: z.string().optional(),
         exerciseID: z
           .string()
@@ -209,9 +213,7 @@ type BuildRoutineRemindersInputMutationParams = {
 function buildRoutineRemindersInputMutation({
   val,
   sendReminder,
-}: BuildRoutineRemindersInputMutationParams):
-  | CreateRoutineReminderInput[]
-  | null {
+}: BuildRoutineRemindersInputMutationParams): ReminderInput[] | null {
   if (sendReminder === true && val.reminders.length > 0) {
     return val.reminders.map((reminder) => {
       const date = new Date();
