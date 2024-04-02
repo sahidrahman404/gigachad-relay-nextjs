@@ -6,17 +6,17 @@ import { useGetTimerLabel } from "../Hooks/useGetTimerLabel";
 
 function TimerProgress() {
   const timerDuration = WorkoutMachineContext.useSelector(
-    (state) => state.context.timer.duration
+    (state) => state.context.timer.duration,
   );
   const timerElapsed = WorkoutMachineContext.useSelector(
-    (state) => state.context.timer.elapsed
+    (state) => state.context.timer.elapsed,
   );
   const duration = intervalToDuration({ start: 0, end: timerDuration * 1000 });
   const elapsed = intervalToDuration({ start: 0, end: timerElapsed * 1000 });
   const { label } = useGetTimerLabel();
   return (
     <div>
-      <p className="text-center">{`${elapsed.minutes}m ${elapsed.seconds}s / ${duration.minutes}m ${duration.seconds}s`}</p>
+      <p className="text-center">{`${elapsed.minutes ? `${elapsed.minutes}m` : ""} ${elapsed.seconds ? `${elapsed.seconds}s` : ""} / ${duration.minutes ? `${duration.minutes}m` : ""} ${duration.seconds ? `${duration.seconds}s` : ""}`}</p>
       <ProgressBar
         minValue={0}
         maxValue={timerDuration}
