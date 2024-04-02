@@ -23,6 +23,7 @@ import { AddRoutineFormReturn, AddRoutineFormSchema } from "./AddRoutineForm";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { TimeField } from "../ReactAriaUI/TimeField";
 import { Time, parseTime } from "@internationalized/date";
+import { FormCustomError } from "../common/FormCustomError";
 
 type RoutineExerciseSetFieldArray = UseFieldArrayReturn<
   AddRoutineFormSchema,
@@ -73,7 +74,11 @@ function SetFormField({
                 }}
               />
             ) : (
-              <Input type={type} {...field} />
+              <Input
+                type={type}
+                {...field}
+                value={field.value === 0 ? "" : field.value}
+              />
             )}
           </FormControl>
           <FormMessage />
@@ -103,9 +108,8 @@ function DeleteSetButton({ fieldArray, setIndex }: DeleteSetButtonProps) {
   );
 }
 
-type GetIterableIteratorVal<T> = T extends IterableIterator<infer TInferredData>
-  ? TInferredData
-  : never;
+type GetIterableIteratorVal<T> =
+  T extends IterableIterator<infer TInferredData> ? TInferredData : never;
 
 type SetFormFieldsProps = {
   formFields: (
@@ -141,7 +145,11 @@ function SetFormFields({
         <div key={set.id} className={cn("grid grid-cols-3 gap-x-2", className)}>
           {formFields(form, index, setIndex)}
 
-          <DeleteSetButton fieldArray={fieldArray} setIndex={setIndex} />
+          <div className="space-y-2">
+            <div className="h-6" />
+            <DeleteSetButton fieldArray={fieldArray} setIndex={setIndex} />
+            <div className="h-[0.8rem]" />
+          </div>
         </div>
       ))}
 
@@ -154,6 +162,7 @@ function SetFormFields({
       >
         Add Set
       </Button>
+      <FormCustomError name={`routineExercises.${index}.sets`} form={form} />
     </div>
   );
 }
