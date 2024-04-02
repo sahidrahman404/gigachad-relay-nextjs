@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<c5caeeda0a45880fd868dac1d843733a>>
+ * @generated SignedSource<<7332e9c931be5b6dde3f50025ac3c652>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -144,7 +144,16 @@ return {
             "selections": [
               {
                 "alias": null,
-                "args": null,
+                "args": [
+                  {
+                    "kind": "Literal",
+                    "name": "orderBy",
+                    "value": {
+                      "direction": "ASC",
+                      "field": "Order"
+                    }
+                  }
+                ],
                 "concreteType": "RoutineExerciseConnection",
                 "kind": "LinkedField",
                 "name": "routineExercises",
@@ -268,7 +277,7 @@ return {
                     "storageKey": null
                   }
                 ],
-                "storageKey": null
+                "storageKey": "routineExercises(orderBy:{\"direction\":\"ASC\",\"field\":\"Order\"})"
               }
             ],
             "type": "Routine",
@@ -280,12 +289,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "32f6f14ffdd86b3d8d3f970d95f0ee7d",
+    "cacheID": "34b15f35ce0cc347a96acc8c508797e9",
     "id": null,
     "metadata": {},
     "name": "RoutineIDStart_Query",
     "operationKind": "query",
-    "text": "query RoutineIDStart_Query(\n  $routineID: ID!\n) {\n  viewer {\n    ...useAuthRedirectFragment\n    id\n  }\n  node(id: $routineID) {\n    __typename\n    ... on Routine {\n      ...StartWorkoutFormFragment\n    }\n    id\n  }\n}\n\nfragment StartWorkoutFormFragment on Routine {\n  id\n  ...useStartWorkoutFormFragment\n}\n\nfragment useAuthRedirectFragment on User {\n  id\n}\n\nfragment useStartWorkoutFormFragment on Routine {\n  id\n  routineExercises {\n    edges {\n      node {\n        sets {\n          reps\n          kg\n          duration\n          km\n        }\n        restTime\n        exercises {\n          id\n          name\n          exerciseTypes {\n            edges {\n              node {\n                name\n                id\n              }\n            }\n          }\n        }\n        id\n      }\n    }\n  }\n}\n"
+    "text": "query RoutineIDStart_Query(\n  $routineID: ID!\n) {\n  viewer {\n    ...useAuthRedirectFragment\n    id\n  }\n  node(id: $routineID) {\n    __typename\n    ... on Routine {\n      ...StartWorkoutFormFragment\n    }\n    id\n  }\n}\n\nfragment StartWorkoutFormFragment on Routine {\n  id\n  ...useStartWorkoutFormFragment\n}\n\nfragment useAuthRedirectFragment on User {\n  id\n}\n\nfragment useStartWorkoutFormFragment on Routine {\n  id\n  routineExercises(orderBy: {direction: ASC, field: Order}) {\n    edges {\n      node {\n        sets {\n          reps\n          kg\n          duration\n          km\n        }\n        restTime\n        exercises {\n          id\n          name\n          exerciseTypes {\n            edges {\n              node {\n                name\n                id\n              }\n            }\n          }\n        }\n        id\n      }\n    }\n  }\n}\n"
   }
 };
 })();

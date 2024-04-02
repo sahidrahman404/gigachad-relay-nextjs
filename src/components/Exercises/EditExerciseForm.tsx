@@ -111,7 +111,6 @@ function EditExerciseForm({
   });
 
   function onSubmit(val: z.infer<typeof formSchema>) {
-    console.log("render");
     const image = val.image;
     const mutation = (meta?: InternalMetadata & Record<string, unknown>) => {
       commitMutation({

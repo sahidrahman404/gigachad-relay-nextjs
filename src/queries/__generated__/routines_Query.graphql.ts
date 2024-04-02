@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<e5c699d2b7ee5544bca8416eb4694c08>>
+ * @generated SignedSource<<7f7d648ee3e956c123defb1391b597ec>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -180,7 +180,16 @@ return {
                       (v2/*: any*/),
                       {
                         "alias": null,
-                        "args": null,
+                        "args": [
+                          {
+                            "kind": "Literal",
+                            "name": "orderBy",
+                            "value": {
+                              "direction": "ASC",
+                              "field": "Order"
+                            }
+                          }
+                        ],
                         "concreteType": "RoutineExerciseConnection",
                         "kind": "LinkedField",
                         "name": "routineExercises",
@@ -223,7 +232,7 @@ return {
                             "storageKey": null
                           }
                         ],
-                        "storageKey": null
+                        "storageKey": "routineExercises(orderBy:{\"direction\":\"ASC\",\"field\":\"Order\"})"
                       },
                       (v3/*: any*/)
                     ],
@@ -301,12 +310,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "736219a87cfb4b732f6aceb62e9d8a30",
+    "cacheID": "41d278196b3cf30cbf07bf4a3057a0d3",
     "id": null,
     "metadata": {},
     "name": "routines_Query",
     "operationKind": "query",
-    "text": "query routines_Query {\n  viewer {\n    ...useAuthRedirectFragment\n    ...RoutinesFragment\n    id\n  }\n}\n\nfragment RoutineFragment on Routine {\n  id\n  name\n  routineExercises {\n    edges {\n      node {\n        exercises {\n          name\n          id\n        }\n        id\n      }\n    }\n  }\n}\n\nfragment RoutinesEmptyStateFragment on User {\n  exercises(first: 1) {\n    edges {\n      node {\n        id\n        name\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n  id\n}\n\nfragment RoutinesFragment on User {\n  id\n  routines(first: 4, orderBy: {direction: DESC, field: ID}) {\n    edges {\n      node {\n        id\n        ...RoutineFragment\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n  ...RoutinesEmptyStateFragment\n}\n\nfragment useAuthRedirectFragment on User {\n  id\n}\n"
+    "text": "query routines_Query {\n  viewer {\n    ...useAuthRedirectFragment\n    ...RoutinesFragment\n    id\n  }\n}\n\nfragment RoutineFragment on Routine {\n  id\n  name\n  routineExercises(orderBy: {direction: ASC, field: Order}) {\n    edges {\n      node {\n        exercises {\n          name\n          id\n        }\n        id\n      }\n    }\n  }\n}\n\nfragment RoutinesEmptyStateFragment on User {\n  exercises(first: 1) {\n    edges {\n      node {\n        id\n        name\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n  id\n}\n\nfragment RoutinesFragment on User {\n  id\n  routines(first: 4, orderBy: {direction: DESC, field: ID}) {\n    edges {\n      node {\n        id\n        ...RoutineFragment\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n  ...RoutinesEmptyStateFragment\n}\n\nfragment useAuthRedirectFragment on User {\n  id\n}\n"
   }
 };
 })();

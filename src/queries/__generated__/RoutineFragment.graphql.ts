@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<aae5e78c94998c3614f5f5539f8c4d35>>
+ * @generated SignedSource<<18e515f5b0c4ca5cb0559f64e4f99d3e>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -53,7 +53,16 @@ return {
     (v0/*: any*/),
     {
       "alias": null,
-      "args": null,
+      "args": [
+        {
+          "kind": "Literal",
+          "name": "orderBy",
+          "value": {
+            "direction": "ASC",
+            "field": "Order"
+          }
+        }
+      ],
       "concreteType": "RoutineExerciseConnection",
       "kind": "LinkedField",
       "name": "routineExercises",
@@ -94,7 +103,7 @@ return {
           "storageKey": null
         }
       ],
-      "storageKey": null
+      "storageKey": "routineExercises(orderBy:{\"direction\":\"ASC\",\"field\":\"Order\"})"
     }
   ],
   "type": "Routine",
@@ -102,6 +111,6 @@ return {
 };
 })();
 
-(node as any).hash = "3a28dc668e39f506e199299af786dfd6";
+(node as any).hash = "141a88713e89f6a1dd3dc77e0b8cec88";
 
 export default node;

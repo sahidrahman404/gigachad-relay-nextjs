@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<afd5968fff06ef9ffd8deb3d25e7500a>>
+ * @generated SignedSource<<df881bfe10d698bb66e2b139da662b10>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -243,7 +243,16 @@ return {
                           (v8/*: any*/),
                           {
                             "alias": null,
-                            "args": null,
+                            "args": [
+                              {
+                                "kind": "Literal",
+                                "name": "orderBy",
+                                "value": {
+                                  "direction": "ASC",
+                                  "field": "Order"
+                                }
+                              }
+                            ],
                             "concreteType": "RoutineExerciseConnection",
                             "kind": "LinkedField",
                             "name": "routineExercises",
@@ -286,7 +295,7 @@ return {
                                 "storageKey": null
                               }
                             ],
-                            "storageKey": null
+                            "storageKey": "routineExercises(orderBy:{\"direction\":\"ASC\",\"field\":\"Order\"})"
                           },
                           (v5/*: any*/)
                         ],
@@ -368,12 +377,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "67128db01f3343d580f78ab1ec75ccb0",
+    "cacheID": "9479baacb5bc9b5cd12f43fecdcceb0a",
     "id": null,
     "metadata": {},
     "name": "RoutinesFragmentPaginationQuery",
     "operationKind": "query",
-    "text": "query RoutinesFragmentPaginationQuery(\n  $count: Int = 4\n  $cursor: Cursor\n  $orderby: OrderDirection = DESC\n  $id: ID!\n) {\n  node(id: $id) {\n    __typename\n    ...RoutinesFragment_2GViAS\n    id\n  }\n}\n\nfragment RoutineFragment on Routine {\n  id\n  name\n  routineExercises {\n    edges {\n      node {\n        exercises {\n          name\n          id\n        }\n        id\n      }\n    }\n  }\n}\n\nfragment RoutinesEmptyStateFragment on User {\n  exercises(first: 1) {\n    edges {\n      node {\n        id\n        name\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n  id\n}\n\nfragment RoutinesFragment_2GViAS on User {\n  id\n  routines(after: $cursor, first: $count, orderBy: {direction: $orderby, field: ID}) {\n    edges {\n      node {\n        id\n        ...RoutineFragment\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n  ...RoutinesEmptyStateFragment\n}\n"
+    "text": "query RoutinesFragmentPaginationQuery(\n  $count: Int = 4\n  $cursor: Cursor\n  $orderby: OrderDirection = DESC\n  $id: ID!\n) {\n  node(id: $id) {\n    __typename\n    ...RoutinesFragment_2GViAS\n    id\n  }\n}\n\nfragment RoutineFragment on Routine {\n  id\n  name\n  routineExercises(orderBy: {direction: ASC, field: Order}) {\n    edges {\n      node {\n        exercises {\n          name\n          id\n        }\n        id\n      }\n    }\n  }\n}\n\nfragment RoutinesEmptyStateFragment on User {\n  exercises(first: 1) {\n    edges {\n      node {\n        id\n        name\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n  id\n}\n\nfragment RoutinesFragment_2GViAS on User {\n  id\n  routines(after: $cursor, first: $count, orderBy: {direction: $orderby, field: ID}) {\n    edges {\n      node {\n        id\n        ...RoutineFragment\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n  ...RoutinesEmptyStateFragment\n}\n"
   }
 };
 })();

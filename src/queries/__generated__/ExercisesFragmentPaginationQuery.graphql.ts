@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<c9a9b3ca790c0c13fff6713b61f41e26>>
+ * @generated SignedSource<<8def97422c94a03e75485e72354e57e2>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -343,6 +343,14 @@ export type RoutineExerciseWhereInput = {
   idNotIn?: ReadonlyArray<string> | null | undefined;
   not?: RoutineExerciseWhereInput | null | undefined;
   or?: ReadonlyArray<RoutineExerciseWhereInput> | null | undefined;
+  order?: number | null | undefined;
+  orderGT?: number | null | undefined;
+  orderGTE?: number | null | undefined;
+  orderIn?: ReadonlyArray<number> | null | undefined;
+  orderLT?: number | null | undefined;
+  orderLTE?: number | null | undefined;
+  orderNEQ?: number | null | undefined;
+  orderNotIn?: ReadonlyArray<number> | null | undefined;
   restTime?: string | null | undefined;
   restTimeContains?: string | null | undefined;
   restTimeContainsFold?: string | null | undefined;

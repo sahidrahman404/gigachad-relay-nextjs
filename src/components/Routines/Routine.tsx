@@ -27,7 +27,7 @@ const RoutineFragment = graphql`
   fragment RoutineFragment on Routine {
     id
     name
-    routineExercises {
+    routineExercises(orderBy: { direction: ASC, field: Order }) {
       edges {
         node {
           exercises {

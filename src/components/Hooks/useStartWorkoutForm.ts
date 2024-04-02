@@ -7,7 +7,7 @@ import { WorkoutMachineContext } from "../Layout";
 const useStartWorkoutFormFragment = graphql`
   fragment useStartWorkoutFormFragment on Routine {
     id
-    routineExercises {
+    routineExercises(orderBy: { direction: ASC, field: Order }) {
       edges {
         node {
           sets {
