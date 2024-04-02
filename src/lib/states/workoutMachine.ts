@@ -473,7 +473,7 @@ const workoutMachine = createMachine(
           end: context.elapsed * 1000,
         });
         return {
-          duration: `${duration.hours}h ${duration.minutes}m ${duration.seconds}s`,
+          duration: `${duration.hours ? `${duration.hours}h` : ""} ${duration.minutes ? `${duration.minutes}m` : ""} ${duration.seconds ? `${duration.seconds}s` : ""}`,
         };
       }),
       resetStopwatch: assign(() => {
