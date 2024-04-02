@@ -61,15 +61,20 @@ function RoutineExerciseFieldArray({
                         />
                         <FormMessage />
                       </FormItem>
-                      <Button
-                        className="self-end h-12"
-                        variant="destructive"
-                        onPress={() => {
-                          remove(index);
-                        }}
-                      >
-                        Delete
-                      </Button>
+
+                      <div className="space-y-2">
+                        <div className="h-6" />
+                        <Button
+                          className="h-12 w-full"
+                          variant="destructive"
+                          onPress={() => {
+                            remove(index);
+                          }}
+                        >
+                          Delete
+                        </Button>
+                        <div className="h-[0.8rem]" />
+                      </div>
                     </div>
                   )}
                 />
