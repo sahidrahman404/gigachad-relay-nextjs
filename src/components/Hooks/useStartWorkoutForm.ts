@@ -7,6 +7,14 @@ import { WorkoutMachineContext } from "../Layout";
 const useStartWorkoutFormFragment = graphql`
   fragment useStartWorkoutFormFragment on Routine {
     id
+    name
+    reminderID
+    reminders {
+      day
+      hour
+      minute
+      second
+    }
     routineExercises(orderBy: { direction: ASC, field: Order }) {
       edges {
         node {
@@ -71,4 +79,4 @@ function useStartWorkoutForm({ queryRef }: UseStartWorkoutFormProps) {
   }, []);
 }
 
-export { useStartWorkoutForm };
+export { useStartWorkoutForm, useStartWorkoutFormFragment };

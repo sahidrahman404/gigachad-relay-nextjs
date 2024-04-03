@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<8247b0e98db1063f29f5d0ed3c5cd748>>
+ * @generated SignedSource<<bf1bc68b1009f6275cb02827d85c61d2>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -12,6 +12,14 @@ import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type useStartWorkoutFormFragment$data = {
   readonly id: string;
+  readonly name: string;
+  readonly reminderID: string | null | undefined;
+  readonly reminders: ReadonlyArray<{
+    readonly day: number;
+    readonly hour: number;
+    readonly minute: number;
+    readonly second: number;
+  }> | null | undefined;
   readonly routineExercises: {
     readonly edges: ReadonlyArray<{
       readonly node: {
@@ -65,6 +73,53 @@ return {
   "name": "useStartWorkoutFormFragment",
   "selections": [
     (v0/*: any*/),
+    (v1/*: any*/),
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "reminderID",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "Reminder",
+      "kind": "LinkedField",
+      "name": "reminders",
+      "plural": true,
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "day",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "hour",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "minute",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "second",
+          "storageKey": null
+        }
+      ],
+      "storageKey": null
+    },
     {
       "alias": null,
       "args": [
@@ -206,6 +261,6 @@ return {
 };
 })();
 
-(node as any).hash = "76c0b3eb59044cfd69fff5e8b2658321";
+(node as any).hash = "e913ca2159ece6b3b303afcfa20e8b5f";
 
 export default node;

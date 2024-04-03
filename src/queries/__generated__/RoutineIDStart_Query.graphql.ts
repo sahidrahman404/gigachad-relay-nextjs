@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<7332e9c931be5b6dde3f50025ac3c652>>
+ * @generated SignedSource<<dded8b8f4cec354d51b1f91c6c459a91>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -142,6 +142,53 @@ return {
           {
             "kind": "InlineFragment",
             "selections": [
+              (v3/*: any*/),
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "reminderID",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "Reminder",
+                "kind": "LinkedField",
+                "name": "reminders",
+                "plural": true,
+                "selections": [
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "day",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "hour",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "minute",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "second",
+                    "storageKey": null
+                  }
+                ],
+                "storageKey": null
+              },
               {
                 "alias": null,
                 "args": [
@@ -289,12 +336,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "34b15f35ce0cc347a96acc8c508797e9",
+    "cacheID": "0e2fc3e4d663d15fc5c7c6e56e6dcd34",
     "id": null,
     "metadata": {},
     "name": "RoutineIDStart_Query",
     "operationKind": "query",
-    "text": "query RoutineIDStart_Query(\n  $routineID: ID!\n) {\n  viewer {\n    ...useAuthRedirectFragment\n    id\n  }\n  node(id: $routineID) {\n    __typename\n    ... on Routine {\n      ...StartWorkoutFormFragment\n    }\n    id\n  }\n}\n\nfragment StartWorkoutFormFragment on Routine {\n  id\n  ...useStartWorkoutFormFragment\n}\n\nfragment useAuthRedirectFragment on User {\n  id\n}\n\nfragment useStartWorkoutFormFragment on Routine {\n  id\n  routineExercises(orderBy: {direction: ASC, field: Order}) {\n    edges {\n      node {\n        sets {\n          reps\n          kg\n          duration\n          km\n        }\n        restTime\n        exercises {\n          id\n          name\n          exerciseTypes {\n            edges {\n              node {\n                name\n                id\n              }\n            }\n          }\n        }\n        id\n      }\n    }\n  }\n}\n"
+    "text": "query RoutineIDStart_Query(\n  $routineID: ID!\n) {\n  viewer {\n    ...useAuthRedirectFragment\n    id\n  }\n  node(id: $routineID) {\n    __typename\n    ... on Routine {\n      ...StartWorkoutFormFragment\n    }\n    id\n  }\n}\n\nfragment StartWorkoutFormFragment on Routine {\n  id\n  ...useStartWorkoutFormFragment\n}\n\nfragment useAuthRedirectFragment on User {\n  id\n}\n\nfragment useStartWorkoutFormFragment on Routine {\n  id\n  name\n  reminderID\n  reminders {\n    day\n    hour\n    minute\n    second\n  }\n  routineExercises(orderBy: {direction: ASC, field: Order}) {\n    edges {\n      node {\n        sets {\n          reps\n          kg\n          duration\n          km\n        }\n        restTime\n        exercises {\n          id\n          name\n          exerciseTypes {\n            edges {\n              node {\n                name\n                id\n              }\n            }\n          }\n        }\n        id\n      }\n    }\n  }\n}\n"
   }
 };
 })();
