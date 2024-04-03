@@ -1435,7 +1435,6 @@ input UpdateExerciseTypeInput {
 }
 
 input UpdateRoutineExerciseInput {
-  id: ID!
   restTime: String
   sets: [SetInput!]
   exerciseID: ID!
