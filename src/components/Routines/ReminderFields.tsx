@@ -1,15 +1,15 @@
 import { useFormContext, useFieldArray } from "react-hook-form";
-import { AddRoutineFormSchema } from "./AddRoutineForm";
 import { FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
 import { DaySelector } from "./DaySelector";
 import { Button } from "../ReactAriaUI/Button";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { TimeField } from "../ReactAriaUI/TimeField";
 import { Time, parseTime } from "@internationalized/date";
+import { RoutineFormSchema } from "@/lib/zod/routineFormSchema";
 
 function ReminderFields() {
   const [parent] = useAutoAnimate();
-  const form = useFormContext<AddRoutineFormSchema>();
+  const form = useFormContext<RoutineFormSchema>();
   const { fields, remove, append } = useFieldArray({
     name: "reminders",
     control: form.control,

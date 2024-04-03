@@ -7,12 +7,12 @@ import {
 import { RoutineExerciseSetContext } from "./RoutineExerciseSetsField";
 import { getExerciseTypeFromExerciseSelectInputValue } from "./ExerciseSelectInput";
 import { useFormContext } from "react-hook-form";
-import { AddRoutineFormSchema } from "./AddRoutineForm";
+import { RoutineFormSchema } from "@/lib/zod/routineFormSchema";
 
 function GetRoutineExerciseSetsField() {
   const { index } = useContext(RoutineExerciseSetContext);
-  const form = useFormContext<AddRoutineFormSchema>();
   const exerciseSelectValue = form.watch().routineExercises[index].exerciseID;
+  const form = useFormContext<RoutineFormSchema>();
   const exerciseType =
     getExerciseTypeFromExerciseSelectInputValue(exerciseSelectValue);
 

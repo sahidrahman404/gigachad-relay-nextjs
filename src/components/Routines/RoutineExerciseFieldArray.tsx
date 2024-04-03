@@ -1,5 +1,4 @@
 import { useFieldArray, useFormContext } from "react-hook-form";
-import { AddRoutineFormSchema } from "./AddRoutineForm";
 import { FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
 import {
   Card,
@@ -10,12 +9,13 @@ import {
 } from "../ui/card";
 import { ExerciseSelectInput } from "./ExerciseSelectInput";
 import { Button } from "../ReactAriaUI/Button";
-import { RoutineExerciseSetsField } from "./RoutineExerciseSetsField";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { graphql } from "relay-runtime";
 import { RoutineExerciseFieldArrayFragment$key } from "@/queries/__generated__/RoutineExerciseFieldArrayFragment.graphql";
 import { useFragment } from "react-relay";
 import { RestTimerSelector } from "../common/RestTimerSelector";
+import { RoutineFormSchema } from "@/lib/zod/routineFormSchema";
+import { RoutineExerciseSetsField } from "./RoutineExerciseSetsField";
 
 const RoutineExerciseFieldArrayFragment = graphql`
   fragment RoutineExerciseFieldArrayFragment on User {
@@ -31,7 +31,7 @@ function RoutineExerciseFieldArray({
   queryRef,
 }: RoutineExerciseFieldArrayProps) {
   const data = useFragment(RoutineExerciseFieldArrayFragment, queryRef);
-  const form = useFormContext<AddRoutineFormSchema>();
+  const form = useFormContext<RoutineFormSchema>();
   const [parent] = useAutoAnimate();
   const { fields, append, remove } = useFieldArray({
     name: "routineExercises",

@@ -19,24 +19,27 @@ import {
   RoutineExerciseSetContext,
   RoutineExerciseSetProps,
 } from "./RoutineExerciseSetsField";
-import { AddRoutineFormReturn, AddRoutineFormSchema } from "./AddRoutineForm";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { TimeField } from "../ReactAriaUI/TimeField";
 import { Time, parseTime } from "@internationalized/date";
 import { FormCustomError } from "../common/FormCustomError";
+import {
+  RoutineFormReturn,
+  RoutineFormSchema,
+} from "@/lib/zod/routineFormSchema";
 
 type RoutineExerciseSetFieldArray = UseFieldArrayReturn<
-  AddRoutineFormSchema,
+  RoutineFormSchema,
   `routineExercises.${number}.sets`,
   "id"
 >;
 
 type SetFormFieldProps = {
   label: string;
-  form: AddRoutineFormReturn;
+  form: RoutineFormReturn;
   index: number;
   setIndex: number;
-  setField: keyof AddRoutineFormSchema["routineExercises"][0]["sets"][0];
+  setField: keyof RoutineFormSchema["routineExercises"][0]["sets"][0];
   type?: "text" | "number";
 };
 
@@ -113,7 +116,7 @@ type GetIterableIteratorVal<T> =
 
 type SetFormFieldsProps = {
   formFields: (
-    form: AddRoutineFormReturn,
+    form: RoutineFormReturn,
     index: RoutineExerciseSetProps["index"],
     setIndex: number,
   ) => ReactNode;
@@ -133,7 +136,7 @@ function SetFormFields({
 }: SetFormFieldsProps) {
   const [parent] = useAutoAnimate();
   const { index } = useContext(RoutineExerciseSetContext);
-  const form = useFormContext<AddRoutineFormSchema>();
+  const form = useFormContext<RoutineFormSchema>();
   const fieldArray = useFieldArray({
     name: `routineExercises.${index}.sets`,
     control: form.control,

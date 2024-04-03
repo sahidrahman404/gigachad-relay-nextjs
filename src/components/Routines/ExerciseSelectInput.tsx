@@ -131,4 +131,5 @@ export {
   ExerciseSelectInput,
   getIDFromExerciseSelectInputValue,
   getExerciseTypeFromExerciseSelectInputValue,
+  buildExerciseSelectInputValue,
 };
