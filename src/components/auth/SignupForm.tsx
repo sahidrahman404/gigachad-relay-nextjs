@@ -23,12 +23,14 @@ import { Input } from "../ui/input";
 import AuthButton from "./AuthButton";
 import { ShowPasswordCheckBox } from "./ShowPasswordCheckBox";
 import Logo from "../common/Logo";
+import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
 
 const formSchema = z
   .object({
     email: z.string().email(),
     name: z.string().min(3),
     username: z.string().min(5).max(72),
+    unit: z.enum(["METRIC", "IMPERIAL"]),
     password: z.string().min(8).max(72),
     confirmPassword: z.string().min(8).max(72),
   })
@@ -52,6 +54,7 @@ export default function SignupForm() {
       email: "",
       name: "",
       username: "",
+      unit: "METRIC",
       password: "",
       confirmPassword: "",
     },
@@ -66,6 +69,7 @@ export default function SignupForm() {
           email: val.email,
           name: val.name,
           username: val.username,
+          unit: val.unit,
           hashedPassword: val.password,
         },
       },
@@ -151,6 +155,37 @@ export default function SignupForm() {
                   <FormLabel>Username</FormLabel>
                   <FormControl>
                     <Input placeholder="smith123" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="unit"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Unit</FormLabel>
+                  <FormControl>
+                    <RadioGroup
+                      onValueChange={field.onChange}
+                      value={field.value}
+                      className="flex flex-col space-y-1"
+                    >
+                      <FormItem className="flex items-center space-x-3 space-y-0">
+                        <FormControl>
+                          <RadioGroupItem value="METRIC" />
+                        </FormControl>
+                        <FormLabel className="font-normal">Metric</FormLabel>
+                      </FormItem>
+                      <FormItem className="flex items-center space-x-3 space-y-0">
+                        <FormControl>
+                          <RadioGroupItem value="IMPERIAL" />
+                        </FormControl>
+                        <FormLabel className="font-normal">Imperial</FormLabel>
+                      </FormItem>
+                    </RadioGroup>
                   </FormControl>
                   <FormMessage />
                 </FormItem>
