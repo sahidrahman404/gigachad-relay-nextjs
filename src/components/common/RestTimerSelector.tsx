@@ -7,6 +7,7 @@ import {
 } from "@/components/ui/select";
 import { FormControl } from "../ui/form";
 import { SelectProps } from "@radix-ui/react-select";
+import { memo, useMemo } from "react";
 
 const restTimeList = [
   {
@@ -217,7 +218,10 @@ const restTimeList = [
 
 type RestTimerSelectorProps = SelectProps;
 
-function RestTimerSelector({ ...props }: RestTimerSelectorProps) {
+const RestTimerSelector = memo(function RestTimerSelector({
+  ...props
+}: RestTimerSelectorProps) {
+  const rtl = useMemo(() => restTimeList, []);
   return (
     <Select {...props}>
       <FormControl>
@@ -226,14 +230,17 @@ function RestTimerSelector({ ...props }: RestTimerSelectorProps) {
         </SelectTrigger>
       </FormControl>
       <SelectContent>
-        {restTimeList.map((rT) => (
-          <SelectItem key={rT.value.toString()} value={rT.value.toString()}>
-            {rT.item}
+        {rtl.map((restTime) => (
+          <SelectItem
+            key={restTime.value.toString()}
+            value={restTime.value.toString()}
+          >
+            {restTime.item}
           </SelectItem>
         ))}
       </SelectContent>
     </Select>
   );
-}
+});
 
 export { RestTimerSelector };
