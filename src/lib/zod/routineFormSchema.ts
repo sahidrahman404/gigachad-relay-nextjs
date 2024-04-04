@@ -1,13 +1,11 @@
 import { z } from "zod";
 import { UseFormReturn } from "react-hook-form";
 import { checkDuplicate } from "../utils";
-import {
-  buildExerciseSelectInputValue,
-  getIDFromExerciseSelectInputValue,
-} from "@/components/Routines/ExerciseSelectInput";
+import { getIDFromExerciseSelectInputValue } from "@/components/Routines/ExerciseSelectInput";
 import { ReminderInput } from "@/queries/__generated__/AddRoutineForm_Mutation.graphql";
 import { useStartWorkoutFormFragment$data } from "@/queries/__generated__/useStartWorkoutFormFragment.graphql";
 import { Time } from "@internationalized/date";
+import { buildExerciseSelectInputValue } from "@/components/Routines/ExerciseSelectItem";
 
 const routineformSchema = z.object({
   name: z.string().min(3),
