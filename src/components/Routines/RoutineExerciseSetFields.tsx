@@ -1,4 +1,4 @@
-import { ReactNode, useContext } from "react";
+import { ReactNode, memo, useContext } from "react";
 import {
   FieldArrayMethodProps,
   UseFieldArrayReturn,
@@ -13,7 +13,7 @@ import {
   FormMessage,
 } from "../ui/form";
 import { Input } from "../ui/input";
-import { Button } from "../ui/button";
+import { Button } from "../ReactAriaUI/Button";
 import { cn } from "@/lib/utils";
 import {
   RoutineExerciseSetContext,
@@ -101,8 +101,8 @@ function DeleteSetButton({ fieldArray, setIndex }: DeleteSetButtonProps) {
     <Button
       variant="destructive"
       className="col-span-1 self-end"
-      onClick={(e) => {
-        e.preventDefault();
+      type="button"
+      onPress={() => {
         fieldArray.remove(setIndex);
       }}
     >
@@ -158,8 +158,8 @@ function SetFormFields({
 
       <Button
         variant="outline"
-        onClick={(e) => {
-          e.preventDefault();
+        type="button"
+        onPress={() => {
           fieldArray.append({ ...appendArgument });
         }}
       >
@@ -175,7 +175,10 @@ type SetFieldProps = {
   className?: string;
 };
 
-function SetField({ setIndex, className }: SetFieldProps) {
+const SetField = memo(function SetField({
+  setIndex,
+  className,
+}: SetFieldProps) {
   return (
     <FormItem className={cn("col-span-1", className)}>
       <FormLabel className="text-muted-foreground">Set</FormLabel>
@@ -183,7 +186,7 @@ function SetField({ setIndex, className }: SetFieldProps) {
       <FormMessage />
     </FormItem>
   );
-}
+});
 
 function BodyWeightField() {
   return (
