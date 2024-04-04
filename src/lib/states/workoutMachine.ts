@@ -539,9 +539,9 @@ function processWorkoutLogs(data: useStartWorkoutFormFragment$data) {
           return {
             selected: false,
             reps: set.reps ?? undefined,
-            kg: set.kg ?? undefined,
+            weight: set.weight ?? undefined,
             duration: set.duration ?? undefined,
-            km: set.km ?? undefined,
+            length: set.length ?? undefined,
           };
         }),
         name: capitalizeFirstLetter(rE.node.exercises.name),
@@ -587,8 +587,8 @@ function getTotalVolume(workoutLogs: Context["workoutLogs"]) {
     return (
       acc +
       currVal.sets.reduce((acc, setCurrVal) => {
-        if (setCurrVal.kg && setCurrVal.reps && setCurrVal.selected) {
-          return acc + setCurrVal.kg * setCurrVal.reps;
+        if (setCurrVal.weight && setCurrVal.reps && setCurrVal.selected) {
+          return acc + setCurrVal.weight * setCurrVal.reps;
         }
         return acc + 0;
       }, initialVolume)
@@ -620,11 +620,13 @@ function editSetWorkoutLogInplace({
     case "reps":
       context.workoutLogs[workoutLogsIndex].sets[setIndex].reps = set["reps"];
       break;
-    case "kg":
-      context.workoutLogs[workoutLogsIndex].sets[setIndex].kg = set["kg"];
+    case "weight":
+      context.workoutLogs[workoutLogsIndex].sets[setIndex].weight =
+        set["weight"];
       break;
-    case "km":
-      context.workoutLogs[workoutLogsIndex].sets[setIndex].km = set["km"];
+    case "length":
+      context.workoutLogs[workoutLogsIndex].sets[setIndex].length =
+        set["length"];
       break;
   }
 }
@@ -636,9 +638,9 @@ function filterSelectedWorkoutLogs(workoutLogs: Context["workoutLogs"]) {
       if (selectedSets.length > 0) {
         return {
           sets: selectedSets.map((set) => ({
-            kg: set.kg,
+            weight: set.weight,
             time: set.duration,
-            km: set.km,
+            length: set.length,
             reps: set.reps,
           })),
           exerciseID: wl.exerciseID,

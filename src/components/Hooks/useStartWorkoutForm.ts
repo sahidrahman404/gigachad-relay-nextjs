@@ -20,9 +20,9 @@ const useStartWorkoutFormFragment = graphql`
         node {
           sets {
             reps
-            kg
+            weight
             duration
-            km
+            length
           }
           restTime
           exercises {

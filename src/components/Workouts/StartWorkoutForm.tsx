@@ -26,9 +26,9 @@ const formSchema = z.object({
           z.object({
             selected: z.boolean().default(false).optional(),
             reps: z.coerce.number().positive().optional(),
-            kg: z.coerce.number().positive().optional(),
+            weight: z.coerce.number().positive().optional(),
             duration: z.string().optional(),
-            km: z.coerce.number().positive().optional(),
+            length: z.coerce.number().positive().optional(),
           }),
         ),
         restTime: z.string().optional(),

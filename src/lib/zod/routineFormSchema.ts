@@ -22,9 +22,9 @@ const routineformSchema = z.object({
           .array(
             z.object({
               reps: z.coerce.number().positive().optional(),
-              kg: z.coerce.number().positive().optional(),
+              weight: z.coerce.number().positive().optional(),
               duration: z.string().optional(),
-              km: z.coerce.number().positive().optional(),
+              length: z.coerce.number().positive().optional(),
             }),
           )
           .refine((sets) => sets.length > 0, {
@@ -111,8 +111,8 @@ function unbuildRoutineExercisesInput(
             ? routineExercise.node.sets.map((set) => {
                 return {
                   duration: set.duration ?? undefined,
-                  kg: set.kg ?? undefined,
-                  km: set.km ?? undefined,
+                  weight: set.weight ?? undefined,
+                  length: set.length ?? undefined,
                   reps: set.reps ?? undefined,
                 };
               })

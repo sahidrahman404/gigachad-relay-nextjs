@@ -38,9 +38,9 @@ const FinishWorkoutFormMutation = graphql`
           node {
             sets {
               reps
-              kg
+              weight
               duration
-              km
+              length
             }
             workoutID
             exerciseID

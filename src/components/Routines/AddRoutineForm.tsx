@@ -36,9 +36,9 @@ const RoutineMutation = graphql`
           node {
             exerciseID
             sets {
-              kg
+              weight
               duration
-              km
+              length
               reps
             }
           }

@@ -257,11 +257,11 @@ function WeightField() {
             <SetField setIndex={setIndex} />
 
             <WorkoutLogsSetFormField
-              label="kg"
+              label="weight"
               form={form}
               index={index}
               setIndex={setIndex}
-              setField="kg"
+              setField="weight"
               type="number"
             />
 
@@ -277,7 +277,7 @@ function WeightField() {
         );
       }}
       appendArgument={{
-        kg: 0,
+        weight: 0,
         reps: 0,
       }}
       className="grid-cols-[31.6fr_31.6fr_31.6fr_.5fr]"
