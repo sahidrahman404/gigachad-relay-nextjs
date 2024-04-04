@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<8def97422c94a03e75485e72354e57e2>>
+ * @generated SignedSource<<09d400936f3282be768feef6f090f7e3>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,6 +11,7 @@
 import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type OrderDirection = "ASC" | "DESC" | "%future added value";
+export type UserUnit = "IMPERIAL" | "METRIC" | "%future added value";
 export type ExerciseTypeWhereInput = {
   and?: ReadonlyArray<ExerciseTypeWhereInput> | null | undefined;
   description?: string | null | undefined;
@@ -134,19 +135,14 @@ export type UserWhereInput = {
   activatedNEQ?: number | null | undefined;
   activatedNotIn?: ReadonlyArray<number> | null | undefined;
   and?: ReadonlyArray<UserWhereInput> | null | undefined;
-  createdAt?: string | null | undefined;
-  createdAtContains?: string | null | undefined;
-  createdAtContainsFold?: string | null | undefined;
-  createdAtEqualFold?: string | null | undefined;
-  createdAtGT?: string | null | undefined;
-  createdAtGTE?: string | null | undefined;
-  createdAtHasPrefix?: string | null | undefined;
-  createdAtHasSuffix?: string | null | undefined;
-  createdAtIn?: ReadonlyArray<string> | null | undefined;
-  createdAtLT?: string | null | undefined;
-  createdAtLTE?: string | null | undefined;
-  createdAtNEQ?: string | null | undefined;
-  createdAtNotIn?: ReadonlyArray<string> | null | undefined;
+  createdAt?: any | null | undefined;
+  createdAtGT?: any | null | undefined;
+  createdAtGTE?: any | null | undefined;
+  createdAtIn?: ReadonlyArray<any> | null | undefined;
+  createdAtLT?: any | null | undefined;
+  createdAtLTE?: any | null | undefined;
+  createdAtNEQ?: any | null | undefined;
+  createdAtNotIn?: ReadonlyArray<any> | null | undefined;
   email?: string | null | undefined;
   emailContains?: string | null | undefined;
   emailContainsFold?: string | null | undefined;
@@ -195,6 +191,10 @@ export type UserWhereInput = {
   nameNotIn?: ReadonlyArray<string> | null | undefined;
   not?: UserWhereInput | null | undefined;
   or?: ReadonlyArray<UserWhereInput> | null | undefined;
+  unit?: UserUnit | null | undefined;
+  unitIn?: ReadonlyArray<UserUnit> | null | undefined;
+  unitNEQ?: UserUnit | null | undefined;
+  unitNotIn?: ReadonlyArray<UserUnit> | null | undefined;
   username?: string | null | undefined;
   usernameContains?: string | null | undefined;
   usernameContainsFold?: string | null | undefined;
@@ -369,19 +369,14 @@ export type RoutineExerciseWhereInput = {
 };
 export type WorkoutWhereInput = {
   and?: ReadonlyArray<WorkoutWhereInput> | null | undefined;
-  createdAt?: string | null | undefined;
-  createdAtContains?: string | null | undefined;
-  createdAtContainsFold?: string | null | undefined;
-  createdAtEqualFold?: string | null | undefined;
-  createdAtGT?: string | null | undefined;
-  createdAtGTE?: string | null | undefined;
-  createdAtHasPrefix?: string | null | undefined;
-  createdAtHasSuffix?: string | null | undefined;
-  createdAtIn?: ReadonlyArray<string> | null | undefined;
-  createdAtLT?: string | null | undefined;
-  createdAtLTE?: string | null | undefined;
-  createdAtNEQ?: string | null | undefined;
-  createdAtNotIn?: ReadonlyArray<string> | null | undefined;
+  createdAt?: any | null | undefined;
+  createdAtGT?: any | null | undefined;
+  createdAtGTE?: any | null | undefined;
+  createdAtIn?: ReadonlyArray<any> | null | undefined;
+  createdAtLT?: any | null | undefined;
+  createdAtLTE?: any | null | undefined;
+  createdAtNEQ?: any | null | undefined;
+  createdAtNotIn?: ReadonlyArray<any> | null | undefined;
   description?: string | null | undefined;
   descriptionContains?: string | null | undefined;
   descriptionContainsFold?: string | null | undefined;
@@ -458,19 +453,14 @@ export type WorkoutWhereInput = {
 };
 export type WorkoutLogWhereInput = {
   and?: ReadonlyArray<WorkoutLogWhereInput> | null | undefined;
-  createdAt?: string | null | undefined;
-  createdAtContains?: string | null | undefined;
-  createdAtContainsFold?: string | null | undefined;
-  createdAtEqualFold?: string | null | undefined;
-  createdAtGT?: string | null | undefined;
-  createdAtGTE?: string | null | undefined;
-  createdAtHasPrefix?: string | null | undefined;
-  createdAtHasSuffix?: string | null | undefined;
-  createdAtIn?: ReadonlyArray<string> | null | undefined;
-  createdAtLT?: string | null | undefined;
-  createdAtLTE?: string | null | undefined;
-  createdAtNEQ?: string | null | undefined;
-  createdAtNotIn?: ReadonlyArray<string> | null | undefined;
+  createdAt?: any | null | undefined;
+  createdAtGT?: any | null | undefined;
+  createdAtGTE?: any | null | undefined;
+  createdAtIn?: ReadonlyArray<any> | null | undefined;
+  createdAtLT?: any | null | undefined;
+  createdAtLTE?: any | null | undefined;
+  createdAtNEQ?: any | null | undefined;
+  createdAtNotIn?: ReadonlyArray<any> | null | undefined;
   id?: string | null | undefined;
   idGT?: string | null | undefined;
   idGTE?: string | null | undefined;

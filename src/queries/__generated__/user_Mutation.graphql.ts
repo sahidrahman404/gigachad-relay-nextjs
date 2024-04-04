@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<0dff9504e821daa2c349fe93f65b0054>>
+ * @generated SignedSource<<90b8399d249fb57ebbc0a7bfc9d02e1d>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,6 +9,7 @@
 // @ts-nocheck
 
 import { ConcreteRequest, Mutation } from 'relay-runtime';
+export type UserUnit = "IMPERIAL" | "METRIC" | "%future added value";
 export type CreateUserInput = {
   email: string;
   exerciseIDs?: ReadonlyArray<string> | null | undefined;
@@ -16,6 +17,7 @@ export type CreateUserInput = {
   name: string;
   routineIDs?: ReadonlyArray<string> | null | undefined;
   tokenIDs?: ReadonlyArray<string> | null | undefined;
+  unit?: UserUnit | null | undefined;
   username: string;
   workoutIDs?: ReadonlyArray<string> | null | undefined;
 };
