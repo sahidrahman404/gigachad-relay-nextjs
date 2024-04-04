@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<bf1bc68b1009f6275cb02827d85c61d2>>
+ * @generated SignedSource<<d8caf593167f00ddbfe11b2f257a4fa4>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -37,9 +37,9 @@ export type useStartWorkoutFormFragment$data = {
         readonly restTime: string | null | undefined;
         readonly sets: ReadonlyArray<{
           readonly duration: string | null | undefined;
-          readonly kg: number | null | undefined;
-          readonly km: number | null | undefined;
+          readonly length: number | null | undefined;
           readonly reps: number | null | undefined;
+          readonly weight: number | null | undefined;
         }>;
       } | null | undefined;
     } | null | undefined> | null | undefined;
@@ -172,7 +172,7 @@ return {
                       "alias": null,
                       "args": null,
                       "kind": "ScalarField",
-                      "name": "kg",
+                      "name": "weight",
                       "storageKey": null
                     },
                     {
@@ -186,7 +186,7 @@ return {
                       "alias": null,
                       "args": null,
                       "kind": "ScalarField",
-                      "name": "km",
+                      "name": "length",
                       "storageKey": null
                     }
                   ],
@@ -261,6 +261,6 @@ return {
 };
 })();
 
-(node as any).hash = "e913ca2159ece6b3b303afcfa20e8b5f";
+(node as any).hash = "cb355f139499ebc8e005c53ae688d959";
 
 export default node;

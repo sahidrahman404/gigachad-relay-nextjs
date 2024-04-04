@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<6bdc5b6e98c4aad76c71571e9e84b000>>
+ * @generated SignedSource<<f9b4c4fb2c5152817442856c1b801da3>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -33,9 +33,9 @@ export type UpdateRoutineExerciseInput = {
 };
 export type SetInput = {
   duration?: string | null | undefined;
-  kg?: number | null | undefined;
-  km?: number | null | undefined;
+  length?: number | null | undefined;
   reps?: number | null | undefined;
+  weight?: number | null | undefined;
 };
 export type EditRoutineForm_Mutation$variables = {
   input: UpdateRoutineWithChildrenInput;
@@ -225,7 +225,7 @@ return {
                             "alias": null,
                             "args": null,
                             "kind": "ScalarField",
-                            "name": "kg",
+                            "name": "weight",
                             "storageKey": null
                           },
                           {
@@ -239,7 +239,7 @@ return {
                             "alias": null,
                             "args": null,
                             "kind": "ScalarField",
-                            "name": "km",
+                            "name": "length",
                             "storageKey": null
                           }
                         ],
@@ -316,12 +316,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "3596c1e91a55061ab585cfeaaca8d67c",
+    "cacheID": "1e04f47eba7a3ee97d8aea55effd07a7",
     "id": null,
     "metadata": {},
     "name": "EditRoutineForm_Mutation",
     "operationKind": "mutation",
-    "text": "mutation EditRoutineForm_Mutation(\n  $input: UpdateRoutineWithChildrenInput!\n) {\n  updateRoutineWithChildren(input: $input) {\n    ...useStartWorkoutFormFragment\n    ...RoutineFragment\n    id\n  }\n}\n\nfragment RoutineFragment on Routine {\n  id\n  name\n  routineExercises(orderBy: {direction: ASC, field: Order}) {\n    edges {\n      node {\n        exercises {\n          name\n          id\n        }\n        id\n      }\n    }\n  }\n}\n\nfragment useStartWorkoutFormFragment on Routine {\n  id\n  name\n  reminderID\n  reminders {\n    day\n    hour\n    minute\n    second\n  }\n  routineExercises(orderBy: {direction: ASC, field: Order}) {\n    edges {\n      node {\n        sets {\n          reps\n          kg\n          duration\n          km\n        }\n        restTime\n        exercises {\n          id\n          name\n          exerciseTypes {\n            edges {\n              node {\n                name\n                id\n              }\n            }\n          }\n        }\n        id\n      }\n    }\n  }\n}\n"
+    "text": "mutation EditRoutineForm_Mutation(\n  $input: UpdateRoutineWithChildrenInput!\n) {\n  updateRoutineWithChildren(input: $input) {\n    ...useStartWorkoutFormFragment\n    ...RoutineFragment\n    id\n  }\n}\n\nfragment RoutineFragment on Routine {\n  id\n  name\n  routineExercises(orderBy: {direction: ASC, field: Order}) {\n    edges {\n      node {\n        exercises {\n          name\n          id\n        }\n        id\n      }\n    }\n  }\n}\n\nfragment useStartWorkoutFormFragment on Routine {\n  id\n  name\n  reminderID\n  reminders {\n    day\n    hour\n    minute\n    second\n  }\n  routineExercises(orderBy: {direction: ASC, field: Order}) {\n    edges {\n      node {\n        sets {\n          reps\n          weight\n          duration\n          length\n        }\n        restTime\n        exercises {\n          id\n          name\n          exerciseTypes {\n            edges {\n              node {\n                name\n                id\n              }\n            }\n          }\n        }\n        id\n      }\n    }\n  }\n}\n"
   }
 };
 })();

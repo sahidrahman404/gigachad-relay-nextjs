@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<8e324a0ed3fcf8f226454ee3b752d1cc>>
+ * @generated SignedSource<<08ada4c573aa4c237525662abeb9df32>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -27,9 +27,9 @@ export type CreateRoutineExerciseInput = {
 };
 export type SetInput = {
   duration?: string | null | undefined;
-  kg?: number | null | undefined;
-  km?: number | null | undefined;
+  length?: number | null | undefined;
   reps?: number | null | undefined;
+  weight?: number | null | undefined;
 };
 export type AddRoutineForm_Mutation$variables = {
   input: CreateRoutineWithChildrenInput;
@@ -43,9 +43,9 @@ export type AddRoutineForm_Mutation$data = {
           readonly exerciseID: string;
           readonly sets: ReadonlyArray<{
             readonly duration: string | null | undefined;
-            readonly kg: number | null | undefined;
-            readonly km: number | null | undefined;
+            readonly length: number | null | undefined;
             readonly reps: number | null | undefined;
+            readonly weight: number | null | undefined;
           }>;
         } | null | undefined;
       } | null | undefined> | null | undefined;
@@ -98,7 +98,7 @@ v4 = {
       "alias": null,
       "args": null,
       "kind": "ScalarField",
-      "name": "kg",
+      "name": "weight",
       "storageKey": null
     },
     {
@@ -112,7 +112,7 @@ v4 = {
       "alias": null,
       "args": null,
       "kind": "ScalarField",
-      "name": "km",
+      "name": "length",
       "storageKey": null
     },
     {
@@ -240,16 +240,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "49ed184af2dd36924084954964b766c9",
+    "cacheID": "c65f7f3d00bb2cc0f7f05a635a814e57",
     "id": null,
     "metadata": {},
     "name": "AddRoutineForm_Mutation",
     "operationKind": "mutation",
-    "text": "mutation AddRoutineForm_Mutation(\n  $input: CreateRoutineWithChildrenInput!\n) {\n  createRoutineWithChildren(input: $input) {\n    id\n    routineExercises {\n      edges {\n        node {\n          exerciseID\n          sets {\n            kg\n            duration\n            km\n            reps\n          }\n          id\n        }\n      }\n    }\n  }\n}\n"
+    "text": "mutation AddRoutineForm_Mutation(\n  $input: CreateRoutineWithChildrenInput!\n) {\n  createRoutineWithChildren(input: $input) {\n    id\n    routineExercises {\n      edges {\n        node {\n          exerciseID\n          sets {\n            weight\n            duration\n            length\n            reps\n          }\n          id\n        }\n      }\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "80b9ccce941d80a2eb584c8d39fe50cc";
+(node as any).hash = "a65c15d2601b9562107e90fe672c868c";
 
 export default node;

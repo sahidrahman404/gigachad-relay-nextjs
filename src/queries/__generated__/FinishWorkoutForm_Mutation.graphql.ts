@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<096c5b23180ba432d396de1c0cee4842>>
+ * @generated SignedSource<<1b467e80c0d73a9aabdf874e52b1be58>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -33,9 +33,9 @@ export type CreateWorkoutLogInput = {
 };
 export type SetInput = {
   duration?: string | null | undefined;
-  kg?: number | null | undefined;
-  km?: number | null | undefined;
+  length?: number | null | undefined;
   reps?: number | null | undefined;
+  weight?: number | null | undefined;
 };
 export type FinishWorkoutForm_Mutation$variables = {
   input: CreateWorkoutWithChildrenInput;
@@ -49,9 +49,9 @@ export type FinishWorkoutForm_Mutation$data = {
           readonly exerciseID: string;
           readonly sets: ReadonlyArray<{
             readonly duration: string | null | undefined;
-            readonly kg: number | null | undefined;
-            readonly km: number | null | undefined;
+            readonly length: number | null | undefined;
             readonly reps: number | null | undefined;
+            readonly weight: number | null | undefined;
           }>;
           readonly workoutID: string;
         } | null | undefined;
@@ -105,7 +105,7 @@ v3 = {
       "alias": null,
       "args": null,
       "kind": "ScalarField",
-      "name": "kg",
+      "name": "weight",
       "storageKey": null
     },
     {
@@ -119,7 +119,7 @@ v3 = {
       "alias": null,
       "args": null,
       "kind": "ScalarField",
-      "name": "km",
+      "name": "length",
       "storageKey": null
     }
   ],
@@ -256,16 +256,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "c2d98f8d2bacca1418444dc0747467a0",
+    "cacheID": "23abffbaf13ffcee46fcb13720056c0f",
     "id": null,
     "metadata": {},
     "name": "FinishWorkoutForm_Mutation",
     "operationKind": "mutation",
-    "text": "mutation FinishWorkoutForm_Mutation(\n  $input: CreateWorkoutWithChildrenInput!\n) {\n  createWorkoutWithChildren(input: $input) {\n    id\n    workoutLogs {\n      edges {\n        node {\n          sets {\n            reps\n            kg\n            duration\n            km\n          }\n          workoutID\n          exerciseID\n          id\n        }\n      }\n    }\n  }\n}\n"
+    "text": "mutation FinishWorkoutForm_Mutation(\n  $input: CreateWorkoutWithChildrenInput!\n) {\n  createWorkoutWithChildren(input: $input) {\n    id\n    workoutLogs {\n      edges {\n        node {\n          sets {\n            reps\n            weight\n            duration\n            length\n          }\n          workoutID\n          exerciseID\n          id\n        }\n      }\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "80dc2aed9565c730bfc0a97ae281122d";
+(node as any).hash = "35f4de5707f636524e72d1c26bee415a";
 
 export default node;
