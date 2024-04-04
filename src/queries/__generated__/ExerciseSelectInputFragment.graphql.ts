@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<5859518f78c51590bdd0fbd3a826422c>>
+ * @generated SignedSource<<8d82a147edd3e36d51eb3d18072c18e8>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -14,18 +14,8 @@ export type ExerciseSelectInputFragment$data = {
   readonly exercises: {
     readonly edges: ReadonlyArray<{
       readonly node: {
-        readonly exerciseTypes: {
-          readonly edges: ReadonlyArray<{
-            readonly node: {
-              readonly name: string;
-            } | null | undefined;
-          } | null | undefined> | null | undefined;
-        };
         readonly id: string;
-        readonly image: {
-          readonly " $fragmentSpreads": FragmentRefs<"ImageFragment">;
-        } | null | undefined;
-        readonly name: string;
+        readonly " $fragmentSpreads": FragmentRefs<"ExerciseSelectItemFragment">;
       } | null | undefined;
     } | null | undefined> | null | undefined;
     readonly pageInfo: {
@@ -49,13 +39,6 @@ v1 = {
   "args": null,
   "kind": "ScalarField",
   "name": "id",
-  "storageKey": null
-},
-v2 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "name",
   "storageKey": null
 };
 return {
@@ -149,56 +132,10 @@ return {
               "plural": false,
               "selections": [
                 (v1/*: any*/),
-                (v2/*: any*/),
                 {
-                  "alias": null,
                   "args": null,
-                  "concreteType": "Image",
-                  "kind": "LinkedField",
-                  "name": "image",
-                  "plural": false,
-                  "selections": [
-                    {
-                      "args": null,
-                      "kind": "FragmentSpread",
-                      "name": "ImageFragment"
-                    }
-                  ],
-                  "storageKey": null
-                },
-                {
-                  "alias": null,
-                  "args": null,
-                  "concreteType": "ExerciseTypeConnection",
-                  "kind": "LinkedField",
-                  "name": "exerciseTypes",
-                  "plural": false,
-                  "selections": [
-                    {
-                      "alias": null,
-                      "args": null,
-                      "concreteType": "ExerciseTypeEdge",
-                      "kind": "LinkedField",
-                      "name": "edges",
-                      "plural": true,
-                      "selections": [
-                        {
-                          "alias": null,
-                          "args": null,
-                          "concreteType": "ExerciseType",
-                          "kind": "LinkedField",
-                          "name": "node",
-                          "plural": false,
-                          "selections": [
-                            (v2/*: any*/)
-                          ],
-                          "storageKey": null
-                        }
-                      ],
-                      "storageKey": null
-                    }
-                  ],
-                  "storageKey": null
+                  "kind": "FragmentSpread",
+                  "name": "ExerciseSelectItemFragment"
                 },
                 {
                   "alias": null,
@@ -255,6 +192,6 @@ return {
 };
 })();
 
-(node as any).hash = "e737f048bd1f7ab0fe591f742b1c7173";
+(node as any).hash = "b90c6e488bd073cb39bef09930df4856";
 
 export default node;

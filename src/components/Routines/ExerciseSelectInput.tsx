@@ -3,18 +3,16 @@ import { graphql } from "relay-runtime";
 import {
   Select,
   SelectContent,
-  SelectItem,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
 import { FormControl } from "@/components/ui/form";
 import { SelectProps } from "@radix-ui/react-select";
-import { Avatar } from "../ui/avatar";
-import { Image } from "../Image/Image";
 import { ExerciseSelectInputFragment$key } from "@/queries/__generated__/ExerciseSelectInputFragment.graphql";
 import { useCallback, useTransition } from "react";
 import { InfiniteScroll } from "../common/InfiniteScroll";
 import { LoadingSpinner } from "../common/LoadingSpinner";
+import { ExerciseSelectItem } from "./ExerciseSelectItem";
 
 const ExerciseSelectInputFragment = graphql`
   fragment ExerciseSelectInputFragment on User
@@ -32,17 +30,7 @@ const ExerciseSelectInputFragment = graphql`
       edges {
         node {
           id
-          name
-          image {
-            ...ImageFragment
-          }
-          exerciseTypes {
-            edges {
-              node {
-                name
-              }
-            }
-          }
+          ...ExerciseSelectItemFragment
         }
       }
       pageInfo {
@@ -78,26 +66,8 @@ function ExerciseSelectInput({ queryRef, ...props }: ExerciseSelectInputProps) {
       </FormControl>
       <SelectContent>
         {data.exercises?.edges?.map((mg) => {
-          if (
-            mg?.node &&
-            mg.node.exerciseTypes &&
-            mg.node.exerciseTypes.edges &&
-            mg.node.exerciseTypes.edges[0]?.node
-          ) {
-            const value = buildExerciseSelectInputValue({
-              id: mg.node.id,
-              exerciseType: mg.node.exerciseTypes.edges[0].node.name,
-            });
-            return (
-              <SelectItem key={mg.node.id} value={value}>
-                <div className="flex items-center space-x-2">
-                  <Avatar>
-                    {mg.node.image && <Image image={mg.node.image} />}
-                  </Avatar>
-                  <span>{mg.node.name}</span>
-                </div>
-              </SelectItem>
-            );
+          if (mg?.node) {
+            return <ExerciseSelectItem queryRef={mg.node} key={mg.node.id} />;
           }
         })}
         {isPending && <LoadingSpinner className="mx-auto w-6 h-6" />}
@@ -108,15 +78,6 @@ function ExerciseSelectInput({ queryRef, ...props }: ExerciseSelectInputProps) {
       </SelectContent>
     </Select>
   );
-}
-
-type BuildExerciseSelectInputParams = { id: string; exerciseType: string };
-
-function buildExerciseSelectInputValue({
-  id,
-  exerciseType,
-}: BuildExerciseSelectInputParams): string {
-  return `${id}-${exerciseType}`;
 }
 
 function getIDFromExerciseSelectInputValue(val: string): string {
@@ -131,5 +92,4 @@ export {
   ExerciseSelectInput,
   getIDFromExerciseSelectInputValue,
   getExerciseTypeFromExerciseSelectInputValue,
-  buildExerciseSelectInputValue,
 };

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<05694a7eb91b70f1b3b5a6ec22bbfd8e>>
+ * @generated SignedSource<<e8e482f706f57c6d3950cf90f03b6655>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -447,16 +447,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "d60b57bc046d399afa7285dedadfadfb",
+    "cacheID": "76a3c6b7267fcb941d9420c77007aab6",
     "id": null,
     "metadata": {},
     "name": "ExerciseSelectInputFragmentQuery",
     "operationKind": "query",
-    "text": "query ExerciseSelectInputFragmentQuery(\n  $count: Int = 4\n  $cursor: Cursor\n  $orderby: OrderDirection = DESC\n  $id: ID!\n) {\n  node(id: $id) {\n    __typename\n    ...ExerciseSelectInputFragment_2GViAS\n    id\n  }\n}\n\nfragment ExerciseSelectInputFragment_2GViAS on User {\n  exercises(after: $cursor, first: $count, orderBy: {direction: $orderby, field: ID}) {\n    edges {\n      node {\n        id\n        name\n        image {\n          ...ImageFragment\n        }\n        exerciseTypes {\n          edges {\n            node {\n              name\n              id\n            }\n          }\n        }\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n  id\n}\n\nfragment ImageFragment on Image {\n  src\n  srcset\n  width\n  height\n  priority\n  loading\n  fetchPriority\n  decoding\n  layout\n  aspectRatio\n  objectFit\n  breakpoints\n  alt\n  role\n  sizes\n  style {\n    aspectRatio\n    height\n    maxHeight\n    maxWidth\n    width\n  }\n}\n"
+    "text": "query ExerciseSelectInputFragmentQuery(\n  $count: Int = 4\n  $cursor: Cursor\n  $orderby: OrderDirection = DESC\n  $id: ID!\n) {\n  node(id: $id) {\n    __typename\n    ...ExerciseSelectInputFragment_2GViAS\n    id\n  }\n}\n\nfragment ExerciseSelectInputFragment_2GViAS on User {\n  exercises(after: $cursor, first: $count, orderBy: {direction: $orderby, field: ID}) {\n    edges {\n      node {\n        id\n        ...ExerciseSelectItemFragment\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n  id\n}\n\nfragment ExerciseSelectItemFragment on Exercise {\n  id\n  name\n  image {\n    ...ImageFragment\n  }\n  exerciseTypes {\n    edges {\n      node {\n        name\n        id\n      }\n    }\n  }\n}\n\nfragment ImageFragment on Image {\n  src\n  srcset\n  width\n  height\n  priority\n  loading\n  fetchPriority\n  decoding\n  layout\n  aspectRatio\n  objectFit\n  breakpoints\n  alt\n  role\n  sizes\n  style {\n    aspectRatio\n    height\n    maxHeight\n    maxWidth\n    width\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "e737f048bd1f7ab0fe591f742b1c7173";
+(node as any).hash = "b90c6e488bd073cb39bef09930df4856";
 
 export default node;
