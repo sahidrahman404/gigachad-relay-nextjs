@@ -27,6 +27,7 @@ import {
   RoutineFormReturn,
   RoutineFormSchema,
 } from "@/lib/zod/routineFormSchema";
+import { NumberField } from "../ReactAriaUI/NumberField";
 
 type RoutineExerciseSetFieldArray = UseFieldArrayReturn<
   RoutineFormSchema,
@@ -77,10 +78,9 @@ function SetFormField({
                 }}
               />
             ) : (
-              <Input
-                type={type}
+              <NumberField
                 {...field}
-                value={field.value === 0 ? "" : field.value}
+                value={typeof field.value === "number" ? field.value : 0}
               />
             )}
           </FormControl>
