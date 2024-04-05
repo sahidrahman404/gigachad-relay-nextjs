@@ -69,6 +69,14 @@ function buildRoutineExercisesInput({
     const { exerciseID, exerciseName } = extractExerciseSelectInputValue(
       rE.exerciseID,
     );
+    if (unit !== "METRIC") {
+      for (const set of rE.sets) {
+        set.weight =
+          typeof set.weight === "number"
+            ? convertPoundToKg(set.weight)
+            : undefined;
+      }
+    }
     return {
       ...rE,
       exerciseID: exerciseID,
@@ -131,7 +139,10 @@ function unbuildRoutineExercisesInput({
             ? routineExercise.node.sets.map((set) => {
                 return {
                   duration: set.duration ?? undefined,
-                  weight: set.weight ?? undefined,
+                  weight:
+                    unit !== "METRIC" && typeof set.weight === "number"
+                      ? convertKgToPound(set.weight)
+                      : set.weight ?? undefined,
                   length: set.length ?? undefined,
                   reps: set.reps ?? undefined,
                 };

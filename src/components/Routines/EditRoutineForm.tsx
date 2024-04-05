@@ -66,8 +66,12 @@ function EditRoutineForm({ queryRef, routineQueryRef }: EditRoutineFormProps) {
     [routineData.reminderID, routineData.reminders],
   );
   const routineExercises = useMemo(
-    () => unbuildRoutineExercisesInput(routineData.routineExercises),
-    [routineData.routineExercises],
+    () =>
+      unbuildRoutineExercisesInput({
+        routineExercises: routineData.routineExercises,
+        unit: data.unit,
+      }),
+    [routineData.routineExercises, data.unit],
   );
   const form = useForm<RoutineFormSchema>({
     resolver: zodResolver(routineformSchema),
@@ -90,7 +94,10 @@ function EditRoutineForm({ queryRef, routineQueryRef }: EditRoutineFormProps) {
   });
 
   function onSubmit(val: RoutineFormSchema) {
-    const routineExercises = buildRoutineExercisesInput(val);
+    const routineExercises = buildRoutineExercisesInput({
+      val: val,
+      unit: data.unit,
+    });
     const reminders = buildRoutineRemindersInput({ val, sendReminder });
     commitMutation({
       variables: {

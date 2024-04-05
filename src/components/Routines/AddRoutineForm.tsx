@@ -76,7 +76,10 @@ function AddRoutineForm({ queryRef }: AddRoutineFormProps) {
   const [sendReminder, setSendReminder] = useState(false);
 
   function onSubmit(val: RoutineFormSchema) {
-    const routineExercises = buildRoutineExercisesInput(val);
+    const routineExercises = buildRoutineExercisesInput({
+      val: val,
+      unit: data.unit,
+    });
     const reminders = buildRoutineRemindersInput({ val, sendReminder });
     commitMutation({
       variables: {
