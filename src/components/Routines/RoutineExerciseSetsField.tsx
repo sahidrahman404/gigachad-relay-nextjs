@@ -1,21 +1,41 @@
 import { createContext } from "react";
 import { GetRoutineExerciseSetsField } from "./GetRoutineExerciseSetsField";
+import { graphql } from "relay-runtime";
+import { useFragment } from "react-relay";
+import { RoutineExerciseSetsFieldFragment$key } from "@/queries/__generated__/RoutineExerciseSetsFieldFragment.graphql";
 
-const RoutineExerciseSetContext = createContext<
-  Omit<RoutineExerciseSetProps, "exerciseType">
->(null!);
+const RoutineExerciseSetsFieldFragment = graphql`
+  fragment RoutineExerciseSetsFieldFragment on User {
+    unit
+  }
+`;
 
-type RoutineExerciseSetProps = {
+type RoutineExerciseSetsFieldContext = {
   index: number;
+  unit: string;
 };
 
-function RoutineExerciseSetsField({ index }: RoutineExerciseSetProps) {
+const RoutineExerciseSetsFieldContext =
+  createContext<RoutineExerciseSetsFieldContext>(null!);
+
+type RoutineExerciseSetsFieldProps = {
+  index: number;
+  queryRef: RoutineExerciseSetsFieldFragment$key;
+};
+
+function RoutineExerciseSetsField({
+  index,
+  queryRef,
+}: RoutineExerciseSetsFieldProps) {
+  const data = useFragment(RoutineExerciseSetsFieldFragment, queryRef);
   return (
-    <RoutineExerciseSetContext.Provider value={{ index }}>
+    <RoutineExerciseSetsFieldContext.Provider
+      value={{ index: index, unit: data.unit }}
+    >
       <GetRoutineExerciseSetsField />
-    </RoutineExerciseSetContext.Provider>
+    </RoutineExerciseSetsFieldContext.Provider>
   );
 }
 
-export { RoutineExerciseSetsField, RoutineExerciseSetContext };
-export type { RoutineExerciseSetProps };
+export { RoutineExerciseSetsField, RoutineExerciseSetsFieldContext };
+export type { RoutineExerciseSetsFieldProps };

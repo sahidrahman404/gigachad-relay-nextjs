@@ -1,7 +1,10 @@
 import { z } from "zod";
 import { UseFormReturn } from "react-hook-form";
-import { checkDuplicate } from "../utils";
-import { ReminderInput } from "@/queries/__generated__/AddRoutineForm_Mutation.graphql";
+import { checkDuplicate, convertKgToPound, convertPoundToKg } from "../utils";
+import {
+  ReminderInput,
+  RoutineExerciseInput,
+} from "@/queries/__generated__/AddRoutineForm_Mutation.graphql";
 import { useStartWorkoutFormFragment$data } from "@/queries/__generated__/useStartWorkoutFormFragment.graphql";
 import { Time } from "@internationalized/date";
 import {
@@ -53,9 +56,15 @@ const routineformSchema = z.object({
 type RoutineFormSchema = z.infer<typeof routineformSchema>;
 type RoutineFormReturn = UseFormReturn<RoutineFormSchema, any, undefined>;
 
-function buildRoutineExercisesInput(
-  val: RoutineFormSchema,
-): RoutineFormSchema["routineExercises"] {
+type BuildRoutineExercisesInputParams = {
+  val: RoutineFormSchema;
+  unit: string;
+};
+
+function buildRoutineExercisesInput({
+  val,
+  unit,
+}: BuildRoutineExercisesInputParams): RoutineExerciseInput[] {
   return val.routineExercises.map((rE) => {
     const { exerciseID, exerciseName } = extractExerciseSelectInputValue(
       rE.exerciseID,
@@ -95,9 +104,15 @@ function buildRoutineRemindersInput({
   return null;
 }
 
-function unbuildRoutineExercisesInput(
-  routineExercises: useStartWorkoutFormFragment$data["routineExercises"],
-): RoutineFormSchema["routineExercises"] {
+type UnbuildRoutineExercisesInputParams = {
+  routineExercises: useStartWorkoutFormFragment$data["routineExercises"];
+  unit: string;
+};
+
+function unbuildRoutineExercisesInput({
+  routineExercises,
+  unit,
+}: UnbuildRoutineExercisesInputParams): RoutineFormSchema["routineExercises"] {
   if (
     routineExercises &&
     routineExercises.edges &&

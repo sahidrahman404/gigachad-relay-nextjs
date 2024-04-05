@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<d04954e1f34b0d7ee52ba3cff46e6d65>>
+ * @generated SignedSource<<917dc81d86263ab54babd53c917359b6>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -211,6 +211,13 @@ return {
         "plural": false,
         "selections": [
           (v2/*: any*/),
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "unit",
+            "storageKey": null
+          },
           {
             "alias": null,
             "args": (v3/*: any*/),
@@ -593,12 +600,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "09333ac3ced60d44bdd62b0f2c07eeca",
+    "cacheID": "f9ecd9e96d89c8c6cd0722a56d006650",
     "id": null,
     "metadata": {},
     "name": "RoutineIDEdit_Query",
     "operationKind": "query",
-    "text": "query RoutineIDEdit_Query(\n  $routineID: ID!\n) {\n  viewer {\n    ...useAuthRedirectFragment\n    ...EditRoutineFormFragment\n    id\n  }\n  node(id: $routineID) {\n    __typename\n    ... on Routine {\n      ...useStartWorkoutFormFragment\n    }\n    id\n  }\n}\n\nfragment EditRoutineFormFragment on User {\n  id\n  ...RoutineExerciseFieldArrayFragment\n}\n\nfragment ExerciseSelectInputFragment on User {\n  exercises(first: 4, orderBy: {direction: DESC, field: ID}) {\n    edges {\n      node {\n        id\n        ...ExerciseSelectItemFragment\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n  id\n}\n\nfragment ExerciseSelectItemFragment on Exercise {\n  id\n  name\n  image {\n    ...ImageFragment\n  }\n  exerciseTypes {\n    edges {\n      node {\n        name\n        id\n      }\n    }\n  }\n}\n\nfragment ImageFragment on Image {\n  src\n  srcset\n  width\n  height\n  priority\n  loading\n  fetchPriority\n  decoding\n  layout\n  aspectRatio\n  objectFit\n  breakpoints\n  alt\n  role\n  sizes\n  style {\n    aspectRatio\n    height\n    maxHeight\n    maxWidth\n    width\n  }\n}\n\nfragment RoutineExerciseFieldArrayFragment on User {\n  ...ExerciseSelectInputFragment\n}\n\nfragment useAuthRedirectFragment on User {\n  id\n}\n\nfragment useStartWorkoutFormFragment on Routine {\n  id\n  name\n  reminderID\n  reminders {\n    day\n    hour\n    minute\n    second\n  }\n  routineExercises(orderBy: {direction: ASC, field: Order}) {\n    edges {\n      node {\n        sets {\n          reps\n          weight\n          duration\n          length\n        }\n        restTime\n        exercises {\n          id\n          name\n          exerciseTypes {\n            edges {\n              node {\n                name\n                id\n              }\n            }\n          }\n        }\n        id\n      }\n    }\n  }\n}\n"
+    "text": "query RoutineIDEdit_Query(\n  $routineID: ID!\n) {\n  viewer {\n    ...useAuthRedirectFragment\n    ...EditRoutineFormFragment\n    id\n  }\n  node(id: $routineID) {\n    __typename\n    ... on Routine {\n      ...useStartWorkoutFormFragment\n    }\n    id\n  }\n}\n\nfragment EditRoutineFormFragment on User {\n  id\n  unit\n  ...RoutineExerciseFieldArrayFragment\n}\n\nfragment ExerciseSelectInputFragment on User {\n  exercises(first: 4, orderBy: {direction: DESC, field: ID}) {\n    edges {\n      node {\n        id\n        ...ExerciseSelectItemFragment\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n  id\n}\n\nfragment ExerciseSelectItemFragment on Exercise {\n  id\n  name\n  image {\n    ...ImageFragment\n  }\n  exerciseTypes {\n    edges {\n      node {\n        name\n        id\n      }\n    }\n  }\n}\n\nfragment ImageFragment on Image {\n  src\n  srcset\n  width\n  height\n  priority\n  loading\n  fetchPriority\n  decoding\n  layout\n  aspectRatio\n  objectFit\n  breakpoints\n  alt\n  role\n  sizes\n  style {\n    aspectRatio\n    height\n    maxHeight\n    maxWidth\n    width\n  }\n}\n\nfragment RoutineExerciseFieldArrayFragment on User {\n  ...ExerciseSelectInputFragment\n  ...RoutineExerciseSetsFieldFragment\n}\n\nfragment RoutineExerciseSetsFieldFragment on User {\n  unit\n}\n\nfragment useAuthRedirectFragment on User {\n  id\n}\n\nfragment useStartWorkoutFormFragment on Routine {\n  id\n  name\n  reminderID\n  reminders {\n    day\n    hour\n    minute\n    second\n  }\n  routineExercises(orderBy: {direction: ASC, field: Order}) {\n    edges {\n      node {\n        sets {\n          reps\n          weight\n          duration\n          length\n        }\n        restTime\n        exercises {\n          id\n          name\n          exerciseTypes {\n            edges {\n              node {\n                name\n                id\n              }\n            }\n          }\n        }\n        id\n      }\n    }\n  }\n}\n"
   }
 };
 })();

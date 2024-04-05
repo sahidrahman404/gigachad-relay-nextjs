@@ -4,14 +4,14 @@ import {
   DurationField,
   WeightField,
 } from "./RoutineExerciseSetFields";
-import { RoutineExerciseSetContext } from "./RoutineExerciseSetsField";
+import { RoutineExerciseSetsFieldContext } from "./RoutineExerciseSetsField";
 import { useFormContext } from "react-hook-form";
 import { RoutineFormSchema } from "@/lib/zod/routineFormSchema";
 import { useWatch } from "react-hook-form";
 import { extractExerciseSelectInputValue } from "./ExerciseSelectItem";
 
 function GetRoutineExerciseSetsField() {
-  const { index } = useContext(RoutineExerciseSetContext);
+  const { index } = useContext(RoutineExerciseSetsFieldContext);
   const form = useFormContext<RoutineFormSchema>();
   const exerciseSelectValue = useWatch({
     control: form.control,

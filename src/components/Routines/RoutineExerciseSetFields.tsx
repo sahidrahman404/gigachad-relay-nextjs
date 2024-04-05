@@ -16,8 +16,8 @@ import { Input } from "../ui/input";
 import { Button } from "../ReactAriaUI/Button";
 import { cn } from "@/lib/utils";
 import {
-  RoutineExerciseSetContext,
-  RoutineExerciseSetProps,
+  RoutineExerciseSetsFieldContext,
+  RoutineExerciseSetsFieldProps,
 } from "./RoutineExerciseSetsField";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { TimeField } from "../ReactAriaUI/TimeField";
@@ -117,7 +117,7 @@ type GetIterableIteratorVal<T> =
 type SetFormFieldsProps = {
   formFields: (
     form: RoutineFormReturn,
-    index: RoutineExerciseSetProps["index"],
+    index: RoutineExerciseSetsFieldProps["index"],
     setIndex: number,
   ) => ReactNode;
   appendArgument: Exclude<
@@ -135,7 +135,7 @@ function SetFormFields({
   className,
 }: SetFormFieldsProps) {
   const [parent] = useAutoAnimate();
-  const { index } = useContext(RoutineExerciseSetContext);
+  const { index } = useContext(RoutineExerciseSetsFieldContext);
   const form = useFormContext<RoutineFormSchema>();
   const fieldArray = useFieldArray({
     name: `routineExercises.${index}.sets`,

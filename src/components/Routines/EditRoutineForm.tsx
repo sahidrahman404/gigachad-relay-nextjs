@@ -42,6 +42,7 @@ const RoutineMutation = graphql`
 const EditRoutineFormFragment = graphql`
   fragment EditRoutineFormFragment on User {
     id
+    unit
     ...RoutineExerciseFieldArrayFragment
   }
 `;

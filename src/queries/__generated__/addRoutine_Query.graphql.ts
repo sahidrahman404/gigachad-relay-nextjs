@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<da7aa8983afe96a0e38b09edd913374e>>
+ * @generated SignedSource<<4b4a4a03de6af5e64177033c3a0bf7fb>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -175,6 +175,13 @@ return {
         "plural": false,
         "selections": [
           (v0/*: any*/),
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "unit",
+            "storageKey": null
+          },
           {
             "alias": null,
             "args": (v2/*: any*/),
@@ -428,12 +435,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "f76e752a0582cb4dcdedff0eb113bbde",
+    "cacheID": "5b7305fed4096c74250f2d6e5861538e",
     "id": null,
     "metadata": {},
     "name": "addRoutine_Query",
     "operationKind": "query",
-    "text": "query addRoutine_Query {\n  viewer {\n    ...useAuthRedirectFragment\n    ...AddRoutineFormFragment\n    id\n  }\n  exercises(first: 1) {\n    edges {\n      node {\n        id\n      }\n    }\n  }\n}\n\nfragment AddRoutineFormFragment on User {\n  id\n  ...RoutineExerciseFieldArrayFragment\n}\n\nfragment ExerciseSelectInputFragment on User {\n  exercises(first: 4, orderBy: {direction: DESC, field: ID}) {\n    edges {\n      node {\n        id\n        ...ExerciseSelectItemFragment\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n  id\n}\n\nfragment ExerciseSelectItemFragment on Exercise {\n  id\n  name\n  image {\n    ...ImageFragment\n  }\n  exerciseTypes {\n    edges {\n      node {\n        name\n        id\n      }\n    }\n  }\n}\n\nfragment ImageFragment on Image {\n  src\n  srcset\n  width\n  height\n  priority\n  loading\n  fetchPriority\n  decoding\n  layout\n  aspectRatio\n  objectFit\n  breakpoints\n  alt\n  role\n  sizes\n  style {\n    aspectRatio\n    height\n    maxHeight\n    maxWidth\n    width\n  }\n}\n\nfragment RoutineExerciseFieldArrayFragment on User {\n  ...ExerciseSelectInputFragment\n}\n\nfragment useAuthRedirectFragment on User {\n  id\n}\n"
+    "text": "query addRoutine_Query {\n  viewer {\n    ...useAuthRedirectFragment\n    ...AddRoutineFormFragment\n    id\n  }\n  exercises(first: 1) {\n    edges {\n      node {\n        id\n      }\n    }\n  }\n}\n\nfragment AddRoutineFormFragment on User {\n  id\n  unit\n  ...RoutineExerciseFieldArrayFragment\n}\n\nfragment ExerciseSelectInputFragment on User {\n  exercises(first: 4, orderBy: {direction: DESC, field: ID}) {\n    edges {\n      node {\n        id\n        ...ExerciseSelectItemFragment\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n  id\n}\n\nfragment ExerciseSelectItemFragment on Exercise {\n  id\n  name\n  image {\n    ...ImageFragment\n  }\n  exerciseTypes {\n    edges {\n      node {\n        name\n        id\n      }\n    }\n  }\n}\n\nfragment ImageFragment on Image {\n  src\n  srcset\n  width\n  height\n  priority\n  loading\n  fetchPriority\n  decoding\n  layout\n  aspectRatio\n  objectFit\n  breakpoints\n  alt\n  role\n  sizes\n  style {\n    aspectRatio\n    height\n    maxHeight\n    maxWidth\n    width\n  }\n}\n\nfragment RoutineExerciseFieldArrayFragment on User {\n  ...ExerciseSelectInputFragment\n  ...RoutineExerciseSetsFieldFragment\n}\n\nfragment RoutineExerciseSetsFieldFragment on User {\n  unit\n}\n\nfragment useAuthRedirectFragment on User {\n  id\n}\n"
   }
 };
 })();

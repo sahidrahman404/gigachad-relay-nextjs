@@ -20,6 +20,7 @@ import { RoutineExerciseSetsField } from "./RoutineExerciseSetsField";
 const RoutineExerciseFieldArrayFragment = graphql`
   fragment RoutineExerciseFieldArrayFragment on User {
     ...ExerciseSelectInputFragment
+    ...RoutineExerciseSetsFieldFragment
   }
 `;
 
@@ -96,7 +97,7 @@ function RoutineExerciseFieldArray({
                 />
               </CardContent>
               <CardFooter>
-                <RoutineExerciseSetsField index={index} />
+                <RoutineExerciseSetsField index={index} queryRef={data} />
               </CardFooter>
             </Card>
           );

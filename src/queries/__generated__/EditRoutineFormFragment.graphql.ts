@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<b6551e35128e85e1bdf90d4ed6785ae1>>
+ * @generated SignedSource<<4aa96f3fa13164bf01ec8f31bf87f661>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,9 +9,11 @@
 // @ts-nocheck
 
 import { Fragment, ReaderFragment } from 'relay-runtime';
+export type UserUnit = "IMPERIAL" | "METRIC" | "%future added value";
 import { FragmentRefs } from "relay-runtime";
 export type EditRoutineFormFragment$data = {
   readonly id: string;
+  readonly unit: UserUnit;
   readonly " $fragmentSpreads": FragmentRefs<"RoutineExerciseFieldArrayFragment">;
   readonly " $fragmentType": "EditRoutineFormFragment";
 };
@@ -34,6 +36,13 @@ const node: ReaderFragment = {
       "storageKey": null
     },
     {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "unit",
+      "storageKey": null
+    },
+    {
       "args": null,
       "kind": "FragmentSpread",
       "name": "RoutineExerciseFieldArrayFragment"
@@ -43,6 +52,6 @@ const node: ReaderFragment = {
   "abstractKey": null
 };
 
-(node as any).hash = "5ae75a5d3192f9e4d3dd01fe57442053";
+(node as any).hash = "3ff20f93b03eb878d3352c7be7b1f6b9";
 
 export default node;
