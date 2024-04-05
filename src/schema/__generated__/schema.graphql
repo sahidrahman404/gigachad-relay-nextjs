@@ -48,16 +48,10 @@ input CreateMusclesGroupInput {
   image: ImageInput!
 }
 
-input CreateRoutineExerciseInput {
-  restTime: String
-  sets: [SetInput!]
-  exerciseID: ID!
-}
-
 input CreateRoutineWithChildrenInput {
   name: String!
   reminders: [ReminderInput!]
-  routineExercises: [CreateRoutineExerciseInput!]
+  routineExercises: [RoutineExerciseInput!]
 }
 
 """
@@ -1144,6 +1138,13 @@ type RoutineExerciseEdge {
   cursor: Cursor!
 }
 
+input RoutineExerciseInput {
+  restTime: String
+  sets: [SetInput!]
+  exerciseName: String!
+  exerciseID: ID!
+}
+
 """Ordering options for RoutineExercise connections"""
 input RoutineExerciseOrder {
   """The ordering direction."""
@@ -1301,16 +1302,16 @@ input RoutineWhereInput {
 
 type Set {
   reps: Int
-  weight: Int
+  weight: Float
   duration: String
-  length: Int
+  length: Float
 }
 
 input SetInput {
   reps: Int
-  weight: Int
+  weight: Float
   duration: String
-  length: Int
+  length: Float
 }
 
 type Style {
@@ -1438,12 +1439,6 @@ input UpdateExerciseTypeInput {
   clearExercises: Boolean
 }
 
-input UpdateRoutineExerciseInput {
-  restTime: String
-  sets: [SetInput!]
-  exerciseID: ID!
-}
-
 input UpdateRoutineReminderInput {
   id: String
   reminders: [ReminderInput!]
@@ -1453,7 +1448,7 @@ input UpdateRoutineWithChildrenInput {
   id: ID!
   name: String!
   reminders: UpdateRoutineReminderInput
-  routineExercises: [UpdateRoutineExerciseInput!]
+  routineExercises: [RoutineExerciseInput!]
 }
 
 """
