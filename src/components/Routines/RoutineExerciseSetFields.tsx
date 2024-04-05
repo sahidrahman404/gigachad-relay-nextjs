@@ -1,4 +1,4 @@
-import { ReactNode, memo, useContext } from "react";
+import { ReactNode, memo, useContext, useMemo } from "react";
 import {
   FieldArrayMethodProps,
   UseFieldArrayReturn,
@@ -50,8 +50,22 @@ function SetFormField({
   index,
   setIndex,
   setField,
-  type,
 }: SetFormFieldProps) {
+  const { unit } = useContext(RoutineExerciseSetsFieldContext);
+
+  const formatOptions: Intl.NumberFormatOptions = useMemo(() => {
+    const u = unit !== "METRIC" ? "pound" : "kilogram";
+    if (label !== "Reps") {
+      return {
+        style: "unit",
+        unit: u,
+        unitDisplay: "long",
+      };
+    } else {
+      return {};
+    }
+  }, [unit, label]);
+
   return (
     <FormField
       control={form.control}
@@ -76,11 +90,14 @@ function SetFormField({
                     field.onChange(val.toString());
                   }
                 }}
+                onBlur={field.onBlur}
               />
             ) : (
               <NumberField
-                {...field}
-                value={typeof field.value === "number" ? field.value : 0}
+                onChange={field.onChange}
+                onBlur={field.onBlur}
+                value={Number(field.value)}
+                formatOptions={formatOptions}
               />
             )}
           </FormControl>
@@ -214,6 +231,7 @@ function BodyWeightField() {
     />
   );
 }
+
 function WeightField() {
   return (
     <SetFormFields
@@ -223,7 +241,7 @@ function WeightField() {
             <SetField setIndex={setIndex} />
 
             <SetFormField
-              label="Kg"
+              label="Weight"
               form={form}
               index={index}
               setIndex={setIndex}
