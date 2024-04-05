@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<f9b4c4fb2c5152817442856c1b801da3>>
+ * @generated SignedSource<<565ad3a7c9fc033e7912a805275e369d>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -14,7 +14,7 @@ export type UpdateRoutineWithChildrenInput = {
   id: string;
   name: string;
   reminders?: UpdateRoutineReminderInput | null | undefined;
-  routineExercises?: ReadonlyArray<UpdateRoutineExerciseInput> | null | undefined;
+  routineExercises?: ReadonlyArray<RoutineExerciseInput> | null | undefined;
 };
 export type UpdateRoutineReminderInput = {
   id?: string | null | undefined;
@@ -26,8 +26,9 @@ export type ReminderInput = {
   minute: number;
   second: number;
 };
-export type UpdateRoutineExerciseInput = {
+export type RoutineExerciseInput = {
   exerciseID: string;
+  exerciseName: string;
   restTime?: string | null | undefined;
   sets?: ReadonlyArray<SetInput> | null | undefined;
 };

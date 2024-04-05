@@ -5,10 +5,10 @@ import {
   WeightField,
 } from "./RoutineExerciseSetFields";
 import { RoutineExerciseSetContext } from "./RoutineExerciseSetsField";
-import { getExerciseTypeFromExerciseSelectInputValue } from "./ExerciseSelectInput";
 import { useFormContext } from "react-hook-form";
 import { RoutineFormSchema } from "@/lib/zod/routineFormSchema";
 import { useWatch } from "react-hook-form";
+import { extractExerciseSelectInputValue } from "./ExerciseSelectItem";
 
 function GetRoutineExerciseSetsField() {
   const { index } = useContext(RoutineExerciseSetContext);
@@ -17,8 +17,7 @@ function GetRoutineExerciseSetsField() {
     control: form.control,
     name: `routineExercises.${index}.exerciseID`,
   });
-  const exerciseType =
-    getExerciseTypeFromExerciseSelectInputValue(exerciseSelectValue);
+  const { exerciseType } = extractExerciseSelectInputValue(exerciseSelectValue);
 
   if (exerciseType === "Bodyweight") {
     return <BodyWeightField />;

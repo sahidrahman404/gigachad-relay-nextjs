@@ -1,11 +1,13 @@
 import { z } from "zod";
 import { UseFormReturn } from "react-hook-form";
 import { checkDuplicate } from "../utils";
-import { getIDFromExerciseSelectInputValue } from "@/components/Routines/ExerciseSelectInput";
 import { ReminderInput } from "@/queries/__generated__/AddRoutineForm_Mutation.graphql";
 import { useStartWorkoutFormFragment$data } from "@/queries/__generated__/useStartWorkoutFormFragment.graphql";
 import { Time } from "@internationalized/date";
-import { buildExerciseSelectInputValue } from "@/components/Routines/ExerciseSelectItem";
+import {
+  buildExerciseSelectInputValue,
+  extractExerciseSelectInputValue,
+} from "@/components/Routines/ExerciseSelectItem";
 
 const routineformSchema = z.object({
   name: z.string().min(3),
@@ -55,10 +57,13 @@ function buildRoutineExercisesInput(
   val: RoutineFormSchema,
 ): RoutineFormSchema["routineExercises"] {
   return val.routineExercises.map((rE) => {
-    const exerciseID = getIDFromExerciseSelectInputValue(rE.exerciseID);
+    const { exerciseID, exerciseName } = extractExerciseSelectInputValue(
+      rE.exerciseID,
+    );
     return {
       ...rE,
       exerciseID: exerciseID,
+      exerciseName: exerciseName,
     };
   });
 }
@@ -121,6 +126,7 @@ function unbuildRoutineExercisesInput(
         exerciseID: buildExerciseSelectInputValue({
           id: exercises?.id ?? "",
           exerciseType: exerciseType?.name ?? "",
+          exerciseName: routineExercise?.node?.exercises.name ?? "",
         }),
       };
     });

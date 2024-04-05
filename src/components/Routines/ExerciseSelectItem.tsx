@@ -44,8 +44,9 @@ const ExerciseSelectItem = memo(function ExerciseSelectItem({
     return buildExerciseSelectInputValue({
       id: data.id,
       exerciseType: exerciseTypes,
+      exerciseName: data.name,
     });
-  }, [data.id, exerciseTypes]);
+  }, [data.id, exerciseTypes, data.name]);
 
   return (
     <SelectItem key={data.id} value={value}>
@@ -57,13 +58,39 @@ const ExerciseSelectItem = memo(function ExerciseSelectItem({
   );
 });
 
-type BuildExerciseSelectInputParams = { id: string; exerciseType: string };
+type BuildExerciseSelectInputParams = {
+  id: string;
+  exerciseType: string;
+  exerciseName: string;
+};
 
 function buildExerciseSelectInputValue({
   id,
   exerciseType,
+  exerciseName,
 }: BuildExerciseSelectInputParams): string {
-  return `${id}-${exerciseType}`;
+  return `${id}-${exerciseType}-${exerciseName}`;
 }
 
-export { ExerciseSelectItem, buildExerciseSelectInputValue };
+type ExerciseSelectInputValue = {
+  exerciseID: string;
+  exerciseType: string;
+  exerciseName: string;
+};
+
+function extractExerciseSelectInputValue(
+  val: string,
+): ExerciseSelectInputValue {
+  const result = val.split("-");
+  return {
+    exerciseID: result[0],
+    exerciseType: result[1],
+    exerciseName: result[2],
+  };
+}
+
+export {
+  ExerciseSelectItem,
+  buildExerciseSelectInputValue,
+  extractExerciseSelectInputValue,
+};

@@ -80,16 +80,4 @@ function ExerciseSelectInput({ queryRef, ...props }: ExerciseSelectInputProps) {
   );
 }
 
-function getIDFromExerciseSelectInputValue(val: string): string {
-  return val.split("-")[0];
-}
-
-function getExerciseTypeFromExerciseSelectInputValue(val: string): string {
-  return val.split("-")[1];
-}
-
-export {
-  ExerciseSelectInput,
-  getIDFromExerciseSelectInputValue,
-  getExerciseTypeFromExerciseSelectInputValue,
-};
+export { ExerciseSelectInput };
