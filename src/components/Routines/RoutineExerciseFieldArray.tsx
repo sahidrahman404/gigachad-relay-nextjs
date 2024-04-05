@@ -59,6 +59,7 @@ function RoutineExerciseFieldArray({
                           queryRef={data}
                           value={field.value}
                           onValueChange={field.onChange}
+                          disabled={field.value.length > 0 ? true : false}
                         />
                         <FormMessage />
                       </FormItem>
