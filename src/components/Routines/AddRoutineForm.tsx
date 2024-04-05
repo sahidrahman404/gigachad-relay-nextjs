@@ -110,6 +110,7 @@ function AddRoutineForm({ queryRef }: AddRoutineFormProps) {
   }
 
   function onError(errVal: FieldErrors<RoutineFormSchema>) {
+    toast.error("Check your input values again");
     const routineExercisesErr = errVal.routineExercises;
     if (routineExercisesErr && routineExercisesErr?.root?.message) {
       toast.error(routineExercisesErr.root.message);
