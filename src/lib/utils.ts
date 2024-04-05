@@ -184,6 +184,17 @@ function checkDuplicate(arr: string[]) {
   return result;
 }
 
+const OneKgInLb = 2.20462;
+const OnePoundInKg = 0.453592;
+
+function convertPoundToKg(val: number): number {
+  return val * OnePoundInKg;
+}
+
+function convertKgToPound(val: number): number {
+  return val * OneKgInLb;
+}
+
 export {
   cn,
   getToken,
@@ -194,4 +205,6 @@ export {
   imageFieldOnChange,
   capitalizeFirstLetter,
   checkDuplicate,
+  convertPoundToKg,
+  convertKgToPound,
 };
