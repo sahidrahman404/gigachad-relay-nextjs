@@ -97,7 +97,8 @@ function buildRoutineRemindersInput({
   if (sendReminder === true && val.reminders.length > 0) {
     return val.reminders.map((reminder) => {
       const date = new Date();
-      const time = reminder.time.split(":");
+      const time =
+        reminder.time !== "" ? reminder.time.split(":") : ["00", "00", "00"];
       date.setHours(Number(time[0]));
       date.setMinutes(Number(time[1]));
       date.setSeconds(Number(time[2]));
