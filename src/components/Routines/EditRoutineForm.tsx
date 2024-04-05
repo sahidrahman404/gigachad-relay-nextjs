@@ -76,7 +76,7 @@ function EditRoutineForm({ queryRef, routineQueryRef }: EditRoutineFormProps) {
   const form = useForm<RoutineFormSchema>({
     resolver: zodResolver(routineformSchema),
     mode: "onBlur",
-    defaultValues: {
+    values: {
       name: routineData.name,
       reminders: reminders,
       routineExercises: routineExercises,
