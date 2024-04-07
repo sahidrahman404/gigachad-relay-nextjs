@@ -44,7 +44,6 @@ function ReminderFields() {
               <FormItem className="col-span-1">
                 <FormLabel>Time</FormLabel>
                 <TimeField
-                  granularity="second"
                   value={
                     !field?.value || field.value === ""
                       ? new Time(0, 0, 0)
