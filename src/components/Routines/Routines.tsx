@@ -53,7 +53,7 @@ function Routines({ queryRef }: RoutinesProps) {
   return (
     <RoutinesData.Provider value={queryRef}>
       <div className="space-y-4">
-        <LinkButton href={"/dashboard/routines/add"}>Add</LinkButton>
+        <LinkButton href={"/dashboard/routines/add"}>New Routine</LinkButton>
         {data.routines.edges?.map((routine) => {
           if (routine?.node) {
             return <Routine queryRef={routine.node} key={routine.node.id} />;
