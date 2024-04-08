@@ -28,6 +28,9 @@ const useStartWorkoutFormFragment = graphql`
           exercises {
             id
             name
+            image {
+              ...ImageFragment
+            }
             exerciseTypes {
               edges {
                 node {
