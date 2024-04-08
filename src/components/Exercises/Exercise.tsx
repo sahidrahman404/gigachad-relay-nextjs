@@ -4,6 +4,7 @@ import { graphql } from "relay-runtime";
 import { MusclesGroupBadge } from "./MusclesGroupBadge";
 import { ExerciseTypeBadge } from "./ExerciseTypeBadge";
 import { ExerciseEmptyHowTo } from "./ExerciseEmptyHowTo";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const ExerciseFragment = graphql`
   fragment ExerciseFragment on Exercise {
@@ -38,19 +39,28 @@ function Exercise({ queryRef }: ExerciseProps) {
   const data = useFragment(ExerciseFragment, queryRef);
 
   return (
-    <div>
-      <div className="flex flex-col gap-1 mb-10">
+    <div className="space-y-4">
+      <div className="flex flex-col gap-1">
         <h2 className="text-lg font-bold">{data.name}</h2>
         <div className="flex gap-2">
           <MusclesGroupBadge queryRef={data.musclesGroups} />
           <ExerciseTypeBadge queryRef={data.exerciseTypes} />
         </div>
       </div>
-      <ExerciseEmptyHowTo queryRef={data} />
-      <div
-        dangerouslySetInnerHTML={{ __html: data.howTo ?? "" }}
-        className="prose mx-auto"
-      />
+      <Tabs defaultValue="howTo">
+        <TabsList>
+          <TabsTrigger value="howTo">How To</TabsTrigger>
+          <TabsTrigger value="history">History</TabsTrigger>
+        </TabsList>
+        <TabsContent value="howTo">
+          <ExerciseEmptyHowTo queryRef={data} />
+          <div
+            dangerouslySetInnerHTML={{ __html: data.howTo ?? "" }}
+            className="prose mx-auto"
+          />
+        </TabsContent>
+        <TabsContent value="history">History</TabsContent>
+      </Tabs>
     </div>
   );
 }
