@@ -2,6 +2,7 @@ import { Label } from "@radix-ui/react-label";
 import { WorkoutMachineContext } from "../Layout";
 import { Button } from "@/components/ReactAriaUI/Button";
 import { PauseCircle, PlayCircle } from "lucide-react";
+import { getNumberFieldUnitFormatOptions } from "@/lib/utils";
 
 function WorkoutLogsStats() {
   return (
@@ -27,7 +28,16 @@ function GetTotalVolume() {
     (state) => state.context.volume,
   );
 
-  return <p>{totalVolume} kg</p>;
+  const unit = WorkoutMachineContext.useSelector((state) => state.context.unit);
+
+  return (
+    <p>
+      {new Intl.NumberFormat(
+        "en-US",
+        getNumberFieldUnitFormatOptions(unit, ""),
+      ).format(totalVolume)}
+    </p>
+  );
 }
 
 function GetTotalSets() {
