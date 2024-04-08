@@ -51,6 +51,7 @@ const workoutMachine = createMachine(
         | { type: "TIMER_TICK" }
         | { type: "TIMER_RESET" }
         | { type: "SET_UNIT"; value: Pick<Context, "unit"> }
+        | { type: "SET_NAME"; value: Pick<Context, "name"> }
         | {
             type: "LOAD_WORKOUT_LOGS";
             value: useStartWorkoutFormFragment$data;
@@ -81,6 +82,7 @@ const workoutMachine = createMachine(
       actions:
         | { type: "setID"; params: Pick<Context, "routineID"> }
         | { type: "setUnit"; params: Pick<Context, "unit"> }
+        | { type: "setName"; params: Pick<Context, "name"> }
         | { type: "loadWorkoutLogs"; params: Pick<Context, "workoutLogs"> }
         | { type: "setWorkoutLogs"; params: Pick<Context, "workoutLogs"> }
         | { type: "setRestTimer"; params: Pick<Context, "workoutLogs"> }
@@ -124,6 +126,7 @@ const workoutMachine = createMachine(
       workoutLogs: [],
       description: "",
       image: undefined,
+      name: "",
     },
     states: {
       workoutStopped: {
@@ -192,6 +195,16 @@ const workoutMachine = createMachine(
                     actions: [
                       {
                         type: "setUnit",
+                        params({ event }) {
+                          return event.value;
+                        },
+                      },
+                    ],
+                  },
+                  SET_NAME: {
+                    actions: [
+                      {
+                        type: "setName",
                         params({ event }) {
                           return event.value;
                         },
@@ -531,6 +544,7 @@ const workoutMachine = createMachine(
       }),
       createVolumeInput: assign(({}, params) => params),
       transformWorkoutLogsSets: assign(({}, params) => params),
+      setName: assign(({}, params) => params),
       setDuration: assign(({ context }) => {
         const duration = intervalToDuration({
           start: 0,
