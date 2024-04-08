@@ -44,9 +44,10 @@ const useStartWorkoutFormFragment = graphql`
 
 type UseStartWorkoutFormProps = {
   queryRef: useStartWorkoutFormFragment$key;
+  unit: string;
 };
 
-function useStartWorkoutForm({ queryRef }: UseStartWorkoutFormProps) {
+function useStartWorkoutForm({ queryRef, unit }: UseStartWorkoutFormProps) {
   const data = useFragment(useStartWorkoutFormFragment, queryRef);
   const workoutActor = WorkoutMachineContext.useActorRef();
   const isInEmptyFieldsState = WorkoutMachineContext.useSelector((state) =>
@@ -68,7 +69,10 @@ function useStartWorkoutForm({ queryRef }: UseStartWorkoutFormProps) {
 
   useEffect(() => {
     if (isInEmptyFieldsState) {
-      workoutActor.send({ type: "LOAD_WORKOUT_LOGS", value: data });
+      workoutActor.send({
+        type: "LOAD_WORKOUT_LOGS",
+        value: { ...data, unit: unit },
+      });
     }
   }, [isInEmptyFieldsState]);
 

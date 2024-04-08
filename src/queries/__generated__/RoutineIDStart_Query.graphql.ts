@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<8fed85b46b789bed5a0a508d7d388dca>>
+ * @generated SignedSource<<fa6943cdf972d1b265108fc1e7fbece8>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,6 +10,7 @@
 
 import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
+export type UserUnit = "IMPERIAL" | "METRIC" | "%future added value";
 export type RoutineIDStart_Query$variables = {
   routineID: string;
 };
@@ -18,6 +19,7 @@ export type RoutineIDStart_Query$data = {
     readonly " $fragmentSpreads": FragmentRefs<"StartWorkoutFormFragment">;
   } | null | undefined;
   readonly viewer: {
+    readonly unit: UserUnit;
     readonly " $fragmentSpreads": FragmentRefs<"useAuthRedirectFragment">;
   } | null | undefined;
 };
@@ -34,21 +36,28 @@ var v0 = [
     "name": "routineID"
   }
 ],
-v1 = [
+v1 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "unit",
+  "storageKey": null
+},
+v2 = [
   {
     "kind": "Variable",
     "name": "id",
     "variableName": "routineID"
   }
 ],
-v2 = {
+v3 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "id",
   "storageKey": null
 },
-v3 = {
+v4 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
@@ -74,13 +83,14 @@ return {
             "args": null,
             "kind": "FragmentSpread",
             "name": "useAuthRedirectFragment"
-          }
+          },
+          (v1/*: any*/)
         ],
         "storageKey": null
       },
       {
         "alias": null,
-        "args": (v1/*: any*/),
+        "args": (v2/*: any*/),
         "concreteType": null,
         "kind": "LinkedField",
         "name": "node",
@@ -119,13 +129,14 @@ return {
         "name": "viewer",
         "plural": false,
         "selections": [
-          (v2/*: any*/)
+          (v3/*: any*/),
+          (v1/*: any*/)
         ],
         "storageKey": null
       },
       {
         "alias": null,
-        "args": (v1/*: any*/),
+        "args": (v2/*: any*/),
         "concreteType": null,
         "kind": "LinkedField",
         "name": "node",
@@ -138,11 +149,11 @@ return {
             "name": "__typename",
             "storageKey": null
           },
-          (v2/*: any*/),
+          (v3/*: any*/),
           {
             "kind": "InlineFragment",
             "selections": [
-              (v3/*: any*/),
+              (v4/*: any*/),
               {
                 "alias": null,
                 "args": null,
@@ -276,8 +287,8 @@ return {
                             "name": "exercises",
                             "plural": false,
                             "selections": [
-                              (v2/*: any*/),
                               (v3/*: any*/),
+                              (v4/*: any*/),
                               {
                                 "alias": null,
                                 "args": null,
@@ -302,8 +313,8 @@ return {
                                         "name": "node",
                                         "plural": false,
                                         "selections": [
-                                          (v3/*: any*/),
-                                          (v2/*: any*/)
+                                          (v4/*: any*/),
+                                          (v3/*: any*/)
                                         ],
                                         "storageKey": null
                                       }
@@ -316,7 +327,7 @@ return {
                             ],
                             "storageKey": null
                           },
-                          (v2/*: any*/)
+                          (v3/*: any*/)
                         ],
                         "storageKey": null
                       }
@@ -336,16 +347,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "2b41dd8f0ad569e49b15280d517ffba1",
+    "cacheID": "4fd763535a89ed05392f6de1ffe29ca5",
     "id": null,
     "metadata": {},
     "name": "RoutineIDStart_Query",
     "operationKind": "query",
-    "text": "query RoutineIDStart_Query(\n  $routineID: ID!\n) {\n  viewer {\n    ...useAuthRedirectFragment\n    id\n  }\n  node(id: $routineID) {\n    __typename\n    ... on Routine {\n      ...StartWorkoutFormFragment\n    }\n    id\n  }\n}\n\nfragment StartWorkoutFormFragment on Routine {\n  id\n  ...useStartWorkoutFormFragment\n}\n\nfragment useAuthRedirectFragment on User {\n  id\n}\n\nfragment useStartWorkoutFormFragment on Routine {\n  id\n  name\n  reminderID\n  reminders {\n    day\n    hour\n    minute\n    second\n  }\n  routineExercises(orderBy: {direction: ASC, field: Order}) {\n    edges {\n      node {\n        sets {\n          reps\n          weight\n          duration\n          length\n        }\n        restTime\n        exercises {\n          id\n          name\n          exerciseTypes {\n            edges {\n              node {\n                name\n                id\n              }\n            }\n          }\n        }\n        id\n      }\n    }\n  }\n}\n"
+    "text": "query RoutineIDStart_Query(\n  $routineID: ID!\n) {\n  viewer {\n    ...useAuthRedirectFragment\n    unit\n    id\n  }\n  node(id: $routineID) {\n    __typename\n    ... on Routine {\n      ...StartWorkoutFormFragment\n    }\n    id\n  }\n}\n\nfragment StartWorkoutFormFragment on Routine {\n  id\n  ...useStartWorkoutFormFragment\n}\n\nfragment useAuthRedirectFragment on User {\n  id\n}\n\nfragment useStartWorkoutFormFragment on Routine {\n  id\n  name\n  reminderID\n  reminders {\n    day\n    hour\n    minute\n    second\n  }\n  routineExercises(orderBy: {direction: ASC, field: Order}) {\n    edges {\n      node {\n        sets {\n          reps\n          weight\n          duration\n          length\n        }\n        restTime\n        exercises {\n          id\n          name\n          exerciseTypes {\n            edges {\n              node {\n                name\n                id\n              }\n            }\n          }\n        }\n        id\n      }\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "a8e7c80af05c7f57343302b4d4512a07";
+(node as any).hash = "1a8d37d0db7601310f139a77339a0d9c";
 
 export default node;

@@ -67,9 +67,10 @@ const StartWorkoutFormFragment = graphql`
 
 type StartWorkoutFormProps = {
   queryRef: StartWorkoutFormFragment$key;
+  unit: string;
 };
 
-function StartWorkoutForm({ queryRef }: StartWorkoutFormProps) {
+function StartWorkoutForm({ queryRef, unit }: StartWorkoutFormProps) {
   const data = useFragment(StartWorkoutFormFragment, queryRef);
   const workoutLogs = WorkoutMachineContext.useSelector(
     (state) => state.context.workoutLogs,
@@ -78,7 +79,7 @@ function StartWorkoutForm({ queryRef }: StartWorkoutFormProps) {
   const router = useRouter();
   const { isTimerRunning } = useTimer();
 
-  useStartWorkoutForm({ queryRef: data });
+  useStartWorkoutForm({ queryRef: data, unit: unit });
 
   const form = useForm<StartWorkoutFormSchema>({
     resolver: zodResolver(formSchema),

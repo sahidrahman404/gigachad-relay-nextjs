@@ -11,6 +11,7 @@ const StartWorkoutQuery = graphql`
   query RoutineIDStart_Query($routineID: ID!) {
     viewer {
       ...useAuthRedirectFragment
+      unit
     }
     node(id: $routineID) {
       ... on Routine {
@@ -28,11 +29,11 @@ function StartWorkoutPage({
     user: data.viewer,
   });
 
-  if (!data.node) {
+  if (!data.node || !data.viewer?.unit) {
     return null;
   }
 
-  return <StartWorkoutForm queryRef={data.node} />;
+  return <StartWorkoutForm queryRef={data.node} unit={data.viewer.unit} />;
 }
 
 const StartWorkoutPageDefault = createRelayPage(

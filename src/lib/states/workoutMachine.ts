@@ -8,6 +8,7 @@ import { clearInterval, setInterval } from "worker-timers";
 
 type WorkoutFormSchema = StartWorkoutFormSchema & FinishWorkoutFormSchema;
 type Context = {
+  unit: string;
   routineID: string;
   elapsed: number;
   createWorkoutLogsInput?: CreateWorkoutLogInput[];
@@ -47,7 +48,10 @@ const workoutMachine = createMachine(
         | { type: "TIMER_PAUSE" }
         | { type: "TIMER_TICK" }
         | { type: "TIMER_RESET" }
-        | { type: "LOAD_WORKOUT_LOGS"; value: useStartWorkoutFormFragment$data }
+        | {
+            type: "LOAD_WORKOUT_LOGS";
+            value: useStartWorkoutFormFragment$data & { unit: string };
+          }
         | {
             type: "APPEND_WORKOUT_LOG_SET";
             value: { set: Set; workoutLogsIndex: number };
@@ -92,6 +96,7 @@ const workoutMachine = createMachine(
         | { type: "resetContext" };
     },
     context: {
+      unit: "METRIC",
       routineID: "",
       elapsed: 0,
       timer: {
@@ -525,7 +530,9 @@ const workoutMachine = createMachine(
   },
 );
 
-function processWorkoutLogs(data: useStartWorkoutFormFragment$data) {
+function processWorkoutLogs(
+  data: useStartWorkoutFormFragment$data & { unit: string },
+) {
   const workoutLogs = data.routineExercises?.edges?.map((rE) => {
     if (rE?.node) {
       const exerciseTypes = rE.node.exercises.exerciseTypes.edges;
