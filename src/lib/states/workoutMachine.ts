@@ -13,6 +13,7 @@ type Context = {
   routineID: string;
   elapsed: number;
   createWorkoutLogsInput?: CreateWorkoutLogInput[];
+  createVolumeInput?: number;
   timer: {
     elapsed: number;
     duration: number;
@@ -98,6 +99,10 @@ const workoutMachine = createMachine(
         | { type: "setTimerDuration"; params: Pick<Context, "timer"> }
         | { type: "clearFields" }
         | { type: "resetContext" }
+        | {
+            type: "createVolumeInput";
+            params: Pick<Context, "createVolumeInput">;
+          }
         | {
             type: "transformWorkoutLogsSets";
             params: Pick<Context, "workoutLogs">;
@@ -402,6 +407,17 @@ const workoutMachine = createMachine(
                       };
                     },
                   },
+                  {
+                    type: "createVolumeInput",
+                    params({ context }) {
+                      return {
+                        createVolumeInput: createVolumeInput(
+                          context.volume,
+                          context.unit,
+                        ),
+                      };
+                    },
+                  },
                 ],
                 on: {
                   SET_WORKOUT_DESCRIPTION: {
@@ -513,6 +529,7 @@ const workoutMachine = createMachine(
       setTimerDuration: assign(({}, params) => {
         return params;
       }),
+      createVolumeInput: assign(({}, params) => params),
       transformWorkoutLogsSets: assign(({}, params) => params),
       setDuration: assign(({ context }) => {
         const duration = intervalToDuration({
@@ -728,5 +745,9 @@ function transformWorkoutLogsSets(
     }
   }
   return workoutLogs;
+}
+
+function createVolumeInput(volume: Context["volume"], unit: Context["unit"]) {
+  return unit !== "METRIC" ? convertPoundToKg(volume) : volume;
 }
 export { workoutMachine };
