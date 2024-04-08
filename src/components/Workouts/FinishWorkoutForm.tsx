@@ -98,12 +98,11 @@ function FinishWorkoutForm() {
     const image = workoutContext.image;
     const mutation = (meta?: InternalMetadata & Record<string, unknown>) => {
       editor?.commands.clearContent();
-      workoutActor.send({ type: "TRANSFORM_WORKOUT_LOGS_SETS" });
       commitMutation({
         variables: {
           input: {
             duration: workoutContext.duration,
-            volume: workoutContext.volume,
+            volume: workoutContext.createVolumeInput ?? 0,
             sets: workoutContext.sets,
             image: meta
               ? {
