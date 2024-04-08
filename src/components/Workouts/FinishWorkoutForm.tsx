@@ -123,6 +123,7 @@ function FinishWorkoutForm() {
         onCompleted: () => {
           editor?.commands.clearContent();
           workoutActor.send({ type: "RESET" });
+          toast.success("Workout logs was added");
           router.push("/dashboard/routines");
         },
       });
