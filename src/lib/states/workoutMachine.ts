@@ -1,7 +1,6 @@
 import { FinishWorkoutFormSchema } from "@/components/Workouts/FinishWorkoutForm";
 import { StartWorkoutFormSchema } from "@/components/Workouts/StartWorkoutForm";
 import { assign, createMachine, fromCallback } from "xstate";
-import { capitalizeFirstLetter } from "../utils";
 import { CreateWorkoutLogInput } from "@/queries/__generated__/FinishWorkoutForm_Mutation.graphql";
 import { intervalToDuration, parse } from "date-fns";
 import { useStartWorkoutFormFragment$data } from "@/queries/__generated__/useStartWorkoutFormFragment.graphql";
@@ -544,7 +543,7 @@ function processWorkoutLogs(data: useStartWorkoutFormFragment$data) {
             length: set.length ?? undefined,
           };
         }),
-        name: capitalizeFirstLetter(rE.node.exercises.name),
+        name: rE.node.exercises.name,
         restTime: rE.node.restTime ?? "0",
         exerciseType: exerciseType,
         exerciseID: rE.node.exercises.id,

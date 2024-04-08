@@ -8,7 +8,6 @@ import {
   CardHeader,
   CardTitle,
 } from "../ui/card";
-import { capitalizeFirstLetter } from "@/lib/utils";
 import { WorkoutMachineContext } from "../Layout";
 import { Button } from "../ReactAriaUI/Button";
 import { useRouter } from "next/router";
@@ -57,16 +56,16 @@ function Routine({ queryRef }: RoutineProps) {
   const exercises = data.routineExercises.edges
     ?.map((rE) => {
       if (rE?.node) {
-        return capitalizeFirstLetter(rE.node.exercises.name);
+        return rE.node.exercises.name;
       }
     })
-    .join(" ");
+    .join(", ");
 
   return (
     <Card>
       <CardHeader className="flex-row items-start">
         <div className="space-y-1.5">
-          <CardTitle>{capitalizeFirstLetter(data.name)}</CardTitle>
+          <CardTitle>{data.name}</CardTitle>
           <CardDescription>{exercises}</CardDescription>
         </div>
         <Menubar className="ml-auto">
