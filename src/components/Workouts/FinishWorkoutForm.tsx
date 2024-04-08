@@ -97,7 +97,6 @@ function FinishWorkoutForm() {
   function onSubmit() {
     const image = workoutContext.image;
     const mutation = (meta?: InternalMetadata & Record<string, unknown>) => {
-      editor?.commands.clearContent();
       commitMutation({
         variables: {
           input: {
@@ -122,6 +121,7 @@ function FinishWorkoutForm() {
           toast.error("There was a problem with your request.");
         },
         onCompleted: () => {
+          editor?.commands.clearContent();
           workoutActor.send({ type: "RESET" });
           router.push("/dashboard/routines");
         },
