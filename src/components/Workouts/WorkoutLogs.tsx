@@ -6,6 +6,9 @@ import { RestTimerSelector } from "../common/RestTimerSelector";
 import { FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
 import { GetWorkoutLogsSetsFields } from "./GetWorkoutLogsSetsFormFields";
 import { WorkoutMachineContext } from "../Layout";
+import { LinkButton } from "../ReactAriaUI/LinkButton";
+import { Avatar } from "../ui/avatar";
+import { Image } from "../Image/Image";
 
 const WorkoutLogsContext = createContext<WorkoutLogsProps>(null!);
 
@@ -28,7 +31,17 @@ function WorkoutLogs() {
         return (
           <Card key={field.id}>
             <CardHeader>
-              <CardTitle>{field.name}</CardTitle>
+              <CardTitle className="flex items-center">
+                <Avatar className="w-10 h-10">
+                  {field.image && <Image image={field.image} />}
+                </Avatar>
+                <LinkButton
+                  variant="link"
+                  href={`/dashboard/exercises/${field.exerciseID}`}
+                >
+                  {field.name}
+                </LinkButton>
+              </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <FormField
