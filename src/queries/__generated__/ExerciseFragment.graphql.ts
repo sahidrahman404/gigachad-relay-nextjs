@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<660b37e5e022bf45414bec8c4f2fc521>>
+ * @generated SignedSource<<fd0c9c772438aab0269fc5bae7de0c11>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -33,6 +33,7 @@ export type ExerciseFragment$data = {
     readonly " $fragmentSpreads": FragmentRefs<"MusclesGroupBadgeFragment">;
   };
   readonly name: string;
+  readonly " $fragmentSpreads": FragmentRefs<"ExerciseEmptyHowToFragment">;
   readonly " $fragmentType": "ExerciseFragment";
 };
 export type ExerciseFragment$key = {
@@ -87,6 +88,11 @@ return {
         }
       ],
       "storageKey": null
+    },
+    {
+      "args": null,
+      "kind": "FragmentSpread",
+      "name": "ExerciseEmptyHowToFragment"
     },
     {
       "alias": null,
@@ -168,6 +174,6 @@ return {
 };
 })();
 
-(node as any).hash = "3be52f105f8aa0a3de21cdab1cb0af74";
+(node as any).hash = "1f22750fd3dbc291658e2339d8e6894e";
 
 export default node;
