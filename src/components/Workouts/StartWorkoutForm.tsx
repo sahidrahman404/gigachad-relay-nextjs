@@ -104,7 +104,7 @@ function StartWorkoutForm({ queryRef, unit }: StartWorkoutFormProps) {
       Object.entries(workoutLogsErr as any).length === 1 &&
       workoutLogsErr?.root?.message
     ) {
-      toast.error("Uh oh! Something went wrong.");
+      toast.error(workoutLogsErr.root.message);
     }
   }
 
