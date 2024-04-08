@@ -69,10 +69,8 @@ function useStartWorkoutForm({ queryRef, unit }: UseStartWorkoutFormProps) {
 
   useEffect(() => {
     if (isInEmptyFieldsState) {
-      workoutActor.send({
-        type: "LOAD_WORKOUT_LOGS",
-        value: { ...data, unit: unit },
-      });
+      workoutActor.send({ type: "SET_UNIT", value: { unit } });
+      workoutActor.send({ type: "LOAD_WORKOUT_LOGS", value: data });
     }
   }, [isInEmptyFieldsState]);
 

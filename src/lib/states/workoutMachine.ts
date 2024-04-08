@@ -49,9 +49,10 @@ const workoutMachine = createMachine(
         | { type: "TIMER_PAUSE" }
         | { type: "TIMER_TICK" }
         | { type: "TIMER_RESET" }
+        | { type: "SET_UNIT"; value: Pick<Context, "unit"> }
         | {
             type: "LOAD_WORKOUT_LOGS";
-            value: useStartWorkoutFormFragment$data & { unit: string };
+            value: useStartWorkoutFormFragment$data;
           }
         | {
             type: "APPEND_WORKOUT_LOG_SET";
@@ -78,6 +79,7 @@ const workoutMachine = createMachine(
         | { type: "canStopTimer" };
       actions:
         | { type: "setID"; params: Pick<Context, "routineID"> }
+        | { type: "setUnit"; params: Pick<Context, "unit"> }
         | { type: "loadWorkoutLogs"; params: Pick<Context, "workoutLogs"> }
         | { type: "setWorkoutLogs"; params: Pick<Context, "workoutLogs"> }
         | { type: "setRestTimer"; params: Pick<Context, "workoutLogs"> }
@@ -181,13 +183,26 @@ const workoutMachine = createMachine(
             states: {
               emptyFields: {
                 on: {
+                  SET_UNIT: {
+                    actions: [
+                      {
+                        type: "setUnit",
+                        params({ event }) {
+                          return event.value;
+                        },
+                      },
+                    ],
+                  },
                   LOAD_WORKOUT_LOGS: {
                     actions: [
                       {
                         type: "loadWorkoutLogs",
-                        params({ event }) {
+                        params({ event, context }) {
                           return {
-                            workoutLogs: processWorkoutLogs(event.value),
+                            workoutLogs: processWorkoutLogs({
+                              ...event.value,
+                              unit: context.unit,
+                            }),
                           };
                         },
                       },
@@ -460,6 +475,9 @@ const workoutMachine = createMachine(
     },
     actions: {
       setID: assign(({}, params) => {
+        return params;
+      }),
+      setUnit: assign(({}, params) => {
         return params;
       }),
       loadWorkoutLogs: assign(({}, params) => {
