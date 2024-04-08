@@ -100,7 +100,7 @@ function FinishWorkoutForm() {
       commitMutation({
         variables: {
           input: {
-            duration: workoutContext.duration,
+            duration: workoutContext.duration.trim(),
             volume: workoutContext.createVolumeInput ?? 0,
             sets: workoutContext.sets,
             image: meta
