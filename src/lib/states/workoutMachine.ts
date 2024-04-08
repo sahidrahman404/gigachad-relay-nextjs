@@ -714,7 +714,7 @@ function filterSelectedWorkoutLogs(
               unit !== "METRIC" && typeof set.weight === "number"
                 ? convertPoundToKg(set.weight)
                 : set.weight,
-            time: set.duration,
+            duration: set.duration,
             length: set.length,
             reps: set.reps,
           })),
