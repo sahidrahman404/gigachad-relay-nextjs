@@ -5,6 +5,7 @@ import { CreateWorkoutLogInput } from "@/queries/__generated__/FinishWorkoutForm
 import { intervalToDuration, parse } from "date-fns";
 import { useStartWorkoutFormFragment$data } from "@/queries/__generated__/useStartWorkoutFormFragment.graphql";
 import { clearInterval, setInterval } from "worker-timers";
+import { convertKgToPound, convertPoundToKg } from "../utils";
 
 type WorkoutFormSchema = StartWorkoutFormSchema & FinishWorkoutFormSchema;
 type Context = {
@@ -68,6 +69,7 @@ const workoutMachine = createMachine(
             type: "SET_WORKOUT_DESCRIPTION";
             value: Pick<Context, "description">;
           }
+        | { type: "TRANSFORM_WORKOUT_LOGS_SETS" }
         | { type: "CLEAR_FIELDS" }
         | { type: "RESET" };
       guards:
@@ -93,7 +95,11 @@ const workoutMachine = createMachine(
         | { type: "setTimerTick"; params: Pick<Context, "timer"> }
         | { type: "setTimerDuration"; params: Pick<Context, "timer"> }
         | { type: "clearFields" }
-        | { type: "resetContext" };
+        | { type: "resetContext" }
+        | {
+            type: "transformWorkoutLogsSets";
+            params: Pick<Context, "workoutLogs">;
+          };
     },
     context: {
       unit: "METRIC",
@@ -400,6 +406,21 @@ const workoutMachine = createMachine(
                       },
                     ],
                   },
+                  TRANSFORM_WORKOUT_LOGS_SETS: {
+                    actions: [
+                      {
+                        type: "transformWorkoutLogsSets",
+                        params({ context }) {
+                          return {
+                            workoutLogs: transformWorkoutLogsSets(
+                              context.workoutLogs,
+                              context.unit,
+                            ),
+                          };
+                        },
+                      },
+                    ],
+                  },
                   GO_TO_EDIT_FIRST_STEP_FORM: "editingFirstStepForm",
                 },
               },
@@ -471,6 +492,7 @@ const workoutMachine = createMachine(
       setTimerDuration: assign(({}, params) => {
         return params;
       }),
+      transformWorkoutLogsSets: assign(({}, params) => params),
       setDuration: assign(({ context }) => {
         const duration = intervalToDuration({
           start: 0,
@@ -661,4 +683,20 @@ function filterSelectedWorkoutLogs(workoutLogs: Context["workoutLogs"]) {
   return selectedWorkout;
 }
 
+function transformWorkoutLogsSets(
+  workoutLogs: Context["workoutLogs"],
+  unit: Context["unit"],
+) {
+  for (const workoutLog of workoutLogs) {
+    if (unit !== "METRIC") {
+      for (const set of workoutLog.sets) {
+        set.weight =
+          typeof set.weight === "number"
+            ? convertPoundToKg(set.weight)
+            : undefined;
+      }
+    }
+  }
+  return workoutLogs;
+}
 export { workoutMachine };
