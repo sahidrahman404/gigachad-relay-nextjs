@@ -76,7 +76,7 @@ input CreateWorkoutLogInput {
 }
 
 input CreateWorkoutWithChildrenInput {
-  volume: Int!
+  volume: Float!
   duration: String!
   sets: Int!
   image: ImageInput
@@ -1760,7 +1760,7 @@ input UserWhereInput {
 
 type Workout implements Node {
   id: ID!
-  volume: Int!
+  volume: Float!
   duration: String!
   sets: Int!
   createdAt: Time!
@@ -1944,14 +1944,14 @@ input WorkoutWhereInput {
   idLTE: ID
 
   """volume field predicates"""
-  volume: Int
-  volumeNEQ: Int
-  volumeIn: [Int!]
-  volumeNotIn: [Int!]
-  volumeGT: Int
-  volumeGTE: Int
-  volumeLT: Int
-  volumeLTE: Int
+  volume: Float
+  volumeNEQ: Float
+  volumeIn: [Float!]
+  volumeNotIn: [Float!]
+  volumeGT: Float
+  volumeGTE: Float
+  volumeLT: Float
+  volumeLTE: Float
 
   """duration field predicates"""
   duration: String
