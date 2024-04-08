@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<1b467e80c0d73a9aabdf874e52b1be58>>
+ * @generated SignedSource<<7ba8b263d9aba582121abfd3cc934cde>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -13,6 +13,7 @@ export type CreateWorkoutWithChildrenInput = {
   description?: string | null | undefined;
   duration: string;
   image?: ImageInput | null | undefined;
+  name: string;
   sets: number;
   volume: number;
   workoutLogs?: ReadonlyArray<CreateWorkoutLogInput> | null | undefined;
