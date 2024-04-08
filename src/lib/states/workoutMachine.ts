@@ -567,7 +567,10 @@ function processWorkoutLogs(
           return {
             selected: false,
             reps: set.reps ?? undefined,
-            weight: set.weight ?? undefined,
+            weight:
+              data.unit !== "METRIC" && typeof set.weight === "number"
+                ? convertKgToPound(set.weight)
+                : set.weight ?? undefined,
             duration: set.duration ?? undefined,
             length: set.length ?? undefined,
           };
