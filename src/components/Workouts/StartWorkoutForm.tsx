@@ -35,6 +35,7 @@ const formSchema = z.object({
         name: z.string(),
         exerciseType: z.string(),
         exerciseID: z.string().min(29),
+        image: z.any(),
       }),
     )
     .refine(

@@ -631,6 +631,7 @@ function processWorkoutLogs(
         restTime: rE.node.restTime ?? "0",
         exerciseType: exerciseType,
         exerciseID: rE.node.exercises.id,
+        image: rE.node.exercises.image,
       };
       return result;
     }
