@@ -52,6 +52,7 @@ const FinishWorkoutFormMutation = graphql`
 `;
 
 const formSchema = z.object({
+  name: z.string(),
   image: image.optional(),
   description: z.string().optional(),
 });
@@ -75,6 +76,7 @@ function FinishWorkoutForm() {
     resolver: zodResolver(formSchema),
     mode: "onBlur",
     defaultValues: {
+      name: workoutContext.name,
       image: workoutContext.image,
       description: workoutContext.description,
     },
@@ -100,6 +102,7 @@ function FinishWorkoutForm() {
       commitMutation({
         variables: {
           input: {
+            name: workoutContext.name,
             duration: workoutContext.duration.trim(),
             volume: workoutContext.createVolumeInput ?? 0,
             sets: workoutContext.sets,
