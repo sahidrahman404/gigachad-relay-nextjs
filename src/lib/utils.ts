@@ -195,6 +195,22 @@ function convertKgToPound(val: number): number {
   return val * OneKgInLb;
 }
 
+function getNumberFieldUnitFormatOptions(
+  unit: string,
+  label: string,
+): Intl.NumberFormatOptions {
+  const u = unit !== "METRIC" ? "pound" : "kilogram";
+  if (label.toLowerCase() !== "reps") {
+    return {
+      style: "unit",
+      unit: u,
+      unitDisplay: "short",
+    };
+  } else {
+    return {};
+  }
+}
+
 export {
   cn,
   getToken,
@@ -207,4 +223,5 @@ export {
   checkDuplicate,
   convertPoundToKg,
   convertKgToPound,
+  getNumberFieldUnitFormatOptions,
 };
