@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<d8caf593167f00ddbfe11b2f257a4fa4>>
+ * @generated SignedSource<<9c966439e4f9405566d7c4998ead1e7a>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -32,6 +32,9 @@ export type useStartWorkoutFormFragment$data = {
             } | null | undefined> | null | undefined;
           };
           readonly id: string;
+          readonly image: {
+            readonly " $fragmentSpreads": FragmentRefs<"ImageFragment">;
+          } | null | undefined;
           readonly name: string;
         };
         readonly restTime: string | null | undefined;
@@ -212,6 +215,22 @@ return {
                     {
                       "alias": null,
                       "args": null,
+                      "concreteType": "Image",
+                      "kind": "LinkedField",
+                      "name": "image",
+                      "plural": false,
+                      "selections": [
+                        {
+                          "args": null,
+                          "kind": "FragmentSpread",
+                          "name": "ImageFragment"
+                        }
+                      ],
+                      "storageKey": null
+                    },
+                    {
+                      "alias": null,
+                      "args": null,
                       "concreteType": "ExerciseTypeConnection",
                       "kind": "LinkedField",
                       "name": "exerciseTypes",
@@ -261,6 +280,6 @@ return {
 };
 })();
 
-(node as any).hash = "cb355f139499ebc8e005c53ae688d959";
+(node as any).hash = "4e26bf61876ae27ded46a2d7fa4840a2";
 
 export default node;
