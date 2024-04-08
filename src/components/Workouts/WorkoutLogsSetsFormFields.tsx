@@ -1,4 +1,4 @@
-import { ReactNode, useContext } from "react";
+import { ReactNode, useContext, useMemo } from "react";
 import { useFieldArray, useFormContext } from "react-hook-form";
 import {
   FormControl,
@@ -9,7 +9,11 @@ import {
 } from "../ui/form";
 import { Input } from "../ui/input";
 import { Button } from "../ReactAriaUI/Button";
-import { capitalizeFirstLetter, cn } from "@/lib/utils";
+import {
+  capitalizeFirstLetter,
+  cn,
+  getNumberFieldUnitFormatOptions,
+} from "@/lib/utils";
 import { WorkoutLogsContext, WorkoutLogsProps } from "./WorkoutLogs";
 import { Checkbox } from "../ui/checkbox";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
@@ -22,6 +26,7 @@ import { Time, parseTime } from "@internationalized/date";
 import { WorkoutMachineContext } from "../Layout";
 import { useTimer } from "../Hooks/useTimer";
 import { PlayCircle } from "lucide-react";
+import { NumberField } from "../ReactAriaUI/NumberField";
 
 type SetFields = StartWorkoutFormSchema["workoutLogs"][0]["sets"][0];
 
@@ -45,7 +50,11 @@ function WorkoutLogsSetFormField({
   className,
 }: WorkoutLogsSetFormFieldProps) {
   const workoutActor = WorkoutMachineContext.useActorRef();
+  const unit = WorkoutMachineContext.useSelector((state) => state.context.unit);
 
+  const formatOptions = useMemo(() => {
+    return getNumberFieldUnitFormatOptions(unit, label);
+  }, [unit, label]);
   return (
     <FormField
       control={form.control}
@@ -85,11 +94,8 @@ function WorkoutLogsSetFormField({
                 }}
               />
             ) : (
-              <Input
-                type={type}
-                {...field}
-                onChange={(e) => {
-                  const value = e.target.value;
+              <NumberField
+                onChange={(value) => {
                   field.onChange(value);
                   workoutActor.send({
                     type: "EDIT_SET_OBJECT",
@@ -103,6 +109,9 @@ function WorkoutLogsSetFormField({
                     },
                   });
                 }}
+                onBlur={field.onBlur}
+                value={Number(field.value)}
+                formatOptions={formatOptions}
               />
             )}
           </FormControl>
