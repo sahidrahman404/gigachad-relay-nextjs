@@ -3,6 +3,7 @@ import { useFragment } from "react-relay";
 import { graphql } from "relay-runtime";
 import { MusclesGroupBadge } from "./MusclesGroupBadge";
 import { ExerciseTypeBadge } from "./ExerciseTypeBadge";
+import { ExerciseEmptyHowTo } from "./ExerciseEmptyHowTo";
 
 const ExerciseFragment = graphql`
   fragment ExerciseFragment on Exercise {
@@ -12,6 +13,7 @@ const ExerciseFragment = graphql`
     image {
       ...ImageFragment
     }
+    ...ExerciseEmptyHowToFragment
     musclesGroups {
       edges {
         node {
@@ -44,6 +46,7 @@ function Exercise({ queryRef }: ExerciseProps) {
           <ExerciseTypeBadge queryRef={data.exerciseTypes} />
         </div>
       </div>
+      <ExerciseEmptyHowTo queryRef={data} />
       <div
         dangerouslySetInnerHTML={{ __html: data.howTo ?? "" }}
         className="prose mx-auto"
