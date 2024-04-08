@@ -83,7 +83,7 @@ function EditExerciseForm({
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
+    values: {
       id: dataExerciseFragment.id,
       name: dataExerciseFragment.name,
       image: undefined,
