@@ -393,7 +393,10 @@ const workoutMachine = createMachine(
                     type: "createWorkoutLogsInput",
                     params({ context }) {
                       const filteredSelectedWorkoutLogs =
-                        filterSelectedWorkoutLogs(context.workoutLogs);
+                        filterSelectedWorkoutLogs(
+                          context.workoutLogs,
+                          context.unit,
+                        );
                       return {
                         createWorkoutLogsInput: filteredSelectedWorkoutLogs,
                       };
@@ -680,14 +683,20 @@ function editSetWorkoutLogInplace({
   }
 }
 
-function filterSelectedWorkoutLogs(workoutLogs: Context["workoutLogs"]) {
+function filterSelectedWorkoutLogs(
+  workoutLogs: Context["workoutLogs"],
+  unit: Context["unit"],
+) {
   const selectedWorkout = workoutLogs
     .map((wl) => {
       const selectedSets = wl.sets.filter((set) => set.selected);
       if (selectedSets.length > 0) {
         return {
           sets: selectedSets.map((set) => ({
-            weight: set.weight,
+            weight:
+              unit !== "METRIC" && typeof set.weight === "number"
+                ? convertPoundToKg(set.weight)
+                : set.weight,
             time: set.duration,
             length: set.length,
             reps: set.reps,
