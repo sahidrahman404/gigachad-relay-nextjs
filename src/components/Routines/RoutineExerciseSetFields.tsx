@@ -14,7 +14,7 @@ import {
 } from "../ui/form";
 import { Input } from "../ui/input";
 import { Button } from "../ReactAriaUI/Button";
-import { cn } from "@/lib/utils";
+import { cn, getNumberFieldUnitFormatOptions } from "@/lib/utils";
 import {
   RoutineExerciseSetsFieldContext,
   RoutineExerciseSetsFieldProps,
@@ -54,16 +54,7 @@ function SetFormField({
   const { unit } = useContext(RoutineExerciseSetsFieldContext);
 
   const formatOptions: Intl.NumberFormatOptions = useMemo(() => {
-    const u = unit !== "METRIC" ? "pound" : "kilogram";
-    if (label !== "Reps") {
-      return {
-        style: "unit",
-        unit: u,
-        unitDisplay: "short",
-      };
-    } else {
-      return {};
-    }
+    return getNumberFieldUnitFormatOptions(unit, label);
   }, [unit, label]);
 
   return (
