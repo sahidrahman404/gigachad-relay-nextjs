@@ -20,16 +20,16 @@ const sidebarConfig = [
         icon: <Dumbbell className="mr-2 h-4 w-4" />,
         link: "/dashboard/exercises",
       },
+      {
+        page: "Logs",
+        icon: <ScrollText className="mr-2 h-4 w-4" />,
+        link: "/dashboard/logs",
+      },
     ],
   },
   {
     section: "Account",
     child: [
-      {
-        page: "Logs",
-        icon: <ScrollText className="mr-2 h-4 w-4" />,
-        link: "/accounts/logs",
-      },
       {
         page: "Profile",
         icon: <User className="mr-2 h-4 w-4" />,
