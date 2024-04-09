@@ -46,7 +46,7 @@ function ExerciseHistoryCard({ queryRef }: ExerciseHistoryCardProps) {
     : "";
   return (
     <Card>
-      <CardHeader className="space-y-2">
+      <CardHeader className="space-y-3">
         <CardTitle className="flex flex-col space-y-1.5">
           <p className="text-l font-bold">{data.workouts.name}</p>
           <p className="text-xs text-muted-foreground">
