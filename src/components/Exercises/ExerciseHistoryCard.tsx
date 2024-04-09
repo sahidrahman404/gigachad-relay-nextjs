@@ -50,7 +50,7 @@ function ExerciseHistoryCard({ queryRef }: ExerciseHistoryCardProps) {
         <CardTitle className="flex flex-col space-y-1.5">
           <p className="text-l font-bold">{data.workouts.name}</p>
           <p className="text-xs text-muted-foreground">
-            {new Date(data.workouts.createdAt).toString()}
+            {new Date(data.workouts.createdAt).toLocaleString()}
           </p>
         </CardTitle>
         <div className="flex items-center space-x-2">
