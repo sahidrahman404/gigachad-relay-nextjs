@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<bdf28784895899a0641b3e7c41656e33>>
+ * @generated SignedSource<<7531cf45060337e38215eeaa46b8155a>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -484,6 +484,14 @@ export type WorkoutLogWhereInput = {
   idNotIn?: ReadonlyArray<string> | null | undefined;
   not?: WorkoutLogWhereInput | null | undefined;
   or?: ReadonlyArray<WorkoutLogWhereInput> | null | undefined;
+  order?: number | null | undefined;
+  orderGT?: number | null | undefined;
+  orderGTE?: number | null | undefined;
+  orderIn?: ReadonlyArray<number> | null | undefined;
+  orderLT?: number | null | undefined;
+  orderLTE?: number | null | undefined;
+  orderNEQ?: number | null | undefined;
+  orderNotIn?: ReadonlyArray<number> | null | undefined;
 };
 export type EquipmentWhereInput = {
   and?: ReadonlyArray<EquipmentWhereInput> | null | undefined;
