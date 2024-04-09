@@ -35,9 +35,13 @@ const ExerciseHistoryCardFragment = graphql`
 
 type ExerciseHistoryCardProps = {
   queryRef: ExerciseHistoryCardFragment$key;
+  forLogComponent?: boolean;
 };
 
-function ExerciseHistoryCard({ queryRef }: ExerciseHistoryCardProps) {
+function ExerciseHistoryCard({
+  queryRef,
+  forLogComponent = false,
+}: ExerciseHistoryCardProps) {
   const data = useFragment(ExerciseHistoryCardFragment, queryRef);
   const exerciseType = data.exercises.exerciseTypes.edges
     ? data.exercises.exerciseTypes.edges[0]
@@ -47,12 +51,14 @@ function ExerciseHistoryCard({ queryRef }: ExerciseHistoryCardProps) {
   return (
     <Card>
       <CardHeader className="space-y-3">
-        <CardTitle className="flex flex-col space-y-1.5">
-          <p className="text-l font-bold">{data.workouts.name}</p>
-          <p className="text-xs text-muted-foreground">
-            {new Date(data.workouts.createdAt).toLocaleString()}
-          </p>
-        </CardTitle>
+        {!forLogComponent && (
+          <CardTitle className="flex flex-col space-y-1.5">
+            <p className="text-l font-bold">{data.workouts.name}</p>
+            <p className="text-xs text-muted-foreground">
+              {new Date(data.workouts.createdAt).toLocaleString()}
+            </p>
+          </CardTitle>
+        )}
         <div className="flex items-center space-x-2">
           {data.exercises.image && (
             <Avatar className="w-10 h-10">
