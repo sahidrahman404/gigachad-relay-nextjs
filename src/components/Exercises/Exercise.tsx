@@ -5,6 +5,7 @@ import { MusclesGroupBadge } from "./MusclesGroupBadge";
 import { ExerciseTypeBadge } from "./ExerciseTypeBadge";
 import { ExerciseEmptyHowTo } from "./ExerciseEmptyHowTo";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { ExercisesHistory } from "./ExercisesHistory";
 
 const ExerciseFragment = graphql`
   fragment ExerciseFragment on Exercise {
@@ -31,6 +32,7 @@ const ExerciseFragment = graphql`
       }
       ...ExerciseTypeBadgeFragment
     }
+    ...ExercisesHistoryFragment
   }
 `;
 
@@ -59,7 +61,9 @@ function Exercise({ queryRef }: ExerciseProps) {
             className="prose mx-auto"
           />
         </TabsContent>
-        <TabsContent value="history">History</TabsContent>
+        <TabsContent value="history">
+          <ExercisesHistory queryRef={data} />
+        </TabsContent>
       </Tabs>
     </div>
   );
