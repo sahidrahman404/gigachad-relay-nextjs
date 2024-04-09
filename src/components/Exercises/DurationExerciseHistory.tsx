@@ -38,6 +38,8 @@ function DurationExerciseHistory({ queryRef }: DurationExerciseHistoryProps) {
             <div className="space-y-2 col-span-1">
               <Label>Duration</Label>
               <TimeField
+                granularity="second"
+                hourCycle={24}
                 isDisabled={true}
                 value={set.duration ? parseTime(set.duration) : undefined}
                 className="col-span-1"
