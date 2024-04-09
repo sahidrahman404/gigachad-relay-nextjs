@@ -1,5 +1,6 @@
 import { image } from "@/lib/zod";
 import { graphql } from "relay-runtime";
+import ConnectionHandler from "relay-connection-handler-plus";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -28,24 +29,15 @@ import { WorkoutMachineContext } from "../Layout";
 import { useRouter } from "next/router";
 import { useTimer } from "../Hooks/useTimer";
 import { toast } from "sonner";
+import { prependWorkoutEdge } from "@/lib/relay/prependEdge";
 
 const FinishWorkoutFormMutation = graphql`
   mutation FinishWorkoutForm_Mutation($input: CreateWorkoutWithChildrenInput!) {
     createWorkoutWithChildren(input: $input) {
       id
-      workoutLogs {
-        edges {
-          node {
-            sets {
-              reps
-              weight
-              duration
-              length
-            }
-            workoutID
-            exerciseID
-          }
-        }
+      ...LogCardFragment
+      users {
+        id
       }
     }
   }
@@ -122,6 +114,20 @@ function FinishWorkoutForm() {
         },
         onError: () => {
           toast.error("There was a problem with your request.");
+        },
+        updater: (store, data) => {
+          if (data) {
+            const userRecord = store.get(
+              data.createWorkoutWithChildren.users.id,
+            );
+            if (userRecord) {
+              const connectionRecords = ConnectionHandler.getConnections(
+                userRecord,
+                "LogsFragment_workouts",
+              );
+              prependWorkoutEdge(store, connectionRecords);
+            }
+          }
         },
         onCompleted: () => {
           editor?.commands.clearContent();

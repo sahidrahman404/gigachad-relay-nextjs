@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<7ba8b263d9aba582121abfd3cc934cde>>
+ * @generated SignedSource<<4c12335a4495a68631356b24a1833f7c>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,6 +9,7 @@
 // @ts-nocheck
 
 import { ConcreteRequest, Mutation } from 'relay-runtime';
+import { FragmentRefs } from "relay-runtime";
 export type CreateWorkoutWithChildrenInput = {
   description?: string | null | undefined;
   duration: string;
@@ -44,20 +45,10 @@ export type FinishWorkoutForm_Mutation$variables = {
 export type FinishWorkoutForm_Mutation$data = {
   readonly createWorkoutWithChildren: {
     readonly id: string;
-    readonly workoutLogs: {
-      readonly edges: ReadonlyArray<{
-        readonly node: {
-          readonly exerciseID: string;
-          readonly sets: ReadonlyArray<{
-            readonly duration: string | null | undefined;
-            readonly length: number | null | undefined;
-            readonly reps: number | null | undefined;
-            readonly weight: number | null | undefined;
-          }>;
-          readonly workoutID: string;
-        } | null | undefined;
-      } | null | undefined> | null | undefined;
+    readonly users: {
+      readonly id: string;
     };
+    readonly " $fragmentSpreads": FragmentRefs<"LogCardFragment">;
   };
 };
 export type FinishWorkoutForm_Mutation = {
@@ -90,54 +81,162 @@ v2 = {
 v3 = {
   "alias": null,
   "args": null,
-  "concreteType": "Set",
-  "kind": "LinkedField",
-  "name": "sets",
-  "plural": true,
-  "selections": [
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "reps",
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "weight",
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "duration",
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "length",
-      "storageKey": null
-    }
-  ],
+  "kind": "ScalarField",
+  "name": "name",
   "storageKey": null
 },
 v4 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "workoutID",
+  "name": "duration",
   "storageKey": null
 },
 v5 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
-  "name": "exerciseID",
+  "name": "width",
+  "storageKey": null
+},
+v6 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "height",
+  "storageKey": null
+},
+v7 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "aspectRatio",
+  "storageKey": null
+},
+v8 = {
+  "alias": null,
+  "args": null,
+  "concreteType": "Image",
+  "kind": "LinkedField",
+  "name": "image",
+  "plural": false,
+  "selections": [
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "src",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "srcset",
+      "storageKey": null
+    },
+    (v5/*: any*/),
+    (v6/*: any*/),
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "priority",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "loading",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "fetchPriority",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "decoding",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "layout",
+      "storageKey": null
+    },
+    (v7/*: any*/),
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "objectFit",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "breakpoints",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "alt",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "role",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "sizes",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "Style",
+      "kind": "LinkedField",
+      "name": "style",
+      "plural": false,
+      "selections": [
+        (v7/*: any*/),
+        (v6/*: any*/),
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "maxHeight",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "maxWidth",
+          "storageKey": null
+        },
+        (v5/*: any*/)
+      ],
+      "storageKey": null
+    }
+  ],
   "storageKey": null
 };
 return {
@@ -157,38 +256,19 @@ return {
         "selections": [
           (v2/*: any*/),
           {
+            "args": null,
+            "kind": "FragmentSpread",
+            "name": "LogCardFragment"
+          },
+          {
             "alias": null,
             "args": null,
-            "concreteType": "WorkoutLogConnection",
+            "concreteType": "User",
             "kind": "LinkedField",
-            "name": "workoutLogs",
+            "name": "users",
             "plural": false,
             "selections": [
-              {
-                "alias": null,
-                "args": null,
-                "concreteType": "WorkoutLogEdge",
-                "kind": "LinkedField",
-                "name": "edges",
-                "plural": true,
-                "selections": [
-                  {
-                    "alias": null,
-                    "args": null,
-                    "concreteType": "WorkoutLog",
-                    "kind": "LinkedField",
-                    "name": "node",
-                    "plural": false,
-                    "selections": [
-                      (v3/*: any*/),
-                      (v4/*: any*/),
-                      (v5/*: any*/)
-                    ],
-                    "storageKey": null
-                  }
-                ],
-                "storageKey": null
-              }
+              (v2/*: any*/)
             ],
             "storageKey": null
           }
@@ -214,9 +294,68 @@ return {
         "plural": false,
         "selections": [
           (v2/*: any*/),
+          (v3/*: any*/),
           {
             "alias": null,
             "args": null,
+            "kind": "ScalarField",
+            "name": "volume",
+            "storageKey": null
+          },
+          (v4/*: any*/),
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "sets",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "createdAt",
+            "storageKey": null
+          },
+          (v8/*: any*/),
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "description",
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "User",
+            "kind": "LinkedField",
+            "name": "users",
+            "plural": false,
+            "selections": [
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "unit",
+                "storageKey": null
+              },
+              (v2/*: any*/)
+            ],
+            "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": [
+              {
+                "kind": "Literal",
+                "name": "orderBy",
+                "value": {
+                  "direction": "ASC",
+                  "field": "Order"
+                }
+              }
+            ],
             "concreteType": "WorkoutLogConnection",
             "kind": "LinkedField",
             "name": "workoutLogs",
@@ -238,10 +377,54 @@ return {
                     "name": "node",
                     "plural": false,
                     "selections": [
-                      (v3/*: any*/),
-                      (v4/*: any*/),
-                      (v5/*: any*/),
-                      (v2/*: any*/)
+                      (v2/*: any*/),
+                      {
+                        "alias": null,
+                        "args": null,
+                        "concreteType": "Set",
+                        "kind": "LinkedField",
+                        "name": "sets",
+                        "plural": true,
+                        "selections": [
+                          {
+                            "alias": null,
+                            "args": null,
+                            "kind": "ScalarField",
+                            "name": "reps",
+                            "storageKey": null
+                          },
+                          {
+                            "alias": null,
+                            "args": null,
+                            "kind": "ScalarField",
+                            "name": "weight",
+                            "storageKey": null
+                          },
+                          (v4/*: any*/),
+                          {
+                            "alias": null,
+                            "args": null,
+                            "kind": "ScalarField",
+                            "name": "length",
+                            "storageKey": null
+                          }
+                        ],
+                        "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "concreteType": "Exercise",
+                        "kind": "LinkedField",
+                        "name": "exercises",
+                        "plural": false,
+                        "selections": [
+                          (v3/*: any*/),
+                          (v8/*: any*/),
+                          (v2/*: any*/)
+                        ],
+                        "storageKey": null
+                      }
                     ],
                     "storageKey": null
                   }
@@ -249,7 +432,7 @@ return {
                 "storageKey": null
               }
             ],
-            "storageKey": null
+            "storageKey": "workoutLogs(orderBy:{\"direction\":\"ASC\",\"field\":\"Order\"})"
           }
         ],
         "storageKey": null
@@ -257,16 +440,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "23abffbaf13ffcee46fcb13720056c0f",
+    "cacheID": "2073590d28f1269615fead597f386273",
     "id": null,
     "metadata": {},
     "name": "FinishWorkoutForm_Mutation",
     "operationKind": "mutation",
-    "text": "mutation FinishWorkoutForm_Mutation(\n  $input: CreateWorkoutWithChildrenInput!\n) {\n  createWorkoutWithChildren(input: $input) {\n    id\n    workoutLogs {\n      edges {\n        node {\n          sets {\n            reps\n            weight\n            duration\n            length\n          }\n          workoutID\n          exerciseID\n          id\n        }\n      }\n    }\n  }\n}\n"
+    "text": "mutation FinishWorkoutForm_Mutation(\n  $input: CreateWorkoutWithChildrenInput!\n) {\n  createWorkoutWithChildren(input: $input) {\n    id\n    ...LogCardFragment\n    users {\n      id\n    }\n  }\n}\n\nfragment ImageFragment on Image {\n  src\n  srcset\n  width\n  height\n  priority\n  loading\n  fetchPriority\n  decoding\n  layout\n  aspectRatio\n  objectFit\n  breakpoints\n  alt\n  role\n  sizes\n  style {\n    aspectRatio\n    height\n    maxHeight\n    maxWidth\n    width\n  }\n}\n\nfragment LogCardFragment on Workout {\n  id\n  name\n  volume\n  duration\n  sets\n  createdAt\n  image {\n    ...ImageFragment\n  }\n  description\n  users {\n    unit\n    id\n  }\n  workoutLogs(orderBy: {direction: ASC, field: Order}) {\n    edges {\n      node {\n        id\n        sets {\n          reps\n          weight\n          duration\n          length\n        }\n        exercises {\n          name\n          image {\n            ...ImageFragment\n          }\n          id\n        }\n      }\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "35f4de5707f636524e72d1c26bee415a";
+(node as any).hash = "2e2dc20d833cdfae91259d3c38e86103";
 
 export default node;
