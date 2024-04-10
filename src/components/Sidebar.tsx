@@ -39,7 +39,7 @@ const sidebarConfig = [
   },
 ];
 
-export default function Sidebar({ className }: SidebarProps) {
+function Sidebar({ className }: SidebarProps) {
   const router = useRouter();
   return (
     <div className={cn("pb-12", className)}>
@@ -76,3 +76,5 @@ export default function Sidebar({ className }: SidebarProps) {
     </div>
   );
 }
+
+export { Sidebar, sidebarConfig };
