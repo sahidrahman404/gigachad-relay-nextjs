@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<df881bfe10d698bb66e2b139da662b10>>
+ * @generated SignedSource<<55d7ec09c3c0972c9b8290433da74cbe>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -114,29 +114,18 @@ v9 = {
 v10 = {
   "alias": null,
   "args": null,
-  "concreteType": "PageInfo",
-  "kind": "LinkedField",
-  "name": "pageInfo",
-  "plural": false,
-  "selections": [
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "endCursor",
-      "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "kind": "ScalarField",
-      "name": "hasNextPage",
-      "storageKey": null
-    }
-  ],
+  "kind": "ScalarField",
+  "name": "hasNextPage",
   "storageKey": null
 },
-v11 = [
+v11 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "endCursor",
+  "storageKey": null
+},
+v12 = [
   {
     "kind": "Literal",
     "name": "first",
@@ -305,7 +294,19 @@ return {
                     ],
                     "storageKey": null
                   },
-                  (v10/*: any*/)
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "PageInfo",
+                    "kind": "LinkedField",
+                    "name": "pageInfo",
+                    "plural": false,
+                    "selections": [
+                      (v10/*: any*/),
+                      (v11/*: any*/)
+                    ],
+                    "storageKey": null
+                  }
                 ],
                 "storageKey": null
               },
@@ -322,7 +323,7 @@ return {
               },
               {
                 "alias": null,
-                "args": (v11/*: any*/),
+                "args": (v12/*: any*/),
                 "concreteType": "ExerciseConnection",
                 "kind": "LinkedField",
                 "name": "exercises",
@@ -354,13 +355,25 @@ return {
                     ],
                     "storageKey": null
                   },
-                  (v10/*: any*/)
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "PageInfo",
+                    "kind": "LinkedField",
+                    "name": "pageInfo",
+                    "plural": false,
+                    "selections": [
+                      (v11/*: any*/),
+                      (v10/*: any*/)
+                    ],
+                    "storageKey": null
+                  }
                 ],
                 "storageKey": "exercises(first:1)"
               },
               {
                 "alias": null,
-                "args": (v11/*: any*/),
+                "args": (v12/*: any*/),
                 "filters": null,
                 "handle": "connection",
                 "key": "ExercisesFragment_exercises",
@@ -377,16 +390,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "9479baacb5bc9b5cd12f43fecdcceb0a",
+    "cacheID": "1bbe06193d60698c165e2fb25b92f778",
     "id": null,
     "metadata": {},
     "name": "RoutinesFragmentPaginationQuery",
     "operationKind": "query",
-    "text": "query RoutinesFragmentPaginationQuery(\n  $count: Int = 4\n  $cursor: Cursor\n  $orderby: OrderDirection = DESC\n  $id: ID!\n) {\n  node(id: $id) {\n    __typename\n    ...RoutinesFragment_2GViAS\n    id\n  }\n}\n\nfragment RoutineFragment on Routine {\n  id\n  name\n  routineExercises(orderBy: {direction: ASC, field: Order}) {\n    edges {\n      node {\n        exercises {\n          name\n          id\n        }\n        id\n      }\n    }\n  }\n}\n\nfragment RoutinesEmptyStateFragment on User {\n  exercises(first: 1) {\n    edges {\n      node {\n        id\n        name\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n  id\n}\n\nfragment RoutinesFragment_2GViAS on User {\n  id\n  routines(after: $cursor, first: $count, orderBy: {direction: $orderby, field: ID}) {\n    edges {\n      node {\n        id\n        ...RoutineFragment\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n  ...RoutinesEmptyStateFragment\n}\n"
+    "text": "query RoutinesFragmentPaginationQuery(\n  $count: Int = 4\n  $cursor: Cursor\n  $orderby: OrderDirection = DESC\n  $id: ID!\n) {\n  node(id: $id) {\n    __typename\n    ...RoutinesFragment_2GViAS\n    id\n  }\n}\n\nfragment RoutineFragment on Routine {\n  id\n  name\n  routineExercises(orderBy: {direction: ASC, field: Order}) {\n    edges {\n      node {\n        exercises {\n          name\n          id\n        }\n        id\n      }\n    }\n  }\n}\n\nfragment RoutinesEmptyStateFragment on User {\n  exercises(first: 1) {\n    edges {\n      node {\n        id\n        name\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n  id\n}\n\nfragment RoutinesFragment_2GViAS on User {\n  id\n  routines(after: $cursor, first: $count, orderBy: {direction: $orderby, field: ID}) {\n    edges {\n      node {\n        id\n        ...RoutineFragment\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n  ...RoutinesEmptyStateFragment\n}\n"
   }
 };
 })();
 
-(node as any).hash = "a012539d41d679c4b09998e24aeedca6";
+(node as any).hash = "e162ee841a44bd5276818a9c42f460d8";
 
 export default node;

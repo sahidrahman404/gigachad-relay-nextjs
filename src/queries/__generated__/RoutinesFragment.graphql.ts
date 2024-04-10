@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<ec590d2a9d192b4fa37ad6e9b72acdc0>>
+ * @generated SignedSource<<d456b6351318b4c1f92bdb508bb9d74d>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -19,6 +19,9 @@ export type RoutinesFragment$data = {
         readonly " $fragmentSpreads": FragmentRefs<"RoutineFragment">;
       } | null | undefined;
     } | null | undefined> | null | undefined;
+    readonly pageInfo: {
+      readonly hasNextPage: boolean;
+    };
   };
   readonly " $fragmentSpreads": FragmentRefs<"RoutinesEmptyStateFragment">;
   readonly " $fragmentType": "RoutinesFragment";
@@ -168,14 +171,14 @@ return {
               "alias": null,
               "args": null,
               "kind": "ScalarField",
-              "name": "endCursor",
+              "name": "hasNextPage",
               "storageKey": null
             },
             {
               "alias": null,
               "args": null,
               "kind": "ScalarField",
-              "name": "hasNextPage",
+              "name": "endCursor",
               "storageKey": null
             }
           ],
@@ -195,6 +198,6 @@ return {
 };
 })();
 
-(node as any).hash = "a012539d41d679c4b09998e24aeedca6";
+(node as any).hash = "e162ee841a44bd5276818a9c42f460d8";
 
 export default node;
