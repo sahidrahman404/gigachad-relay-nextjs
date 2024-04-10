@@ -62,7 +62,13 @@ function MobileNav() {
                 </h2>
                 <div className="space-y-1">
                   {sc.child.map((cc) => {
-                    return <MobileLink key={cc.page} childSection={cc} />;
+                    return (
+                      <MobileLink
+                        key={cc.page}
+                        childSection={cc}
+                        onOpenChange={setOpen}
+                      />
+                    );
                   })}
                 </div>
               </div>
