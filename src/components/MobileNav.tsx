@@ -101,7 +101,7 @@ function MobileLink({
           ? "secondary"
           : "ghost"
       }
-      onClick={() => {
+      onPress={() => {
         router.push(childSection.link);
         onOpenChange?.(false);
       }}
