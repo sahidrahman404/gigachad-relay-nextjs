@@ -43,7 +43,7 @@ export default function Sidebar({ className }: SidebarProps) {
   const router = useRouter();
   return (
     <div className={cn("pb-12", className)}>
-      <div className="space-y-4 py-4 sticky top-0">
+      <div className="space-y-4 py-4 sticky top-14">
         {sidebarConfig.map((sc) => {
           return (
             <div className="px-3 py-2" key={sc.section}>
