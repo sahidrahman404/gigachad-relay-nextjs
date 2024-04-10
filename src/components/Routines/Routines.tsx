@@ -1,10 +1,12 @@
 import { RoutinesFragment$key } from "@/queries/__generated__/RoutinesFragment.graphql";
-import { useFragment } from "react-relay";
+import { usePaginationFragment } from "react-relay";
 import { graphql } from "relay-runtime";
 import { RoutinesEmptyState } from "./RoutinesEmptyState";
 import { Routine } from "./Routine";
 import { LinkButton } from "../ReactAriaUI/LinkButton";
-import { createContext } from "react";
+import { createContext, useCallback, useTransition } from "react";
+import { LoadingSpinner } from "../common/LoadingSpinner";
+import { InfiniteScroll } from "../common/InfiniteScroll";
 
 const RoutinesFragment = graphql`
   fragment RoutinesFragment on User
@@ -26,6 +28,9 @@ const RoutinesFragment = graphql`
           ...RoutineFragment
         }
       }
+      pageInfo {
+        hasNextPage
+      }
     }
     ...RoutinesEmptyStateFragment
   }
@@ -40,7 +45,14 @@ const RoutinesData = createContext<RoutinesFragment$key | null | undefined>(
 );
 
 function Routines({ queryRef }: RoutinesProps) {
-  const data = useFragment(RoutinesFragment, queryRef);
+  const [isPending, startTransition] = useTransition();
+  const { data, loadNext } = usePaginationFragment(RoutinesFragment, queryRef);
+
+  const onLoadMore = useCallback(() => {
+    startTransition(() => {
+      loadNext(4);
+    });
+  }, [loadNext]);
 
   if (!data.routines.edges) {
     return null;
@@ -59,6 +71,11 @@ function Routines({ queryRef }: RoutinesProps) {
             return <Routine queryRef={routine.node} key={routine.node.id} />;
           }
         })}
+        {isPending && <LoadingSpinner className="mx-auto w-6 h-6" />}
+        <InfiniteScroll
+          hasNextPage={data.routines.pageInfo.hasNextPage}
+          loadFn={onLoadMore}
+        />
       </div>
     </RoutinesData.Provider>
   );
