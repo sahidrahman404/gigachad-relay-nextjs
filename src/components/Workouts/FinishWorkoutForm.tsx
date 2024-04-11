@@ -29,7 +29,10 @@ import { WorkoutMachineContext } from "../Layout";
 import { useRouter } from "next/router";
 import { useTimer } from "../Hooks/useTimer";
 import { toast } from "sonner";
-import { prependWorkoutEdge } from "@/lib/relay/prependEdge";
+import {
+  prependWorkoutEdge,
+  prependWorkoutLogEdge,
+} from "@/lib/relay/prependEdge";
 import Head from "next/head";
 
 const FinishWorkoutFormMutation = graphql`
@@ -137,6 +140,19 @@ function FinishWorkoutForm() {
                 "LogsFragment_workouts",
               );
               prependWorkoutEdge(store, connectionRecords);
+            }
+            for (const workoutLog of data.createWorkoutWithChildren.workoutLogs
+              .edges ?? []) {
+              const exerciseRecord = store.get(
+                workoutLog?.node?.exercises.id ?? "",
+              );
+              if (exerciseRecord) {
+                const connectionRecords = ConnectionHandler.getConnections(
+                  exerciseRecord,
+                  "ExercisesHistoryFragment_workoutLogs",
+                );
+                prependWorkoutLogEdge(store, connectionRecords);
+              }
             }
           }
         },
