@@ -62,6 +62,7 @@ type StartWorkoutFormSchema = z.infer<typeof formSchema>;
 const StartWorkoutFormFragment = graphql`
   fragment StartWorkoutFormFragment on Routine {
     id
+    name
     ...useStartWorkoutFormFragment
   }
 `;

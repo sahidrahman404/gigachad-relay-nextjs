@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<1ed8ae31e8a6cc0ef632ab8635f2a1ce>>
+ * @generated SignedSource<<d4e04bc821394c2f0c87e2e2013057aa>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -12,6 +12,7 @@ import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type StartWorkoutFormFragment$data = {
   readonly id: string;
+  readonly name: string;
   readonly " $fragmentSpreads": FragmentRefs<"useStartWorkoutFormFragment">;
   readonly " $fragmentType": "StartWorkoutFormFragment";
 };
@@ -34,6 +35,13 @@ const node: ReaderFragment = {
       "storageKey": null
     },
     {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "name",
+      "storageKey": null
+    },
+    {
       "args": null,
       "kind": "FragmentSpread",
       "name": "useStartWorkoutFormFragment"
@@ -43,6 +51,6 @@ const node: ReaderFragment = {
   "abstractKey": null
 };
 
-(node as any).hash = "7fa8f7f722b23ef8fc82dfee13d26359";
+(node as any).hash = "1818b127620d0e272e40ad0317ea7037";
 
 export default node;

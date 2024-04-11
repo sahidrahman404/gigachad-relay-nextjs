@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<679350561f23ddee90ba47dec8746ef5>>
+ * @generated SignedSource<<97088059acc4d28e7458144c6f6c1ca7>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -494,12 +494,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "5447ad583ccf400b30ad26d5c4e94a4f",
+    "cacheID": "6ae3f3f73e55434bc61231d90832d251",
     "id": null,
     "metadata": {},
     "name": "RoutineIDStart_Query",
     "operationKind": "query",
-    "text": "query RoutineIDStart_Query(\n  $routineID: ID!\n) {\n  viewer {\n    ...useAuthRedirectFragment\n    unit\n    id\n  }\n  node(id: $routineID) {\n    __typename\n    ... on Routine {\n      ...StartWorkoutFormFragment\n    }\n    id\n  }\n}\n\nfragment ImageFragment on Image {\n  src\n  srcset\n  width\n  height\n  priority\n  loading\n  fetchPriority\n  decoding\n  layout\n  aspectRatio\n  objectFit\n  breakpoints\n  alt\n  role\n  sizes\n  style {\n    aspectRatio\n    height\n    maxHeight\n    maxWidth\n    width\n  }\n}\n\nfragment StartWorkoutFormFragment on Routine {\n  id\n  ...useStartWorkoutFormFragment\n}\n\nfragment useAuthRedirectFragment on User {\n  id\n}\n\nfragment useStartWorkoutFormFragment on Routine {\n  id\n  name\n  reminderID\n  reminders {\n    day\n    hour\n    minute\n    second\n  }\n  routineExercises(orderBy: {direction: ASC, field: Order}) {\n    edges {\n      node {\n        sets {\n          reps\n          weight\n          duration\n          length\n        }\n        restTime\n        exercises {\n          id\n          name\n          image {\n            ...ImageFragment\n          }\n          exerciseTypes {\n            edges {\n              node {\n                name\n                id\n              }\n            }\n          }\n        }\n        id\n      }\n    }\n  }\n}\n"
+    "text": "query RoutineIDStart_Query(\n  $routineID: ID!\n) {\n  viewer {\n    ...useAuthRedirectFragment\n    unit\n    id\n  }\n  node(id: $routineID) {\n    __typename\n    ... on Routine {\n      ...StartWorkoutFormFragment\n    }\n    id\n  }\n}\n\nfragment ImageFragment on Image {\n  src\n  srcset\n  width\n  height\n  priority\n  loading\n  fetchPriority\n  decoding\n  layout\n  aspectRatio\n  objectFit\n  breakpoints\n  alt\n  role\n  sizes\n  style {\n    aspectRatio\n    height\n    maxHeight\n    maxWidth\n    width\n  }\n}\n\nfragment StartWorkoutFormFragment on Routine {\n  id\n  name\n  ...useStartWorkoutFormFragment\n}\n\nfragment useAuthRedirectFragment on User {\n  id\n}\n\nfragment useStartWorkoutFormFragment on Routine {\n  id\n  name\n  reminderID\n  reminders {\n    day\n    hour\n    minute\n    second\n  }\n  routineExercises(orderBy: {direction: ASC, field: Order}) {\n    edges {\n      node {\n        sets {\n          reps\n          weight\n          duration\n          length\n        }\n        restTime\n        exercises {\n          id\n          name\n          image {\n            ...ImageFragment\n          }\n          exerciseTypes {\n            edges {\n              node {\n                name\n                id\n              }\n            }\n          }\n        }\n        id\n      }\n    }\n  }\n}\n"
   }
 };
 })();
