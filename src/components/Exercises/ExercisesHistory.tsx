@@ -5,8 +5,6 @@ import { ExerciseHistoryCard } from "./ExerciseHistoryCard";
 import { useCallback, useTransition } from "react";
 import { LoadingSpinner } from "../common/LoadingSpinner";
 import { InfiniteScroll } from "../common/InfiniteScroll";
-import { RefreshCcw } from "lucide-react";
-import { Button } from "../ReactAriaUI/Button";
 
 const ExercisesHistoryFragment = graphql`
   fragment ExercisesHistoryFragment on Exercise
@@ -40,7 +38,7 @@ type ExercisesHistoryProps = {
 
 function ExercisesHistory({ queryRef }: ExercisesHistoryProps) {
   const [isPending, startTransition] = useTransition();
-  const { data, loadNext, refetch } = usePaginationFragment(
+  const { data, loadNext } = usePaginationFragment(
     ExercisesHistoryFragment,
     queryRef,
   );
@@ -53,18 +51,6 @@ function ExercisesHistory({ queryRef }: ExercisesHistoryProps) {
 
   return (
     <div className="space-y-4">
-      <div className="flex">
-        <Button
-          className="ml-auto"
-          onPress={() => {
-            startTransition(() => {
-              refetch({}, { fetchPolicy: "store-and-network" });
-            });
-          }}
-        >
-          <RefreshCcw />
-        </Button>
-      </div>
       <div className="space-y-3">
         {data.workoutLogs.edges?.map((workoutLog) => {
           if (workoutLog?.node) {
