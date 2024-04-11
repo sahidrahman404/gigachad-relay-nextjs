@@ -37,6 +37,16 @@ const FinishWorkoutFormMutation = graphql`
     createWorkoutWithChildren(input: $input) {
       id
       ...LogCardFragment
+      workoutLogs(orderBy: { direction: ASC, field: Order }) {
+        edges {
+          node {
+            ...ExerciseHistoryCardFragment
+            exercises {
+              id
+            }
+          }
+        }
+      }
       users {
         id
       }
