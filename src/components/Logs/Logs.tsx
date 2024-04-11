@@ -6,6 +6,7 @@ import { LoadingSpinner } from "../common/LoadingSpinner";
 import { InfiniteScroll } from "../common/InfiniteScroll";
 import { LogCard } from "./LogCard";
 import Head from "next/head";
+import { LogsEmptyState } from "./LogsEmptyState";
 
 const LogsFragment = graphql`
   fragment LogsFragment on User
@@ -43,6 +44,10 @@ function Logs({ queryRef }: { queryRef: LogsFragment$key }) {
       loadNext(4);
     });
   }, [loadNext]);
+
+  if (!data.workouts.edges || data.workouts.edges.length === 0) {
+    return <LogsEmptyState />;
+  }
 
   return (
     <div className="space-y-4">
