@@ -6,6 +6,7 @@ import { useMemo } from "react";
 import { convertKgToPound, getNumberFieldUnitFormatOptions } from "@/lib/utils";
 import { LogEmptyNote } from "./LogEmptyNote";
 import { LogsWorkout } from "./LogsWorkout";
+import Head from "next/head";
 
 const LogFragment = graphql`
   fragment LogFragment on Workout {
@@ -44,6 +45,14 @@ function Log({ queryRef }: { queryRef: LogFragment$key }) {
 
   return (
     <div className="space-y-3">
+      <Head>
+        <title>{data.name} - Gigachad</title>
+        <meta
+          property="og:title"
+          content={`${data.name} - Gigachad`}
+          key="title"
+        />
+      </Head>
       <div className="flex flex-col space-y-1.5">
         <h1 className="text-xl font-bold">{data.name}</h1>
         <p className="text-xs text-muted-foreground">

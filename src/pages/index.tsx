@@ -6,6 +6,7 @@ import { session_Query } from "@/queries/__generated__/session_Query.graphql";
 import Link from "next/link";
 import { usePreloadedQuery } from "react-relay";
 import { RelayProps } from "relay-nextjs";
+import Head from "next/head";
 
 function MarketingPage({ preloadedQuery }: RelayProps<{}, session_Query>) {
   const query = usePreloadedQuery(SessionQuery, preloadedQuery);
@@ -15,6 +16,10 @@ function MarketingPage({ preloadedQuery }: RelayProps<{}, session_Query>) {
 
   return (
     <div className="max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8 mt-8">
+      <Head>
+        <title>Gigachad</title>
+        <meta property="og:title" content="Gigachad" key="title" />
+      </Head>
       <div className="grid md:grid-cols-2 gap-4 md:gap-8 xl:gap-20 md:items-center">
         <div>
           <Logo href="/" />

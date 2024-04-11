@@ -30,6 +30,7 @@ import { useRouter } from "next/router";
 import { useTimer } from "../Hooks/useTimer";
 import { toast } from "sonner";
 import { prependWorkoutEdge } from "@/lib/relay/prependEdge";
+import Head from "next/head";
 
 const FinishWorkoutFormMutation = graphql`
   mutation FinishWorkoutForm_Mutation($input: CreateWorkoutWithChildrenInput!) {
@@ -156,6 +157,14 @@ function FinishWorkoutForm() {
         onSubmit={form.handleSubmit(onSubmit)}
         className="grid grid-cols-4 gap-y-3"
       >
+        <Head>
+          <title>{workoutContext.name} - Gigachad</title>
+          <meta
+            property="og:title"
+            content={`${workoutContext.name} - Gigachad`}
+            key="title"
+          />
+        </Head>
         <div className="col-span-4 md:col-start-2 md:col-span-2 grid grid-cols-2 gap-x-2">
           <Button
             type="button"

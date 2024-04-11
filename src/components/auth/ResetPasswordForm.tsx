@@ -24,6 +24,7 @@ import Link from "next/link";
 import Logo from "../common/Logo";
 import { removeTokenAndRedirect } from "@/lib/utils";
 import { toast } from "sonner";
+import Head from "next/head";
 
 const formSchema = z
   .object({
@@ -90,6 +91,14 @@ export default function ResetPasswordForm() {
 
   return (
     <div className="mx-auto w-full max-w-sm lg:w-96">
+      <Head>
+        <title>Reset Password - Gigachad</title>
+        <meta
+          property="og:title"
+          content="Reset Password - Gigachad"
+          key="title"
+        />
+      </Head>
       <div>
         <Logo href="/" />
         <h2 className="mt-8 text-2xl font-bold leading-9 tracking-tight text-gray-900">

@@ -4,24 +4,35 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useMutation } from "react-relay";
 import z from "zod";
-import { FormErrorMessage, GqlErrorStatus } from "../gql-helper/FormErrorMessage";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
+import {
+  FormErrorMessage,
+  GqlErrorStatus,
+} from "../gql-helper/FormErrorMessage";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "../ui/form";
 import { Input } from "../ui/input";
 import AuthButton from "./AuthButton";
 import { resendToken_Mutation } from "@/queries/__generated__/resendToken_Mutation.graphql";
 import ResendTokenMutation from "@/gql/resendToken";
 import Logo from "../common/Logo";
+import Head from "next/head";
 
 const formSchema = z.object({
   email: z.string().email(),
 });
 
 export default function ResendTokenForm() {
-  const router = useRouter()
+  const router = useRouter();
   const [status, setStatus] = useState<GqlErrorStatus>({
     error: null,
     message: null,
-    messages: null
+    messages: null,
   });
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -31,14 +42,15 @@ export default function ResendTokenForm() {
     },
   });
 
-  const [commitMutation, isMutationInFlight] = useMutation<resendToken_Mutation>(ResendTokenMutation);
+  const [commitMutation, isMutationInFlight] =
+    useMutation<resendToken_Mutation>(ResendTokenMutation);
 
   function onSubmit(val: z.infer<typeof formSchema>) {
     commitMutation({
       variables: {
         input: {
-          email: val.email
-        }
+          email: val.email,
+        },
       },
       onError: (err) => {
         setStatus((status) => ({
@@ -59,19 +71,27 @@ export default function ResendTokenForm() {
           return;
         }
         router.push(`/auth/verify`);
-      }
-    })
+      },
+    });
   }
 
   return (
     <div className="mx-auto w-full max-w-sm lg:w-96">
+      <Head>
+        <title>Resend Token - Gigachad</title>
+        <meta
+          property="og:title"
+          content="Resend Token - Gigachad"
+          key="title"
+        />
+      </Head>
       <div>
-        <Logo href="/"/>
+        <Logo href="/" />
         <h2 className="mt-8 text-2xl font-bold leading-9 tracking-tight text-gray-900">
           Request new token
         </h2>
         <p className="mt-2 text-sm leading-6 text-gray-500">
-          Please enter email address of your registration below{' '}
+          Please enter email address of your registration below{" "}
         </p>
       </div>
 
@@ -95,11 +115,13 @@ export default function ResendTokenForm() {
             <FormErrorMessage status={status} />
 
             <div>
-              <AuthButton isMutationInFlight={isMutationInFlight}>Resend</AuthButton>
+              <AuthButton isMutationInFlight={isMutationInFlight}>
+                Resend
+              </AuthButton>
             </div>
           </form>
         </Form>
       </div>
     </div>
-  )
+  );
 }

@@ -17,6 +17,7 @@ import { ExercisesFilterSort } from "./ExercisesFilterSort";
 import { ExercisesEmptyState } from "./ExercisesEmptyState";
 import { useExercisesFilterSort } from "../Hooks/useExercisesFilterSort";
 import { useExercisesQsFilter } from "../Hooks/useExercisesQsFilter";
+import Head from "next/head";
 
 const ExercisesParentFragment = graphql`
   fragment ExercisesParentFragment on Query {
@@ -117,6 +118,14 @@ function Exercises({ queryRef, className }: ExercisesProps) {
   return (
     <ExercisesData.Provider value={query.viewer}>
       <div className="space-y-4">
+        <Head>
+          <title>Exercises - Gigachad</title>
+          <meta
+            property="og:title"
+            content="Exercises - Gigachad"
+            key="title"
+          />
+        </Head>
         <div className="flex">
           <LinkButton className="ml-auto" href="/dashboard/exercises/add">
             Add Exercise

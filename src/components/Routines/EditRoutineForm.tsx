@@ -29,6 +29,7 @@ import { Input } from "../ui/input";
 import { Reminders } from "./Reminders";
 import { RoutineExerciseFieldArray } from "./RoutineExerciseFieldArray";
 import { EditRoutineForm_Mutation } from "@/queries/__generated__/EditRoutineForm_Mutation.graphql";
+import Head from "next/head";
 
 const RoutineMutation = graphql`
   mutation EditRoutineForm_Mutation($input: UpdateRoutineWithChildrenInput!) {
@@ -134,6 +135,14 @@ function EditRoutineForm({ queryRef, routineQueryRef }: EditRoutineFormProps) {
         onSubmit={form.handleSubmit(onSubmit, onError)}
         className="grid grid-cols-4 gap-y-3"
       >
+        <Head>
+          <title>Edit Routine - Gigachad</title>
+          <meta
+            property="og:title"
+            content="Edit Routine - Gigachad"
+            key="title"
+          />
+        </Head>
         <Button
           type="submit"
           className="col-span-full justify-self-end"

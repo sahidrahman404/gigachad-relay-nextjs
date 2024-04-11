@@ -14,6 +14,7 @@ import { StartWorkoutFormFragment$key } from "@/queries/__generated__/StartWorko
 import { useStartWorkoutForm } from "../Hooks/useStartWorkoutForm";
 import { useTimer } from "../Hooks/useTimer";
 import { Timer } from "../Timer/Timer";
+import Head from "next/head";
 
 const formSchema = z.object({
   volume: z.number(),
@@ -116,6 +117,14 @@ function StartWorkoutForm({ queryRef, unit }: StartWorkoutFormProps) {
         onSubmit={form.handleSubmit(onSubmit, onError)}
         className="grid grid-cols-4 gap-y-3"
       >
+        <Head>
+          <title>{data.name} - Gigachad</title>
+          <meta
+            property="og:title"
+            content={`${data.name} - Gigachad`}
+            key="title"
+          />
+        </Head>
         <div className="col-span-4 md:col-start-2 md:col-span-2 grid grid-cols-2 gap-x-2">
           <Button
             type="button"

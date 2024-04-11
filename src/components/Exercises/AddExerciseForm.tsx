@@ -31,6 +31,7 @@ import { ExercisesFragment } from "./Exercises";
 import { ExercisesFragment$key } from "@/queries/__generated__/ExercisesFragment.graphql";
 import { addExerciseFormUpdater } from "@/lib/relay/addExerciseFormUpdater";
 import { toast } from "sonner";
+import Head from "next/head";
 
 const ExerciseMutation = graphql`
   mutation AddExerciseForm_Mutation($input: CreateExerciseInput!) {
@@ -169,6 +170,14 @@ function AddExerciseForm({
         onSubmit={form.handleSubmit(onSubmit)}
         className="grid grid-cols-4 gap-x-1 gap-y-2"
       >
+        <Head>
+          <title>Add Exercise - Gigachad</title>
+          <meta
+            property="og:title"
+            content="Add Exercise - Gigachad"
+            key="title"
+          />
+        </Head>
         <Button
           type="submit"
           isDisabled={isMutationInFlight || isUploadInFlight}

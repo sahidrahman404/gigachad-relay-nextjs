@@ -26,6 +26,7 @@ import {
   buildRoutineRemindersInput,
   routineformSchema,
 } from "@/lib/zod/routineFormSchema";
+import Head from "next/head";
 
 const RoutineMutation = graphql`
   mutation AddRoutineForm_Mutation($input: CreateRoutineWithChildrenInput!) {
@@ -119,6 +120,14 @@ function AddRoutineForm({ queryRef }: AddRoutineFormProps) {
 
   return (
     <Form {...form}>
+      <Head>
+        <title>Add Routine - Gigachad</title>
+        <meta
+          property="og:title"
+          content="Add Routine - Gigachad"
+          key="title"
+        />
+      </Head>
       <form
         onSubmit={form.handleSubmit(onSubmit, onError)}
         className="grid grid-cols-4 gap-y-3"

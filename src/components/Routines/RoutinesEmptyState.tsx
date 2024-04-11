@@ -6,6 +6,7 @@ import { Button } from "../ReactAriaUI/Button";
 import { useRouter } from "next/router";
 import { toast } from "sonner";
 import { LinkButton } from "../ReactAriaUI/LinkButton";
+import Head from "next/head";
 
 const RoutinesEmptyStateFragment = graphql`
   fragment RoutinesEmptyStateFragment on User
@@ -38,6 +39,10 @@ function RoutinesEmptyState({ queryRef }: RoutinesEmptyStateProps) {
   const router = useRouter();
   return (
     <div>
+      <Head>
+        <title>Routines - Gigachad</title>
+        <meta property="og:title" content="Routines - Gigachad" key="title" />
+      </Head>
       <div className="flex flex-col items-center gap-y-4 mt-10">
         <FolderPlus size={48} strokeWidth={1} />
         <div className="text-center">

@@ -32,6 +32,7 @@ import { ExerciseFragment } from "./Exercise";
 import { Image } from "../Image/Image";
 import { Avatar } from "../ui/avatar";
 import { toast } from "sonner";
+import Head from "next/head";
 
 const EditExerciseMutation = graphql`
   mutation EditExerciseForm_Mutation($input: UpdateExerciseInput!) {
@@ -160,6 +161,14 @@ function EditExerciseForm({
         onSubmit={form.handleSubmit(onSubmit)}
         className="grid grid-cols-4 gap-x-1 gap-y-2"
       >
+        <Head>
+          <title>Edit Exercise - Gigachad</title>
+          <meta
+            property="og:title"
+            content="Edit Exercise - Gigachad"
+            key="title"
+          />
+        </Head>
         <Button
           type="submit"
           isDisabled={isMutationInFlight || isUploadInFlight}

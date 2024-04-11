@@ -5,6 +5,7 @@ import { graphql } from "relay-runtime";
 import { LoadingSpinner } from "../common/LoadingSpinner";
 import { InfiniteScroll } from "../common/InfiniteScroll";
 import { LogCard } from "./LogCard";
+import Head from "next/head";
 
 const LogsFragment = graphql`
   fragment LogsFragment on User
@@ -45,6 +46,10 @@ function Logs({ queryRef }: { queryRef: LogsFragment$key }) {
 
   return (
     <div className="space-y-4">
+      <Head>
+        <title>Logs - Gigachad</title>
+        <meta property="og:title" content="Logs - Gigachad" key="title" />
+      </Head>
       {data.workouts.edges?.map((log) => {
         if (log?.node) {
           return <LogCard queryRef={log.node} key={log.node.id} />;

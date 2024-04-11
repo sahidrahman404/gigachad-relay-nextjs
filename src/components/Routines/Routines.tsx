@@ -7,6 +7,7 @@ import { LinkButton } from "../ReactAriaUI/LinkButton";
 import { createContext, useCallback, useTransition } from "react";
 import { LoadingSpinner } from "../common/LoadingSpinner";
 import { InfiniteScroll } from "../common/InfiniteScroll";
+import Head from "next/head";
 
 const RoutinesFragment = graphql`
   fragment RoutinesFragment on User
@@ -65,6 +66,10 @@ function Routines({ queryRef }: RoutinesProps) {
   return (
     <RoutinesData.Provider value={queryRef}>
       <div className="space-y-4">
+        <Head>
+          <title>Routines - Gigachad</title>
+          <meta property="og:title" content="Routines - Gigachad" key="title" />
+        </Head>
         <LinkButton href={"/dashboard/routines/add"}>New Routine</LinkButton>
         {data.routines.edges?.map((routine) => {
           if (routine?.node) {

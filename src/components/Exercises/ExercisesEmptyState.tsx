@@ -1,6 +1,7 @@
 import { FolderPlus } from "lucide-react";
 import { LinkButton } from "../ReactAriaUI/LinkButton";
 import { ReactNode } from "react";
+import Head from "next/head";
 
 type ExercisesEmptyStateProps = {
   SlotExercisesFilterSort: ReactNode;
@@ -11,6 +12,10 @@ function ExercisesEmptyState({
 }: ExercisesEmptyStateProps) {
   return (
     <div>
+      <Head>
+        <title>Exercises - Gigachad</title>
+        <meta property="og:title" content="Exercises - Gigachad" key="title" />
+      </Head>
       {SlotExercisesFilterSort}
       <div className="flex flex-col items-center gap-y-4 mt-10">
         <FolderPlus size={48} strokeWidth={1} />

@@ -6,6 +6,7 @@ import { ExerciseTypeBadge } from "./ExerciseTypeBadge";
 import { ExerciseEmptyHowTo } from "./ExerciseEmptyHowTo";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ExercisesHistory } from "./ExercisesHistory";
+import Head from "next/head";
 
 const ExerciseFragment = graphql`
   fragment ExerciseFragment on Exercise {
@@ -42,6 +43,14 @@ function Exercise({ queryRef }: ExerciseProps) {
 
   return (
     <div className="space-y-4">
+      <Head>
+        <title>{data.name} - Gigachad</title>
+        <meta
+          property="og:title"
+          content={`${data.name} - Gigachad`}
+          key="title"
+        />
+      </Head>
       <div className="flex flex-col gap-1">
         <h2 className="text-lg font-bold">{data.name}</h2>
         <div className="flex gap-2">

@@ -24,6 +24,7 @@ import AuthButton from "./AuthButton";
 import { ShowPasswordCheckBox } from "./ShowPasswordCheckBox";
 import Logo from "../common/Logo";
 import { setTokenAndRedirect } from "@/lib/utils";
+import Head from "next/head";
 
 const formSchema = z.object({
   email: z.string().email(),
@@ -91,6 +92,10 @@ export default function SigninFrom() {
 
   return (
     <div className="mx-auto w-full max-w-sm lg:w-96">
+      <Head>
+        <title>Sign In - Gigachad</title>
+        <meta property="og:title" content="Sign In - Gigachad" key="title" />
+      </Head>
       <div>
         <Logo href="/" />
         <h2 className="mt-8 text-2xl font-bold leading-9 tracking-tight text-gray-900">
