@@ -17,6 +17,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "../ReactAriaUI/Button";
 import { Profile_Mutation } from "@/queries/__generated__/Profile_Mutation.graphql";
 import { toast } from "sonner";
+import { removeTokenAndRedirect } from "@/lib/utils";
 
 const ProfileMutation = graphql`
   mutation Profile_Mutation($input: UpdateUserProfileInput!) {
@@ -71,71 +72,84 @@ function Profile({ queryRef }: { queryRef: ProfileFragment$key }) {
   }
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-        <FormField
-          control={form.control}
-          name="name"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Name</FormLabel>
-              <FormControl>
-                <Input placeholder="smith" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+    <div>
+      <div className="flex">
+        <Button
+          className="ml-auto"
+          variant="destructive"
+          onClick={async () => {
+            await removeTokenAndRedirect("/");
+          }}
+        >
+          Sign Out
+        </Button>
+      </div>
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+          <FormField
+            control={form.control}
+            name="name"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Name</FormLabel>
+                <FormControl>
+                  <Input placeholder="smith" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
-        <FormField
-          control={form.control}
-          name="unit"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Unit</FormLabel>
-              <FormControl>
-                <RadioGroup
-                  onValueChange={field.onChange}
-                  value={field.value}
-                  className="flex flex-col space-y-1"
-                >
-                  <FormItem className="flex items-center space-x-3 space-y-0">
-                    <FormControl>
-                      <RadioGroupItem value="METRIC" />
-                    </FormControl>
-                    <FormLabel className="font-normal">Metric</FormLabel>
-                  </FormItem>
-                  <FormItem className="flex items-center space-x-3 space-y-0">
-                    <FormControl>
-                      <RadioGroupItem value="IMPERIAL" />
-                    </FormControl>
-                    <FormLabel className="font-normal">Imperial</FormLabel>
-                  </FormItem>
-                </RadioGroup>
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+          <FormField
+            control={form.control}
+            name="unit"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Unit</FormLabel>
+                <FormControl>
+                  <RadioGroup
+                    onValueChange={field.onChange}
+                    value={field.value}
+                    className="flex flex-col space-y-1"
+                  >
+                    <FormItem className="flex items-center space-x-3 space-y-0">
+                      <FormControl>
+                        <RadioGroupItem value="METRIC" />
+                      </FormControl>
+                      <FormLabel className="font-normal">Metric</FormLabel>
+                    </FormItem>
+                    <FormItem className="flex items-center space-x-3 space-y-0">
+                      <FormControl>
+                        <RadioGroupItem value="IMPERIAL" />
+                      </FormControl>
+                      <FormLabel className="font-normal">Imperial</FormLabel>
+                    </FormItem>
+                  </RadioGroup>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
-        <div className="flex">
-          <Button
-            type="submit"
-            isDisabled={
-              isMutationInFlight
-                ? true
-                : form.getValues("name") !== data.name ||
-                    form.getValues("unit") !== data.unit
-                  ? false
-                  : true
-            }
-            className="ml-auto"
-          >
-            Edit
-          </Button>
-        </div>
-      </form>
-    </Form>
+          <div className="flex">
+            <Button
+              type="submit"
+              isDisabled={
+                isMutationInFlight
+                  ? true
+                  : form.getValues("name") !== data.name ||
+                      form.getValues("unit") !== data.unit
+                    ? false
+                    : true
+              }
+              className="ml-auto"
+            >
+              Edit
+            </Button>
+          </div>
+        </form>
+      </Form>
+    </div>
   );
 }
 
