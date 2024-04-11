@@ -9,7 +9,7 @@ function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-async function removeTokenAndRedirect() {
+async function removeTokenAndRedirect(redirectUrl: string = "/auth/signin") {
   const url = process.env.NEXT_PUBLIC_BACKEND_URL;
   const token = await getToken();
   await fetch(`${url}/v1/tokens/delete/${token}`, {
@@ -17,7 +17,7 @@ async function removeTokenAndRedirect() {
     credentials: "include",
   });
   window.localStorage.removeItem("auth");
-  window.location.replace("/auth/signin");
+  window.location.replace(redirectUrl);
 }
 
 async function getToken(): Promise<string | null> {
