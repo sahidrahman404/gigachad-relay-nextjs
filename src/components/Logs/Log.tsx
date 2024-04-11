@@ -7,6 +7,7 @@ import { convertKgToPound, getNumberFieldUnitFormatOptions } from "@/lib/utils";
 import { LogEmptyNote } from "./LogEmptyNote";
 import { LogsWorkout } from "./LogsWorkout";
 import Head from "next/head";
+import { Image } from "../Image/Image";
 
 const LogFragment = graphql`
   fragment LogFragment on Workout {
@@ -75,6 +76,12 @@ function Log({ queryRef }: { queryRef: LogFragment$key }) {
           <p>{data.sets}</p>
         </div>
       </div>
+      {data.image && (
+        <div className="space-y-2">
+          <h3 className="text-l font-bold">Workout Image</h3>
+          <Image image={data.image} className="w-60 h-60" />
+        </div>
+      )}
       <div>
         <h3 className="text-l font-bold">Note</h3>
         <LogEmptyNote queryRef={data} />
