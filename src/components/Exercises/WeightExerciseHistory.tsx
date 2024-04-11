@@ -48,7 +48,7 @@ function WeightExerciseHistory({ queryRef }: WeightExerciseHistoryProps) {
               value={
                 data.users.unit !== "METRIC"
                   ? convertKgToPound(set.weight ?? 0)
-                  : undefined
+                  : set.weight ?? undefined
               }
               className="col-span-1"
               formatOptions={unitFormat}
