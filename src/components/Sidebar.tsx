@@ -33,7 +33,7 @@ const sidebarConfig = [
       {
         page: "Profile",
         icon: <User className="mr-2 h-4 w-4" />,
-        link: "/accounts/profiles",
+        link: "/accounts/profile",
       },
     ],
   },
