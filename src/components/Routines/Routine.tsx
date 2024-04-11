@@ -101,7 +101,9 @@ function Routine({ queryRef }: RoutineProps) {
           }}
           isDisabled={isWorkingOut && routineID !== data.id}
         >
-          Start Routine
+          {isWorkingOut && routineID === data.id
+            ? "Continue Routine"
+            : "Start Routine"}
         </Button>
       </CardFooter>
     </Card>
