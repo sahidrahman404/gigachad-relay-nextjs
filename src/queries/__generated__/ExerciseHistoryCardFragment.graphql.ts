@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<492b96dd3430299e2428bb6f72d78610>>
+ * @generated SignedSource<<c15305c7ffbcc045a4df399bdc3bb07b>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -26,6 +26,7 @@ export type ExerciseHistoryCardFragment$data = {
   };
   readonly workouts: {
     readonly createdAt: any;
+    readonly id: string;
     readonly name: string;
   };
   readonly " $fragmentSpreads": FragmentRefs<"BodyWeightExerciseHistoryFragment" | "DurationExerciseHistoryFragment" | "WeightExerciseHistoryFragment">;
@@ -73,6 +74,13 @@ return {
       "name": "workouts",
       "plural": false,
       "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "id",
+          "storageKey": null
+        },
         (v0/*: any*/),
         {
           "alias": null,
@@ -152,6 +160,6 @@ return {
 };
 })();
 
-(node as any).hash = "f17db838ae53e19a58f797e8582d25f4";
+(node as any).hash = "41e3f42956215338f4fb09770f02057a";
 
 export default node;

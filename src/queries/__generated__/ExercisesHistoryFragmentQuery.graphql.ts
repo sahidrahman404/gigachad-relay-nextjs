@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<66bb77f74d2d1a9d24bbf82e3df7475a>>
+ * @generated SignedSource<<89c4e8fcf65ec8664a475918dff5d1ff>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -532,12 +532,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "a14218c1cc85072c1897a13b6881bdeb",
+    "cacheID": "292de45db7a2b7ffce1aca6cee57c32e",
     "id": null,
     "metadata": {},
     "name": "ExercisesHistoryFragmentQuery",
     "operationKind": "query",
-    "text": "query ExercisesHistoryFragmentQuery(\n  $count: Int = 4\n  $cursor: Cursor\n  $orderby: OrderDirection = DESC\n  $id: ID!\n) {\n  node(id: $id) {\n    __typename\n    ...ExercisesHistoryFragment_2GViAS\n    id\n  }\n}\n\nfragment BodyWeightExerciseHistoryFragment on WorkoutLog {\n  id\n  sets {\n    reps\n  }\n  createdAt\n  workouts {\n    name\n    id\n  }\n}\n\nfragment DurationExerciseHistoryFragment on WorkoutLog {\n  id\n  sets {\n    duration\n  }\n  createdAt\n  workouts {\n    name\n    id\n  }\n}\n\nfragment ExerciseHistoryCardFragment on WorkoutLog {\n  ...WeightExerciseHistoryFragment\n  ...DurationExerciseHistoryFragment\n  ...BodyWeightExerciseHistoryFragment\n  workouts {\n    name\n    createdAt\n    id\n  }\n  exercises {\n    name\n    image {\n      ...ImageFragment\n    }\n    exerciseTypes {\n      edges {\n        node {\n          name\n          id\n        }\n      }\n    }\n    id\n  }\n}\n\nfragment ExercisesHistoryFragment_2GViAS on Exercise {\n  workoutLogs(after: $cursor, first: $count, orderBy: {direction: $orderby, field: ID}) {\n    edges {\n      node {\n        id\n        ...ExerciseHistoryCardFragment\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n  id\n}\n\nfragment ImageFragment on Image {\n  src\n  srcset\n  width\n  height\n  priority\n  loading\n  fetchPriority\n  decoding\n  layout\n  aspectRatio\n  objectFit\n  breakpoints\n  alt\n  role\n  sizes\n  style {\n    aspectRatio\n    height\n    maxHeight\n    maxWidth\n    width\n  }\n}\n\nfragment WeightExerciseHistoryFragment on WorkoutLog {\n  id\n  sets {\n    weight\n    reps\n  }\n  createdAt\n  workouts {\n    name\n    id\n  }\n  users {\n    unit\n    id\n  }\n}\n"
+    "text": "query ExercisesHistoryFragmentQuery(\n  $count: Int = 4\n  $cursor: Cursor\n  $orderby: OrderDirection = DESC\n  $id: ID!\n) {\n  node(id: $id) {\n    __typename\n    ...ExercisesHistoryFragment_2GViAS\n    id\n  }\n}\n\nfragment BodyWeightExerciseHistoryFragment on WorkoutLog {\n  id\n  sets {\n    reps\n  }\n  createdAt\n  workouts {\n    name\n    id\n  }\n}\n\nfragment DurationExerciseHistoryFragment on WorkoutLog {\n  id\n  sets {\n    duration\n  }\n  createdAt\n  workouts {\n    name\n    id\n  }\n}\n\nfragment ExerciseHistoryCardFragment on WorkoutLog {\n  ...WeightExerciseHistoryFragment\n  ...DurationExerciseHistoryFragment\n  ...BodyWeightExerciseHistoryFragment\n  workouts {\n    id\n    name\n    createdAt\n  }\n  exercises {\n    name\n    image {\n      ...ImageFragment\n    }\n    exerciseTypes {\n      edges {\n        node {\n          name\n          id\n        }\n      }\n    }\n    id\n  }\n}\n\nfragment ExercisesHistoryFragment_2GViAS on Exercise {\n  workoutLogs(after: $cursor, first: $count, orderBy: {direction: $orderby, field: ID}) {\n    edges {\n      node {\n        id\n        ...ExerciseHistoryCardFragment\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n  id\n}\n\nfragment ImageFragment on Image {\n  src\n  srcset\n  width\n  height\n  priority\n  loading\n  fetchPriority\n  decoding\n  layout\n  aspectRatio\n  objectFit\n  breakpoints\n  alt\n  role\n  sizes\n  style {\n    aspectRatio\n    height\n    maxHeight\n    maxWidth\n    width\n  }\n}\n\nfragment WeightExerciseHistoryFragment on WorkoutLog {\n  id\n  sets {\n    weight\n    reps\n  }\n  createdAt\n  workouts {\n    name\n    id\n  }\n  users {\n    unit\n    id\n  }\n}\n"
   }
 };
 })();
