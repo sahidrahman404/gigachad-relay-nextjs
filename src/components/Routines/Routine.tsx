@@ -72,7 +72,7 @@ function Routine({ queryRef }: RoutineProps) {
           <MenubarMenu>
             <MenubarTrigger>Action</MenubarTrigger>
             <MenubarContent>
-              <MenubarItem asChild>
+              <MenubarItem asChild disabled={isWorkingOut}>
                 <Link href={`/dashboard/routines/edit/${data.id}`}>Edit</Link>
               </MenubarItem>
               <MenubarSeparator />
@@ -81,6 +81,7 @@ function Routine({ queryRef }: RoutineProps) {
                 Trigger={
                   <MenubarItem
                     className="text-destructive focus:text-destructive"
+                    disabled={isWorkingOut}
                     onSelect={(e) => {
                       e.preventDefault();
                     }}
