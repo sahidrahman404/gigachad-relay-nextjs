@@ -4,6 +4,22 @@ import {
   RecordSourceSelectorProxy,
 } from "relay-runtime";
 
+function prependWorkoutLogEdge<T>(
+  store: RecordSourceSelectorProxy<T>,
+  connectionRecords: RecordProxy<{}>[] | null | undefined,
+) {
+  if (connectionRecords !== null && connectionRecords !== undefined)
+    for (const connectionRecord of connectionRecords) {
+      prependEdge(
+        store,
+        connectionRecord,
+        "new_workoutLog",
+        "WorkoutLog",
+        "WorkoutLogEdge",
+      );
+    }
+}
+
 function prependWorkoutEdge<T>(
   store: RecordSourceSelectorProxy<T>,
   connectionRecords: RecordProxy<{}>[] | null | undefined,
@@ -72,4 +88,9 @@ const prependEdge = <T>(
   }
 };
 
-export { prependExerciseEdge, prependRoutineEdge, prependWorkoutEdge };
+export {
+  prependExerciseEdge,
+  prependRoutineEdge,
+  prependWorkoutEdge,
+  prependWorkoutLogEdge,
+};
