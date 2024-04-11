@@ -749,6 +749,7 @@ type Mutation {
   createUser(input: CreateUserInput!): User!
   activateUser(input: ActivateUserInput!): ActivateUserResult!
   updateUserPassword(input: ResetUserPasswordInput!): ResetUserPasswordResult!
+  updateUserProfile(input: UpdateUserProfileInput): User!
   createAuthenticationToken(input: LoginInput!): AuthenticationToken!
   createActivationToken(input: ActivationTokenInput!): User!
   createPasswordResetToken(input: ResetPasswordInput!): User!
@@ -1474,6 +1475,11 @@ input UpdateUserInput {
   addWorkoutIDs: [ID!]
   removeWorkoutIDs: [ID!]
   clearWorkouts: Boolean
+}
+
+input UpdateUserProfileInput {
+  name: String!
+  unit: UserUnit!
 }
 
 type User implements Node {
