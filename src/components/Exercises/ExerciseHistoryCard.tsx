@@ -7,6 +7,7 @@ import { Avatar } from "../ui/avatar";
 import { ExerciseHistoryCardFragment$key } from "@/queries/__generated__/ExerciseHistoryCardFragment.graphql";
 import { BodyWeightExerciseHistory } from "./BodyWeightExerciseHistory";
 import { DurationExerciseHistory } from "./DurationExerciseHistory";
+import { LinkButton } from "../ReactAriaUI/LinkButton";
 
 const ExerciseHistoryCardFragment = graphql`
   fragment ExerciseHistoryCardFragment on WorkoutLog {
@@ -14,6 +15,7 @@ const ExerciseHistoryCardFragment = graphql`
     ...DurationExerciseHistoryFragment
     ...BodyWeightExerciseHistoryFragment
     workouts {
+      id
       name
       createdAt
     }
@@ -53,7 +55,13 @@ function ExerciseHistoryCard({
       <CardHeader className="space-y-3">
         {!forLogComponent && (
           <CardTitle className="flex flex-col space-y-1.5">
-            <p className="text-l font-bold">{data.workouts.name}</p>
+            <LinkButton
+              className="text-l font-bold mr-auto p-0"
+              variant="link"
+              href={`/dashboard/logs/${data.workouts.id}`}
+            >
+              {data.workouts.name}
+            </LinkButton>
             <p className="text-xs text-muted-foreground">
               {new Date(data.workouts.createdAt).toLocaleString()}
             </p>
