@@ -38,8 +38,10 @@ function Select<T extends object>({
   ...props
 }: MySelectProps<T>) {
   return (
-    <AriaSelect {...props}>
-      <Label>{label}</Label>
+    <AriaSelect {...props} className="space-y-2">
+      <Label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+        {label}
+      </Label>
       <Button
         className={cn(
           "flex h-9 w-full items-center justify-between whitespace-nowrap rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1",
@@ -49,7 +51,11 @@ function Select<T extends object>({
         <SelectValue />
         <CaretSortIcon aria-hidden="true" className="h-4 w-4 opacity-50" />
       </Button>
-      {description && <Text slot="description">{description}</Text>}
+      {description && (
+        <Text slot="description" className="text-sm">
+          {description}
+        </Text>
+      )}
       <FieldError>{errorMessage}</FieldError>
       <Popover
         className={({ placement }) =>
