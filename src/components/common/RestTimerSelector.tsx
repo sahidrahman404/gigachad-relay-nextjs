@@ -1,12 +1,5 @@
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { FormControl } from "../ui/form";
-import { SelectProps } from "@radix-ui/react-select";
+import { ListBoxItem, Select } from "../ReactAriaUI/Select";
+import type { SelectProps } from "react-aria-components";
 import { memo, useMemo } from "react";
 
 const restTimeList = [
@@ -216,29 +209,26 @@ const restTimeList = [
   },
 ];
 
-type RestTimerSelectorProps = SelectProps;
+type RestTimerSelectorProps<T extends object> = SelectProps<T>;
 
-const RestTimerSelector = memo(function RestTimerSelector({
+const RestTimerSelector = memo(function RestTimerSelector<T extends object>({
   ...props
-}: RestTimerSelectorProps) {
+}: RestTimerSelectorProps<T>) {
   const rtl = useMemo(() => restTimeList, []);
   return (
-    <Select {...props}>
-      <FormControl>
-        <SelectTrigger className="w-[280px]">
-          <SelectValue placeholder="Select rest time duration" />
-        </SelectTrigger>
-      </FormControl>
-      <SelectContent>
-        {rtl.map((restTime) => (
-          <SelectItem
-            key={restTime.value.toString()}
-            value={restTime.value.toString()}
-          >
-            {restTime.item}
-          </SelectItem>
-        ))}
-      </SelectContent>
+    <Select
+      label="Rest Timer"
+      items={rtl}
+      selectedKey={props.selectedKey}
+      onSelectionChange={props.onSelectionChange}
+      onBlur={props.onBlur}
+      description="Please select a rest time duration"
+    >
+      {(item) => (
+        <ListBoxItem id={item.value} key={item.value} textValue={item.item}>
+          {item.item}
+        </ListBoxItem>
+      )}
     </Select>
   );
 });

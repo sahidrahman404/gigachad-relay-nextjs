@@ -3,7 +3,7 @@ import { useFieldArray, useFormContext } from "react-hook-form";
 import { StartWorkoutFormSchema } from "./StartWorkoutForm";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { RestTimerSelector } from "../common/RestTimerSelector";
-import { FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
+import { FormField, FormItem, FormMessage } from "../ui/form";
 import { GetWorkoutLogsSetsFields } from "./GetWorkoutLogsSetsFormFields";
 import { WorkoutMachineContext } from "../Layout";
 import { LinkButton } from "../ReactAriaUI/LinkButton";
@@ -50,16 +50,16 @@ function WorkoutLogs() {
                 render={({ field }) => {
                   return (
                     <FormItem className="col-span-3">
-                      <FormLabel>Rest Timer</FormLabel>
                       <RestTimerSelector
-                        value={field.value}
-                        onValueChange={(val) => {
+                        selectedKey={field.value}
+                        onSelectionChange={(val) => {
                           field.onChange(val);
                           workoutActor.send({
                             type: "SET_REST_TIMER",
                             value: {
                               workoutLogsIndex: index,
-                              restTime: val,
+                              restTime:
+                                typeof val === "string" ? val : String(val),
                             },
                           });
                         }}

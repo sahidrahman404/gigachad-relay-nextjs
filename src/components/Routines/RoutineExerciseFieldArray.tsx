@@ -86,10 +86,10 @@ function RoutineExerciseFieldArray({
                   render={({ field }) => {
                     return (
                       <FormItem className="col-span-3">
-                        <FormLabel>Rest Timer</FormLabel>
                         <RestTimerSelector
-                          value={field.value}
-                          onValueChange={field.onChange}
+                          selectedKey={field.value}
+                          onSelectionChange={field.onChange}
+                          onBlur={field.onBlur}
                         />
                         <FormMessage />
                       </FormItem>
