@@ -11,16 +11,11 @@ import {
 import { WorkoutMachineContext } from "../Layout";
 import { Button } from "../ReactAriaUI/Button";
 import { useRouter } from "next/router";
-import {
-  Menubar,
-  MenubarContent,
-  MenubarItem,
-  MenubarMenu,
-  MenubarSeparator,
-  MenubarTrigger,
-} from "@/components/ui/menubar";
-import Link from "next/link";
+
 import { DeleteRoutineDialog } from "./DeleteRoutineDialog";
+import { MyItem, MyMenuButton } from "../ReactAriaUI/MyMenuButton";
+import { AlignJustify } from "lucide-react";
+import { useState } from "react";
 
 const RoutineFragment = graphql`
   fragment RoutineFragment on Routine {
@@ -50,6 +45,7 @@ function Routine({ queryRef }: RoutineProps) {
   const isWorkingOut = WorkoutMachineContext.useSelector((state) =>
     state.matches({ workingOut: {} }),
   );
+  const [open, setOpen] = useState(false);
 
   const router = useRouter();
 
@@ -62,51 +58,45 @@ function Routine({ queryRef }: RoutineProps) {
     .join(", ");
 
   return (
-    <Card>
-      <CardHeader className="flex-row items-start">
-        <div className="space-y-1.5">
-          <CardTitle>{data.name}</CardTitle>
-          <CardDescription>{exercises}</CardDescription>
-        </div>
-        <Menubar className="ml-auto">
-          <MenubarMenu>
-            <MenubarTrigger>Action</MenubarTrigger>
-            <MenubarContent>
-              <MenubarItem asChild disabled={isWorkingOut}>
-                <Link href={`/dashboard/routines/edit/${data.id}`}>Edit</Link>
-              </MenubarItem>
-              <MenubarSeparator />
-              <DeleteRoutineDialog
-                id={data.id}
-                Trigger={
-                  <MenubarItem
-                    className="text-destructive focus:text-destructive"
-                    disabled={isWorkingOut}
-                    onSelect={(e) => {
-                      e.preventDefault();
-                    }}
-                  >
-                    Delete
-                  </MenubarItem>
-                }
-              />
-            </MenubarContent>
-          </MenubarMenu>
-        </Menubar>
-      </CardHeader>
-      <CardFooter className="flex flex-col items-stretch md:block">
-        <Button
-          onPress={() => {
-            router.push(`/dashboard/routines/start/${data.id}`);
-          }}
-          isDisabled={isWorkingOut && routineID !== data.id}
-        >
-          {isWorkingOut && routineID === data.id
-            ? "Continue Routine"
-            : "Start Routine"}
-        </Button>
-      </CardFooter>
-    </Card>
+    <>
+      <Card>
+        <CardHeader className="flex-row">
+          <div className="space-y-1.5 mr-auto">
+            <CardTitle>{data.name}</CardTitle>
+            <CardDescription>{exercises}</CardDescription>
+          </div>
+          <MyMenuButton
+            label={<AlignJustify strokeWidth={1} />}
+            onAction={(key) => {
+              if (key === "delete") {
+                setOpen(true);
+              }
+            }}
+          >
+            <MyItem id="edit" href={`/dashboard/routines/edit/${data.id}`}>
+              Edit
+            </MyItem>
+            <MyItem id="delete" destructive>
+              Delete
+            </MyItem>
+          </MyMenuButton>
+        </CardHeader>
+        <CardFooter className="flex flex-col items-stretch md:block">
+          <Button
+            onPress={() => {
+              router.push(`/dashboard/routines/start/${data.id}`);
+            }}
+            isDisabled={isWorkingOut && routineID !== data.id}
+          >
+            {isWorkingOut && routineID === data.id
+              ? "Continue Routine"
+              : "Start Routine"}
+          </Button>
+        </CardFooter>
+      </Card>
+
+      <DeleteRoutineDialog id={data.id} isOpen={open} onOpenChange={setOpen} />
+    </>
   );
 }
 
