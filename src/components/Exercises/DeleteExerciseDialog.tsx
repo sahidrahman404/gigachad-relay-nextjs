@@ -1,13 +1,4 @@
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import { ReactNode, useContext, useState } from "react";
+import { useContext } from "react";
 import { graphql } from "relay-runtime";
 import { Button } from "../ReactAriaUI/Button";
 import { useFragment, useMutation } from "react-relay";
@@ -16,6 +7,8 @@ import { toast } from "sonner";
 import { ExercisesData, ExercisesFragment } from "./Exercises";
 import { ExercisesFragment$key } from "@/queries/__generated__/ExercisesFragment.graphql";
 import ConnectionHandler from "relay-connection-handler-plus";
+import { CloseButton, MyDialog, MyDialogProps } from "../ReactAriaUI/MyDialog";
+import { Heading } from "react-aria-components";
 
 const DeleteExerciseDialogMutation = graphql`
   mutation DeleteExerciseDialog_Mutation($input: DeleteExerciseInput!) {
@@ -27,13 +20,15 @@ const DeleteExerciseDialogMutation = graphql`
 
 type DeleteExerciseDialogProps = {
   id: string;
-  Trigger: ReactNode;
-};
+} & Omit<MyDialogProps, "children" | "Button">;
 
-function DeleteExerciseDialog({ id, Trigger }: DeleteExerciseDialogProps) {
+function DeleteExerciseDialog({
+  id,
+  isOpen,
+  onOpenChange,
+}: DeleteExerciseDialogProps) {
   const queryRef = useContext(ExercisesData);
   const data = useFragment<ExercisesFragment$key>(ExercisesFragment, queryRef);
-  const [open, setOpen] = useState(false);
   const [commitMutation, isMutationInFlight] =
     useMutation<DeleteExerciseDialog_Mutation>(DeleteExerciseDialogMutation);
 
@@ -42,25 +37,23 @@ function DeleteExerciseDialog({ id, Trigger }: DeleteExerciseDialogProps) {
   }
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>{Trigger}</DialogTrigger>
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle>Are you absolutely sure?</DialogTitle>
-          <DialogDescription>
-            This action cannot be undone. This will permanently delete this
-            exercise and remove the data from our servers.
-          </DialogDescription>
-        </DialogHeader>
-        <DialogFooter>
-          <Button
-            variant="outline"
-            onPress={() => {
-              setOpen(false);
-            }}
-          >
+    <MyDialog
+      Button={<Button className="hidden">Delete</Button>}
+      isOpen={isOpen}
+      onOpenChange={onOpenChange}
+    >
+      <div className="flex flex-col gap-y-4">
+        <Heading slot="title" className="text-xl font-bold">
+          Delete Exercise
+        </Heading>
+        <p className="text-sm">
+          This action cannot be undone. This will permanently delete this
+          exercise and remove the data from our servers.
+        </p>
+        <div className="flex gap-x-2">
+          <CloseButton className="ml-auto" variant="outline">
             Cancel
-          </Button>
+          </CloseButton>
           <Button
             variant="destructive"
             isDisabled={isMutationInFlight}
@@ -92,9 +85,9 @@ function DeleteExerciseDialog({ id, Trigger }: DeleteExerciseDialogProps) {
           >
             Delete
           </Button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
+        </div>
+      </div>
+    </MyDialog>
   );
 }
 
