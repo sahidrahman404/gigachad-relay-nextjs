@@ -26,7 +26,7 @@ function MyMenuButton<T extends object>({
       <Popover
         className={({ isEntering, isExiting, placement }) =>
           `z-50 overflow-hidden rounded-md border bg-popover p-1 
-          text-popover-foreground shadow-md
+          text-popover-foreground shadow-md min-w-[12rem]
           ${isEntering && "animate-in fade-in-0 zoom-in-95"}
           ${isExiting && "fade-out-0 zoom-out-95"}
           ${placement === "bottom" && "slide-in-from-top-2"}
