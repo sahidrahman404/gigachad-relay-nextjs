@@ -57,6 +57,7 @@ function ExerciseSelectInput<T extends object>({
   return (
     <Select
       label="Exercise"
+      description="Please select an exercise"
       className="h-12"
       selectedKey={props.selectedKey}
       onSelectionChange={props.onSelectionChange}
