@@ -84,7 +84,7 @@ function ListBoxItem({ children, ...props }: ListBoxItemProps) {
   return (
     <AriaListBoxItem
       {...props}
-      className={`relative flex w-full cursor-default select-none items-center rounded-sm py-1.5 pl-2 pr-8 text-sm outline-none focus:bg-accent focus:text-accent-foreground selected:bg-accent selected:text-accent-foreground disabled:pointer-events-none disabled:opacity-50`}
+      className={`relative flex w-full cursor-default select-none items-center rounded-sm py-1.5 pl-2 pr-8 text-sm outline-none focus:bg-accent focus:text-accent-foreground selected:bg-accent selected:text-accent-foreground disabled:pointer-events-none disabled:opacity-50 data-[disabled]:text-muted-foreground`}
     >
       {({ isSelected }) => (
         <>
