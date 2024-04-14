@@ -72,6 +72,7 @@ function Routine({ queryRef }: RoutineProps) {
                 setOpen(true);
               }
             }}
+            disabledKeys={isWorkingOut ? ["edit", "delete"] : []}
           >
             <MyItem id="edit" href={`/dashboard/routines/edit/${data.id}`}>
               Edit
