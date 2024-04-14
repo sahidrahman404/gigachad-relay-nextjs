@@ -1,14 +1,8 @@
-import {
-  Menubar,
-  MenubarContent,
-  MenubarItem,
-  MenubarMenu,
-  MenubarSeparator,
-  MenubarTrigger,
-} from "@/components/ui/menubar";
-import Link from "next/link";
-import { DeleteExerciseDialog } from "./DeleteExerciseDialog";
 import { WorkoutMachineContext } from "../Layout";
+import { MyItem, MyMenuButton } from "../ReactAriaUI/MyMenuButton";
+import { AlignJustify } from "lucide-react";
+import { DeleteExerciseDialog } from "./DeleteExerciseDialog";
+import { useState } from "react";
 
 type ExerciseActionProps = {
   exerciseID: string;
@@ -19,36 +13,35 @@ function ExerciseAction({ exerciseID }: ExerciseActionProps) {
     state.matches({ workingOut: {} }),
   );
 
+  const [open, setOpen] = useState(false);
+
   return (
-    <Menubar>
-      <MenubarMenu>
-        <MenubarTrigger>Action</MenubarTrigger>
-        <MenubarContent>
-          <MenubarItem asChild>
-            <Link href={`/dashboard/exercises/${exerciseID}`}>View</Link>
-          </MenubarItem>
-          <MenubarSeparator />
-          <MenubarItem asChild disabled={isWorkingOut}>
-            <Link href={`/dashboard/exercises/edit/${exerciseID}`}>Edit</Link>
-          </MenubarItem>
-          <MenubarSeparator />
-          <DeleteExerciseDialog
-            id={exerciseID}
-            Trigger={
-              <MenubarItem
-                className="text-destructive focus:text-destructive"
-                disabled={isWorkingOut}
-                onSelect={(e) => {
-                  e.preventDefault();
-                }}
-              >
-                Delete
-              </MenubarItem>
-            }
-          />
-        </MenubarContent>
-      </MenubarMenu>
-    </Menubar>
+    <>
+      <MyMenuButton
+        label={<AlignJustify strokeWidth={1} />}
+        disabledKeys={isWorkingOut ? ["delete", "edit"] : []}
+        onAction={(key) => {
+          if (key === "delete") {
+            setOpen(true);
+          }
+        }}
+      >
+        <MyItem id="view" href={`/dashboard/exercises/${exerciseID}`}>
+          View
+        </MyItem>
+        <MyItem id="edit" href={`/dashboard/exercises/edit/${exerciseID}`}>
+          Edit
+        </MyItem>
+        <MyItem id="delete" destructive>
+          Delete
+        </MyItem>
+      </MyMenuButton>
+      <DeleteExerciseDialog
+        id={exerciseID}
+        isOpen={open}
+        onOpenChange={setOpen}
+      />
+    </>
   );
 }
 
