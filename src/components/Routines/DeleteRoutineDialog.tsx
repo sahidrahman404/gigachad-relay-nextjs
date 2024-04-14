@@ -1,21 +1,14 @@
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import { ReactNode, useContext, useState } from "react";
-import { graphql } from "relay-runtime";
+import { Heading } from "react-aria-components";
 import { Button } from "../ReactAriaUI/Button";
+import { useContext } from "react";
+import { graphql } from "relay-runtime";
 import { useFragment, useMutation } from "react-relay";
 import { DeleteExerciseDialog_Mutation } from "@/queries/__generated__/DeleteExerciseDialog_Mutation.graphql";
-import { toast } from "sonner";
-import ConnectionHandler from "relay-connection-handler-plus";
 import { RoutinesData, RoutinesFragment } from "./Routines";
 import { RoutinesFragment$key } from "@/queries/__generated__/RoutinesFragment.graphql";
+import ConnectionHandler from "relay-connection-handler-plus";
+import { toast } from "sonner";
+import { CloseButton, MyDialog, MyDialogProps } from "../ReactAriaUI/MyDialog";
 
 const DeleteRoutineDialogMutation = graphql`
   mutation DeleteRoutineDialog_Mutation($input: DeleteRoutineInput!) {
@@ -25,15 +18,17 @@ const DeleteRoutineDialogMutation = graphql`
   }
 `;
 
-type DeleteExerciseDialogProps = {
+type DeleteRoutineDialogProps = Omit<MyDialogProps, "children" | "Button"> & {
   id: string;
-  Trigger: ReactNode;
 };
 
-function DeleteRoutineDialog({ id, Trigger }: DeleteExerciseDialogProps) {
+function DeleteRoutineDialog({
+  id,
+  isOpen,
+  onOpenChange,
+}: DeleteRoutineDialogProps) {
   const queryRef = useContext(RoutinesData);
   const data = useFragment<RoutinesFragment$key>(RoutinesFragment, queryRef);
-  const [open, setOpen] = useState(false);
   const [commitMutation, isMutationInFlight] =
     useMutation<DeleteExerciseDialog_Mutation>(DeleteRoutineDialogMutation);
 
@@ -42,25 +37,23 @@ function DeleteRoutineDialog({ id, Trigger }: DeleteExerciseDialogProps) {
   }
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>{Trigger}</DialogTrigger>
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle>Are you absolutely sure?</DialogTitle>
-          <DialogDescription>
-            This action cannot be undone. This will permanently delete this
-            exercise and remove the data from our servers.
-          </DialogDescription>
-        </DialogHeader>
-        <DialogFooter>
-          <Button
-            variant="outline"
-            onPress={() => {
-              setOpen(false);
-            }}
-          >
+    <MyDialog
+      Button={<Button className="hidden">Delete</Button>}
+      isOpen={isOpen}
+      onOpenChange={onOpenChange}
+    >
+      <div className="flex flex-col gap-y-4">
+        <Heading slot="title" className="text-xl font-bold">
+          Delete Routine
+        </Heading>
+        <p className="text-sm">
+          This action cannot be undone. This will permanently delete this
+          routine and remove the data from our servers.
+        </p>
+        <div className="flex gap-x-2">
+          <CloseButton className="ml-auto" variant="outline">
             Cancel
-          </Button>
+          </CloseButton>
           <Button
             variant="destructive"
             isDisabled={isMutationInFlight}
@@ -92,9 +85,9 @@ function DeleteRoutineDialog({ id, Trigger }: DeleteExerciseDialogProps) {
           >
             Delete
           </Button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
+        </div>
+      </div>
+    </MyDialog>
   );
 }
 
