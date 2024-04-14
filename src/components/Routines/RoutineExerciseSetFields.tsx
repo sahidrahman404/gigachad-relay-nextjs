@@ -257,7 +257,7 @@ function WeightField() {
         weight: 0,
         reps: 0,
       }}
-      className="grid-cols-[22.5fr_45fr_27.5fr_0.5fr] md:grid-cols-[31.6fr_31.6fr_31.6fr_0.5fr]"
+      className="grid-cols-[19.5fr_40fr_40fr_0.5fr] md:grid-cols-[31.6fr_31.6fr_31.6fr_0.5fr]"
     />
   );
 }
