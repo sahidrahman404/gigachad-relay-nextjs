@@ -28,6 +28,7 @@ import {
   RoutineFormSchema,
 } from "@/lib/zod/routineFormSchema";
 import { NumberField } from "../ReactAriaUI/NumberField";
+import { Trash2 } from "lucide-react";
 
 type RoutineExerciseSetFieldArray = UseFieldArrayReturn<
   RoutineFormSchema,
@@ -107,6 +108,7 @@ type DeleteSetButtonProps = {
 function DeleteSetButton({ fieldArray, setIndex }: DeleteSetButtonProps) {
   return (
     <Button
+      size="icon"
       variant="destructive"
       className="col-span-1 self-end"
       type="button"
@@ -114,7 +116,7 @@ function DeleteSetButton({ fieldArray, setIndex }: DeleteSetButtonProps) {
         fieldArray.remove(setIndex);
       }}
     >
-      Delete
+      <Trash2 size={16} />
     </Button>
   );
 }

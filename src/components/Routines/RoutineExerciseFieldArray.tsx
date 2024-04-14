@@ -17,6 +17,7 @@ import { RestTimerSelector } from "../common/RestTimerSelector";
 import { RoutineFormSchema } from "@/lib/zod/routineFormSchema";
 import { RoutineExerciseSetsField } from "./RoutineExerciseSetsField";
 import { ExerciseSelectedInput } from "./ExerciseSelectedInput";
+import { Trash2 } from "lucide-react";
 
 const RoutineExerciseFieldArrayFragment = graphql`
   fragment RoutineExerciseFieldArrayFragment on User {
@@ -74,13 +75,14 @@ function RoutineExerciseFieldArray({
                       <div className="space-y-2">
                         <div className="h-6" />
                         <Button
+                          size="icon"
                           className="h-12 w-full"
                           variant="destructive"
                           onPress={() => {
                             remove(index);
                           }}
                         >
-                          Delete
+                          <Trash2 />
                         </Button>
                         <div className="h-[0.8rem]" />
                       </div>
