@@ -49,13 +49,8 @@ const ExerciseSelectItem = memo(function ExerciseSelectItem({
   }, [data.id, exerciseTypes, data.name]);
 
   return (
-    <ListBoxItem
-      key={value}
-      id={value}
-      textValue={data.name}
-      className="text-inherit"
-    >
-      <div className="flex items-center space-x-2 text-inherit">
+    <ListBoxItem key={value} id={value} textValue={data.name}>
+      <div className="flex items-center space-x-2">
         <Avatar>{data.image && <Image image={data.image} />}</Avatar>
         <span className="text-inherit">{data.name}</span>
       </div>
