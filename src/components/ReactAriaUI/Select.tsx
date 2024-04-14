@@ -72,7 +72,7 @@ function Select<T extends object>({
           )
         }
       >
-        <ListBox className="p-1" items={items}>
+        <ListBox className="p-1 outline-none" items={items}>
           {children}
         </ListBox>
       </Popover>
