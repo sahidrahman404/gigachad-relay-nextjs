@@ -1,5 +1,5 @@
 import { useFieldArray, useFormContext } from "react-hook-form";
-import { FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
+import { FormField, FormItem, FormMessage } from "../ui/form";
 import {
   Card,
   CardContent,
@@ -16,6 +16,7 @@ import { useFragment } from "react-relay";
 import { RestTimerSelector } from "../common/RestTimerSelector";
 import { RoutineFormSchema } from "@/lib/zod/routineFormSchema";
 import { RoutineExerciseSetsField } from "./RoutineExerciseSetsField";
+import { ExerciseSelectedInput } from "./ExerciseSelectedInput";
 
 const RoutineExerciseFieldArrayFragment = graphql`
   fragment RoutineExerciseFieldArrayFragment on User {
@@ -54,13 +55,19 @@ function RoutineExerciseFieldArray({
                   render={({ field }) => (
                     <div className="grid grid-cols-4 space-x-2 md:space-x-4">
                       <FormItem className="col-span-3">
-                        <FormLabel>Exercise</FormLabel>
-                        <ExerciseSelectInput
-                          queryRef={data}
-                          value={field.value}
-                          onValueChange={field.onChange}
-                          disabled={field.value.length > 0 ? true : false}
-                        />
+                        {field.value !== "" ? (
+                          <ExerciseSelectedInput value={field.value} />
+                        ) : (
+                          <ExerciseSelectInput
+                            queryRef={data}
+                            selectedKey={field.value}
+                            onSelectionChange={field.onChange}
+                            disabledKeys={fields.map(
+                              (exercise) => exercise.exerciseID,
+                            )}
+                          />
+                        )}
+
                         <FormMessage />
                       </FormItem>
 
