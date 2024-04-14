@@ -56,9 +56,10 @@ function MyItem({ destructive = false, ...props }: MyItemProps) {
     <MenuItem
       {...props}
       textValue={textValue}
-      className={({ isFocused, isSelected, isOpen }) =>
+      className={({ isFocused, isSelected, isOpen, isDisabled }) =>
         `flex items-center m-0.5 rounded-sm outline-none cursor-default 
          relative text-sm py-1 px-3
+         ${isDisabled && "text-muted-foreground"}
          ${destructive && "text-destructive"}
          ${isFocused && destructive ? "bg-destructive text-destructive-foreground" : ""}
          ${isOpen && destructive ? "bg-destructive text-destructive-foreground" : ""}
