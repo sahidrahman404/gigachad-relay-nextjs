@@ -66,9 +66,7 @@ function buildRoutineExercisesInput({
   unit,
 }: BuildRoutineExercisesInputParams): RoutineExerciseInput[] {
   return val.routineExercises.map((rE) => {
-    const { exerciseID, exerciseName } = extractExerciseSelectInputValue(
-      rE.exerciseID,
-    );
+    const { id, exerciseName } = extractExerciseSelectInputValue(rE.exerciseID);
     if (unit !== "METRIC") {
       for (const set of rE.sets) {
         set.weight =
@@ -79,7 +77,7 @@ function buildRoutineExercisesInput({
     }
     return {
       ...rE,
-      exerciseID: exerciseID,
+      exerciseID: id,
       exerciseName: exerciseName,
     };
   });
@@ -153,7 +151,8 @@ function unbuildRoutineExercisesInput({
         exerciseID: buildExerciseSelectInputValue({
           id: exercises?.id ?? "",
           exerciseType: exerciseType?.name ?? "",
-          exerciseName: routineExercise?.node?.exercises.name ?? "",
+          exerciseName: exercises?.name ?? "",
+          exerciseImage: exercises?.image,
         }),
       };
     });

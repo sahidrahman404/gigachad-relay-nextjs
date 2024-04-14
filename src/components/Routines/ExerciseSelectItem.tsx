@@ -5,6 +5,7 @@ import { graphql } from "relay-runtime";
 import { ListBoxItem } from "../ReactAriaUI/Select";
 import { Avatar } from "../ui/avatar";
 import { Image } from "../Image/Image";
+import { ImageFragment$key } from "@/queries/__generated__/ImageFragment.graphql";
 
 const ExerciseSelectItemFragment = graphql`
   fragment ExerciseSelectItemFragment on Exercise {
@@ -45,8 +46,9 @@ const ExerciseSelectItem = memo(function ExerciseSelectItem({
       id: data.id,
       exerciseType: exerciseTypes,
       exerciseName: data.name,
+      exerciseImage: data.image,
     });
-  }, [data.id, exerciseTypes, data.name]);
+  }, [data.id, exerciseTypes, data.name, data.image]);
 
   return (
     <ListBoxItem key={value} id={value} textValue={data.name}>
@@ -60,35 +62,39 @@ const ExerciseSelectItem = memo(function ExerciseSelectItem({
   );
 });
 
-type BuildExerciseSelectInputParams = {
+type ExerciseSelectInputValue = {
   id: string;
   exerciseType: string;
   exerciseName: string;
+  exerciseImage?: ImageFragment$key | null;
 };
 
 function buildExerciseSelectInputValue({
   id,
   exerciseType,
   exerciseName,
-}: BuildExerciseSelectInputParams): string {
-  return `${id}-${exerciseType}-${exerciseName}`;
+  exerciseImage,
+}: ExerciseSelectInputValue): string {
+  return JSON.stringify({
+    id,
+    exerciseType,
+    exerciseName,
+    exerciseImage,
+  });
 }
-
-type ExerciseSelectInputValue = {
-  exerciseID: string;
-  exerciseType: string;
-  exerciseName: string;
-};
 
 function extractExerciseSelectInputValue(
   val: string,
 ): ExerciseSelectInputValue {
-  const result = val.split("-");
-  return {
-    exerciseID: result[0],
-    exerciseType: result[1],
-    exerciseName: result[2],
-  };
+  if (val === "") {
+    return {
+      id: "",
+      exerciseType: "",
+      exerciseName: "",
+      exerciseImage: null,
+    };
+  }
+  return JSON.parse(val);
 }
 
 export {
