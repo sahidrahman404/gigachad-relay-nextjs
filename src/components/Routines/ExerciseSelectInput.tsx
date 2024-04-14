@@ -1,18 +1,12 @@
 import { usePaginationFragment } from "react-relay";
 import { graphql } from "relay-runtime";
-import {
-  Select,
-  SelectContent,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { FormControl } from "@/components/ui/form";
-import { SelectProps } from "@radix-ui/react-select";
+import { ListBoxItem, Select } from "../ReactAriaUI/Select";
+import type { SelectProps } from "react-aria-components";
 import { ExerciseSelectInputFragment$key } from "@/queries/__generated__/ExerciseSelectInputFragment.graphql";
 import { useCallback, useTransition } from "react";
-import { InfiniteScroll } from "../common/InfiniteScroll";
-import { LoadingSpinner } from "../common/LoadingSpinner";
 import { ExerciseSelectItem } from "./ExerciseSelectItem";
+import { LoadingSpinner } from "../common/LoadingSpinner";
+import { InfiniteScroll } from "../common/InfiniteScroll";
 
 const ExerciseSelectInputFragment = graphql`
   fragment ExerciseSelectInputFragment on User
@@ -40,11 +34,14 @@ const ExerciseSelectInputFragment = graphql`
   }
 `;
 
-type ExerciseSelectInputProps = SelectProps & {
+type ExerciseSelectInputProps<T extends object> = SelectProps<T> & {
   queryRef: ExerciseSelectInputFragment$key;
 };
 
-function ExerciseSelectInput({ queryRef, ...props }: ExerciseSelectInputProps) {
+function ExerciseSelectInput<T extends object>({
+  queryRef,
+  ...props
+}: ExerciseSelectInputProps<T>) {
   const [isPending, startTransition] = useTransition();
   const { data, loadNext } = usePaginationFragment(
     ExerciseSelectInputFragment,
@@ -58,24 +55,34 @@ function ExerciseSelectInput({ queryRef, ...props }: ExerciseSelectInputProps) {
   }, [loadNext]);
 
   return (
-    <Select {...props}>
-      <FormControl>
-        <SelectTrigger className="h-12">
-          <SelectValue className="h-12" placeholder="Select an exercise" />
-        </SelectTrigger>
-      </FormControl>
-      <SelectContent>
-        {data.exercises?.edges?.map((mg) => {
-          if (mg?.node) {
-            return <ExerciseSelectItem queryRef={mg.node} key={mg.node.id} />;
-          }
-        })}
-        {isPending && <LoadingSpinner className="mx-auto w-6 h-6" />}
+    <Select
+      label="Exercise"
+      className="h-12"
+      selectedKey={props.selectedKey}
+      onSelectionChange={props.onSelectionChange}
+      onBlur={props.onBlur}
+      disabledKeys={
+        props.disabledKeys
+          ? [...props.disabledKeys, "loading", "loadmore"]
+          : ["loading", "loadmore"]
+      }
+    >
+      {data.exercises?.edges?.map((mg) => {
+        if (mg?.node) {
+          return <ExerciseSelectItem queryRef={mg.node} key={mg.node.id} />;
+        }
+      })}
+      {isPending && (
+        <ListBoxItem key="loading" id="loading" textValue="data is pending">
+          <LoadingSpinner className="mx-auto w-6 h-6" />
+        </ListBoxItem>
+      )}
+      <ListBoxItem key="loadmore" id="loadmore" textValue="load more data">
         <InfiniteScroll
           hasNextPage={data.exercises.pageInfo.hasNextPage}
           loadFn={onLoadMore}
         />
-      </SelectContent>
+      </ListBoxItem>
     </Select>
   );
 }
