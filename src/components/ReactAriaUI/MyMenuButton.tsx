@@ -57,8 +57,8 @@ function MyItem({ destructive = false, ...props }: MyItemProps) {
       {...props}
       textValue={textValue}
       className={({ isFocused, isSelected, isOpen, isDisabled }) =>
-        `flex items-center m-0.5 rounded-sm outline-none cursor-default 
-         relative text-sm py-1 px-3
+        `flex items-center rounded-sm outline-none cursor-default 
+         relative text-sm py-1 px-3 w-15
          ${isDisabled && "text-muted-foreground"}
          ${destructive && "text-destructive"}
          ${isFocused && destructive ? "bg-destructive text-destructive-foreground" : ""}
