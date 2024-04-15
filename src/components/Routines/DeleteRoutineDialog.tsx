@@ -1,5 +1,3 @@
-import { Heading } from "react-aria-components";
-import { Button } from "../ReactAriaUI/Button";
 import { useContext } from "react";
 import { graphql } from "relay-runtime";
 import { useFragment, useMutation } from "react-relay";
@@ -8,7 +6,10 @@ import { RoutinesData, RoutinesFragment } from "./Routines";
 import { RoutinesFragment$key } from "@/queries/__generated__/RoutinesFragment.graphql";
 import ConnectionHandler from "relay-connection-handler-plus";
 import { toast } from "sonner";
-import { CloseButton, MyDialog, MyDialogProps } from "../ReactAriaUI/MyDialog";
+import { MyDialogProps } from "../ReactAriaUI/MyDialog";
+import { DialogTrigger } from "react-aria-components";
+import { Modal } from "../ReactAriaUI/Modal";
+import { AlertDialog } from "../ReactAriaUI/AlertDialog";
 
 const DeleteRoutineDialogMutation = graphql`
   mutation DeleteRoutineDialog_Mutation($input: DeleteRoutineInput!) {
@@ -37,57 +38,44 @@ function DeleteRoutineDialog({
   }
 
   return (
-    <MyDialog
-      Button={<Button className="hidden">Delete</Button>}
-      isOpen={isOpen}
-      onOpenChange={onOpenChange}
-    >
-      <div className="flex flex-col gap-y-4">
-        <Heading slot="title" className="text-xl font-bold">
-          Delete Routine
-        </Heading>
-        <p className="text-sm">
+    <DialogTrigger isOpen={isOpen} onOpenChange={onOpenChange}>
+      <Modal>
+        <AlertDialog
+          title="Delete Routine"
+          variant="destructive"
+          actionLabel="Delete"
+          onAction={() => {
+            commitMutation({
+              variables: {
+                input: {
+                  id: id,
+                },
+              },
+              updater: (store) => {
+                const userRecord = store.get(data.id);
+                const connectionRecords = ConnectionHandler.getConnections(
+                  userRecord!,
+                  "RoutinesFragment_routines",
+                );
+                const routineIDToDelete = id;
+                connectionRecords.forEach((cR) => {
+                  ConnectionHandler.deleteNode(cR, routineIDToDelete);
+                });
+              },
+              onCompleted(_, errors) {
+                if (errors === null) {
+                  toast.success("The routine was deleted");
+                }
+              },
+            });
+          }}
+          buttonDisabled={isMutationInFlight}
+        >
           This action cannot be undone. This will permanently delete this
           routine and remove the data from our servers.
-        </p>
-        <div className="flex gap-x-2">
-          <CloseButton className="ml-auto" variant="outline">
-            Cancel
-          </CloseButton>
-          <Button
-            variant="destructive"
-            isDisabled={isMutationInFlight}
-            onPress={() => {
-              commitMutation({
-                variables: {
-                  input: {
-                    id: id,
-                  },
-                },
-                updater: (store) => {
-                  const userRecord = store.get(data.id);
-                  const connectionRecords = ConnectionHandler.getConnections(
-                    userRecord!,
-                    "RoutinesFragment_routines",
-                  );
-                  const routineIDToDelete = id;
-                  connectionRecords.forEach((cR) => {
-                    ConnectionHandler.deleteNode(cR, routineIDToDelete);
-                  });
-                },
-                onCompleted(_, errors) {
-                  if (errors === null) {
-                    toast.success("The routine was deleted");
-                  }
-                },
-              });
-            }}
-          >
-            Delete
-          </Button>
-        </div>
-      </div>
-    </MyDialog>
+        </AlertDialog>
+      </Modal>
+    </DialogTrigger>
   );
 }
 
