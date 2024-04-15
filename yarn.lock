@@ -5097,6 +5097,7 @@ __metadata:
     postcss: "npm:^8.4.38"
     prettier: "npm:^3.2.5"
     react: "npm:^18.2.0"
+    react-aria: "npm:^3.32.1"
     react-aria-components: "npm:^1.1.1"
     react-dom: "npm:^18.2.0"
     react-error-boundary: "npm:^4.0.13"
