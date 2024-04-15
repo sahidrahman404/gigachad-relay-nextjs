@@ -34,7 +34,7 @@ const MenuBar = forwardRef<HTMLDivElement, MenuBarProps>(function MenuBar(
         onPress={() => {
           editor.chain().focus().toggleBold().run();
         }}
-        disabled={!editor.can().chain().focus().toggleBold().run()}
+        isDisabled={!editor.can().chain().focus().toggleBold().run()}
         variant={editor.isActive("bold") ? "secondary" : "ghost"}
       >
         <Bold size={16} />
@@ -44,7 +44,7 @@ const MenuBar = forwardRef<HTMLDivElement, MenuBarProps>(function MenuBar(
         onPress={() => {
           editor.chain().focus().toggleItalic().run();
         }}
-        disabled={!editor.can().chain().focus().toggleItalic().run()}
+        isDisabled={!editor.can().chain().focus().toggleItalic().run()}
         variant={editor.isActive("italic") ? "secondary" : "ghost"}
       >
         <Italic size={16} />
@@ -122,7 +122,7 @@ const MenuBar = forwardRef<HTMLDivElement, MenuBarProps>(function MenuBar(
         onPress={() => {
           editor.chain().focus().undo().run();
         }}
-        disabled={!editor.can().chain().focus().undo().run()}
+        isDisabled={!editor.can().chain().focus().undo().run()}
         variant="ghost"
       >
         <Undo size={16} />
@@ -132,7 +132,7 @@ const MenuBar = forwardRef<HTMLDivElement, MenuBarProps>(function MenuBar(
         onPress={() => {
           editor.chain().focus().redo().run();
         }}
-        disabled={!editor.can().chain().focus().redo().run()}
+        isDisabled={!editor.can().chain().focus().redo().run()}
         variant="ghost"
       >
         <Redo size={16} />

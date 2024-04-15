@@ -1,54 +1,70 @@
-import * as React from "react";
-import { cva, type VariantProps } from "class-variance-authority";
-import { cn } from "@/lib/utils";
-import { ButtonProps as BtnProps, Button as Btn } from "react-aria-components";
+import {
+  composeRenderProps,
+  Button as RACButton,
+  ButtonProps as RACButtonProps,
+} from "react-aria-components";
+import { tv } from "tailwind-variants";
+import { focusRing } from "@/lib/utils";
 
-const buttonVariants = cva(
-  "inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors outline-none data-[focus-visible]:ring-1 data-[focus-visible]:ring-ring data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
-  {
-    variants: {
-      variant: {
-        default:
-          "bg-primary text-primary-foreground shadow data-[hovered]:bg-primary/90 data-[pressed]:bg-primary/70",
-        destructive:
-          "bg-destructive text-destructive-foreground shadow-sm data-[hovered]:bg-destructive/90 data-[pressed]:bg-destructive/70",
-        outline:
-          "border border-input bg-transparent shadow-sm data-[hovered]:bg-accent data-[hovered]:text-accent-foreground data-[pressed]:bg-accent/70 data-[pressed]:text-accent-foreground/70",
-        secondary:
-          "bg-secondary text-secondary-foreground shadow-sm data-[hovered]:bg-secondary/80 data-[pressed]:bg-secondary/60 data-[pressed]:text-secondary-foreground/60",
-        ghost:
-          "data-[hovered]:bg-accent data-[hovered]:text-accent-foreground data-[pressed]:bg-accent/70 data-[pressed]:text-accent-foreground/70",
-        link: "text-primary underline-offset-4 hover:underline",
-      },
-      size: {
-        default: "h-9 px-4 py-2",
-        sm: "h-8 rounded-md px-3 text-xs",
-        lg: "h-10 rounded-md px-8",
-        icon: "h-9 w-9",
-      },
+export interface ButtonProps extends RACButtonProps {
+  variant?:
+    | "primary"
+    | "secondary"
+    | "destructive"
+    | "icon"
+    | "outline"
+    | "ghost"
+    | "link";
+  size?: "default" | "sm" | "lg" | "icon";
+}
+
+const buttonStyles = tv({
+  extend: focusRing,
+  base: "inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors outline-none",
+  variants: {
+    variant: {
+      primary:
+        "bg-primary hover:bg-primary/80 pressed:bg-primary/70 text-primary-foreground shadow",
+      secondary:
+        "bg-secondary hover:bg-secondary/80 pressed:bg-secondary/60 text-secondary-foreground shadow-sm",
+      destructive:
+        "bg-destructive hover:bg-destructive/80 pressed:bg-destructive/70 text-destructive-foreground shadow-sm",
+      icon: "text-primary-foreground hover:bg-primary/[5%] pressed:bg-primary/10 disabled:bg-transparent",
+      outline:
+        "border border-input bg-transparent hover:bg-accent/50 pressed:bg-accent text-accent-foreground shadow-sm",
+      ghost: "hover:bg-accent/80 pressed:bg-accent text-accent-foreground",
+      link: "text-primary underline-offset-4 hover:underline",
     },
-    defaultVariants: {
-      variant: "default",
-      size: "default",
+    size: {
+      default: "h-9 px-4 py-2",
+      sm: "h-8 rounded-md px-3 text-xs",
+      lg: "h-10 rounded-md px-8",
+      icon: "h-9 w-9",
+    },
+    isDisabled: {
+      true: "pointer-events-none opacity-50",
     },
   },
-);
-
-export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> &
-  BtnProps &
-  VariantProps<typeof buttonVariants>;
-
-const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, ...props }, ref) => {
-    return (
-      <Btn
-        className={cn(buttonVariants({ variant, size, className }))}
-        ref={ref}
-        {...props}
-      />
-    );
+  defaultVariants: {
+    variant: "primary",
+    size: "default",
   },
-);
-Button.displayName = "Button";
+});
 
-export { Button, buttonVariants };
+function Button(props: ButtonProps) {
+  return (
+    <RACButton
+      {...props}
+      className={composeRenderProps(props.className, (className, renderProps) =>
+        buttonStyles({
+          ...renderProps,
+          variant: props.variant,
+          size: props.size,
+          className,
+        }),
+      )}
+    />
+  );
+}
+
+export { Button, buttonStyles };

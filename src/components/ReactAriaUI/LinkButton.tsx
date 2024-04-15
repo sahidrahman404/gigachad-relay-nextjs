@@ -1,24 +1,37 @@
-import * as React from "react";
-import { type VariantProps } from "class-variance-authority";
-import { cn } from "@/lib/utils";
-import { Link, LinkProps } from "react-aria-components";
-import { buttonVariants } from "./Button";
+import {
+  Link as AriaLink,
+  LinkProps as AriaLinkProps,
+  composeRenderProps,
+} from "react-aria-components";
+import { buttonStyles } from "./Button";
 
-export type LinkButtonProps = React.AnchorHTMLAttributes<HTMLAnchorElement> &
-  LinkProps &
-  VariantProps<typeof buttonVariants>;
+interface LinkButtonProps extends AriaLinkProps {
+  variant?:
+    | "primary"
+    | "secondary"
+    | "destructive"
+    | "icon"
+    | "outline"
+    | "ghost"
+    | "link";
+  size?: "default" | "sm" | "lg" | "icon";
+}
 
-const LinkButton = React.forwardRef<HTMLAnchorElement, LinkButtonProps>(
-  ({ className, variant, size, ...props }, ref) => {
-    return (
-      <Link
-        className={cn(buttonVariants({ variant, size, className }))}
-        ref={ref}
-        {...props}
-      />
-    );
-  },
-);
-LinkButton.displayName = "LinkButton";
+function LinkButton(props: LinkButtonProps) {
+  return (
+    <AriaLink
+      {...props}
+      className={composeRenderProps(props.className, (className, renderProps) =>
+        buttonStyles({
+          ...renderProps,
+          className,
+          variant: props.variant,
+          size: props.size,
+        }),
+      )}
+    />
+  );
+}
 
 export { LinkButton };
+export type { LinkButtonProps };

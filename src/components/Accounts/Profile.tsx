@@ -77,7 +77,7 @@ function Profile({ queryRef }: { queryRef: ProfileFragment$key }) {
         <Button
           className="ml-auto"
           variant="destructive"
-          onClick={async () => {
+          onPress={async () => {
             await removeTokenAndRedirect("/");
           }}
         >
