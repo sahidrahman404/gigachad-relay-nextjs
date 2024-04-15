@@ -8,18 +8,9 @@ import {
   DialogTitle,
   DialogFooter,
 } from "../ui/dialog";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuLabel,
-  DropdownMenuRadioGroup,
-  DropdownMenuRadioItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "../ui/dropdown-menu";
+
 import { Button } from "../ReactAriaUI/Button";
-import { Button as ButtonCn } from "../ui/button";
-import { ArrowUpDown, Filter } from "lucide-react";
+import { Filter } from "lucide-react";
 import { ExerciseTypeInput } from "./ExerciseTypeInput";
 import { Label } from "../ui/label";
 import { MusclesGroupInput } from "./MusclesGroupInput";
@@ -30,6 +21,7 @@ import {
   ExercisesFilterSortActions,
   ExercisesFilterSortState,
 } from "../Hooks/useExercisesFilterSort";
+import { ExerciseSort } from "./ExerciseSort";
 
 const ExercisesFilterSortFragment = graphql`
   fragment ExercisesFilterSortFragment on Query {
@@ -144,67 +136,16 @@ function ExercisesFilterSort({
           </DialogFooter>
         </DialogContent>
       </Dialog>
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <ButtonCn variant="outline">
-            <ArrowUpDown className="mr-2 w-4 h-4" />
-            Sort
-          </ButtonCn>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent className="w-56">
-          <DropdownMenuLabel>Sort from</DropdownMenuLabel>
-          <DropdownMenuSeparator />
-          <DropdownMenuRadioGroup
-            value={state.orderDirection}
-            onValueChange={(value) => {
-              dispatch({ type: "set_order_direction", payload: value });
-            }}
-          >
-            <DropdownMenuRadioItem
-              onClick={() => {
-                startTransition(() => {
-                  refetch({
-                    orderby: "DESC",
-                    exerciseTypeWhereInput:
-                      state.exerciseType.length !== 29
-                        ? []
-                        : { id: state.exerciseType },
-                    musclesGroupWhereInput:
-                      state.musclesGroup.length !== 29
-                        ? []
-                        : { id: state.musclesGroup },
-                  });
-                });
-              }}
-              value="DESC"
-            >
-              Newest
-            </DropdownMenuRadioItem>
-            <DropdownMenuRadioItem
-              value="ASC"
-              onClick={() => {
-                startTransition(() => {
-                  refetch({
-                    orderby: "ASC",
-                    exerciseTypeWhereInput:
-                      state.exerciseType.length !== 29
-                        ? []
-                        : { id: state.exerciseType },
-                    musclesGroupWhereInput:
-                      state.musclesGroup.length !== 29
-                        ? []
-                        : { id: state.musclesGroup },
-                  });
-                });
-              }}
-            >
-              Oldest
-            </DropdownMenuRadioItem>
-          </DropdownMenuRadioGroup>
-        </DropdownMenuContent>
-      </DropdownMenu>
+      <ExerciseSort
+        state={state}
+        refetch={refetch}
+        dispatch={dispatch}
+        startTransition={startTransition}
+      />
     </div>
   );
 }
 
 export { ExercisesFilterSort, ExercisesFilterSortFragment };
+
+export type { ExercisesFilterSortProps };
