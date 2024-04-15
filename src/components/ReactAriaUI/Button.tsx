@@ -5,6 +5,7 @@ import {
 } from "react-aria-components";
 import { tv } from "tailwind-variants";
 import { focusRing } from "@/lib/utils";
+import { ForwardedRef, forwardRef } from "react";
 
 export interface ButtonProps extends RACButtonProps {
   variant?:
@@ -51,10 +52,14 @@ const buttonStyles = tv({
   },
 });
 
-function Button(props: ButtonProps) {
+const Button = forwardRef(function Button(
+  props: ButtonProps,
+  ref: ForwardedRef<HTMLButtonElement>,
+) {
   return (
     <RACButton
       {...props}
+      ref={ref}
       className={composeRenderProps(props.className, (className, renderProps) =>
         buttonStyles({
           ...renderProps,
@@ -65,6 +70,6 @@ function Button(props: ButtonProps) {
       )}
     />
   );
-}
+});
 
 export { Button, buttonStyles };
