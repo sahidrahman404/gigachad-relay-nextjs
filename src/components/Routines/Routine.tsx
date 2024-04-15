@@ -11,11 +11,11 @@ import {
 import { WorkoutMachineContext } from "../Layout";
 import { Button } from "../ReactAriaUI/Button";
 import { useRouter } from "next/router";
-
 import { DeleteRoutineDialog } from "./DeleteRoutineDialog";
-import { MyItem, MyMenuButton } from "../ReactAriaUI/MyMenuButton";
-import { AlignJustify } from "lucide-react";
 import { useState } from "react";
+import { Menu, MenuItem } from "../ReactAriaUI/Menu";
+import { MenuTrigger } from "react-aria-components";
+import { MoreHorizontal, Trash2 } from "lucide-react";
 
 const RoutineFragment = graphql`
   fragment RoutineFragment on Routine {
@@ -65,22 +65,28 @@ function Routine({ queryRef }: RoutineProps) {
             <CardTitle>{data.name}</CardTitle>
             <CardDescription>{exercises}</CardDescription>
           </div>
-          <MyMenuButton
-            label={<AlignJustify strokeWidth={1} />}
-            onAction={(key) => {
-              if (key === "delete") {
-                setOpen(true);
-              }
-            }}
-            disabledKeys={isWorkingOut ? ["edit", "delete"] : []}
-          >
-            <MyItem id="edit" href={`/dashboard/routines/edit/${data.id}`}>
-              Edit
-            </MyItem>
-            <MyItem id="delete" destructive>
-              Delete
-            </MyItem>
-          </MyMenuButton>
+          <MenuTrigger>
+            <Button variant="outline" size="icon">
+              <MoreHorizontal className="w-5 h-5" />
+            </Button>
+
+            <Menu
+              onAction={(key) => {
+                if (key === "delete") {
+                  setOpen(true);
+                }
+              }}
+              disabledKeys={isWorkingOut ? ["edit", "delete"] : []}
+            >
+              <MenuItem id="edit" href={`/dashboard/routines/edit/${data.id}`}>
+                Edit
+              </MenuItem>
+              <MenuItem id="delete">
+                <span className="text-destructive">Delete</span>
+                <Trash2 className="w-4 h-4 text-destructive" />
+              </MenuItem>
+            </Menu>
+          </MenuTrigger>
         </CardHeader>
         <CardFooter className="flex flex-col items-stretch md:block">
           <Button
