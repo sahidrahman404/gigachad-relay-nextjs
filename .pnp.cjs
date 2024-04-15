@@ -92,6 +92,7 @@ const RAW_RUNTIME_STATE =
           ["relay-runtime", "npm:16.2.0"],\
           ["sonner", "virtual:513cd180dedb9f7a81a1ac642e802711013d64a66050ab7e707b837cdc00861566e83a7fccbf1af88c4c2f0d0683b9635ab4dacdf9f73f64a7b41238769a7703#npm:1.4.41"],\
           ["tailwind-merge", "npm:2.2.2"],\
+          ["tailwind-variants", "virtual:513cd180dedb9f7a81a1ac642e802711013d64a66050ab7e707b837cdc00861566e83a7fccbf1af88c4c2f0d0683b9635ab4dacdf9f73f64a7b41238769a7703#npm:0.2.1"],\
           ["tailwindcss", "npm:3.4.3"],\
           ["tailwindcss-animate", "virtual:513cd180dedb9f7a81a1ac642e802711013d64a66050ab7e707b837cdc00861566e83a7fccbf1af88c4c2f0d0683b9635ab4dacdf9f73f64a7b41238769a7703#npm:1.0.7"],\
           ["tailwindcss-react-aria-components", "virtual:513cd180dedb9f7a81a1ac642e802711013d64a66050ab7e707b837cdc00861566e83a7fccbf1af88c4c2f0d0683b9635ab4dacdf9f73f64a7b41238769a7703#npm:1.1.1"],\
@@ -7768,6 +7769,7 @@ const RAW_RUNTIME_STATE =
           ["relay-runtime", "npm:16.2.0"],\
           ["sonner", "virtual:513cd180dedb9f7a81a1ac642e802711013d64a66050ab7e707b837cdc00861566e83a7fccbf1af88c4c2f0d0683b9635ab4dacdf9f73f64a7b41238769a7703#npm:1.4.41"],\
           ["tailwind-merge", "npm:2.2.2"],\
+          ["tailwind-variants", "virtual:513cd180dedb9f7a81a1ac642e802711013d64a66050ab7e707b837cdc00861566e83a7fccbf1af88c4c2f0d0683b9635ab4dacdf9f73f64a7b41238769a7703#npm:0.2.1"],\
           ["tailwindcss", "npm:3.4.3"],\
           ["tailwindcss-animate", "virtual:513cd180dedb9f7a81a1ac642e802711013d64a66050ab7e707b837cdc00861566e83a7fccbf1af88c4c2f0d0683b9635ab4dacdf9f73f64a7b41238769a7703#npm:1.0.7"],\
           ["tailwindcss-react-aria-components", "virtual:513cd180dedb9f7a81a1ac642e802711013d64a66050ab7e707b837cdc00861566e83a7fccbf1af88c4c2f0d0683b9635ab4dacdf9f73f64a7b41238769a7703#npm:1.1.1"],\
@@ -11059,6 +11061,29 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["tailwind-merge", "npm:2.2.2"],\
           ["@babel/runtime", "npm:7.24.1"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["tailwind-variants", [\
+      ["npm:0.2.1", {\
+        "packageLocation": "../../../.local/share/yarn/berry/cache/tailwind-variants-npm-0.2.1-853f67f9ea-10c0.zip/node_modules/tailwind-variants/",\
+        "packageDependencies": [\
+          ["tailwind-variants", "npm:0.2.1"]\
+        ],\
+        "linkType": "SOFT"\
+      }],\
+      ["virtual:513cd180dedb9f7a81a1ac642e802711013d64a66050ab7e707b837cdc00861566e83a7fccbf1af88c4c2f0d0683b9635ab4dacdf9f73f64a7b41238769a7703#npm:0.2.1", {\
+        "packageLocation": "./.yarn/__virtual__/tailwind-variants-virtual-5bb9693695/4/.local/share/yarn/berry/cache/tailwind-variants-npm-0.2.1-853f67f9ea-10c0.zip/node_modules/tailwind-variants/",\
+        "packageDependencies": [\
+          ["tailwind-variants", "virtual:513cd180dedb9f7a81a1ac642e802711013d64a66050ab7e707b837cdc00861566e83a7fccbf1af88c4c2f0d0683b9635ab4dacdf9f73f64a7b41238769a7703#npm:0.2.1"],\
+          ["@types/tailwindcss", null],\
+          ["tailwind-merge", "npm:2.2.2"],\
+          ["tailwindcss", "npm:3.4.3"]\
+        ],\
+        "packagePeers": [\
+          "@types/tailwindcss",\
+          "tailwindcss"\
         ],\
         "linkType": "HARD"\
       }]\
