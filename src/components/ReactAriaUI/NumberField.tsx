@@ -6,6 +6,8 @@ import {
   Input,
   FieldError,
   Text,
+  Button,
+  ButtonProps,
 } from "react-aria-components";
 import { Button } from "./Button";
 import { cn } from "@/lib/utils";
@@ -56,6 +58,13 @@ function NumberField({
 
       <FieldError>{errorMessage}</FieldError>
     </NumField>
+
+function StepperButton(props: ButtonProps) {
+  return (
+    <Button
+      {...props}
+      className="px-0.5 cursor-default text-primary pressed:bg-accent group-disabled:text-muted-foreground"
+    />
   );
 }
 
