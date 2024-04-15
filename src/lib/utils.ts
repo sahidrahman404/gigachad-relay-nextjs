@@ -4,6 +4,8 @@ import AwsS3 from "@uppy/aws-s3";
 import Uppy, { InternalMetadata } from "@uppy/core";
 import { ChangeEvent, MutableRefObject } from "react";
 import { ControllerRenderProps, UseFormReturn } from "react-hook-form";
+import { tv } from "tailwind-variants";
+import { composeRenderProps } from "react-aria-components";
 
 function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -211,6 +213,23 @@ function getNumberFieldUnitFormatOptions(
   }
 }
 
+const focusRing = tv({
+  base: "ring-ring",
+  variants: {
+    isFocusVisible: {
+      false: "ring-0",
+      true: "ring-1",
+    },
+  },
+});
+
+function composeTailwindRenderProps<T>(
+  className: string | ((v: T) => string) | undefined,
+  tw: string,
+): string | ((v: T) => string) {
+  return composeRenderProps(className, (className) => twMerge(tw, className));
+}
+
 export {
   cn,
   getToken,
@@ -224,4 +243,6 @@ export {
   convertPoundToKg,
   convertKgToPound,
   getNumberFieldUnitFormatOptions,
+  focusRing,
+  composeTailwindRenderProps,
 };
