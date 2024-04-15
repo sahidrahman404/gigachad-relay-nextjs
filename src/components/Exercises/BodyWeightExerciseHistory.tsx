@@ -37,7 +37,6 @@ function BodyWeightExerciseHistory({
             <NumberField
               label="Reps"
               isDisabled={true}
-              stepper={false}
               value={set.reps ?? undefined}
               className="col-span-1"
             />

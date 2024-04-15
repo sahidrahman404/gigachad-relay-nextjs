@@ -1,4 +1,3 @@
-import type { NumberFieldProps, ValidationResult } from "react-aria-components";
 import {
   NumberField as NumField,
   Group,
@@ -6,27 +5,26 @@ import {
   Input,
   FieldError,
   Text,
+  NumberFieldProps as AriaNumberFieldProps,
   Button,
   ButtonProps,
+  ValidationResult,
 } from "react-aria-components";
 import { Button } from "./Button";
 import { cn } from "@/lib/utils";
 
-interface MyNumberFieldProps extends NumberFieldProps {
+interface NumberFieldProps extends AriaNumberFieldProps {
   label?: string;
   description?: string;
   errorMessage?: string | ((validation: ValidationResult) => string);
-  stepper?: boolean;
 }
 
 function NumberField({
   label,
   description,
   errorMessage,
-  className,
-  stepper = true,
   ...props
-}: MyNumberFieldProps) {
+}: NumberFieldProps) {
   return (
     <NumField {...props} className={cn("space-y-2", className)}>
       <Label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
@@ -69,3 +67,4 @@ function StepperButton(props: ButtonProps) {
 }
 
 export { NumberField };
+export type { NumberFieldProps };

@@ -44,7 +44,6 @@ function WeightExerciseHistory({ queryRef }: WeightExerciseHistoryProps) {
             <NumberField
               label="Weight"
               isDisabled={true}
-              stepper={false}
               value={
                 data.users.unit !== "METRIC"
                   ? convertKgToPound(set.weight ?? 0)
@@ -56,7 +55,6 @@ function WeightExerciseHistory({ queryRef }: WeightExerciseHistoryProps) {
             <NumberField
               label="Reps"
               isDisabled={true}
-              stepper={false}
               value={set.reps ?? undefined}
               className="col-span-1"
             />
