@@ -1,4 +1,3 @@
-import { Button } from "../ui/button";
 import {
   Dialog,
   DialogContent,
@@ -12,6 +11,7 @@ import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { ReactNode, useState } from "react";
 import { Editor } from "@tiptap/react";
+import { Button } from "../ReactAriaUI/Button";
 
 type ImageDialogProps = {
   editor: Editor;
@@ -57,8 +57,7 @@ function ImageDialog({ editor, ButtonTrigger }: ImageDialogProps) {
         <DialogFooter>
           <Button
             type="button"
-            onClick={(e) => {
-              e.preventDefault();
+            onPress={() => {
               setUrl("");
               if (url.length > 5) {
                 editor.chain().focus().setImage({ src: url }).run();

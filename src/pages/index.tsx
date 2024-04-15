@@ -1,12 +1,11 @@
 import Logo from "@/components/common/Logo";
-import { Button } from "@/components/ui/button";
 import SessionQuery from "@/gql/session";
 import { createRelayPage } from "@/lib/relay/createRelayPage";
 import { session_Query } from "@/queries/__generated__/session_Query.graphql";
-import Link from "next/link";
 import { usePreloadedQuery } from "react-relay";
 import { RelayProps } from "relay-nextjs";
 import Head from "next/head";
+import { LinkButton } from "@/components/ReactAriaUI/LinkButton";
 
 function MarketingPage({ preloadedQuery }: RelayProps<{}, session_Query>) {
   const query = usePreloadedQuery(SessionQuery, preloadedQuery);
@@ -33,25 +32,23 @@ function MarketingPage({ preloadedQuery }: RelayProps<{}, session_Query>) {
           </p>
 
           <div className="mt-7 grid gap-3 w-full sm:inline-flex">
-            <Button size="lg" asChild>
-              <Link className="gap-x-3" href={redirect}>
-                Get started
-                <svg
-                  className="w-2.5 h-2.5"
-                  width="16"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  fill="none"
-                >
-                  <path
-                    d="M5.27921 2L10.9257 7.64645C11.1209 7.84171 11.1209 8.15829 10.9257 8.35355L5.27921 14"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                  />
-                </svg>
-              </Link>
-            </Button>
+            <LinkButton className="gap-x-3" href={redirect}>
+              Get started
+              <svg
+                className="w-2.5 h-2.5"
+                width="16"
+                height="16"
+                viewBox="0 0 16 16"
+                fill="none"
+              >
+                <path
+                  d="M5.27921 2L10.9257 7.64645C11.1209 7.84171 11.1209 8.15829 10.9257 8.35355L5.27921 14"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                />
+              </svg>
+            </LinkButton>
           </div>
         </div>
 

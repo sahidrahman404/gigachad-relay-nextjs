@@ -1,5 +1,5 @@
 import { removeTokenAndRedirect } from "@/lib/utils";
-import { Button } from "../ui/button";
+import { Button } from "../ReactAriaUI/Button";
 
 export default function GlobalError() {
   return (
@@ -34,7 +34,7 @@ export default function GlobalError() {
 
         <Button
           className="mt-6"
-          onClick={async () => {
+          onPress={async () => {
             await removeTokenAndRedirect();
           }}
         >
