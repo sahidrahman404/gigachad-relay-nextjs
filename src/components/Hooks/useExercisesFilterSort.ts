@@ -1,10 +1,11 @@
 import { useReducer } from "react";
+import { Selection } from "react-aria-components";
 
 type ExercisesFilterSortState = {
   open: boolean;
   musclesGroup: string;
   exerciseType: string;
-  orderDirection: string;
+  orderDirection: Selection;
   isLoading: boolean;
 };
 
@@ -12,7 +13,7 @@ const exercisesFilterSortInitialState: ExercisesFilterSortState = {
   open: false,
   musclesGroup: "",
   exerciseType: "",
-  orderDirection: "DESC",
+  orderDirection: new Set(["Desc"]),
   isLoading: false,
 };
 
