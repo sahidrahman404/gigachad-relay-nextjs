@@ -86,6 +86,7 @@ function SetFormField({
               />
             ) : (
               <NumberField
+                className="gap-y-0"
                 onChange={field.onChange}
                 onBlur={field.onBlur}
                 value={Number(field.value)}

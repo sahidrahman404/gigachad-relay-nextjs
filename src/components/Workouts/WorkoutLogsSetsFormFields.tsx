@@ -95,6 +95,7 @@ function WorkoutLogsSetFormField({
               />
             ) : (
               <NumberField
+                className="gap-y-0"
                 onChange={(value) => {
                   field.onChange(value);
                   workoutActor.send({
