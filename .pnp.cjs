@@ -87,6 +87,7 @@ const RAW_RUNTIME_STATE =
           ["react-error-boundary", "virtual:513cd180dedb9f7a81a1ac642e802711013d64a66050ab7e707b837cdc00861566e83a7fccbf1af88c4c2f0d0683b9635ab4dacdf9f73f64a7b41238769a7703#npm:4.0.13"],\
           ["react-hook-form", "virtual:513cd180dedb9f7a81a1ac642e802711013d64a66050ab7e707b837cdc00861566e83a7fccbf1af88c4c2f0d0683b9635ab4dacdf9f73f64a7b41238769a7703#npm:7.51.2"],\
           ["react-relay", "virtual:513cd180dedb9f7a81a1ac642e802711013d64a66050ab7e707b837cdc00861566e83a7fccbf1af88c4c2f0d0683b9635ab4dacdf9f73f64a7b41238769a7703#npm:16.2.0"],\
+          ["react-responsive", "virtual:513cd180dedb9f7a81a1ac642e802711013d64a66050ab7e707b837cdc00861566e83a7fccbf1af88c4c2f0d0683b9635ab4dacdf9f73f64a7b41238769a7703#npm:10.0.0"],\
           ["relay-compiler", "npm:16.2.0"],\
           ["relay-config", "npm:12.0.1"],\
           ["relay-connection-handler-plus", "virtual:513cd180dedb9f7a81a1ac642e802711013d64a66050ab7e707b837cdc00861566e83a7fccbf1af88c4c2f0d0683b9635ab4dacdf9f73f64a7b41238769a7703#npm:0.1.2"],\
@@ -6473,6 +6474,15 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["css-mediaquery", [\
+      ["npm:0.1.2", {\
+        "packageLocation": "../../../.local/share/yarn/berry/cache/css-mediaquery-npm-0.1.2-39b61fbcad-10c0.zip/node_modules/css-mediaquery/",\
+        "packageDependencies": [\
+          ["css-mediaquery", "npm:0.1.2"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["cssesc", [\
       ["npm:3.0.0", {\
         "packageLocation": "../../../.local/share/yarn/berry/cache/cssesc-npm-3.0.0-15ec56f86f-10c0.zip/node_modules/cssesc/",\
@@ -7797,6 +7807,7 @@ const RAW_RUNTIME_STATE =
           ["react-error-boundary", "virtual:513cd180dedb9f7a81a1ac642e802711013d64a66050ab7e707b837cdc00861566e83a7fccbf1af88c4c2f0d0683b9635ab4dacdf9f73f64a7b41238769a7703#npm:4.0.13"],\
           ["react-hook-form", "virtual:513cd180dedb9f7a81a1ac642e802711013d64a66050ab7e707b837cdc00861566e83a7fccbf1af88c4c2f0d0683b9635ab4dacdf9f73f64a7b41238769a7703#npm:7.51.2"],\
           ["react-relay", "virtual:513cd180dedb9f7a81a1ac642e802711013d64a66050ab7e707b837cdc00861566e83a7fccbf1af88c4c2f0d0683b9635ab4dacdf9f73f64a7b41238769a7703#npm:16.2.0"],\
+          ["react-responsive", "virtual:513cd180dedb9f7a81a1ac642e802711013d64a66050ab7e707b837cdc00861566e83a7fccbf1af88c4c2f0d0683b9635ab4dacdf9f73f64a7b41238769a7703#npm:10.0.0"],\
           ["relay-compiler", "npm:16.2.0"],\
           ["relay-config", "npm:12.0.1"],\
           ["relay-connection-handler-plus", "virtual:513cd180dedb9f7a81a1ac642e802711013d64a66050ab7e707b837cdc00861566e83a7fccbf1af88c4c2f0d0683b9635ab4dacdf9f73f64a7b41238769a7703#npm:0.1.2"],\
@@ -8037,6 +8048,15 @@ const RAW_RUNTIME_STATE =
           ["https-proxy-agent", "npm:7.0.4"],\
           ["agent-base", "npm:7.1.0"],\
           ["debug", "virtual:1ff4b5f90832ba0a9c93ba1223af226e44ba70c1126a3740d93562b97bc36544e896a5e95908196f7458713e6a6089a34bfc67362fc6df7fa093bd06c878be47#npm:4.3.4"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["hyphenate-style-name", [\
+      ["npm:1.0.4", {\
+        "packageLocation": "../../../.local/share/yarn/berry/cache/hyphenate-style-name-npm-1.0.4-a79c7da506-10c0.zip/node_modules/hyphenate-style-name/",\
+        "packageDependencies": [\
+          ["hyphenate-style-name", "npm:1.0.4"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -8849,6 +8869,16 @@ const RAW_RUNTIME_STATE =
           ["mdurl", "npm:2.0.0"],\
           ["punycode.js", "npm:2.3.1"],\
           ["uc.micro", "npm:2.1.0"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["matchmediaquery", [\
+      ["npm:0.4.2", {\
+        "packageLocation": "../../../.local/share/yarn/berry/cache/matchmediaquery-npm-0.4.2-9ff26bf499-10c0.zip/node_modules/matchmediaquery/",\
+        "packageDependencies": [\
+          ["matchmediaquery", "npm:0.4.2"],\
+          ["css-mediaquery", "npm:0.1.2"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -10346,6 +10376,32 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["react-responsive", [\
+      ["npm:10.0.0", {\
+        "packageLocation": "../../../.local/share/yarn/berry/cache/react-responsive-npm-10.0.0-c76dbe003b-10c0.zip/node_modules/react-responsive/",\
+        "packageDependencies": [\
+          ["react-responsive", "npm:10.0.0"]\
+        ],\
+        "linkType": "SOFT"\
+      }],\
+      ["virtual:513cd180dedb9f7a81a1ac642e802711013d64a66050ab7e707b837cdc00861566e83a7fccbf1af88c4c2f0d0683b9635ab4dacdf9f73f64a7b41238769a7703#npm:10.0.0", {\
+        "packageLocation": "./.yarn/__virtual__/react-responsive-virtual-6f0e8673a5/4/.local/share/yarn/berry/cache/react-responsive-npm-10.0.0-c76dbe003b-10c0.zip/node_modules/react-responsive/",\
+        "packageDependencies": [\
+          ["react-responsive", "virtual:513cd180dedb9f7a81a1ac642e802711013d64a66050ab7e707b837cdc00861566e83a7fccbf1af88c4c2f0d0683b9635ab4dacdf9f73f64a7b41238769a7703#npm:10.0.0"],\
+          ["@types/react", "npm:18.2.73"],\
+          ["hyphenate-style-name", "npm:1.0.4"],\
+          ["matchmediaquery", "npm:0.4.2"],\
+          ["prop-types", "npm:15.8.1"],\
+          ["react", "npm:18.2.0"],\
+          ["shallow-equal", "npm:3.1.0"]\
+        ],\
+        "packagePeers": [\
+          "@types/react",\
+          "react"\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["react-stately", [\
       ["npm:3.30.1", {\
         "packageLocation": "../../../.local/share/yarn/berry/cache/react-stately-npm-3.30.1-09c81ea028-10c0.zip/node_modules/react-stately/",\
@@ -10752,6 +10808,15 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "../../../.local/share/yarn/berry/cache/setimmediate-npm-1.0.5-54587459b6-10c0.zip/node_modules/setimmediate/",\
         "packageDependencies": [\
           ["setimmediate", "npm:1.0.5"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["shallow-equal", [\
+      ["npm:3.1.0", {\
+        "packageLocation": "../../../.local/share/yarn/berry/cache/shallow-equal-npm-3.1.0-24ff83f6af-10c0.zip/node_modules/shallow-equal/",\
+        "packageDependencies": [\
+          ["shallow-equal", "npm:3.1.0"]\
         ],\
         "linkType": "HARD"\
       }]\

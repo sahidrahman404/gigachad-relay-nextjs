@@ -59,6 +59,7 @@
     "react-error-boundary": "^4.0.13",
     "react-hook-form": "^7.51.2",
     "react-relay": "^16.2.0",
+    "react-responsive": "^10.0.0",
     "relay-connection-handler-plus": "^0.1.2",
     "relay-nextjs": "^3.0.1",
     "relay-runtime": "^16.2.0",
