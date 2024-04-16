@@ -3,6 +3,7 @@ import { Button } from "../ReactAriaUI/Button";
 import { ArrowUpDown } from "lucide-react";
 import { MenuMobile, MenuItem } from "../ReactAriaUI/Menu";
 import { ExercisesFilterSortProps } from "./ExercisesFilterSort";
+import { useState } from "react";
 
 interface ExerciseSortProps
   extends Omit<
@@ -16,13 +17,16 @@ function ExerciseSort({
   dispatch,
   startTransition,
 }: ExerciseSortProps) {
+  const [open, setOpen] = useState(false);
   return (
-    <MenuTrigger>
+    <MenuTrigger isOpen={open} onOpenChange={setOpen}>
       <Button variant="outline">
         <ArrowUpDown className="mr-2 w-4 h-4" />
         Sort
       </Button>
       <MenuMobile
+        open={open}
+        setOpen={setOpen}
         onAction={(key) => {
           if (key === "Desc") {
             startTransition(() => {
