@@ -13,9 +13,10 @@ import { Button } from "../ReactAriaUI/Button";
 import { useRouter } from "next/router";
 import { DeleteRoutineDialog } from "./DeleteRoutineDialog";
 import { useState } from "react";
-import { Menu, MenuItem } from "../ReactAriaUI/Menu";
+import { MenuResponsive, MenuItem } from "../ReactAriaUI/Menu";
 import { MenuTrigger } from "react-aria-components";
 import { MoreHorizontal, Trash2 } from "lucide-react";
+import NonSSRWrapper from "../common/NonSSRWrapper";
 
 const RoutineFragment = graphql`
   fragment RoutineFragment on Routine {
@@ -45,7 +46,9 @@ function Routine({ queryRef }: RoutineProps) {
   const isWorkingOut = WorkoutMachineContext.useSelector((state) =>
     state.matches({ workingOut: {} }),
   );
-  const [open, setOpen] = useState(false);
+
+  const [openMenu, setOpenMenu] = useState(false);
+  const [openAlertDialog, setOpenAlertDialog] = useState(false);
 
   const router = useRouter();
 
@@ -65,27 +68,34 @@ function Routine({ queryRef }: RoutineProps) {
             <CardTitle>{data.name}</CardTitle>
             <CardDescription>{exercises}</CardDescription>
           </div>
-          <MenuTrigger>
+          <MenuTrigger isOpen={openMenu} onOpenChange={setOpenMenu}>
             <Button variant="outline" size="icon">
               <MoreHorizontal className="w-5 h-5" />
             </Button>
 
-            <Menu
-              onAction={(key) => {
-                if (key === "delete") {
-                  setOpen(true);
-                }
-              }}
-              disabledKeys={isWorkingOut ? ["edit", "delete"] : []}
-            >
-              <MenuItem id="edit" href={`/dashboard/routines/edit/${data.id}`}>
-                Edit
-              </MenuItem>
-              <MenuItem id="delete">
-                <span className="text-destructive">Delete</span>
-                <Trash2 className="w-4 h-4 text-destructive" />
-              </MenuItem>
-            </Menu>
+            <NonSSRWrapper>
+              <MenuResponsive
+                open={openMenu}
+                setOpen={setOpenMenu}
+                onAction={(key) => {
+                  if (key === "delete") {
+                    setOpenAlertDialog(true);
+                  }
+                }}
+                disabledKeys={isWorkingOut ? ["edit", "delete"] : []}
+              >
+                <MenuItem
+                  id="edit"
+                  href={`/dashboard/routines/edit/${data.id}`}
+                >
+                  Edit
+                </MenuItem>
+                <MenuItem id="delete">
+                  <span className="text-destructive">Delete</span>
+                  <Trash2 className="w-4 h-4 text-destructive" />
+                </MenuItem>
+              </MenuResponsive>
+            </NonSSRWrapper>
           </MenuTrigger>
         </CardHeader>
         <CardFooter className="flex flex-col items-stretch md:block">
@@ -102,7 +112,11 @@ function Routine({ queryRef }: RoutineProps) {
         </CardFooter>
       </Card>
 
-      <DeleteRoutineDialog id={data.id} isOpen={open} onOpenChange={setOpen} />
+      <DeleteRoutineDialog
+        id={data.id}
+        isOpen={openAlertDialog}
+        onOpenChange={setOpenAlertDialog}
+      />
     </>
   );
 }
