@@ -1,7 +1,7 @@
 import { MenuTrigger } from "react-aria-components";
 import { Button } from "../ReactAriaUI/Button";
 import { ArrowUpDown } from "lucide-react";
-import { Menu, MenuItem } from "../ReactAriaUI/Menu";
+import { MenuMobile, MenuItem } from "../ReactAriaUI/Menu";
 import { ExercisesFilterSortProps } from "./ExercisesFilterSort";
 
 interface ExerciseSortProps
@@ -22,7 +22,7 @@ function ExerciseSort({
         <ArrowUpDown className="mr-2 w-4 h-4" />
         Sort
       </Button>
-      <Menu
+      <MenuMobile
         onAction={(key) => {
           if (key === "Desc") {
             startTransition(() => {
@@ -66,7 +66,7 @@ function ExerciseSort({
       >
         <MenuItem id="Desc">Newest</MenuItem>
         <MenuItem id="Asc">Oldest</MenuItem>
-      </Menu>
+      </MenuMobile>
     </MenuTrigger>
   );
 }
