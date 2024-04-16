@@ -1,40 +1,82 @@
-import React from "react";
+import { Dispatch, ReactNode, SetStateAction } from "react";
+import { ModalOverlay, ModalOverlayProps, Modal } from "react-aria-components";
 import {
-  ModalOverlay,
-  ModalOverlayProps,
-  Modal as RACModal,
-} from "react-aria-components";
-import { tv } from "tailwind-variants";
+  AnimatePresence,
+  animate,
+  motion,
+  useMotionValue,
+  useTransform,
+  useMotionTemplate,
+} from "framer-motion";
 
-const overlayStyles = tv({
-  base: "fixed top-0 left-0 w-full h-[--visual-viewport-height] isolate z-50 bg-black/[15%] flex items-end justify-center p-4 text-center backdrop-blur-lg",
-  variants: {
-    isEntering: {
-      true: "animate-in fade-in duration-200 ease-out",
-    },
-    isExiting: {
-      true: "animate-out fade-out duration-200 ease-in",
-    },
-  },
-});
+const MotionModal = motion(Modal);
+const MotionModalOverlay = motion(ModalOverlay);
 
-const modalStyles = tv({
-  base: "w-full max-h-full rounded-2xl bg-background forced-colors:bg-[Canvas] text-left align-middle text-primary shadow-2xl bg-clip-padding border border-black/10",
-  variants: {
-    isEntering: {
-      true: "animate-in slide-in-from-bottom-2 ease-out duration-200",
-    },
-    isExiting: {
-      true: "animate-out slide-out-to-bottom-2 ease-in duration-200",
-    },
-  },
-});
+const inertiaTransition = {
+  type: "inertia" as const,
+  bounceStiffness: 300,
+  bounceDamping: 40,
+  timeConstant: 300,
+};
 
-function MenuTray(props: ModalOverlayProps) {
+const staticTransition = {
+  duration: 0.5,
+  ease: [0.32, 0.72, 0, 1],
+};
+
+interface MenuTrayProps extends Omit<ModalOverlayProps, "children"> {
+  open: boolean;
+  setOpen: Dispatch<SetStateAction<boolean>>;
+  children?: ReactNode;
+}
+
+function MenuTray({ open, setOpen, children, ...props }: MenuTrayProps) {
+  const SHEET_MARGIN = Math.round(window.innerHeight * 0.65);
+  const h = Math.round(window.innerHeight * 0.35);
+  const y = useMotionValue(h);
+  const bgOpacity = useTransform(y, [0, h], [0.4, 0]);
+  const bg = useMotionTemplate`rgba(0, 0, 0, ${bgOpacity})`;
+
   return (
-    <ModalOverlay {...props} className={overlayStyles} isDismissable>
-      <RACModal {...props} className={modalStyles} />
-    </ModalOverlay>
+    <AnimatePresence>
+      {open && (
+        <MotionModalOverlay
+          {...props}
+          isOpen={open}
+          onOpenChange={setOpen}
+          className="fixed inset-0 z-50"
+          style={{ backgroundColor: bg as any }}
+          isDismissable
+        >
+          <MotionModal
+            {...props}
+            className="bg-background absolute bottom-0 w-full rounded-t-xl shadow-lg will-change-transform"
+            initial={{ y: h }}
+            animate={{ y: 0 }}
+            exit={{ y: h }}
+            transition={staticTransition}
+            style={{
+              y,
+              top: SHEET_MARGIN,
+              // Extra padding at the bottom to account for rubber band scrolling.
+              paddingBottom: window.screen.height,
+            }}
+            drag="y"
+            dragConstraints={{ top: 0 }}
+            onDragEnd={(e, { offset, velocity }) => {
+              if (offset.y > window.innerHeight * 0.75 || velocity.y > 10) {
+                setOpen(false);
+              } else {
+                animate(y, 0, { ...inertiaTransition, min: 0, max: 0 });
+              }
+            }}
+          >
+            <div className="mx-auto w-12 mt-2 h-1.5 rounded-full bg-gray-400" />
+            {children}
+          </MotionModal>
+        </MotionModalOverlay>
+      )}
+    </AnimatePresence>
   );
 }
 
