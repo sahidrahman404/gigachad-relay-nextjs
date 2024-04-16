@@ -16,6 +16,7 @@ import {
 } from "./ListBox";
 import { Popover, PopoverProps } from "./Popover";
 import { MenuTray } from "./MenuTray";
+import NonSSRWrapper from "../common/NonSSRWrapper";
 
 interface MenuProps<T> extends AriaMenuProps<T> {
   placement?: PopoverProps["placement"];
@@ -43,12 +44,14 @@ function MenuMobile<T extends object>({
   ...props
 }: MenuMobileProps<T>) {
   return (
-    <MenuTray>
-      <AriaMenu
-        {...props}
-        className="p-1 outline outline-0 max-h-[inherit] overflow-auto [clip-path:inset(0_0_0_0_round_.75rem)]"
-      />
-    </MenuTray>
+    <NonSSRWrapper>
+      <MenuTray open={open} setOpen={setOpen}>
+        <AriaMenu
+          {...props}
+          className="p-1 outline outline-0 max-h-[inherit] overflow-auto [clip-path:inset(0_0_0_0_round_.75rem)]"
+        />
+      </MenuTray>
+    </NonSSRWrapper>
   );
 }
 
