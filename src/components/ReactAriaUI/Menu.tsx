@@ -17,6 +17,7 @@ import {
 import { Popover, PopoverProps } from "./Popover";
 import { MenuTray } from "./MenuTray";
 import NonSSRWrapper from "../common/NonSSRWrapper";
+import { useMediaQuery } from "react-responsive";
 
 interface MenuProps<T> extends AriaMenuProps<T> {
   placement?: PopoverProps["placement"];
@@ -55,6 +56,17 @@ function MenuMobile<T extends object>({
   );
 }
 
+function MenuResponsive<T extends object>({
+  ...props
+}: MenuResponsiveProps<T>) {
+  const isDesktop = useMediaQuery({ minWidth: "768px" });
+  if (!isDesktop) {
+    return <MenuMobile {...props} />;
+  }
+
+  return <Menu {...props} />;
+}
+
 function MenuItem(props: MenuItemProps) {
   return (
     <AriaMenuItem {...props} className={dropdownItemStyles}>
@@ -90,4 +102,11 @@ function MenuSection<T extends object>(props: DropdownSectionProps<T>) {
   return <DropdownSection {...props} />;
 }
 
-export { Menu, MenuItem, MenuSeparator, MenuSection, MenuMobile };
+export {
+  Menu,
+  MenuItem,
+  MenuSeparator,
+  MenuSection,
+  MenuMobile,
+  MenuResponsive,
+};
