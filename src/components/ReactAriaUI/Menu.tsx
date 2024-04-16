@@ -1,5 +1,5 @@
 import { Check } from "lucide-react";
-import React from "react";
+import { Dispatch, SetStateAction } from "react";
 import {
   Menu as AriaMenu,
   MenuItem as AriaMenuItem,
@@ -32,9 +32,16 @@ function Menu<T extends object>(props: MenuProps<T>) {
   );
 }
 
-interface MenuMobileProps<T> extends AriaMenuProps<T> {}
+interface MenuMobileProps<T> extends AriaMenuProps<T> {
+  open: boolean;
+  setOpen: Dispatch<SetStateAction<boolean>>;
+}
 
-function MenuMobile<T extends object>({ ...props }: MenuMobileProps<T>) {
+function MenuMobile<T extends object>({
+  open,
+  setOpen,
+  ...props
+}: MenuMobileProps<T>) {
   return (
     <MenuTray>
       <AriaMenu
