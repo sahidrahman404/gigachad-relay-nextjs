@@ -2,7 +2,7 @@ import { ExerciseSelectItemFragment$key } from "@/queries/__generated__/Exercise
 import { memo, useMemo } from "react";
 import { useFragment } from "react-relay";
 import { graphql } from "relay-runtime";
-import { ListBoxItem } from "../ReactAriaUI/Select";
+import { SelectItem } from "../ReactAriaUI/MySelect";
 import { Avatar } from "../ui/avatar";
 import { Image } from "../Image/Image";
 import { ImageFragment$key } from "@/queries/__generated__/ImageFragment.graphql";
@@ -51,14 +51,14 @@ const ExerciseSelectItem = memo(function ExerciseSelectItem({
   }, [data.id, exerciseTypes, data.name, data.image]);
 
   return (
-    <ListBoxItem key={value} id={value} textValue={data.name}>
+    <SelectItem key={value} id={value} textValue={data.name}>
       <div className="flex items-center space-x-2">
         <Avatar className="bg-blue-500">
           {data.image && <Image image={data.image} />}
         </Avatar>
         <span className="text-inherit">{data.name}</span>
       </div>
-    </ListBoxItem>
+    </SelectItem>
   );
 });
 

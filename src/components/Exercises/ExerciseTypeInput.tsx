@@ -1,14 +1,10 @@
 import { useFragment } from "react-relay";
 import { graphql } from "relay-runtime";
 import {
+  SelectProps,
   Select,
-  SelectContent,
   SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { FormControl } from "@/components/ui/form";
-import { SelectProps } from "@radix-ui/react-select";
+} from "@/components/ReactAriaUI/MySelect";
 import { ExerciseTypeInputFragment$key } from "@/queries/__generated__/ExerciseTypeInputFragment.graphql";
 
 const ExerciseTypeInputFragment = graphql`
@@ -25,47 +21,44 @@ const ExerciseTypeInputFragment = graphql`
   }
 `;
 
-type ExerciseTypeInputProps = SelectProps & {
-  isInsideForm?: boolean;
+type ExerciseTypeInputProps<T extends object> = Omit<
+  SelectProps<T>,
+  "children" | "ref"
+> & {
   queryRef: ExerciseTypeInputFragment$key;
 };
 
-function ExerciseTypeInput({
+function ExerciseTypeInput<T extends object>({
   queryRef,
-  isInsideForm = false,
   ...props
-}: ExerciseTypeInputProps) {
+}: ExerciseTypeInputProps<T>) {
   const data = useFragment(ExerciseTypeInputFragment, queryRef);
   return (
-    <Select {...props}>
-      {isInsideForm ? (
-        <FormControl>
-          <SelectTrigger className="h-12">
-            <SelectValue className="h-12" placeholder="Select exercise type" />
-          </SelectTrigger>
-        </FormControl>
-      ) : (
-        <SelectTrigger className="h-12">
-          <SelectValue className="h-12" placeholder="Select exercise type" />
-        </SelectTrigger>
-      )}
-      <SelectContent>
-        {data.exerciseTypes?.edges?.map((et) => {
-          if (et?.node) {
-            return (
-              <SelectItem key={et.node.id} value={et.node.id}>
-                <div className="flex flex-col gap-0.5 items-start">
-                  <h3 className="text-primary font-medium">{et.node.name}</h3>
-                  <p>
-                    <span>Example: </span>
-                    {et.node.description}
-                  </p>
-                </div>
-              </SelectItem>
-            );
-          }
-        })}
-      </SelectContent>
+    <Select
+      {...props}
+      size="md"
+      placeholder="Please select an exercise type"
+      aria-label="exercise type selection"
+    >
+      {data.exerciseTypes?.edges?.map((et) => {
+        if (et?.node) {
+          return (
+            <SelectItem
+              key={et.node.id}
+              id={et.node.id}
+              textValue={et.node.name}
+            >
+              <div className="flex flex-col gap-0.5 items-start">
+                <h3 className="text-primary font-medium">{et.node.name}</h3>
+                <p>
+                  <span>Example: </span>
+                  {et.node.description}
+                </p>
+              </div>
+            </SelectItem>
+          );
+        }
+      })}
     </Select>
   );
 }

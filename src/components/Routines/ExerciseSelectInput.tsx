@@ -1,6 +1,6 @@
 import { usePaginationFragment } from "react-relay";
 import { graphql } from "relay-runtime";
-import { ListBoxItem, Select } from "../ReactAriaUI/Select";
+import { Select, SelectItem } from "../ReactAriaUI/MySelect";
 import type { SelectProps } from "react-aria-components";
 import { ExerciseSelectInputFragment$key } from "@/queries/__generated__/ExerciseSelectInputFragment.graphql";
 import { useCallback, useTransition } from "react";
@@ -57,8 +57,7 @@ function ExerciseSelectInput<T extends object>({
   return (
     <Select
       label="Exercise"
-      description="Please select an exercise"
-      className="h-12"
+      placeholder="Please select an exercise"
       selectedKey={props.selectedKey}
       onSelectionChange={props.onSelectionChange}
       onBlur={props.onBlur}
@@ -67,6 +66,7 @@ function ExerciseSelectInput<T extends object>({
           ? [...props.disabledKeys, "loading", "loadmore"]
           : ["loading", "loadmore"]
       }
+      size="md"
     >
       {data.exercises?.edges?.map((mg) => {
         if (mg?.node) {
@@ -74,16 +74,16 @@ function ExerciseSelectInput<T extends object>({
         }
       })}
       {isPending && (
-        <ListBoxItem key="loading" id="loading" textValue="data is pending">
+        <SelectItem key="loading" id="loading" textValue="data is pending">
           <LoadingSpinner className="mx-auto w-6 h-6" />
-        </ListBoxItem>
+        </SelectItem>
       )}
-      <ListBoxItem key="loadmore" id="loadmore" textValue="load more data">
+      <SelectItem key="loadmore" id="loadmore" textValue="load more data">
         <InfiniteScroll
           hasNextPage={data.exercises.pageInfo.hasNextPage}
           loadFn={onLoadMore}
         />
-      </ListBoxItem>
+      </SelectItem>
     </Select>
   );
 }
