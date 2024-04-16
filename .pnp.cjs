@@ -72,6 +72,7 @@ const RAW_RUNTIME_STATE =
           ["eslint", "npm:8.57.0"],\
           ["eslint-config-next", "virtual:513cd180dedb9f7a81a1ac642e802711013d64a66050ab7e707b837cdc00861566e83a7fccbf1af88c4c2f0d0683b9635ab4dacdf9f73f64a7b41238769a7703#npm:14.1.4"],\
           ["eslint-plugin-unused-imports", "virtual:513cd180dedb9f7a81a1ac642e802711013d64a66050ab7e707b837cdc00861566e83a7fccbf1af88c4c2f0d0683b9635ab4dacdf9f73f64a7b41238769a7703#npm:3.1.0"],\
+          ["framer-motion", "virtual:513cd180dedb9f7a81a1ac642e802711013d64a66050ab7e707b837cdc00861566e83a7fccbf1af88c4c2f0d0683b9635ab4dacdf9f73f64a7b41238769a7703#npm:11.0.28"],\
           ["gql-sdl", "npm:1.1.0"],\
           ["graphql", "npm:16.8.1"],\
           ["lucide-react", "virtual:513cd180dedb9f7a81a1ac642e802711013d64a66050ab7e707b837cdc00861566e83a7fccbf1af88c4c2f0d0683b9635ab4dacdf9f73f64a7b41238769a7703#npm:0.363.0"],\
@@ -7586,6 +7587,37 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["framer-motion", [\
+      ["npm:11.0.28", {\
+        "packageLocation": "../../../.local/share/yarn/berry/cache/framer-motion-npm-11.0.28-7d2e5a5790-10c0.zip/node_modules/framer-motion/",\
+        "packageDependencies": [\
+          ["framer-motion", "npm:11.0.28"]\
+        ],\
+        "linkType": "SOFT"\
+      }],\
+      ["virtual:513cd180dedb9f7a81a1ac642e802711013d64a66050ab7e707b837cdc00861566e83a7fccbf1af88c4c2f0d0683b9635ab4dacdf9f73f64a7b41238769a7703#npm:11.0.28", {\
+        "packageLocation": "./.yarn/__virtual__/framer-motion-virtual-0ec2aae3a6/4/.local/share/yarn/berry/cache/framer-motion-npm-11.0.28-7d2e5a5790-10c0.zip/node_modules/framer-motion/",\
+        "packageDependencies": [\
+          ["framer-motion", "virtual:513cd180dedb9f7a81a1ac642e802711013d64a66050ab7e707b837cdc00861566e83a7fccbf1af88c4c2f0d0683b9635ab4dacdf9f73f64a7b41238769a7703#npm:11.0.28"],\
+          ["@emotion/is-prop-valid", null],\
+          ["@types/emotion__is-prop-valid", null],\
+          ["@types/react", "npm:18.2.73"],\
+          ["@types/react-dom", "npm:18.2.22"],\
+          ["react", "npm:18.2.0"],\
+          ["react-dom", "virtual:513cd180dedb9f7a81a1ac642e802711013d64a66050ab7e707b837cdc00861566e83a7fccbf1af88c4c2f0d0683b9635ab4dacdf9f73f64a7b41238769a7703#npm:18.2.0"],\
+          ["tslib", "npm:2.6.2"]\
+        ],\
+        "packagePeers": [\
+          "@emotion/is-prop-valid",\
+          "@types/emotion__is-prop-valid",\
+          "@types/react-dom",\
+          "@types/react",\
+          "react-dom",\
+          "react"\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["fs-minipass", [\
       ["npm:2.1.0", {\
         "packageLocation": "../../../.local/share/yarn/berry/cache/fs-minipass-npm-2.1.0-501ef87306-10c0.zip/node_modules/fs-minipass/",\
@@ -7750,6 +7782,7 @@ const RAW_RUNTIME_STATE =
           ["eslint", "npm:8.57.0"],\
           ["eslint-config-next", "virtual:513cd180dedb9f7a81a1ac642e802711013d64a66050ab7e707b837cdc00861566e83a7fccbf1af88c4c2f0d0683b9635ab4dacdf9f73f64a7b41238769a7703#npm:14.1.4"],\
           ["eslint-plugin-unused-imports", "virtual:513cd180dedb9f7a81a1ac642e802711013d64a66050ab7e707b837cdc00861566e83a7fccbf1af88c4c2f0d0683b9635ab4dacdf9f73f64a7b41238769a7703#npm:3.1.0"],\
+          ["framer-motion", "virtual:513cd180dedb9f7a81a1ac642e802711013d64a66050ab7e707b837cdc00861566e83a7fccbf1af88c4c2f0d0683b9635ab4dacdf9f73f64a7b41238769a7703#npm:11.0.28"],\
           ["gql-sdl", "npm:1.1.0"],\
           ["graphql", "npm:16.8.1"],\
           ["lucide-react", "virtual:513cd180dedb9f7a81a1ac642e802711013d64a66050ab7e707b837cdc00861566e83a7fccbf1af88c4c2f0d0683b9635ab4dacdf9f73f64a7b41238769a7703#npm:0.363.0"],\
