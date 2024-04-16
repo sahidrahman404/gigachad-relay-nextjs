@@ -33,7 +33,7 @@ function Menu<T extends object>(props: MenuProps<T>) {
   );
 }
 
-interface MenuMobileProps<T> extends AriaMenuProps<T> {
+interface MenuResponsiveProps<T> extends MenuProps<T> {
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
 }
@@ -42,7 +42,7 @@ function MenuMobile<T extends object>({
   open,
   setOpen,
   ...props
-}: MenuMobileProps<T>) {
+}: MenuResponsiveProps<T>) {
   return (
     <NonSSRWrapper>
       <MenuTray open={open} setOpen={setOpen}>
