@@ -10,6 +10,7 @@ import { MyDialogProps } from "../ReactAriaUI/MyDialog";
 import { DialogTrigger } from "react-aria-components";
 import { Modal } from "../ReactAriaUI/Modal";
 import { AlertDialog } from "../ReactAriaUI/AlertDialog";
+import { Button } from "../ReactAriaUI/Button";
 
 const DeleteRoutineDialogMutation = graphql`
   mutation DeleteRoutineDialog_Mutation($input: DeleteRoutineInput!) {
@@ -39,6 +40,7 @@ function DeleteRoutineDialog({
 
   return (
     <DialogTrigger isOpen={isOpen} onOpenChange={onOpenChange}>
+      <Button className="hidden" />
       <Modal>
         <AlertDialog
           title="Delete Routine"

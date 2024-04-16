@@ -10,6 +10,7 @@ import { MyDialogProps } from "../ReactAriaUI/MyDialog";
 import { AlertDialog } from "../ReactAriaUI/AlertDialog";
 import { Modal } from "../ReactAriaUI/Modal";
 import { DialogTrigger } from "react-aria-components";
+import { Button } from "../ReactAriaUI/Button";
 
 const DeleteExerciseDialogMutation = graphql`
   mutation DeleteExerciseDialog_Mutation($input: DeleteExerciseInput!) {
@@ -39,6 +40,7 @@ function DeleteExerciseDialog({
 
   return (
     <DialogTrigger isOpen={isOpen} onOpenChange={onOpenChange}>
+      <Button className="hidden" />
       <Modal isDismissable>
         <AlertDialog
           title="Delete Exercise"
