@@ -1,8 +1,8 @@
 name: Staging Gigachad Frontend
 on:
   push:
-    banches:
-      -staging
+    branches:
+      - staging
 jobs:
   deploy:
     name: Deploy app
@@ -11,6 +11,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: superfly/flyctl-actions/setup-flyctl@master
-      - run: fly deploy --ha=false --dockerfile staging.Dockerfile --config ./staging/fly.toml
+      - run: flyctl deploy --ha=false --dockerfile staging.Dockerfile --config ./staging/fly.toml
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+
