@@ -30,7 +30,7 @@ function ExerciseSort({
           open={open}
           setOpen={setOpen}
           onAction={(key) => {
-            if (key === "Desc") {
+            if (key === "DESC") {
               startTransition(() => {
                 refetch({
                   orderby: "DESC",
@@ -45,7 +45,7 @@ function ExerciseSort({
                 });
               });
             }
-            if (key === "Asc") {
+            if (key === "ASC") {
               startTransition(() => {
                 refetch({
                   orderby: "ASC",
@@ -70,8 +70,8 @@ function ExerciseSort({
             });
           }}
         >
-          <MenuItem id="Desc">Newest</MenuItem>
-          <MenuItem id="Asc">Oldest</MenuItem>
+          <MenuItem id="DESC">Newest</MenuItem>
+          <MenuItem id="ASC">Oldest</MenuItem>
         </MenuResponsive>
       </NonSSRWrapper>
     </MenuTrigger>

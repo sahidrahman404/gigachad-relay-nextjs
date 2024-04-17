@@ -117,7 +117,7 @@ function ExercisesFilterSort({
                   dispatch({ type: "set_is_loading", payload: true });
                   refetch(
                     {
-                      orderby: `${state.orderDirection}`,
+                      orderby: `${Object.entries(state.orderDirection.valueOf())[1][1]}`,
                       exerciseTypeWhereInput:
                         state.exerciseType.length !== 29
                           ? []
