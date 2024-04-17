@@ -1,6 +1,6 @@
 import { Image } from "../Image/Image";
 import { Avatar } from "../ui/avatar";
-import { Select, ListBoxItem } from "../ReactAriaUI/Select";
+import { Select, SelectItem } from "../ReactAriaUI/MySelect";
 import { extractExerciseSelectInputValue } from "./ExerciseSelectItem";
 
 function ExerciseSelectedInput({ value }: { value: string }) {
@@ -10,17 +10,17 @@ function ExerciseSelectedInput({ value }: { value: string }) {
     <Select
       label="Exercise"
       defaultSelectedKey={value}
-      className="h-12"
       isDisabled={true}
+      size="md"
     >
-      <ListBoxItem key={value} id={value} textValue={exerciseName}>
+      <SelectItem key={value} id={value} textValue={exerciseName}>
         <div className="flex items-center space-x-2">
           <Avatar className="bg-blue-500">
             {exerciseImage && <Image image={exerciseImage} />}
           </Avatar>
           <span>{exerciseName}</span>
         </div>
-      </ListBoxItem>
+      </SelectItem>
     </Select>
   );
 }

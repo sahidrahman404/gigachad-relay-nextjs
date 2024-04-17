@@ -232,9 +232,8 @@ function AddExerciseForm({
               <FormLabel>Muscles Group</FormLabel>
               <MusclesGroupInput
                 queryRef={data}
-                isInsideForm={true}
-                onValueChange={field.onChange}
-                value={field.value}
+                onSelectionChange={field.onChange}
+                selectedKey={field.value}
               />
               <FormMessage />
             </FormItem>
@@ -249,9 +248,8 @@ function AddExerciseForm({
               <FormLabel>Exercise Type</FormLabel>
               <ExerciseTypeInput
                 queryRef={data}
-                isInsideForm={true}
-                onValueChange={field.onChange}
-                value={field.value}
+                onSelectionChange={field.onChange}
+                selectedKey={field.value}
               />
               <FormMessage />
             </FormItem>

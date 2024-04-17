@@ -2,14 +2,10 @@ import { MusclesGroupInputFragment$key } from "@/queries/__generated__/MusclesGr
 import { useFragment } from "react-relay";
 import { graphql } from "relay-runtime";
 import {
+  SelectProps,
   Select,
-  SelectContent,
   SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { FormControl } from "@/components/ui/form";
-import { SelectProps } from "@radix-ui/react-select";
+} from "@/components/ReactAriaUI/MySelect";
 import { Avatar } from "../ui/avatar";
 import { Image } from "../Image/Image";
 
@@ -29,52 +25,45 @@ const MusclesGroupInputFragment = graphql`
   }
 `;
 
-type MusclesGroupInputProps = SelectProps & {
-  isInsideForm?: boolean;
+type MusclesGroupInputProps<T extends object> = Omit<
+  SelectProps<T>,
+  "children" | "ref"
+> & {
   queryRef: MusclesGroupInputFragment$key;
 };
 
-function MusclesGroupInput({
+function MusclesGroupInput<T extends object>({
   queryRef,
-  isInsideForm = false,
   ...props
-}: MusclesGroupInputProps) {
+}: MusclesGroupInputProps<T>) {
   const data = useFragment(MusclesGroupInputFragment, queryRef);
   return (
-    <Select {...props}>
-      {isInsideForm ? (
-        <FormControl>
-          <SelectTrigger className="h-12">
-            <SelectValue
-              className="h-12"
-              placeholder="Select primary muscles group"
-            />
-          </SelectTrigger>
-        </FormControl>
-      ) : (
-        <SelectTrigger className="h-12">
-          <SelectValue
-            className="h-12"
-            placeholder="Select primary muscles group"
-          />
-        </SelectTrigger>
-      )}
-      <SelectContent className="overflow-y-auto">
-        {data.musclesGroups?.edges?.map((mg) => {
-          if (mg?.node) {
-            return (
-              <SelectItem key={mg.node.id} value={mg.node.id}>
-                <div className="flex items-center space-x-2">
-                  <Avatar>
-                    {mg.node.image && <Image image={mg.node.image} />}
-                  </Avatar>
-                  <span>{mg.node.name}</span>
-                </div>
-              </SelectItem>
-            );
-          }
-        })}
-      </SelectContent>
+    <Select
+      isDisabled={props.isDisabled}
+      selectedKey={props.selectedKey}
+      onSelectionChange={props.onSelectionChange}
+      size="md"
+      placeholder="Please select a muscles group"
+      aria-label="muscles group selection"
+    >
+      {data.musclesGroups?.edges?.map((mg) => {
+        if (mg?.node) {
+          return (
+            <SelectItem
+              key={mg.node.id}
+              id={mg.node.id}
+              textValue={mg.node.name}
+            >
+              <div className="flex items-center space-x-2">
+                <Avatar>
+                  {mg.node.image && <Image image={mg.node.image} />}
+                </Avatar>
+                <span aria-label="hello">{mg.node.name}</span>
+              </div>
+            </SelectItem>
+          );
+        }
+      })}
     </Select>
   );
 }

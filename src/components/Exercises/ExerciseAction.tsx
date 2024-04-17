@@ -1,10 +1,11 @@
 import { WorkoutMachineContext } from "../Layout";
 import { DeleteExerciseDialog } from "./DeleteExerciseDialog";
 import { useState } from "react";
-import { Menu, MenuItem } from "../ReactAriaUI/Menu";
+import { MenuResponsive, MenuItem } from "../ReactAriaUI/Menu";
 import { MenuTrigger } from "react-aria-components";
 import { MoreHorizontal, Trash2 } from "lucide-react";
 import { Button } from "../ReactAriaUI/Button";
+import NonSSRWrapper from "../common/NonSSRWrapper";
 
 type ExerciseActionProps = {
   exerciseID: string;
@@ -15,38 +16,46 @@ function ExerciseAction({ exerciseID }: ExerciseActionProps) {
     state.matches({ workingOut: {} }),
   );
 
-  const [open, setOpen] = useState(false);
+  const [openMenu, setOpenMenu] = useState(false);
+  const [openAlertDialog, setOpenAlertDialog] = useState(false);
 
   return (
     <>
-      <MenuTrigger>
+      <MenuTrigger isOpen={openMenu} onOpenChange={setOpenMenu}>
         <Button variant="outline" size="icon">
           <MoreHorizontal className="w-5 h-5" />
         </Button>
-        <Menu
-          disabledKeys={isWorkingOut ? ["delete", "edit"] : []}
-          onAction={(key) => {
-            if (key === "delete") {
-              setOpen(true);
-            }
-          }}
-        >
-          <MenuItem id="view" href={`/dashboard/exercises/${exerciseID}`}>
-            View
-          </MenuItem>
-          <MenuItem id="edit" href={`/dashboard/exercises/edit/${exerciseID}`}>
-            Edit
-          </MenuItem>
-          <MenuItem id="delete">
-            <span className="text-destructive">Delete</span>
-            <Trash2 className="w-4 h-4 text-destructive" />
-          </MenuItem>
-        </Menu>
+        <NonSSRWrapper>
+          <MenuResponsive
+            open={openMenu}
+            setOpen={setOpenMenu}
+            disabledKeys={isWorkingOut ? ["delete", "edit"] : []}
+            onAction={(key) => {
+              if (key === "delete") {
+                setOpenAlertDialog(true);
+              }
+            }}
+          >
+            <MenuItem id="view" href={`/dashboard/exercises/${exerciseID}`}>
+              View
+            </MenuItem>
+            <MenuItem
+              id="edit"
+              href={`/dashboard/exercises/edit/${exerciseID}`}
+            >
+              Edit
+            </MenuItem>
+            <MenuItem id="delete">
+              <span className="text-destructive">Delete</span>
+              <Trash2 className="w-4 h-4 text-destructive" />
+            </MenuItem>
+          </MenuResponsive>
+        </NonSSRWrapper>
       </MenuTrigger>
       <DeleteExerciseDialog
         id={exerciseID}
-        isOpen={open}
-        onOpenChange={setOpen}
+        isOpen={openAlertDialog}
+        onOpenChange={setOpenAlertDialog}
       />
     </>
   );

@@ -75,9 +75,12 @@ function ExercisesFilterSort({
               </Label>
               <MusclesGroupInput
                 queryRef={dataExercisesFilterFragment}
-                value={state.musclesGroup}
-                onValueChange={(value) => {
-                  dispatch({ type: "set_muscles_group", payload: value });
+                selectedKey={state.musclesGroup}
+                onSelectionChange={(key) => {
+                  dispatch({
+                    type: "set_muscles_group",
+                    payload: typeof key === "string" ? key : "",
+                  });
                 }}
               />
             </div>
@@ -87,9 +90,12 @@ function ExercisesFilterSort({
               </Label>
               <ExerciseTypeInput
                 queryRef={dataExercisesFilterFragment}
-                value={state.exerciseType}
-                onValueChange={(value) => {
-                  dispatch({ type: "set_exercise_type", payload: value });
+                selectedKey={state.exerciseType}
+                onSelectionChange={(key) => {
+                  dispatch({
+                    type: "set_exercise_type",
+                    payload: typeof key === "string" ? key : "",
+                  });
                 }}
               />
             </div>
@@ -111,7 +117,7 @@ function ExercisesFilterSort({
                   dispatch({ type: "set_is_loading", payload: true });
                   refetch(
                     {
-                      orderby: `${state.orderDirection}`,
+                      orderby: `${Object.entries(state.orderDirection.valueOf())[1][1]}`,
                       exerciseTypeWhereInput:
                         state.exerciseType.length !== 29
                           ? []

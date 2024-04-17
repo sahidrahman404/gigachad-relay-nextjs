@@ -1,4 +1,4 @@
-import { ListBoxItem, Select } from "../ReactAriaUI/Select";
+import { SelectItem, Select } from "../ReactAriaUI/MySelect";
 import type { SelectProps } from "react-aria-components";
 import { memo, useMemo } from "react";
 
@@ -222,12 +222,12 @@ const RestTimerSelector = memo(function RestTimerSelector<T extends object>({
       selectedKey={props.selectedKey}
       onSelectionChange={props.onSelectionChange}
       onBlur={props.onBlur}
-      description="Please select a rest time duration"
+      placeholder="Please select a rest time duration"
     >
       {(item) => (
-        <ListBoxItem id={item.value} key={item.value} textValue={item.item}>
+        <SelectItem id={item.value} key={item.value} textValue={item.item}>
           {item.item}
-        </ListBoxItem>
+        </SelectItem>
       )}
     </Select>
   );

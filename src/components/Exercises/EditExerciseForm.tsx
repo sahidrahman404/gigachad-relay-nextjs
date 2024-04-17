@@ -229,11 +229,10 @@ function EditExerciseForm({
             <FormItem className="col-span-2">
               <FormLabel>Muscles Group</FormLabel>
               <MusclesGroupInput
-                disabled={true}
+                isDisabled={true}
                 queryRef={data}
-                isInsideForm={true}
-                onValueChange={field.onChange}
-                value={field.value}
+                onSelectionChange={field.onChange}
+                selectedKey={field.value}
               />
               <FormMessage />
             </FormItem>
@@ -247,11 +246,10 @@ function EditExerciseForm({
             <FormItem className="col-span-2">
               <FormLabel>Exercise Type</FormLabel>
               <ExerciseTypeInput
-                disabled={true}
+                isDisabled={true}
                 queryRef={data}
-                isInsideForm={true}
-                onValueChange={field.onChange}
-                value={field.value}
+                onSelectionChange={field.onChange}
+                selectedKey={field.value}
               />
               <FormMessage />
             </FormItem>

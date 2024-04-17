@@ -1,5 +1,5 @@
 import { Check } from "lucide-react";
-import React from "react";
+import { Dispatch, SetStateAction } from "react";
 import {
   Menu as AriaMenu,
   MenuItem as AriaMenuItem,
@@ -15,6 +15,9 @@ import {
   dropdownItemStyles,
 } from "./ListBox";
 import { Popover, PopoverProps } from "./Popover";
+import { MenuTray } from "./MenuTray";
+import NonSSRWrapper from "../common/NonSSRWrapper";
+import { useMediaQuery } from "react-responsive";
 
 interface MenuProps<T> extends AriaMenuProps<T> {
   placement?: PopoverProps["placement"];
@@ -29,6 +32,39 @@ function Menu<T extends object>(props: MenuProps<T>) {
       />
     </Popover>
   );
+}
+
+interface MenuResponsiveProps<T> extends MenuProps<T> {
+  open: boolean;
+  setOpen: Dispatch<SetStateAction<boolean>>;
+}
+
+function MenuMobile<T extends object>({
+  open,
+  setOpen,
+  ...props
+}: MenuResponsiveProps<T>) {
+  return (
+    <NonSSRWrapper>
+      <MenuTray open={open} setOpen={setOpen}>
+        <AriaMenu
+          {...props}
+          className="p-1 outline outline-0 max-h-[inherit] overflow-auto [clip-path:inset(0_0_0_0_round_.75rem)]"
+        />
+      </MenuTray>
+    </NonSSRWrapper>
+  );
+}
+
+function MenuResponsive<T extends object>({
+  ...props
+}: MenuResponsiveProps<T>) {
+  const isDesktop = useMediaQuery({ minWidth: "768px" });
+  if (!isDesktop) {
+    return <MenuMobile {...props} />;
+  }
+
+  return <Menu {...props} />;
 }
 
 function MenuItem(props: MenuItemProps) {
@@ -66,4 +102,11 @@ function MenuSection<T extends object>(props: DropdownSectionProps<T>) {
   return <DropdownSection {...props} />;
 }
 
-export { Menu, MenuItem, MenuSeparator, MenuSection };
+export {
+  Menu,
+  MenuItem,
+  MenuSeparator,
+  MenuSection,
+  MenuMobile,
+  MenuResponsive,
+};

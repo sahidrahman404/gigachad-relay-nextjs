@@ -46,16 +46,26 @@ function RoutineExerciseFieldArray({
         {fields.map((field, index) => {
           return (
             <Card key={field.id} className="col-span-full">
-              <CardHeader>
+              <CardHeader className="flex flex-row items-center">
                 <CardTitle>Exercise and Sets</CardTitle>
+                <Button
+                  variant="destructive"
+                  size="icon"
+                  className="ml-auto"
+                  onPress={() => {
+                    remove(index);
+                  }}
+                >
+                  <Trash2 />
+                </Button>
               </CardHeader>
               <CardContent className="space-y-4">
                 <FormField
                   control={form.control}
                   name={`routineExercises.${index}.exerciseID`}
                   render={({ field }) => (
-                    <div className="grid grid-cols-4 space-x-2 md:space-x-4">
-                      <FormItem className="col-span-3">
+                    <div>
+                      <FormItem>
                         {field.value !== "" ? (
                           <ExerciseSelectedInput value={field.value} />
                         ) : (
@@ -68,24 +78,8 @@ function RoutineExerciseFieldArray({
                             )}
                           />
                         )}
-
                         <FormMessage />
                       </FormItem>
-
-                      <div className="space-y-2">
-                        <div className="h-6" />
-                        <Button
-                          size="icon"
-                          className="h-12 w-full"
-                          variant="destructive"
-                          onPress={() => {
-                            remove(index);
-                          }}
-                        >
-                          <Trash2 />
-                        </Button>
-                        <div className="h-[0.8rem]" />
-                      </div>
                     </div>
                   )}
                 />

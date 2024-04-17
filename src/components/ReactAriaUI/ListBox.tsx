@@ -66,7 +66,7 @@ const dropdownItemStyles = tv({
   variants: {
     isDisabled: {
       false: "text-primary",
-      true: "text-muted-foreground",
+      true: "opacity-50",
     },
     isFocused: {
       true: "bg-accent text-accent-foreground",
