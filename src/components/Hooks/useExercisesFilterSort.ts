@@ -13,7 +13,7 @@ const exercisesFilterSortInitialState: ExercisesFilterSortState = {
   open: false,
   musclesGroup: "",
   exerciseType: "",
-  orderDirection: new Set(["Desc"]),
+  orderDirection: new Set(["DESC"]),
   isLoading: false,
 };
 
