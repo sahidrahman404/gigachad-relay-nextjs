@@ -66,7 +66,7 @@ function ExerciseSort({
           onSelectionChange={(value) => {
             dispatch({
               type: "set_order_direction",
-              payload: value,
+              payload: new Set([...value]),
             });
           }}
         >
