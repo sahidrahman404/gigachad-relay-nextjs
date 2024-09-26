@@ -78,10 +78,10 @@ export default function ResendTokenForm() {
   return (
     <div className="mx-auto w-full max-w-sm lg:w-96">
       <Head>
-        <title>Resend Token - Gigachad</title>
+        <title>Resend Token - Wellup</title>
         <meta
           property="og:title"
-          content="Resend Token - Gigachad"
+          content="Resend Token - Wellup"
           key="title"
         />
       </Head>

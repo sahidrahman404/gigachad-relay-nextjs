@@ -47,10 +47,10 @@ function Log({ queryRef }: { queryRef: LogFragment$key }) {
   return (
     <div className="space-y-3">
       <Head>
-        <title>{data.name} - Gigachad</title>
+        <title>{data.name} - Wellup</title>
         <meta
           property="og:title"
-          content={`${data.name} - Gigachad`}
+          content={`${data.name} - Wellup`}
           key="title"
         />
       </Head>

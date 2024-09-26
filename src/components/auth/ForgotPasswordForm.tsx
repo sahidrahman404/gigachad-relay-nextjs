@@ -78,10 +78,10 @@ export default function ForgotPasswordForm() {
   return (
     <div className="mx-auto w-full max-w-sm lg:w-96">
       <Head>
-        <title>Forgot Password - Gigachad</title>
+        <title>Forgot Password - Wellup</title>
         <meta
           property="og:title"
-          content="Forgot Password - Gigachad"
+          content="Forgot Password - Wellup"
           key="title"
         />
       </Head>

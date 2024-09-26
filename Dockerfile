@@ -18,9 +18,9 @@ RUN yarn --immutable
 
 # Rebuild the source code only when needed
 FROM base AS builder
-ARG NEXT_PUBLIC_SIGN_S3_URL=https://api.gigachad.buzz/v1/tokens/sign-s3
-ARG NEXT_PUBLIC_FRONTEND_URL=https://gigachad.buzz
-ARG NEXT_PUBLIC_BACKEND_URL=https://api.gigachad.buzz
+ARG NEXT_PUBLIC_SIGN_S3_URL=https://api.wellup.fyi/v1/tokens/sign-s3
+ARG NEXT_PUBLIC_FRONTEND_URL=https://wellup.fyi
+ARG NEXT_PUBLIC_BACKEND_URL=https://api.wellup.fyi
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY --from=deps /app/.yarnrc.yml ./.yarnrc.yml

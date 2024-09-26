@@ -102,8 +102,8 @@ export default function SignupForm() {
   return (
     <div className="mx-auto w-full max-w-sm lg:w-96">
       <Head>
-        <title>Sign Up - Gigachad</title>
-        <meta property="og:title" content="Sign Up - Gigachad" key="title" />
+        <title>Sign Up - Wellup</title>
+        <meta property="og:title" content="Sign Up - Wellup" key="title" />
       </Head>
       <div>
         <Logo href="/" />

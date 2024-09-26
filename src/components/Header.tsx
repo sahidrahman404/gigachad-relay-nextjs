@@ -9,7 +9,7 @@ function Header() {
           href="/"
           className="hidden w-10 h-10 md:flex items-center space-x-2"
         >
-          <span className="font-bold">Gigachad</span>
+          <span className="font-bold">Wellup</span>
         </Logo>
         <MobileNav />
       </div>

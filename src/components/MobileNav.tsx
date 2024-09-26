@@ -51,7 +51,7 @@ function MobileNav() {
       </SheetTrigger>
       <SheetContent side="left" className="pr-0 space-y-4">
         <Logo href="/" className="w-10 h-10 flex items-center space-x-2">
-          <span className="font-bold">Gigachad</span>
+          <span className="font-bold">Wellup</span>
         </Logo>
         <div className="flex flex-col space-y-3">
           {sidebarConfig.map((sc) => {

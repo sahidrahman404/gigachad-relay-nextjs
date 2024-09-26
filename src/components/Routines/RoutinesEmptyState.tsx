@@ -40,8 +40,8 @@ function RoutinesEmptyState({ queryRef }: RoutinesEmptyStateProps) {
   return (
     <div>
       <Head>
-        <title>Routines - Gigachad</title>
-        <meta property="og:title" content="Routines - Gigachad" key="title" />
+        <title>Routines - Wellup</title>
+        <meta property="og:title" content="Routines - Wellup" key="title" />
       </Head>
       <div className="flex flex-col items-center gap-y-4 mt-10">
         <FolderPlus size={48} strokeWidth={1} />

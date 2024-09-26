@@ -92,10 +92,10 @@ export default function ResetPasswordForm() {
   return (
     <div className="mx-auto w-full max-w-sm lg:w-96">
       <Head>
-        <title>Reset Password - Gigachad</title>
+        <title>Reset Password - Wellup</title>
         <meta
           property="og:title"
-          content="Reset Password - Gigachad"
+          content="Reset Password - Wellup"
           key="title"
         />
       </Head>

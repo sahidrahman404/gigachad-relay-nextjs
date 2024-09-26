@@ -119,10 +119,10 @@ function Exercises({ queryRef, className }: ExercisesProps) {
     <ExercisesData.Provider value={query.viewer}>
       <div className="space-y-4">
         <Head>
-          <title>Exercises - Gigachad</title>
+          <title>Exercises - Wellup</title>
           <meta
             property="og:title"
-            content="Exercises - Gigachad"
+            content="Exercises - Wellup"
             key="title"
           />
         </Head>
