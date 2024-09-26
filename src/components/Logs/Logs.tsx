@@ -52,8 +52,8 @@ function Logs({ queryRef }: { queryRef: LogsFragment$key }) {
   return (
     <div className="space-y-4">
       <Head>
-        <title>Logs - Gigachad</title>
-        <meta property="og:title" content="Logs - Gigachad" key="title" />
+        <title>Logs - Wellup</title>
+        <meta property="og:title" content="Logs - Wellup" key="title" />
       </Head>
       {data.workouts.edges?.map((log) => {
         if (log?.node) {

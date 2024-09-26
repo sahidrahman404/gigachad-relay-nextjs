@@ -121,10 +121,10 @@ function AddRoutineForm({ queryRef }: AddRoutineFormProps) {
   return (
     <Form {...form}>
       <Head>
-        <title>Add Routine - Gigachad</title>
+        <title>Add Routine - Wellup</title>
         <meta
           property="og:title"
-          content="Add Routine - Gigachad"
+          content="Add Routine - Wellup"
           key="title"
         />
       </Head>

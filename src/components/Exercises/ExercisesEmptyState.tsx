@@ -13,8 +13,8 @@ function ExercisesEmptyState({
   return (
     <div>
       <Head>
-        <title>Exercises - Gigachad</title>
-        <meta property="og:title" content="Exercises - Gigachad" key="title" />
+        <title>Exercises - Wellup</title>
+        <meta property="og:title" content="Exercises - Wellup" key="title" />
       </Head>
       {SlotExercisesFilterSort}
       <div className="flex flex-col items-center gap-y-4 mt-10">

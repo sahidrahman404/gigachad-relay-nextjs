@@ -16,17 +16,17 @@ function MarketingPage({ preloadedQuery }: RelayProps<{}, session_Query>) {
   return (
     <div className="max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8 mt-8">
       <Head>
-        <title>Gigachad</title>
-        <meta property="og:title" content="Gigachad" key="title" />
+        <title>Wellup</title>
+        <meta property="og:title" content="Wellup" key="title" />
       </Head>
       <div className="grid md:grid-cols-2 gap-4 md:gap-8 xl:gap-20 md:items-center">
         <div>
           <Logo href="/" />
           <h1 className="mt-8 block text-3xl font-bold text-secondary-foreground sm:text-4xl lg:text-6xl lg:leading-tight">
-            Lets get healthy with <span className="text-primary">Gigachad</span>
+            Lets get healthy with <span className="text-primary">Wellup</span>
           </h1>
           <p className="mt-3 text-lg text-muted-foreground">
-            Say goodbye to generic workout plans! With Gigachad you can easily
+            Say goodbye to generic workout plans! With Wellup you can easily
             create personalized workout programs tailored to your specific needs
             and fitness level.
           </p>

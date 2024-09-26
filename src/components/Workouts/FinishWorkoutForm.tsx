@@ -184,10 +184,10 @@ function FinishWorkoutForm() {
         className="grid grid-cols-4 gap-y-3"
       >
         <Head>
-          <title>{workoutContext.name} - Gigachad</title>
+          <title>{workoutContext.name} - Wellup</title>
           <meta
             property="og:title"
-            content={`${workoutContext.name} - Gigachad`}
+            content={`${workoutContext.name} - Wellup`}
             key="title"
           />
         </Head>

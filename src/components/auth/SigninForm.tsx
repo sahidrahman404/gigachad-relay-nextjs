@@ -93,8 +93,8 @@ export default function SigninFrom() {
   return (
     <div className="mx-auto w-full max-w-sm lg:w-96">
       <Head>
-        <title>Sign In - Gigachad</title>
-        <meta property="og:title" content="Sign In - Gigachad" key="title" />
+        <title>Sign In - Wellup</title>
+        <meta property="og:title" content="Sign In - Wellup" key="title" />
       </Head>
       <div>
         <Logo href="/" />

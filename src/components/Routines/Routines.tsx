@@ -67,8 +67,8 @@ function Routines({ queryRef }: RoutinesProps) {
     <RoutinesData.Provider value={queryRef}>
       <div className="space-y-4">
         <Head>
-          <title>Routines - Gigachad</title>
-          <meta property="og:title" content="Routines - Gigachad" key="title" />
+          <title>Routines - Wellup</title>
+          <meta property="og:title" content="Routines - Wellup" key="title" />
         </Head>
         <LinkButton href={"/dashboard/routines/add"}>New Routine</LinkButton>
         {data.routines.edges?.map((routine) => {

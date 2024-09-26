@@ -162,10 +162,10 @@ function EditExerciseForm({
         className="grid grid-cols-4 gap-x-1 gap-y-2"
       >
         <Head>
-          <title>Edit Exercise - Gigachad</title>
+          <title>Edit Exercise - Wellup</title>
           <meta
             property="og:title"
-            content="Edit Exercise - Gigachad"
+            content="Edit Exercise - Wellup"
             key="title"
           />
         </Head>

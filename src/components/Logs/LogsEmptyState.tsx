@@ -6,8 +6,8 @@ function LogsEmptyState() {
   return (
     <div>
       <Head>
-        <title>Logs - Gigachad</title>
-        <meta property="og:title" content="Logs - Gigachad" key="title" />
+        <title>Logs - Wellup</title>
+        <meta property="og:title" content="Logs - Wellup" key="title" />
       </Head>
       <div className="flex flex-col items-center gap-y-4 mt-10">
         <Notebook size={48} strokeWidth={1} />

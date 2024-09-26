@@ -136,10 +136,10 @@ function EditRoutineForm({ queryRef, routineQueryRef }: EditRoutineFormProps) {
         className="grid grid-cols-4 gap-y-3"
       >
         <Head>
-          <title>Edit Routine - Gigachad</title>
+          <title>Edit Routine - Wellup</title>
           <meta
             property="og:title"
-            content="Edit Routine - Gigachad"
+            content="Edit Routine - Wellup"
             key="title"
           />
         </Head>

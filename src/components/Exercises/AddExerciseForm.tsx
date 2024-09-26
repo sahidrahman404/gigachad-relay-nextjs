@@ -171,10 +171,10 @@ function AddExerciseForm({
         className="grid grid-cols-4 gap-x-1 gap-y-2"
       >
         <Head>
-          <title>Add Exercise - Gigachad</title>
+          <title>Add Exercise - Wellup</title>
           <meta
             property="og:title"
-            content="Add Exercise - Gigachad"
+            content="Add Exercise - Wellup"
             key="title"
           />
         </Head>

@@ -44,10 +44,10 @@ function Exercise({ queryRef }: ExerciseProps) {
   return (
     <div className="space-y-4">
       <Head>
-        <title>{data.name} - Gigachad</title>
+        <title>{data.name} - Wellup</title>
         <meta
           property="og:title"
-          content={`${data.name} - Gigachad`}
+          content={`${data.name} - Wellup`}
           key="title"
         />
       </Head>
